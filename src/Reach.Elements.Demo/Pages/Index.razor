@@ -1,0 +1,44 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SingleLineText @bind-Value="_singleLineText" />
+
+<pre>@_singleLineText</pre>
+
+<Id />
+
+<Date />
+
+<Dropdown Items="_dropdownItems" IsMultiSelect="true" />
+
+<Dropdown Items="_foods" @bind-Selection="_favoriteFood" />
+
+@if(_favoriteFood != null)
+{
+    <span>Your favorite food is @_favoriteFood.Items.FirstOrDefault().Title</span>
+}
+
+@code {
+    private string _singleLineText;
+    private Selection<DropdownItem> _favoriteFood;
+    private IEnumerable<DropdownItem> _dropdownItems = new DropdownItem[]
+    {
+        new DropdownItem("New Jersey", "NJ"),
+        new DropdownItem("New York", "NY"),
+        new DropdownItem("Iowa", "IA"),
+        new DropdownItem("Florida", "FL", true),
+        new DropdownItem("Kentucky", "KY"),
+        new DropdownItem("Maine", "ME"),
+        new DropdownItem("Vermont", "VT")
+    };
+
+    private IEnumerable<DropdownItem> _foods = new DropdownItem[]
+    {
+        new DropdownItem("Pizza"),
+        new DropdownItem("Burritos"),
+        new DropdownItem("Burger & Fries")
+    };
+}

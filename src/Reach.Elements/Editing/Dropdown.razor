@@ -1,0 +1,124 @@
+﻿<OutsideHandleContainer OnClickOutside="@(async () => { await OnClickedOutside(); })">
+    <div class="dropdown editing-control">
+        <div class="dropdown-selection" @onclick="(async () => { await OnShowOrHide(); })">
+            <span class="dropdown-selection--title">
+                @if (Selection == null || !Selection.Items.Any())
+                {
+                    @Placeholder
+                }
+                else
+                {
+                    var itemsToJoin = Selection.Items.Take(2);
+                    var suffix = "";
+                    var count = Selection.Items.Count();
+
+                    if (count > 2)
+                    {
+                        suffix = $" & {(count - 2)} more...";
+                    }
+
+                    @(string.Join(", ", itemsToJoin.Select(m => m.Title)) + suffix)
+                }
+            </span>
+            <span class="dropdown-selection--caret">
+                @if (_isSelectorOpen)
+                {
+                    <i class="fal fa-caret-square-up"></i>
+                }
+                else
+                {
+                    <i class="fal fa-caret-square-down"></i>
+                }
+            </span>
+        </div>
+        @if (_isSelectorOpen)
+        {
+            <div class="dropdown-selector">
+                <ul>
+                    @foreach (var item in Items)
+                    {
+                        var isSelected = Selection != null && Selection.Items != null && Selection.Items.Any(m => m == item);
+                        var cssClass = "dropdown-selector--item";
+
+                        if (item.IsDisabled) { cssClass += " disabled"; }
+                        if (isSelected) { cssClass += " active"; }
+
+                        <li class="@cssClass" @onclick="(async () => { await OnItemClicked(item); })">
+                            @if (isSelected)
+                            {
+                                <i class="fal fa-check-square"></i>
+                            }
+                            else
+                            {
+                                <i class="fal fa-square"></i>
+                            }
+                            <span>@item.Title</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</OutsideHandleContainer>
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = "Please select...";
+
+    [Parameter]
+    public bool IsMultiSelect { get; set; } = false;
+
+    [Parameter]
+    public IEnumerable<DropdownItem> Items { get; set; }
+
+    [Parameter]
+    public Selection<DropdownItem> Selection { get; set; }
+
+    [Parameter]
+    public EventCallback<Selection<DropdownItem>> SelectionChanged { get; set; }
+
+    private bool _isSelectorOpen = false;
+
+    protected async Task OnShowOrHide()
+    {
+        _isSelectorOpen = !_isSelectorOpen;
+        await base.InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnClickedOutside()
+    {
+        _isSelectorOpen = false;
+        await base.InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnItemClicked(DropdownItem item)
+    {
+        if (item == null || item.IsDisabled)
+        {
+            return;
+        }
+
+        if (Selection == null)
+        {
+            Selection = new Selection<DropdownItem>() { Items = new DropdownItem[] { } };
+        }
+
+        if (Selection.Items.Contains(item))
+        {
+            Selection.Items = Selection.Items.Except(new[] { item });
+        }
+        else
+        {
+            if (IsMultiSelect)
+            {
+                Selection.Items = Selection.Items.Union(new[] { item });
+            }
+            else
+            {
+                _isSelectorOpen = false;
+                Selection.Items = new[] { item };
+            }
+        }
+
+        await SelectionChanged.InvokeAsync(Selection);
+    }
+}

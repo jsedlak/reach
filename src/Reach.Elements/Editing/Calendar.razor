@@ -1,0 +1,137 @@
+﻿<div class="calendar editing-control">
+    <div class="calendar-header">
+        <div class="row">
+            <span class="calendar-header--previous-year" @onclick="(() => { ActiveMonth = ActiveMonth.AddYears(-1); })">
+                <span class="button button-default">
+                    <i class="fal fa-caret-left"></i>
+                </span>
+            </span>
+
+            <span class="calendar-header--current-year">
+                @ActiveMonth.ToString("yyyy")
+            </span>
+
+            <span class="calendar-header--next-year" @onclick="(() => { ActiveMonth = ActiveMonth.AddYears(1); })">
+                <span class="button button-default">
+                    <i class="fal fa-caret-right"></i>
+                </span>
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="calendar-header--previous-month" @onclick="(() => { ActiveMonth = ActiveMonth.AddMonths(-1); })">
+                <span class="button button-default">
+                    <i class="fal fa-caret-left"></i>
+                </span>
+            </span>
+
+            <span class="calendar-header--current-month">
+                @ActiveMonth.ToString("MMMM")
+            </span>
+
+            <span class="calendar-header--next-month" @onclick="(() => { ActiveMonth = ActiveMonth.AddMonths(1); })">
+                <span class="button button-default">
+                    <i class="fal fa-caret-right"></i>
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="calendar-body">
+        <span class="calendar-weekday-header">S</span>
+        <span class="calendar-weekday-header">M</span>
+        <span class="calendar-weekday-header">T</span>
+        <span class="calendar-weekday-header">W</span>
+        <span class="calendar-weekday-header">T</span>
+        <span class="calendar-weekday-header">F</span>
+        <span class="calendar-weekday-header">S</span>
+
+        @{
+            var start = new DateTime(ActiveMonth.Year, ActiveMonth.Month, 1);
+            var lastDayOfMonth = new DateTime(ActiveMonth.Year, ActiveMonth.Month, DateTime.DaysInMonth(ActiveMonth.Year, ActiveMonth.Month));
+
+            start = start.AddDays(-(int)start.DayOfWeek);
+            lastDayOfMonth = lastDayOfMonth.AddDays(7 - (int)lastDayOfMonth.DayOfWeek);
+
+            while (start != lastDayOfMonth)
+            {
+                var current = start.Date;
+                var isCurrent = start.Month == ActiveMonth.Month && start.Year == ActiveMonth.Year;
+                var isActive = IsRangeSelection ? start.Date >= SelectedStartDate.Date && start.Date <= SelectedEndDate.Date : start.Date == SelectedStartDate.Date;
+                <span @onclick="(async () => { if (isCurrent) { await OnSelect(current); } })" class="calendar-weekday @(isActive ? "active" : "") @(isCurrent ? "" : "inactive")">
+                    @start.Day
+                </span>
+                start = start.AddDays(1);
+            }
+        }
+    </div>
+    <div class="calendar-footer">
+        <div class="button-group">
+            <a class="button button-default" @onclick="(() => { ActiveMonth = DateTime.Today; })">Today</a>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public bool IsRangeSelection { get; set; } = false;
+
+    [Parameter]
+    public DateTime SelectedStartDate { get; set; } = DateTime.Now;
+
+    [Parameter]
+    public EventCallback<DateTime> SelectedStartDateChanged { get; set; }
+
+    [Parameter]
+    public DateTime SelectedEndDate { get; set; } = DateTime.Now;
+
+    [Parameter]
+    public EventCallback<DateTime> SelectedEndDateChanged { get; set; }
+
+    [Parameter]
+    public DateTime ActiveMonth { get; set; } = DateTime.Today;
+
+    private bool _isSelectingStart = true;
+
+    protected async Task OnSelect(DateTime dayToSelect)
+    {
+        // if it's not range, then we just choose start date
+        if(!IsRangeSelection)
+        {
+            SelectedStartDate = dayToSelect.Date;
+            SelectedEndDate = dayToSelect.Date;
+            await SelectedStartDateChanged.InvokeAsync(SelectedStartDate);
+            await SelectedEndDateChanged.InvokeAsync(SelectedStartDate);
+            return;
+        }
+
+        if (_isSelectingStart)
+        {
+            if(dayToSelect.Date > SelectedEndDate)
+            {
+                SelectedStartDate = SelectedEndDate;
+                SelectedEndDate = dayToSelect.Date;
+            }
+            else
+            {
+                SelectedStartDate = dayToSelect.Date;
+                _isSelectingStart = !_isSelectingStart;
+            }
+        }
+        else
+        {
+            if(dayToSelect.Date < SelectedStartDate)
+            {
+                SelectedEndDate = SelectedStartDate;
+                SelectedStartDate = dayToSelect.Date;
+            }
+            else
+            {
+                SelectedEndDate = dayToSelect.Date;
+                _isSelectingStart = !_isSelectingStart;
+            }
+        }
+
+        await SelectedStartDateChanged.InvokeAsync(SelectedStartDate);
+        await SelectedEndDateChanged.InvokeAsync(SelectedEndDate);
+    }
+
+}

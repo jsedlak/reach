@@ -1,0 +1,14 @@
+﻿<div class="editing-control">
+    <input type="text" class="textbox textbox-singleline" 
+           value="@Value"
+           @oninput="@(async (e) => { Value = (string)e.Value; await ValueChanged.InvokeAsync(Value); })"
+    />
+</div>
+@code {
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+}

@@ -1,0 +1,20 @@
+﻿<div class="editing-control id-editor">
+    <span>@SelectedId.ToString()</span>
+    <a @onclick="OnGenerateClicked">
+        <i class="fal fa-brackets-curly" />
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public Guid SelectedId { get; set; } = Guid.NewGuid();
+
+    [Parameter]
+    public EventCallback<Guid> SelectedIdChanged { get; set; }
+
+    protected async Task OnGenerateClicked()
+    {
+        SelectedId = Guid.NewGuid();
+        await SelectedIdChanged.InvokeAsync(SelectedId);
+    }
+}
