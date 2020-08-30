@@ -23,7 +23,7 @@ namespace Reach.Elements.Services
 
             if(string.IsNullOrWhiteSpace(result))
             {
-                result = "fal fa-question-circle";
+                result = $"fal fa-{result}";
             }
 
             return new MarkupString($"<i class=\"{result}\"></i>");
