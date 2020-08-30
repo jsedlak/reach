@@ -1,4 +1,5 @@
-﻿<OutsideHandleContainer OnClickOutside="@(async () => { await OnClickedOutside(); })">
+﻿@inject IIconLibrary IconLibrary
+<OutsideHandleContainer OnClickOutside="@(async () => { await OnClickedOutside(); })">
     <div class="dropdown editing-control">
         <div class="dropdown-selection" @onclick="(async () => { await OnShowOrHide(); })">
             <span class="dropdown-selection--title">
@@ -23,11 +24,11 @@
             <span class="dropdown-selection--caret">
                 @if (_isSelectorOpen)
                 {
-                    <i class="fal fa-caret-square-up"></i>
+                    @IconLibrary.GetIcon(IconNames.ArrowUp)
                 }
                 else
                 {
-                    <i class="fal fa-caret-square-down"></i>
+                    @IconLibrary.GetIcon(IconNames.ArrowDown)
                 }
             </span>
         </div>
@@ -43,17 +44,17 @@
                         if (item.IsDisabled) { cssClass += " disabled"; }
                         if (isSelected) { cssClass += " active"; }
 
-                        <li class="@cssClass" @onclick="(async () => { await OnItemClicked(item); })">
-                            @if (isSelected)
-                            {
-                                <i class="fal fa-check-square"></i>
-                            }
-                            else
-                            {
-                                <i class="fal fa-square"></i>
-                            }
-                            <span>@item.Title</span>
-                        </li>
+                    <li class="@cssClass" @onclick="(async () => { await OnItemClicked(item); })">
+                        @if (isSelected)
+                        {
+                            @IconLibrary.GetIcon(IconNames.SquareCheck)
+                        }
+                        else
+                        {
+                            @IconLibrary.GetIcon(IconNames.SquareEmpty)
+                        }
+                        <span>@item.Title</span>
+                    </li>
                     }
                 </ul>
             </div>

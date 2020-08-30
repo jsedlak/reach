@@ -1,7 +1,8 @@
-﻿<div class="editing-control id-editor">
+﻿@inject IIconLibrary IconLibrary
+<div class="editing-control id-editor">
     <span>@SelectedId.ToString()</span>
     <a @onclick="OnGenerateClicked">
-        <i class="fal fa-brackets-curly" />
+        @IconLibrary.GetIcon(IconNames.GenerateId)
     </a>
 </div>
 
