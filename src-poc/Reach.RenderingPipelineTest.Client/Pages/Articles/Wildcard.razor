@@ -1,0 +1,45 @@
+﻿@page "/articles/{*slug}"
+@rendermode InteractiveAuto
+
+<PageTitle>Article: @Slug</PageTitle>
+
+<pre>Detected Slug: @(Slug ?? "NO SLUG")</pre>
+
+<select @bind=SelectedType>
+    <option>Select a component</option>
+    @foreach(var type in _allowedTypes)
+    {
+        <option value="@type.FullName">@type.Name</option>
+    }
+</select> 
+
+@if(SelectedType != null)
+{
+    <pre>Rendering of @SelectedType</pre>
+
+    <DynamicComponent Type=@(Type.GetType(SelectedType)) />
+}
+else
+{
+    <pre>Select a component</pre>
+}
+
+@code {
+    [Parameter]
+    public string? Slug { get; set; }
+
+    string? SelectedType = null;
+
+    private IEnumerable<Type> _allowedTypes = new Type[]
+    {
+        typeof(CounterCard),
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Console.WriteLine("sadasda");
+    }
+}
+

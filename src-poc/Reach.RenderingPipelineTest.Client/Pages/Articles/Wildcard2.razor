@@ -1,0 +1,28 @@
+﻿@page "/pages/{*slug}"
+
+<PageTitle>Article: @Slug</PageTitle>
+
+<pre>Detected Slug: @(Slug ?? "NO SLUG")</pre>
+
+@{
+var componentType = _allowedTypes.FirstOrDefault(x => x.slug == Slug)?.component;
+
+if (componentType != null)
+    {
+        <pre>Rendering of @componentType.Name</pre>
+        <DynamicComponent Type=componentType />
+    }
+}
+
+@code {
+    record SlugMap(string slug, Type component);
+
+    [Parameter]
+    public string? Slug { get; set; }
+
+    private IEnumerable<SlugMap> _allowedTypes = new SlugMap[]
+    {
+        new SlugMap("test", typeof(CounterCard)),
+    };
+}
+

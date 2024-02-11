@@ -1,0 +1,16 @@
+﻿<div>
+    <ul>
+        <CascadingValue TValue="TreeView" Name="Tree" Value="this">
+            <TreeSection Items=@Items />
+        </CascadingValue>
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<ITreeItem> Items { get; set; } = Enumerable.Empty<ITreeItem>();
+
+    [Parameter]
+    public Func<ITreeItem, Task<IEnumerable<ITreeItem>>>? RequestTree { get; set; }
+    
+}

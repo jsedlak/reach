@@ -1,0 +1,42 @@
+@foreach (var item in Items)
+{
+    <li>
+        <a class="mr-1 cursor-pointer" @onclick=@(async () => { await OnExpandClicked(item); })>
+            @if (item.IsExpanded)
+            {
+                <span>&gt;</span>
+            }
+            else
+            {
+                <span>&lt;</span>
+            }
+        </a>
+        <span class="ml-1 mr-1">@(item.Icon)</span>
+        <span class="ml-1 mr-1">@item.Title</span>
+        @if (item.IsExpanded)
+        {
+            <ul class="ml-3">
+                <TreeSection Items=@item.Children />
+            </ul>
+        }
+    </li>
+}
+@code {
+    [Parameter]
+    public IEnumerable<ITreeItem> Items { get; set; } = Enumerable.Empty<ITreeItem>();
+
+    [CascadingParameter(Name = "Tree")]
+    public TreeView Tree { get; set; } = null!;
+
+    protected async Task OnExpandClicked(ITreeItem item)
+    {
+        item.IsExpanded = !item.IsExpanded;
+
+        if(item.IsExpanded && Tree.RequestTree != null)
+        {
+            item.Children = await Tree.RequestTree(item);
+        }
+
+        StateHasChanged();
+    }
+}
