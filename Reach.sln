@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Components", "3. Compone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReachCms.Components", "src\ReachCms.Components\ReachCms.Components.csproj", "{E9E13EC8-41FE-4612-A290-60C8DC095C3F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Application", "2. Application", "{588103E2-9BD9-4FE7-B6D8-A1898FF6E9BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReachCms.Domains.Content", "src\ReachCms.Domains.Content\ReachCms.Domains.Content.csproj", "{33F4314E-EB2A-4636-9A7D-CAC899174C52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{E9E13EC8-41FE-4612-A290-60C8DC095C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9E13EC8-41FE-4612-A290-60C8DC095C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9E13EC8-41FE-4612-A290-60C8DC095C3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F4314E-EB2A-4636-9A7D-CAC899174C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F4314E-EB2A-4636-9A7D-CAC899174C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F4314E-EB2A-4636-9A7D-CAC899174C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F4314E-EB2A-4636-9A7D-CAC899174C52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +75,7 @@ Global
 		{D807C3D4-2A31-4025-AC60-BC674751404C} = {088EA7D7-ECFD-44F7-8664-BE2476D0B1A1}
 		{04F0BA8E-9E22-4865-8D24-F5E472C46774} = {088EA7D7-ECFD-44F7-8664-BE2476D0B1A1}
 		{E9E13EC8-41FE-4612-A290-60C8DC095C3F} = {3698DDCE-0AF1-4F02-8E0A-53EE01AE8701}
+		{33F4314E-EB2A-4636-9A7D-CAC899174C52} = {588103E2-9BD9-4FE7-B6D8-A1898FF6E9BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {740D876F-3A44-46EC-94C9-C241124C7942}

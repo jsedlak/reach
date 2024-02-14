@@ -8,8 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Domains\Content\Commands\" />
-	  <Folder Include="Domains\Content\Events\" />
+	  <PackageReference Include="Petl.Core" Version="1.0.5" />
 	</ItemGroup>
 
 </Project>
