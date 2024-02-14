@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReachCms.Admin.Client", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Components", "3. Components", "{3698DDCE-0AF1-4F02-8E0A-53EE01AE8701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReachCms.Components", "src\ReachCms.Components\ReachCms.Components.csproj", "{E9E13EC8-41FE-4612-A290-60C8DC095C3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReachCms.Components", "src\ReachCms.Components\ReachCms.Components.csproj", "{E9E13EC8-41FE-4612-A290-60C8DC095C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

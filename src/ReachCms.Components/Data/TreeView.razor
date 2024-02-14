@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="overflow-x-auto">
     <ul>
         <CascadingValue TValue="TreeView" Name="Tree" Value="this">
             <TreeSection Items=@Items />
@@ -12,5 +12,17 @@
 
     [Parameter]
     public Func<ITreeItem, Task<IEnumerable<ITreeItem>>>? RequestTree { get; set; }
-    
+
+    [Parameter]
+    public IEnumerable<ITreeItem> SelectedItems { get; set; } = Enumerable.Empty<ITreeItem>();
+
+    [Parameter]
+    public EventCallback<IEnumerable<ITreeItem>> SelectedItemsChanged { get; set; }
+
+    public void Select(params ITreeItem[] items)
+    {
+        SelectedItems = items;
+        SelectedItemsChanged.InvokeAsync(SelectedItems);
+        StateHasChanged();
+    }
 }

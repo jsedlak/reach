@@ -8,6 +8,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+	  <PackageReference Include="Tazor.Components" Version="0.1.0-beta" />
   </ItemGroup>
 
 

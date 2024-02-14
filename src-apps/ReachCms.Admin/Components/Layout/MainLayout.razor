@@ -10,14 +10,7 @@
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
-                            <a href="/content" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Content</a>
-                            @*
-                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Templates</a>
-                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
-                            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a> 
-                            *@
+                            <MainNav Items=@_mainNavItems />
                         </div>
                     </div>
                 </div>
@@ -118,3 +111,19 @@
 
    
 </div>
+@code {
+    private IEnumerable<NavItem> _mainNavItems = Enumerable.Empty<NavItem>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _mainNavItems = new[]
+        {
+            new NavItem{ Href = "/", Title = "Dashboard", Icon = HeroIcons.ChartBar() },
+            new NavItem{ Href = "/content", Title = "Content", Icon = HeroIcons.DocumentMagnifyingGlass() },
+            new NavItem{ Href = "/pipelines", Title = "Pipelines", Icon = HeroIcons.Beaker() },
+            new NavItem{ Href = "/endpoints", Title = "Endpoints", Icon = HeroIcons.Bolt() },
+        };
+    }
+}

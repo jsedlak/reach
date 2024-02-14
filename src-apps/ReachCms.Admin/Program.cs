@@ -1,6 +1,6 @@
-using ReachCms.Admin.Client.Pages;
+using ReachCms.Admin.Client.Components.Layout;
 using ReachCms.Admin.Components;
-using ReachCms.Components;
+using ReachCms.Components.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +32,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(
-        typeof(Counter).Assembly, 
-        typeof(CounterCard).Assembly
+        typeof(MainNav).Assembly, 
+        typeof(TreeView).Assembly
     );
 
 app.Run();

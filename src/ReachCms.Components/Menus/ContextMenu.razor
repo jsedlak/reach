@@ -1,0 +1,54 @@
+﻿<ClickContainer OnClickedOutside=@(async () => await OnClickedOutside())>
+    @if(IsVisible)
+    {
+        <div class="block fixed" style=@($"left:{Left}px;top:{Top}px;")>
+            <div class="bg-white w-60 border border-gray-300 rounded-lg flex flex-col text-sm py-4 px-2 text-gray-500 shadow-lg">
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900">H<span class="text-xs">1</span></div>
+                    <div># Heading 1</div>
+                </div>
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900">H<span class="text-xs">2</span></div>
+                    <div>## Heading 2</div>
+                </div>
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900">H<span class="text-xs">3</span></div>
+                    <div>### Heading 3</div>
+                </div>
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900">H<span class="text-xs">4</span></div>
+                    <div>#### Heading 4</div>
+                </div>
+                <hr class="my-3 border-gray-300" />
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900 font-bold">B</div>
+                    <div>*Bold*</div>
+                </div>
+                <div class="flex hover:bg-gray-100 py-1 px-2 rounded">
+                    <div class="w-8 text-gray-900 italic">i</div>
+                    <div>**Italic**</div>
+                </div>
+            </div>
+        </div>
+    }
+</ClickContainer>
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Parameter]
+    public int Left { get; set; }
+
+    [Parameter]
+    public int Top { get; set; }
+
+    private async Task OnClickedOutside()
+    {
+        IsVisible = false;
+        await IsVisibleChanged.InvokeAsync(IsVisible);
+        StateHasChanged();
+    }
+}

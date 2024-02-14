@@ -1,18 +1,41 @@
 @foreach (var item in Items)
 {
-    <li>
-        <a class="mr-1 cursor-pointer" @onclick=@(async () => { await OnExpandClicked(item); })>
-            @if (item.IsExpanded)
-            {
-                <span>&gt;</span>
-            }
-            else
-            {
-                <span>&lt;</span>
-            }
-        </a>
-        <span class="ml-1 mr-1">@(item.Icon)</span>
-        <span class="ml-1 mr-1">@item.Title</span>
+    var cls = "border rounded ";
+    if (Tree.SelectedItems.Contains(item))
+    {
+        cls += "border border-blue-800 bg-blue-100 rounded";
+    }
+    else
+    {
+        cls += "border-transparent";
+    }
+    <li class=@($"whitespace-nowrap")>
+        <div class=@($"flex items-center {cls}")>
+            <a class="cursor-pointer" @onclick=@(async () => { await OnExpandClicked(item); })>
+                @if (item.IsExpanded)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                         class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                }
+                else
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                         class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+                }
+            </a>
+
+            <a class=@($"cursor-pointer hover:bg-blue-100 px-2 py-0.5 flex-grow flex items-center gap-1")
+               @onclick=@(() => Tree.Select(item))
+               @oncontextmenu=@((args) => HandleContextMenu(item, args))
+               @oncontextmenu:preventDefault="true">
+                <span class="">@(item.Icon)</span>
+                <span class="">@item.Title</span>
+            </a>
+        </div>
         @if (item.IsExpanded)
         {
             <ul class="ml-3">
@@ -21,6 +44,11 @@
         }
     </li>
 }
+
+<ReachCms.Components.Menus.ContextMenu Left=@_left
+                                       Top=@_top
+                                       @bind-IsVisible=@_contextMenuVisible />
+
 @code {
     [Parameter]
     public IEnumerable<ITreeItem> Items { get; set; } = Enumerable.Empty<ITreeItem>();
@@ -28,15 +56,26 @@
     [CascadingParameter(Name = "Tree")]
     public TreeView Tree { get; set; } = null!;
 
+    private int _left = 0;
+    private int _top = 0;
+    private bool _contextMenuVisible = false;
+
     protected async Task OnExpandClicked(ITreeItem item)
     {
         item.IsExpanded = !item.IsExpanded;
 
-        if(item.IsExpanded && Tree.RequestTree != null)
+        if (item.IsExpanded && Tree.RequestTree != null)
         {
             item.Children = await Tree.RequestTree(item);
         }
 
         StateHasChanged();
+    }
+
+    protected void HandleContextMenu(ITreeItem item, MouseEventArgs args)
+    {
+        _left = (int)args.ClientX;
+        _top = (int)args.ClientY;
+        _contextMenuVisible = true;
     }
 }
