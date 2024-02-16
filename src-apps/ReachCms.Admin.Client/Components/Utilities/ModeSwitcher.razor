@@ -1,0 +1,37 @@
+﻿@inject IJSRuntime JSRuntime
+<a class="inline-block cursor-pointer text-white" onclick=@(() => OnHandleChange(!IsDarkModeEnabled))>
+    @if (IsDarkModeEnabled)
+    {
+        @HeroIcons.LightBulb("w-5 h-5")
+    }
+    else
+    {
+        @HeroIconsSolid.LightBulb("w-5 h-5")
+    }
+</a>
+@code {
+    [Parameter]
+    public bool IsDarkModeEnabled { get; set; } = true;
+
+    public EventCallback<bool> IsDarkModeEnabledChanged { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            IsDarkModeEnabled = await JSRuntime.InvokeAsync<bool>("getDarkMode");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async void OnHandleChange(bool newValue)
+    {
+        IsDarkModeEnabled = newValue;
+
+        await IsDarkModeEnabledChanged.InvokeAsync(newValue);
+
+        await JSRuntime.InvokeVoidAsync("setDarkMode", IsDarkModeEnabled);
+        StateHasChanged();
+    }
+}

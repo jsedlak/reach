@@ -5,7 +5,7 @@
 }
 <aside class=@($"sticky top-8 hidden {sidebarClass} shrink-0 lg:block")>
     <div class="flex h-16 shrink-0 items-center justify-end">
-        <a class=@($"block cursor-pointer bg-gray-100 px-3 py-2 rounded") @onclick=@(() => { _isSidebarOpen = !_isSidebarOpen; StateHasChanged(); })>
+        <a class=@($"block cursor-pointer bg-gray-200 dark:bg-gray-900 px-3 py-2 rounded") @onclick=@(() => { _isSidebarOpen = !_isSidebarOpen; StateHasChanged(); })>
             @HeroIcons.ArrowRightOnRectangle(sidebarIconClass)
         </a>
     </div>
