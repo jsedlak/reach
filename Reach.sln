@@ -3,23 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Core", "src-lib\Reach.Core\Reach.Core.csproj", "{77BC5AB3-DA6E-4C41-861E-7318FCB66903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Core", "src-lib\Reach.Core\Reach.Core.csproj", "{77BC5AB3-DA6E-4C41-861E-7318FCB66903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.ContentApp", "src-lib\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj", "{A7F969B4-D1EF-4AFC-9442-A4517A852441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp", "src-lib\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj", "{A7F969B4-D1EF-4AFC-9442-A4517A852441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.PipelineApp", "src-lib\Reach.Apps.PipelineApp\Reach.Apps.PipelineApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelineApp", "src-lib\Reach.Apps.PipelineApp\Reach.Apps.PipelineApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.EndpointsApp", "src-lib\Reach.Apps.EndpointsApp\Reach.Apps.EndpointsApp.csproj", "{0B0BD070-6803-4638-933F-DF8D145ED783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp", "src-lib\Reach.Apps.EndpointsApp\Reach.Apps.EndpointsApp.csproj", "{0B0BD070-6803-4638-933F-DF8D145ED783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.AppHost", "src-app\Reach.AppHost\Reach.AppHost.csproj", "{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.AppHost", "src-app\Reach.AppHost\Reach.AppHost.csproj", "{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.AppApi", "src-app\Reach.AppApi\Reach.AppApi.csproj", "{63981EDB-1394-4D00-AA98-90F4688A9E55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Libraries", "0. Libraries", "{62050565-9F8C-45A9-BABD-4CAB6D686B83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Core", "1. Core", "{32B998A1-DE49-4048-AB59-9451BB357EF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Applets", "2. Applets", "{2F2F3C91-C2B2-4AE2-9885-C44E0F313218}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Application", "3. Application", "{9638E84B-3944-418B-8152-A5164F0C45B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.SiloHost", "src-app\Reach.SiloHost\Reach.SiloHost.csproj", "{6398C000-9A70-4B84-A73D-8F7CFA194791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{77BC5AB3-DA6E-4C41-861E-7318FCB66903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,12 +51,28 @@ Global
 		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63981EDB-1394-4D00-AA98-90F4688A9E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63981EDB-1394-4D00-AA98-90F4688A9E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63981EDB-1394-4D00-AA98-90F4688A9E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63981EDB-1394-4D00-AA98-90F4688A9E55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{77BC5AB3-DA6E-4C41-861E-7318FCB66903} = {66DF56BF-E5D6-4E9E-858A-0638E9918FD6}
-		{A7F969B4-D1EF-4AFC-9442-A4517A852441} = {66DF56BF-E5D6-4E9E-858A-0638E9918FD6}
-		{7764A402-CB7F-4108-A35D-51DA47290F43} = {66DF56BF-E5D6-4E9E-858A-0638E9918FD6}
-		{0B0BD070-6803-4638-933F-DF8D145ED783} = {66DF56BF-E5D6-4E9E-858A-0638E9918FD6}
-		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9} = {66DF56BF-E5D6-4E9E-858A-0638E9918FD6}
+		{77BC5AB3-DA6E-4C41-861E-7318FCB66903} = {32B998A1-DE49-4048-AB59-9451BB357EF8}
+		{A7F969B4-D1EF-4AFC-9442-A4517A852441} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{7764A402-CB7F-4108-A35D-51DA47290F43} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{0B0BD070-6803-4638-933F-DF8D145ED783} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{63981EDB-1394-4D00-AA98-90F4688A9E55} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{6398C000-9A70-4B84-A73D-8F7CFA194791} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}
 	EndGlobalSection
 EndGlobal
