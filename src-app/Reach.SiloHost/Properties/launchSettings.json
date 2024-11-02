@@ -16,6 +16,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5232",
       "environmentVariables": {
+        "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
