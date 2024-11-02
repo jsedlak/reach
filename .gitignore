@@ -10,8 +10,13 @@
 *.userosscache
 *.sln.docstates
 
+# next.js files
+.next/
+node_modules/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+.idea/
 
 # Mono auto generated files
 mono_crash.*
