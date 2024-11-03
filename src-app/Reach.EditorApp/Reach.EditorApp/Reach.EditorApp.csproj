@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj" />
+    <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.5.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>

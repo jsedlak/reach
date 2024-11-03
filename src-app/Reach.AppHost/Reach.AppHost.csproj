@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.2" />
+    <PackageReference Include="Keycloak.AuthServices.Aspire.Hosting" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reach.AppApi\Reach.AppApi.csproj" />
+    <ProjectReference Include="..\Reach.EditorApp\Reach.EditorApp\Reach.EditorApp.csproj" />
     <ProjectReference Include="..\Reach.SiloHost\Reach.SiloHost.csproj" />
   </ItemGroup>
 
