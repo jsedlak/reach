@@ -1,6 +1,10 @@
-using Keycloak.AuthServices.Authentication;
+using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Components.Authorization;
+using Reach.EditorApp.Authentication;
 using Reach.EditorApp.Components;
+using Reach.EditorApp.Runtime;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +17,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 // Configure authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
-})
-    .AddKeycloakWebApp(builder.Configuration);
+builder.AddAuth0WebApp();
 
 var app = builder.Build();
 
@@ -41,12 +41,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+// Add our auth0 callback endpoints 
+app.UseAuth0();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly);
-
-
-
 
 app.Run();
