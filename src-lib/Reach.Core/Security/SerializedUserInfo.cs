@@ -26,4 +26,9 @@ public class SerializedUserInfo
     /// Gets or Sets the users access token
     /// </summary>
     public string AccessToken { get; set; } = "";
+
+    /// <summary>
+    /// Gets or Sets the users avatar URL
+    /// </summary>
+    public string AvatarUrl { get; set; } = "";
 }

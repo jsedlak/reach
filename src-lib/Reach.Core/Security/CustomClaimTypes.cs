@@ -9,4 +9,9 @@ public static class CustomClaimTypes
     /// Represents access to the access_token for passing along to API calls
     /// </summary>
     public static readonly string AccessToken = "access_token";
+
+    /// <summary>
+    /// Represents the user's avatar URL
+    /// </summary>
+    public static readonly string AvatarUrl = "picture";
 }

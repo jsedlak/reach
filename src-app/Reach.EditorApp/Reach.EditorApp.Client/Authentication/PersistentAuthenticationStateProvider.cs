@@ -21,7 +21,8 @@ public class PersistentAuthenticationStateProvider(PersistentComponentState pers
             new Claim(ClaimTypes.NameIdentifier, userInfo.UserId),
             new Claim(ClaimTypes.Name, userInfo.Name ?? string.Empty),
             new Claim(ClaimTypes.Email, userInfo.Email ?? string.Empty),
-            new Claim("access_token", userInfo.AccessToken ?? string.Empty)
+            new Claim(CustomClaimTypes.AccessToken, userInfo.AccessToken ?? string.Empty),
+            new Claim(CustomClaimTypes.AvatarUrl, userInfo.AvatarUrl ?? string.Empty)
         ];
 
         return Task.FromResult(

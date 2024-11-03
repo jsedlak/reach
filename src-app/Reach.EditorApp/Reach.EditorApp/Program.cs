@@ -1,10 +1,5 @@
-using Auth0.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components.Authorization;
-using Reach.EditorApp.Authentication;
 using Reach.EditorApp.Components;
 using Reach.EditorApp.Runtime;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 

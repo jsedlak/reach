@@ -75,6 +75,7 @@ public class PersistingRevalidatingAuthenticationStateProvider : RevalidatingSer
             var name = principal.FindFirst("name")?.Value ?? "";
             var email = principal.FindFirst("email")?.Value ?? "";
             var accessToken = principal.FindFirst(CustomClaimTypes.AccessToken)?.Value ?? "";
+            var avatarUrl = principal.FindFirst(CustomClaimTypes.AvatarUrl)?.Value ?? "";
 
             if (userId != null && name != null)
             {
@@ -83,7 +84,8 @@ public class PersistingRevalidatingAuthenticationStateProvider : RevalidatingSer
                     UserId = userId,
                     Name = name,
                     Email = email,
-                    AccessToken = accessToken
+                    AccessToken = accessToken,
+                    AvatarUrl = avatarUrl
                 });
             }
         }
