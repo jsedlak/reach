@@ -9,6 +9,7 @@ public static class PipelinesAppDefinition
         Name = "Pipelines",
         Description = "Provides support for managing content & data pipelines.",
         Icon = "BookOpen",
+        BaseUrl = "pipelines",
         AppletComponentType = typeof(PipelinesEditor).AssemblyQualifiedName!,
         SettingsComponentType = typeof(PipelinesEditorSettings).AssemblyQualifiedName!
     };

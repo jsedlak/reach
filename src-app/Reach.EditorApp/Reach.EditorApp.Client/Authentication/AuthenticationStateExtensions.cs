@@ -12,7 +12,8 @@ public static class AuthenticationStateExtensions
 
         return new UserContext
         {
-            Nickname = user.FindFirst(ClaimTypes.Name)?.Value ?? "",
+            UserId = user.FindFirst(CustomClaimTypes.Identifier)?.Value ?? "",
+            Nickname = user.FindFirst(CustomClaimTypes.Nickname)?.Value ?? "",
             AvatarUrl = user.FindFirst(CustomClaimTypes.AvatarUrl)?.Value ?? ""
         };
     }

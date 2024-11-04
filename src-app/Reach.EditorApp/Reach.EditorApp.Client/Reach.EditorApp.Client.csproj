@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src-lib\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj" />
+    <ProjectReference Include="..\..\..\src-lib\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj" />
+    <ProjectReference Include="..\..\..\src-lib\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj" />
     <ProjectReference Include="..\..\..\src-lib\Reach.Core\Reach.Core.csproj" />
   </ItemGroup>
 

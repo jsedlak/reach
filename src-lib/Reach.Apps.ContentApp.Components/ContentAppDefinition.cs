@@ -9,6 +9,7 @@ public static class ContentAppDefinition
         Name = "Content",
         Description = "Provides access to creating and managing the core building blocks of the Reach platform.",
         Icon = "BookOpen",
+        BaseUrl = "content",
         AppletComponentType = typeof(ContentEditor).AssemblyQualifiedName!,
         SettingsComponentType = typeof(ContentEditorSettings).AssemblyQualifiedName!
     };

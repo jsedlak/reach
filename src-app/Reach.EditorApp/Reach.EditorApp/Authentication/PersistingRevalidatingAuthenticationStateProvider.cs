@@ -71,9 +71,9 @@ public class PersistingRevalidatingAuthenticationStateProvider : RevalidatingSer
 
         if (principal.Identity?.IsAuthenticated == true)
         {
-            var userId = principal.FindFirst(_options.ClaimsIdentity.UserIdClaimType)?.Value ?? "";
-            var name = principal.FindFirst("name")?.Value ?? "";
-            var email = principal.FindFirst("email")?.Value ?? "";
+            var userId = principal.FindFirst(CustomClaimTypes.Identifier)?.Value ?? "";
+            var name = principal.FindFirst(CustomClaimTypes.Nickname)?.Value ?? "";
+            var email = principal.FindFirst(CustomClaimTypes.Email)?.Value ?? "";
             var accessToken = principal.FindFirst(CustomClaimTypes.AccessToken)?.Value ?? "";
             var avatarUrl = principal.FindFirst(CustomClaimTypes.AvatarUrl)?.Value ?? "";
 

@@ -1,5 +1,11 @@
-﻿<h3>This is the content editor!</h3>
-
+﻿@rendermode InteractiveWebAssembly
+<h3>This is the content editor!</h3>
+<p>Count: @_count</p>
+<button @onclick="IncrementCount">Increment</button>
 @code {
-
+    private int _count = 0;
+    private void IncrementCount()
+    {
+        _count++;
+    }
 }

@@ -11,9 +11,9 @@ public static class WebApplicationExtensions
         app.MapGet("/Account/Login", async (HttpContext httpContext, string returnUrl = "/") =>
         {
             var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-                .WithParameter("prompt", "login")
-                    .WithRedirectUri(returnUrl)
-                    .Build();
+                //.WithParameter("prompt", "login")
+                .WithRedirectUri(returnUrl)
+                .Build();
 
             await httpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
         });

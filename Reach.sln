@@ -29,11 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.ServiceDefaults", "src-app\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj", "{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.ContentApp.Components", "src-lib\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj", "{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp.Components", "src-lib\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj", "{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.EndpointsApp.Components", "src-lib\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj", "{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp.Components", "src-lib\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj", "{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.PipelinesApp.Components", "src-lib\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj", "{4A3A56AC-08BB-490D-895F-256D4BE4B32A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp.Components", "src-lib\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj", "{4A3A56AC-08BB-490D-895F-256D4BE4B32A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
