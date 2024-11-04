@@ -1,16 +1,28 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <TopBar @rendermode="InteractiveWebAssembly" />
+    <TopBar @rendermode="InteractiveServer" />
 
     <main>
-        @Body
+        @* @Body *@
+        @if(AppletContext.CurrentApplet is not null)
+        {
+            <p>@AppletContext.CurrentApplet.Name</p>
+            <pre>@AppletContext.CurrentApplet.AppletComponentType</pre>
+
+            @* <Reach.Apps.ContentApp.Components.ContentEditor /> *@
+            <DynamicComponent Type="@(Type.GetType(AppletContext.CurrentApplet.AppletComponentType))" />
+        }
+        
     </main>
 </div>
-@* 
+
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
- *@
+@code {
+    [CascadingParameter]
+    public AppletContext AppletContext { get; set; } = null!;
+}

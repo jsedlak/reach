@@ -1,3 +1,4 @@
+using Reach.Applets;
 using Reach.EditorApp.Components;
 using Reach.EditorApp.Runtime;
 
@@ -13,6 +14,9 @@ builder.Services.AddRazorComponents()
 
 // Configure authentication
 builder.AddAuth0WebApp();
+
+// Add our cascading contexts
+builder.AddApplets();
 
 var app = builder.Build();
 

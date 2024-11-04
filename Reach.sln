@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Core", "src-lib\Reach
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp", "src-lib\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj", "{A7F969B4-D1EF-4AFC-9442-A4517A852441}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelineApp", "src-lib\Reach.Apps.PipelineApp\Reach.Apps.PipelineApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp", "src-lib\Reach.Apps.PipelinesApp\Reach.Apps.PipelinesApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp", "src-lib\Reach.Apps.EndpointsApp\Reach.Apps.EndpointsApp.csproj", "{0B0BD070-6803-4638-933F-DF8D145ED783}"
 EndProject
@@ -28,6 +28,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "src-app\Reach.EditorApp\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj", "{DCAFAE86-C36F-475E-AA76-8709913D366F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.ServiceDefaults", "src-app\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj", "{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.ContentApp.Components", "src-lib\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj", "{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.EndpointsApp.Components", "src-lib\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj", "{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Apps.PipelinesApp.Components", "src-lib\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj", "{4A3A56AC-08BB-490D-895F-256D4BE4B32A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +77,18 @@ Global
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +103,9 @@ Global
 		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347} = {9638E84B-3944-418B-8152-A5164F0C45B5}
 		{DCAFAE86-C36F-475E-AA76-8709913D366F} = {9638E84B-3944-418B-8152-A5164F0C45B5}
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{4A3A56AC-08BB-490D-895F-256D4BE4B32A} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}

@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Reach.Applets;
 using Reach.EditorApp.Client.Authentication;
 
-namespace Reach.EditorApp.Client.Components.Layout;
+namespace Reach.EditorApp.Components.Layout;
 
 public partial class TopBar
 {
@@ -17,6 +18,14 @@ public partial class TopBar
         {
             _userContext = (await AuthenticationState).AsContext();
         }
+
+        AppletContext.AppletChanged += (_, _) =>
+        {
+            _isAppTrayOpen = false;
+            _isUserTrayOpen = false;
+
+            InvokeAsync(StateHasChanged);
+        };
     }
 
     private void ToggleAppTray(bool? value = null)
@@ -47,4 +56,7 @@ public partial class TopBar
 
     [CascadingParameter]
     private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+    [CascadingParameter]
+    private AppletContext AppletContext { get; set; } = null!;
 }
