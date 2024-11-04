@@ -4,16 +4,7 @@
     <TopBar @rendermode="InteractiveServer" />
 
     <main>
-        @* @Body *@
-        @if(AppletContext.CurrentApplet is not null)
-        {
-            <p>@AppletContext.CurrentApplet.Name</p>
-            <pre>@AppletContext.CurrentApplet.AppletComponentType</pre>
-
-            @* <Reach.Apps.ContentApp.Components.ContentEditor /> *@
-            <DynamicComponent Type="@(Type.GetType(AppletContext.CurrentApplet.AppletComponentType))" />
-        }
-        
+        @Body
     </main>
 </div>
 

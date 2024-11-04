@@ -1,6 +1,11 @@
-﻿@page "/"
+﻿@page "/{*pageRoute}"
 @attribute [Authorize]
-
+@rendermode InteractiveServer
+@if (AppletContext.CurrentApplet is not null)
+{
+    <DynamicComponent Type="@(Type.GetType(AppletContext.CurrentApplet.AppletComponentType))" />
+}
+@* 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, @username!</h1>
@@ -31,4 +36,4 @@ Welcome to your new app.
         }
         await base.OnInitializedAsync();
     }
-}
+} *@
