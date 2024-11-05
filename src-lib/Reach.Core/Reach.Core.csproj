@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\Commands\" />
+    <Folder Include="Content\Events\" />
+    <Folder Include="Content\ViewModel\" />
+    <Folder Include="Content\Services\" />
+    <Folder Include="Content\ServiceModel\" />
   </ItemGroup>
 
 </Project>

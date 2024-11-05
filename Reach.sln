@@ -5,13 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Core", "src-lib\Reach.Core\Reach.Core.csproj", "{77BC5AB3-DA6E-4C41-861E-7318FCB66903}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp", "src-lib\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj", "{A7F969B4-D1EF-4AFC-9442-A4517A852441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp", "src-applets\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj", "{A7F969B4-D1EF-4AFC-9442-A4517A852441}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp", "src-lib\Reach.Apps.PipelinesApp\Reach.Apps.PipelinesApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp", "src-applets\Reach.Apps.PipelinesApp\Reach.Apps.PipelinesApp.csproj", "{7764A402-CB7F-4108-A35D-51DA47290F43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp", "src-lib\Reach.Apps.EndpointsApp\Reach.Apps.EndpointsApp.csproj", "{0B0BD070-6803-4638-933F-DF8D145ED783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp", "src-applets\Reach.Apps.EndpointsApp\Reach.Apps.EndpointsApp.csproj", "{0B0BD070-6803-4638-933F-DF8D145ED783}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.AppHost", "src-app\Reach.AppHost\Reach.AppHost.csproj", "{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.AppHost", "src-aspire\Reach.AppHost\Reach.AppHost.csproj", "{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Libraries", "0. Libraries", "{62050565-9F8C-45A9-BABD-4CAB6D686B83}"
 EndProject
@@ -19,21 +19,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Core", "1. Core", "{32B9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Applets", "2. Applets", "{2F2F3C91-C2B2-4AE2-9885-C44E0F313218}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Application", "3. Application", "{9638E84B-3944-418B-8152-A5164F0C45B5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Editor", "3. Editor", "{9638E84B-3944-418B-8152-A5164F0C45B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.SiloHost", "src-app\Reach.SiloHost\Reach.SiloHost.csproj", "{6398C000-9A70-4B84-A73D-8F7CFA194791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.SiloHost", "src-cluster\Reach.SiloHost\Reach.SiloHost.csproj", "{6398C000-9A70-4B84-A73D-8F7CFA194791}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp", "src-app\Reach.EditorApp\Reach.EditorApp\Reach.EditorApp.csproj", "{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.ServiceDefaults", "src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj", "{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "src-app\Reach.EditorApp\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj", "{DCAFAE86-C36F-475E-AA76-8709913D366F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp.Components", "src-applets\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj", "{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.ServiceDefaults", "src-app\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj", "{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp.Components", "src-applets\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj", "{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.ContentApp.Components", "src-lib\Reach.Apps.ContentApp.Components\Reach.Apps.ContentApp.Components.csproj", "{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp.Components", "src-applets\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj", "{4A3A56AC-08BB-490D-895F-256D4BE4B32A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.EndpointsApp.Components", "src-lib\Reach.Apps.EndpointsApp.Components\Reach.Apps.EndpointsApp.Components.csproj", "{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Silo & API", "4. Silo & API", "{5B7438F8-E10A-4FB4-B620-A857CDEB7295}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Apps.PipelinesApp.Components", "src-lib\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj", "{4A3A56AC-08BB-490D-895F-256D4BE4B32A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Aspire AppHost", "5. Aspire AppHost", "{6DF87CE6-D2E7-4258-BB36-56FDD7D4E66C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Core", "src-editor\Reach.EditorApp.Core\Reach.EditorApp.Core.csproj", "{62AFE1ED-750C-4D1A-879E-DDA83E58E67B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp", "src-editor\Reach.EditorApp\Reach.EditorApp.csproj", "{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "src-editor\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj", "{D4C6831C-B155-4275-828D-F5B26D64AD94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,14 +71,6 @@ Global
 		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6398C000-9A70-4B84-A73D-8F7CFA194791}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCAFAE86-C36F-475E-AA76-8709913D366F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCAFAE86-C36F-475E-AA76-8709913D366F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCAFAE86-C36F-475E-AA76-8709913D366F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCAFAE86-C36F-475E-AA76-8709913D366F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -89,6 +87,18 @@ Global
 		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A3A56AC-08BB-490D-895F-256D4BE4B32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,14 +108,15 @@ Global
 		{A7F969B4-D1EF-4AFC-9442-A4517A852441} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{7764A402-CB7F-4108-A35D-51DA47290F43} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{0B0BD070-6803-4638-933F-DF8D145ED783} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
-		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9} = {9638E84B-3944-418B-8152-A5164F0C45B5}
-		{6398C000-9A70-4B84-A73D-8F7CFA194791} = {9638E84B-3944-418B-8152-A5164F0C45B5}
-		{1CAF9C0B-6BC4-4E4A-A2FC-1FC9F88A3347} = {9638E84B-3944-418B-8152-A5164F0C45B5}
-		{DCAFAE86-C36F-475E-AA76-8709913D366F} = {9638E84B-3944-418B-8152-A5164F0C45B5}
-		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{3B2406F4-E347-4AAB-BAC6-3C90CF17A6C9} = {6DF87CE6-D2E7-4258-BB36-56FDD7D4E66C}
+		{6398C000-9A70-4B84-A73D-8F7CFA194791} = {5B7438F8-E10A-4FB4-B620-A857CDEB7295}
+		{6FAD313A-77D1-4637-93BA-0CB11C01BF8C} = {6DF87CE6-D2E7-4258-BB36-56FDD7D4E66C}
 		{0BB6F54F-9DEE-4F42-AB25-4C453213BAB5} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{3AC3B1D6-8EA1-44F4-B15C-24D326F887EA} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{4A3A56AC-08BB-490D-895F-256D4BE4B32A} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
+		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{D4C6831C-B155-4275-828D-F5B26D64AD94} = {9638E84B-3944-418B-8152-A5164F0C45B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}

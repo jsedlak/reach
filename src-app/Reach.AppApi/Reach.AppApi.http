@@ -1,6 +1,0 @@
-@Reach.AppApi_HostAddress = http://localhost:5137
-
-GET {{Reach.AppApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
