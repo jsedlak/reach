@@ -26,8 +26,6 @@ The following Applets are included as part of the core platform
 
 ### The Content Model
 
-![Content Model](./doc/Content%20Model.svg)
-
 ![Content Model](./doc/Content%20Model.png)
 
 ## Authentication / Authorization
