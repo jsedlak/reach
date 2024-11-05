@@ -8,7 +8,6 @@ builder.AddProject<Projects.Reach_SiloHost>("reach-silo")
     .WithExternalHttpEndpoints();
 
 /* Add Our Editor */
-builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
-    .WithExternalHttpEndpoints();
+builder.AddProject<Projects.Reach_EditorApp>("reach-editor");
 
 builder.Build().Run();

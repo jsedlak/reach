@@ -1,5 +1,8 @@
 ﻿namespace Reach.Content.Model;
 
+/// <summary>
+/// Describes a template for a <see cref="Component"/>
+/// </summary>
 public class ComponentDefinition
 {
     public Guid Id { get; set; } = new Guid();
