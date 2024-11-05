@@ -18,6 +18,8 @@ The following Applets are included as part of the core platform
 
 #### The Applet Architecture
 
+![Applet Architecture](./doc/Applet%20Architecture.png)
+
 #### Create Your Applet Definition
 
 #### Create Your Applet Components
