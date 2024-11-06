@@ -1,22 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>5b8b878b-da88-41dc-87d4-f9c743f83d41</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsAspireHost>true</IsAspireHost>
+		<UserSecretsId>5b8b878b-da88-41dc-87d4-f9c743f83d41</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
+		<PackageReference Include="Aspire.Hosting.Azure.Storage" Version="8.2.2" />
+		<PackageReference Include="Aspire.Hosting.Orleans" Version="8.2.2" />
+		<PackageReference Include="Jerry.WaitForDependencies.Aspire.Hosting" Version="0.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src-cluster\Reach.SiloHost\Reach.SiloHost.csproj" />
-    <ProjectReference Include="..\..\src-editor\Reach.EditorApp\Reach.EditorApp.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src-cluster\Reach.SiloHost\Reach.SiloHost.csproj" />
+		<ProjectReference Include="..\..\src-editor\Reach.EditorApp\Reach.EditorApp.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,18 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
+		<PackageReference Include="Aspire.Azure.Data.Tables" Version="8.2.2" />
+		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="8.2.2" />
+		<PackageReference Include="Aspire.Hosting.Orleans" Version="8.2.2"/>
+		<PackageReference Include="Microsoft.Orleans.Server" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="8.2.0" />
+		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\Reach.Silo.Core\Reach.Silo.Core.csproj" />
+		<PackageReference Include="Microsoft.Orleans.Server" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="8.2.0" />
+	</ItemGroup>
 
 </Project>

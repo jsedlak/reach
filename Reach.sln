@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp", "src-edit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "src-editor\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj", "{D4C6831C-B155-4275-828D-F5B26D64AD94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Silo.Core", "src-cluster\Reach.Silo.Core\Reach.Silo.Core.csproj", "{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4C6831C-B155-4275-828D-F5B26D64AD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{62AFE1ED-750C-4D1A-879E-DDA83E58E67B} = {9638E84B-3944-418B-8152-A5164F0C45B5}
 		{E4FAE8E6-5208-4AB4-A5FB-75F3E6999D89} = {9638E84B-3944-418B-8152-A5164F0C45B5}
 		{D4C6831C-B155-4275-828D-F5B26D64AD94} = {9638E84B-3944-418B-8152-A5164F0C45B5}
+		{57BD9EC0-9B2B-44BD-8D3B-771930C75E88} = {5B7438F8-E10A-4FB4-B620-A857CDEB7295}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}
