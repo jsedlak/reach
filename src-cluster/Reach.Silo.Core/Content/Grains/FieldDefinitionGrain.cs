@@ -5,11 +5,27 @@ namespace Reach.Silo.Content.Grains;
 
 public class FieldDefinitionGrain : Grain, IFieldDefinitionGrain
 {
-    Task<CommandResponse> IFieldDefinitionGrain.Create(CreateFieldDefinitionCommand command)
+    public Task<CommandResponse> Create(CreateFieldDefinitionCommand command)
     {
         return Task.FromResult(new CommandResponse()
         {
             IsSuccess = true
         });
+    }
+
+
+    public Task<CommandResponse> SetEditorDefinition(SetFieldDefinitionEditorCommand command)
+    {
+        return Task.FromResult(new CommandResponse() { IsSuccess = true });
+    }
+
+    public Task<CommandResponse> SetEditorParameters(SetFieldDefinitionEditorParametersCommand command)
+    {
+        return Task.FromResult(new CommandResponse() { IsSuccess = true });
+    }
+
+    public Task<CommandResponse> Delete(DeleteFieldDefinitionCommand command)
+    {
+        return Task.FromResult(new CommandResponse() { IsSuccess = true });
     }
 }

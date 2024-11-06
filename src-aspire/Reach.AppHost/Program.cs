@@ -14,7 +14,7 @@ var orleans = builder.AddOrleans("reach-cluster")
     .WithClustering(cluster)
     .WithGrainStorage("Default", grainStorage);
 
-builder.AddProject<Projects.Reach_SiloHost>("reach-silo")
+builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
     .WithExternalHttpEndpoints()
     .WithReference(orleans)
     .WaitFor(grainStorage)

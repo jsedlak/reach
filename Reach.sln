@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Applets", "2. Applets", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Editor", "3. Editor", "{9638E84B-3944-418B-8152-A5164F0C45B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.SiloHost", "src-cluster\Reach.SiloHost\Reach.SiloHost.csproj", "{6398C000-9A70-4B84-A73D-8F7CFA194791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Silo.Host", "src-cluster\Reach.Silo.Host\Reach.Silo.Host.csproj", "{6398C000-9A70-4B84-A73D-8F7CFA194791}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.ServiceDefaults", "src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj", "{6FAD313A-77D1-4637-93BA-0CB11C01BF8C}"
 EndProject
@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp", "src-edit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.EditorApp.Client", "src-editor\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj", "{D4C6831C-B155-4275-828D-F5B26D64AD94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Silo.Core", "src-cluster\Reach.Silo.Core\Reach.Silo.Core.csproj", "{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reach.Silo.Core", "src-cluster\Reach.Silo.Core\Reach.Silo.Core.csproj", "{57BD9EC0-9B2B-44BD-8D3B-771930C75E88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

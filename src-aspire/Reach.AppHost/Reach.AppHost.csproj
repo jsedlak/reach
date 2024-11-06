@@ -17,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src-cluster\Reach.SiloHost\Reach.SiloHost.csproj" />
+		<ProjectReference Include="..\..\src-cluster\Reach.Silo.Host\Reach.Silo.Host.csproj" />
 		<ProjectReference Include="..\..\src-editor\Reach.EditorApp\Reach.EditorApp.csproj" />
 	</ItemGroup>
 
