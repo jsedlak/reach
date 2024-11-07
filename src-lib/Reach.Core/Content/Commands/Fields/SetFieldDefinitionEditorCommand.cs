@@ -5,8 +5,8 @@ namespace Reach.Content.Commands.Fields;
 [GenerateSerializer]
 public class SetFieldDefinitionEditorCommand : AggregateCommand
 {
-    public SetFieldDefinitionEditorCommand(Guid aggregateRootId) 
-        : base(aggregateRootId)
+    public SetFieldDefinitionEditorCommand(Guid aggregateId) 
+        : base(aggregateId)
     {
     }
 

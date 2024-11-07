@@ -1,0 +1,23 @@
+meta {
+  name: Create Field Definition
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:7208/api/field-definitions/050f24d0-4d46-4a0e-9f5d-50dd57979132/execute
+  body: json
+  auth: none
+}
+
+headers {
+  X-Command-Type: Reach.Content.Commands.Fields.CreateFieldDefinitionCommand, Reach.Core
+}
+
+body:json {
+  {
+    aggregateId: "050f24d0-4d46-4a0e-9f5d-50dd57979132",
+    name: "Test Field Defn",
+    editorDefinitionId: "e3d24f75-eaf3-4767-b7a4-6b20fc020efe"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Reach",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

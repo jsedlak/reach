@@ -5,8 +5,8 @@ namespace Reach.Content.Commands.Fields;
 [GenerateSerializer]
 public class DeleteFieldDefinitionCommand : AggregateCommand
 {
-    public DeleteFieldDefinitionCommand(Guid aggregateRootId) 
-        : base(aggregateRootId)
+    public DeleteFieldDefinitionCommand(Guid aggregateId) 
+        : base(aggregateId)
     {
     }
 }
