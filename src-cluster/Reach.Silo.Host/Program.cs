@@ -3,6 +3,7 @@ using Petl.EventSourcing;
 using Petl.EventSourcing.Providers;
 using Reach.Content.Commands.Fields;
 using Reach.Silo.Content.Grains;
+using Reach.Silo.Host.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,9 @@ app.MapGet("/test", async ([FromServices] IClusterClient cluster) =>
 
     return result;
 });
+
+app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
+
 // app.UseHttpsRedirection();
 
 //var summaries = new[]
