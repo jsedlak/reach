@@ -4,16 +4,16 @@
 /// Provides a base implementation for all commands going against an aggregate root
 /// </summary>
 [GenerateSerializer]
-public abstract class AggregateRootCommand
+public abstract class AggregateCommand
 {
-    protected AggregateRootCommand(Guid aggregateRootId)
+    protected AggregateCommand(Guid aggregateId)
     {
-        Id = aggregateRootId;
+        AggregateId = aggregateId;
     }
 
     /// <summary>
     /// The unique identifier of the aggregate root being targeted
     /// </summary>
     [Id(0)]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid AggregateId { get; set; } = Guid.NewGuid();
 }

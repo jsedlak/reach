@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.MongoDB.Driver" Version="8.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
 		<PackageReference Include="Aspire.Azure.Data.Tables" Version="8.2.2" />
 		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="8.2.2" />
@@ -14,6 +15,8 @@
 		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="8.2.0" />
 		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
+		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.7" />
+		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

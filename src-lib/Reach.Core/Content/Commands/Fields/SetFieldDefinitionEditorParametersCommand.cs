@@ -3,7 +3,7 @@
 namespace Reach.Content.Commands.Fields;
 
 [GenerateSerializer]
-public class SetFieldDefinitionEditorParametersCommand : AggregateRootCommand
+public class SetFieldDefinitionEditorParametersCommand : AggregateCommand
 {
     public SetFieldDefinitionEditorParametersCommand(Guid aggregateRootId) 
         : base(aggregateRootId)

@@ -5,7 +5,7 @@ namespace Reach.Content.Commands.Templates;
 /// <summary>
 /// Creates a new template item in the platform
 /// </summary>
-public class CreateTemplateCommand : AggregateRootCommand
+public class CreateTemplateCommand : AggregateCommand
 {
     public CreateTemplateCommand(Guid aggregateRootId) 
         : base(aggregateRootId)

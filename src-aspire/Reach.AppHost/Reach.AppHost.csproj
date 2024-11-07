@@ -12,6 +12,7 @@
 	<ItemGroup>
 		<PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
 		<PackageReference Include="Aspire.Hosting.Azure.Storage" Version="8.2.2" />
+		<PackageReference Include="Aspire.Hosting.MongoDB" Version="8.2.2" />
 		<PackageReference Include="Aspire.Hosting.Orleans" Version="8.2.2" />
 		<PackageReference Include="Jerry.WaitForDependencies.Aspire.Hosting" Version="0.0.1" />
 	</ItemGroup>

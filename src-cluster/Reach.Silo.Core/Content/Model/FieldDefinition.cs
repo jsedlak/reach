@@ -1,4 +1,6 @@
-﻿namespace Reach.Content.Model;
+﻿using Reach.Content.Events.Fields;
+
+namespace Reach.Content.Model;
 
 /// <summary>
 /// Describes a type of field that can be used in the platform. For example
@@ -30,4 +32,30 @@ public class FieldDefinition
     /// Gets or Sets the set of parameters and values to pass to the editor component
     /// </summary>
     public Dictionary<string, string> EditorParameters { get; set; } = new();
+
+    public bool IsDeleted { get; set; }
+
+    public void Apply(FieldDefinitionCreatedEvent @event)
+    {
+        Id = @event.AggregateId;
+        Name = @event.Name;
+        Key = @event.Key;
+        EditorDefinitionId = @event.EditorDefinitionId;
+        EditorParameters = @event.EditorParameters;
+    }
+
+    public void Apply(FieldDefinitionEditorSetEvent @event)
+    {
+        EditorDefinitionId = @event.EditorDefinitionId;
+    }
+
+    public void Apply(FieldDefinitionEditorParametersSetEvent @event)
+    {
+        EditorParameters = @event.EditorParameters;
+    }
+
+    public void Apply(FieldDefinitionDeletedEvent @event)
+    {
+        IsDeleted = true;
+    }
 }
