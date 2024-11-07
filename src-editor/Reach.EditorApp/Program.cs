@@ -1,6 +1,7 @@
 using Reach.Applets;
 using Reach.EditorApp.Components;
 using Reach.EditorApp.Runtime;
+using Tazor.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,12 @@ builder.AddAuth0WebApp();
 // Add our cascading contexts
 builder.AddApplets();
 
+// Add our theming stuff
+builder.Services.AddTazorServer().Build();
+
+/* ################################# */
+/* BUILD AND EXECUTE THE APPLICATION */
+/* ################################# */
 var app = builder.Build();
 
 // app.UseAuthentication();
