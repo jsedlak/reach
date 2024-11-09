@@ -1,47 +1,15 @@
-﻿using Orleans.Streams;
-using Petl.EventSourcing;
-using Reach.Content.Commands.Fields;
+﻿using Reach.Content.Commands.Fields;
 using Reach.Content.Events.Fields;
 using Reach.Content.Model;
 using Reach.Cqrs;
 
 namespace Reach.Silo.Content.Grains;
 
-public class FieldDefinitionGrain : EventSourcedGrain<FieldDefinition, BaseFieldDefinitionEvent>, IFieldDefinitionGrain
+public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, BaseFieldDefinitionEvent>, IFieldDefinitionGrain
 {
-    private IAsyncStream<BaseFieldDefinitionEvent>? _eventStream;
-
-    public override Task OnActivateAsync(CancellationToken cancellationToken)
+    public FieldDefinitionGrain() 
+        : base(GrainConstants.FieldDefinition_EventStream)
     {
-        var streamProvider = this.GetStreamProvider("StreamProvider");
-
-        var myId = this.GetGrainId().GetGuidKey();
-        var streamId = StreamId.Create(GrainConstants.FieldDefinition_EventStream, myId);
-
-        // grab a ref to the stream using the stream id
-        _eventStream = streamProvider.GetStream<BaseFieldDefinitionEvent>(streamId);
-
-        return base.OnActivateAsync(cancellationToken);
-    }
-
-    protected override async Task Raise(BaseFieldDefinitionEvent @event)
-    {
-        await base.Raise(@event);
-
-        if (_eventStream is not null)
-        {
-            await _eventStream.OnNextAsync(@event);
-        }
-    }
-
-    protected override async Task Raise(IEnumerable<BaseFieldDefinitionEvent> events)
-    {
-        await base.Raise(events);
-        
-        if(_eventStream is not null)
-        {
-            await _eventStream.OnNextBatchAsync(events);
-        }
     }
 
     public async Task<CommandResponse> Create(CreateFieldDefinitionCommand command)

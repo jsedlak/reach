@@ -1,0 +1,50 @@
+﻿using Reach.Content.Commands.Editors;
+using Reach.Content.Events.Editors;
+using Reach.Cqrs;
+
+namespace Reach.Silo.Content.Grains;
+
+public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinitionGrain, BaseEditorDefinitionEvent>, IEditorDefinitionGrain
+{
+    public EditorDefinitionGrain() 
+        :base(GrainConstants.EditorDefinition_EventStream)
+    {
+    }
+
+    public async Task<CommandResponse> Create(CreateEditorDefinitionCommand command)
+    {
+        await Raise(new EditorDefinitionCreatedEvent(command.AggregateId)
+        {
+            Name = command.Name,
+            EditorType = command.EditorType
+        });
+
+        return new CommandResponse()
+        {
+            IsSuccess = true
+        };
+    }
+
+    public async Task<CommandResponse> SetParameters(SetEditorDefinitionParametersCommand command)
+    {
+        await Raise(new EditorDefinitionParametersSetEvent(command.AggregateId)
+        {
+            Parameters = command.Parameters
+        });
+
+        return new CommandResponse()
+        {
+            IsSuccess = true
+        };
+    }
+
+    public async Task<CommandResponse> Delete(DeleteEditorDefinitionCommand command)
+    {
+        await Raise(new EditorDefinitionDeletedEvent(command.AggregateId));
+
+        return new CommandResponse()
+        {
+            IsSuccess = true
+        };
+    }
+}

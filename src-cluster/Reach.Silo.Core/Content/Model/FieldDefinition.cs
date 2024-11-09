@@ -8,6 +8,30 @@ namespace Reach.Content.Model;
 /// </summary>
 public class FieldDefinition
 {
+    public void Apply(FieldDefinitionCreatedEvent @event)
+    {
+        Id = @event.AggregateId;
+        Name = @event.Name;
+        Key = @event.Key;
+        EditorDefinitionId = @event.EditorDefinitionId;
+        EditorParameters = @event.EditorParameters;
+    }
+
+    public void Apply(FieldDefinitionEditorSetEvent @event)
+    {
+        EditorDefinitionId = @event.EditorDefinitionId;
+    }
+
+    public void Apply(FieldDefinitionEditorParametersSetEvent @event)
+    {
+        EditorParameters = @event.EditorParameters;
+    }
+
+    public void Apply(FieldDefinitionDeletedEvent @event)
+    {
+        IsDeleted = true;
+    }
+
     /// <summary>
     /// Gets or Sets the unique identifier for this definition
     /// </summary>
@@ -33,29 +57,8 @@ public class FieldDefinition
     /// </summary>
     public Dictionary<string, string> EditorParameters { get; set; } = new();
 
+    /// <summary>
+    /// Gets or Sets whether this definition has been deleted
+    /// </summary>
     public bool IsDeleted { get; set; }
-
-    public void Apply(FieldDefinitionCreatedEvent @event)
-    {
-        Id = @event.AggregateId;
-        Name = @event.Name;
-        Key = @event.Key;
-        EditorDefinitionId = @event.EditorDefinitionId;
-        EditorParameters = @event.EditorParameters;
-    }
-
-    public void Apply(FieldDefinitionEditorSetEvent @event)
-    {
-        EditorDefinitionId = @event.EditorDefinitionId;
-    }
-
-    public void Apply(FieldDefinitionEditorParametersSetEvent @event)
-    {
-        EditorParameters = @event.EditorParameters;
-    }
-
-    public void Apply(FieldDefinitionDeletedEvent @event)
-    {
-        IsDeleted = true;
-    }
 }

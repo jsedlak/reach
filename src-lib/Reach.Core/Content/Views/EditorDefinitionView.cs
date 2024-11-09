@@ -1,8 +1,9 @@
 ﻿using Reach.Content.Model;
+using Reach.Cqrs;
 
 namespace Reach.Content.Views;
 
-public class EditorDefinitionView
+public class EditorDefinitionView : IView
 {
     public Guid Id { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace Reach.Content.ServiceModel;
 
-public interface IEditorDefinitionReadRepository
+public interface IEditorDefinitionViewReadRepository
 {
     Task<IQueryable<EditorDefinitionView>> Query();
 
