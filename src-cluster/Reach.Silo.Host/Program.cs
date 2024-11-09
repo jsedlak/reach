@@ -13,15 +13,39 @@ builder.AddServiceDefaults();
 // Grab our providers
 builder.AddKeyedAzureTableClient("clustering");
 builder.AddKeyedAzureBlobClient("grain-state");
+builder.AddKeyedAzureTableClient("streaming");
 builder.AddMongoDBClient("reach-mongo");
+//builder.AddKeyedAzureEventProcessorClient("reach-event-hubs");
+//builder.AddKeyedAzureEventHubProducerClient("reach-event-hubs", static settings =>
+//{
+//    settings.EventHubName = "ReachEvents";
+//});
+//builder.AddKeyedAzureEventHubConsumerClient("reach-event-hubs", static settings =>
+//{
+//    settings.EventHubName = "ReachEvents";
+//});
 
 // Add Event Sourcing
 builder.Services.AddOrleansSerializers();
 builder.Services.AddMongoEventSourcing("reach");
 
+var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsConnectionString");
+
 // Add Microsoft Orleans
 builder.UseOrleans(o =>
 {
+    o.AddEventHubStreams("StreamProvider", configurator =>
+    {
+        configurator.ConfigureEventHub(builder => builder.Configure(options =>
+        {
+            options.ConfigureEventHubConnection(
+                ehConnectionString,
+                "ReachEvents",
+                "ReachEventsEditorGroup"
+            );
+        }));
+    });
+
     o.UseDashboard(x => x.HostSelf = true);
 });
 
@@ -34,7 +58,7 @@ app.MapGet("/test", async ([FromServices] IClusterClient cluster) =>
     var fieldDefinitionId = Guid.NewGuid();
     var fieldDefinition = cluster.GetGrain<IFieldDefinitionGrain>(fieldDefinitionId);
 
-    var result = await fieldDefinition.Create(new CreateFieldDefinitionCommand(fieldDefinitionId) {  Name = "Test", EditorDefinitionId = Guid.NewGuid() });
+    var result = await fieldDefinition.Create(new CreateFieldDefinitionCommand(fieldDefinitionId) { Name = "Test", EditorDefinitionId = Guid.NewGuid() });
 
     return result;
 });

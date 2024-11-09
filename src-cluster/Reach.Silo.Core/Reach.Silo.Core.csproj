@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Orleans.Sdk" Version="8.2.0" />
+    <PackageReference Include="Microsoft.Orleans.Streaming" Version="8.2.0" />
     <PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.7" />
     <PackageReference Include="Slugify.Core" Version="4.0.1" />
   </ItemGroup>
