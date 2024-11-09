@@ -1,0 +1,22 @@
+meta {
+  name: Create Editor Definition
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:7208/api/editor-definitions/32064f90-0ee3-4f46-a820-c8dd12bed9cb/execute
+  body: json
+  auth: none
+}
+
+headers {
+  X-Command-Type: Reach.Content.Commands.Editors.CreateEditorDefinitionCommand, Reach.Core
+}
+
+body:json {
+  {
+    aggregateId: "32064f90-0ee3-4f46-a820-c8dd12bed9cb",
+    name: "TextBox"
+  }
+}

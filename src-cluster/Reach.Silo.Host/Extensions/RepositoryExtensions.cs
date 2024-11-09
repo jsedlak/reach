@@ -14,6 +14,8 @@ public static class RepositoryExtensions
         builder.Services.AddSingleton<IFieldDefinitionViewReadRepository, MongoFieldDefinitionViewRepository>();
 
         builder.Services.AddSingleton<IEditorDefinitionViewReadRepository, MongoEditorDefinitionViewRepository>();
+        builder.Services.AddSingleton<IEditorDefinitionViewWriteRepository, MongoEditorDefinitionViewRepository>();
+
         return builder;
     }
 }

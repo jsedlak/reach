@@ -1,10 +1,12 @@
 ﻿using Reach.Content.Commands.Editors;
 using Reach.Content.Events.Editors;
+using Reach.Content.Events.Fields;
+using Reach.Content.Model;
 using Reach.Cqrs;
 
 namespace Reach.Silo.Content.Grains;
 
-public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinitionGrain, BaseEditorDefinitionEvent>, IEditorDefinitionGrain
+public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition, BaseEditorDefinitionEvent>, IEditorDefinitionGrain
 {
     public EditorDefinitionGrain() 
         :base(GrainConstants.EditorDefinition_EventStream)
