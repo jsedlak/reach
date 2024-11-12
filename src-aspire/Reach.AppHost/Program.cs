@@ -25,14 +25,15 @@ var orleans = builder.AddOrleans("reach-cluster")
     .WithClustering(cluster)
     .WithGrainStorage("Default", grainStorage)
     .WithGrainStorage("PubSubStore", grainStorage)
-    .WithStreaming("StreamProvider", eventHubs);
+    .WithMemoryStreaming("StreamProvider");
+    //.WithStreaming("StreamProvider", eventHubs);
 
 builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
     .WithExternalHttpEndpoints()
     .WithReference(orleans)
     .WithReference(mongo)
-    .WithReference(eventHubs)
-    .WithReference(eventHubConnectionString, "EventHubsConnectionString")
+    //.WithReference(eventHubs)
+    //.WithReference(eventHubConnectionString, "EventHubsConnectionString")
     .WaitFor(grainStorage)
     .WaitFor(cluster)
     .WaitFor(streamingStorage)

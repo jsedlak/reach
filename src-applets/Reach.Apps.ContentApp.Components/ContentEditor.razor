@@ -1,11 +1,37 @@
-﻿@rendermode InteractiveWebAssembly
-<h3>This is the content editor!</h3>
-<p>Count: @_count</p>
-<button @onclick="IncrementCount">Increment</button>
-@code {
-    private int _count = 0;
-    private void IncrementCount()
-    {
-        _count++;
-    }
-}
+﻿@using Tazor.Components.Content
+@rendermode InteractiveWebAssembly
+<div class="flex">
+    @* Sidebar *@
+    <div class="w-64 bg-gray-800 text-white h-screen p-4 hidden lg:block min-w-64">
+        <nav class="space-y-2">
+            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded">
+                @HeroIcons.Document("inline-block mr-2")
+                <span class="flex-shrink-1">Content</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded">
+                @HeroIcons.PuzzlePiece("inline-block mr-2")
+                <span class="flex-shrink-1">Components</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded">
+                @HeroIcons.RectangleStack("inline-block mr-2")
+                <span class="flex-shrink-1">Fields</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded">
+                @HeroIcons.QueueList("inline-block mr-2")
+                <span class="flex-shrink-1">Field Definitions</span>
+            </a>
+            <hr class="bg-gray-300 my-2" />
+            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded">
+                @HeroIcons.Cog8Tooth("inline-block mr-2")
+                <span class="flex-shrink-1">Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="resizer cursor-col-resize w-1 bg-gray-900"></div>
+
+    @* Content *@
+    <div class="flex-1 p-4">
+        <p class="mt-2">Welcome to your content editor.</p>
+    </div>
+</div>

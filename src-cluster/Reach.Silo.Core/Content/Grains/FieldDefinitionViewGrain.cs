@@ -2,6 +2,8 @@
 using Orleans.Streams;
 using Reach.Content.Events.Fields;
 using Microsoft.Extensions.Logging;
+using Reach.Content.ServiceModel;
+using Reach.Silo.Content.ServiceModel;
 
 namespace Reach.Silo.Content.Grains;
 
@@ -13,10 +15,20 @@ public class FieldDefinitionViewGrain :
     IAsyncObserver<BaseFieldDefinitionEvent>
 {
     private readonly ILogger<FieldDefinitionViewGrain> _logger;
+    private readonly IFieldDefinitionViewReadRepository _fieldDefinitionReadRepository;
+    private readonly IFieldDefinitionViewWriteRepository _fieldDefinitionViewWriteRepository;
+    private readonly IEditorDefinitionViewReadRepository _editorDefinitionReadRepository;
 
-    public FieldDefinitionViewGrain(ILogger<FieldDefinitionViewGrain> logger)
+    public FieldDefinitionViewGrain(
+        IFieldDefinitionViewReadRepository fieldDefinitionReadRepository,
+        IFieldDefinitionViewWriteRepository fieldDefinitionViewWriteRepository,
+        IEditorDefinitionViewReadRepository editorDefinitionReadRepository, 
+        ILogger<FieldDefinitionViewGrain> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _fieldDefinitionReadRepository = fieldDefinitionReadRepository;
+        _fieldDefinitionViewWriteRepository = fieldDefinitionViewWriteRepository;
+        _editorDefinitionReadRepository = editorDefinitionReadRepository;
     }
 
     #region Implicit Subscription Management
@@ -57,27 +69,68 @@ public class FieldDefinitionViewGrain :
     }
     #endregion
 
-    private Task Handle(FieldDefinitionCreatedEvent @event)
+    private async Task Handle(FieldDefinitionCreatedEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionCreatedEvent)} handled.");
-        return Task.CompletedTask;
+        _logger.LogInformation($"{nameof(FieldDefinitionCreatedEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+
+        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+
+        if(result is null)
+        {
+            result = new Reach.Content.Views.FieldDefinitionView()
+            {
+                Id = @event.AggregateId
+            };
+        }
+
+        result.Name = @event.Name;
+        result.Key = @event.Key;
+        result.EditorDefinitionId = @event.EditorDefinitionId;
+        result.EditorDefinition = await _editorDefinitionReadRepository.Get(@event.EditorDefinitionId);
+        result.EditorParameters = @event.EditorParameters;
+
+        await _fieldDefinitionViewWriteRepository.Upsert(result);
     }
 
-    private Task Handle(FieldDefinitionDeletedEvent @event)
+    private async Task Handle(FieldDefinitionDeletedEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionDeletedEvent)} handled.");
-        return Task.CompletedTask;
+        _logger.LogInformation($"{nameof(FieldDefinitionDeletedEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+
+        await _fieldDefinitionViewWriteRepository.Delete(@event.AggregateId);
     }
 
-    private Task Handle(FieldDefinitionEditorSetEvent @event)
+    private async Task Handle(FieldDefinitionEditorSetEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionEditorSetEvent)} handled.");
-        return Task.CompletedTask;
+        _logger.LogInformation($"{nameof(FieldDefinitionEditorSetEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+
+        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+
+        if(result is null)
+        {
+            // TODO: Do what?
+            return;
+        }
+
+        result.EditorDefinitionId = @event.EditorDefinitionId;
+        result.EditorDefinition = await _editorDefinitionReadRepository.Get(@event.EditorDefinitionId);
+
+        await _fieldDefinitionViewWriteRepository.Upsert(result);
     }
 
-    private Task Handle(FieldDefinitionEditorParametersSetEvent @event)
+    private async Task Handle(FieldDefinitionEditorParametersSetEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionEditorParametersSetEvent)} handled.");
-        return Task.CompletedTask;
+        _logger.LogInformation($"{nameof(FieldDefinitionEditorParametersSetEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+
+        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+
+        if (result is null)
+        {
+            // TODO: Do what?
+            return;
+        }
+
+        result.EditorParameters = @event.EditorParameters;
+
+        await _fieldDefinitionViewWriteRepository.Upsert(result);
     }
 }
