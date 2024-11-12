@@ -11,7 +11,7 @@ var eventHubs = builder.AddAzureEventHubs("reach-event-hubs")
 var eventHubConnectionString = eventHubs.PublishAsConnectionString();
 
 /* Add Our Mongo Storage */
-var mongo = builder.AddMongoDB("reach-mongo");
+var mongo = builder.AddMongoDB("reach-mongo", 52296);
 
 /* Our Orleans Cluster & API */
 var storage = builder.AddAzureStorage("reach-cluster-storage").RunAsEmulator();

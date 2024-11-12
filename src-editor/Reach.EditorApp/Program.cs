@@ -8,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add our aspire hook
 builder.AddServiceDefaults();
 
+// Add our HTTP clients!
+// TODO: Move to Service Defaults
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://localhost:7208/"));
+builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()

@@ -1,6 +1,5 @@
 ﻿using Orleans.Streams;
 using Petl.EventSourcing;
-using Reach.Content.Events.Fields;
 
 namespace Reach.Silo.Content.Grains;
 

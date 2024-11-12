@@ -1,6 +1,5 @@
 ﻿using Reach.Content.Commands.Editors;
 using Reach.Content.Events.Editors;
-using Reach.Content.Events.Fields;
 using Reach.Content.Model;
 using Reach.Cqrs;
 

@@ -1,0 +1,21 @@
+meta {
+  name: Delete Editor Definition
+  type: http
+  seq: 4
+}
+
+post {
+  url: https://localhost:7208/api/editor-definitions/12064f90-0ee3-4f46-a820-c8dd12bed9cb/execute
+  body: json
+  auth: none
+}
+
+headers {
+  X-Command-Type: Reach.Content.Commands.Editors.DeleteEditorDefinitionCommand, Reach.Core
+}
+
+body:json {
+  {
+    aggregateId: "12064f90-0ee3-4f46-a820-c8dd12bed9cb"
+  }
+}

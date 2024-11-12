@@ -28,10 +28,31 @@
         </nav>
     </div>
 
-    <div class="resizer cursor-col-resize w-1 bg-gray-900"></div>
+    <div class="resizer cursor-col-resize w-1 bg-gray-900">
+    </div>
 
     @* Content *@
     <div class="flex-1 p-4">
-        <p class="mt-2">Welcome to your content editor.</p>
+        <TemplatedGrid Items="@_editorDefinitions">
+            <ColumnTemplate>
+                <Header>ID</Header>
+                <Cell>@context.Id</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Name</Header>
+                <Cell>@context.Name</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Editor</Header>
+                <Cell>@context.EditorType</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Parameters</Header>
+                <Cell>@context.Parameters.Count()</Cell>
+            </ColumnTemplate>
+        </TemplatedGrid>
     </div>
 </div>

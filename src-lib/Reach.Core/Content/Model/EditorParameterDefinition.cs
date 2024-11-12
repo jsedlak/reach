@@ -10,9 +10,12 @@ public class EditorParameterDefinition
     public string Name { get; set; } = null!;
 
     [Id(1)]
-    public string? Description { get; set; }
+    public string DisplayName { get; set; } = null!;
 
     [Id(2)]
+    public string? Description { get; set; }
+
+    [Id(3)]
     public EditorParameterType Type { get; set; }
 
 }

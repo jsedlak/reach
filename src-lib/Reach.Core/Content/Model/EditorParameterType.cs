@@ -8,25 +8,25 @@ public enum EditorParameterType
     /// <summary>
     /// Render the parameter as a textbox
     /// </summary>
-    Text,
+    Text = 0,
 
     /// <summary>
     /// Render the parameter as a number
     /// </summary>
-    Number,
+    Number = 1,
 
     /// <summary>
     /// Render as a date
     /// </summary>
-    Date,
+    Date = 2,
 
     /// <summary>
     /// Render as a date and time
     /// </summary>
-    DateTime,
+    DateTime = 3,
 
     /// <summary>
     /// Render as a checkbox
     /// </summary>
-    Boolean
+    Boolean = 4
 }
