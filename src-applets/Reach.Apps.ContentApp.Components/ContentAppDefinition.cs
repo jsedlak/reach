@@ -1,8 +1,11 @@
-﻿using Reach.Applets;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Reach.Applets;
+using Reach.Apps.ContentApp.Services;
 
 namespace Reach.Apps.ContentApp.Components;
 
-public static class ContentAppDefinition
+[AppletInitializer("Content")]
+public class ContentAppDefinition : IAppletInitializer
 {
     public static AppletDefinition Default => new()
     {
@@ -13,4 +16,16 @@ public static class ContentAppDefinition
         AppletComponentType = typeof(ContentEditor).AssemblyQualifiedName!,
         SettingsComponentType = typeof(ContentEditorSettings).AssemblyQualifiedName!
     };
+
+    public AppletDefinition CreateDefinition() => Default;
+
+    public void RegisterServer(IServiceCollection services)
+    {
+        services.AddScoped<EditorDefinitionService>();
+    }
+
+    public void RegisterClient(IServiceCollection services)
+    {
+        services.AddScoped<EditorDefinitionService>();
+    }
 }

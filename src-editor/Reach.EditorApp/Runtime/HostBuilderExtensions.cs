@@ -1,10 +1,12 @@
 ﻿using Auth0.AspNetCore.Authentication;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Applets;
 using Reach.EditorApp.Authentication;
 using Reach.EditorApp.ContextProviders;
 using Reach.Security;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace Reach.EditorApp.Runtime;
@@ -19,17 +21,44 @@ public static class HostExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static WebApplicationBuilder AddApplets(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddApplets(this WebApplicationBuilder builder, params Assembly[] assemblies)
     {
-        IEnumerable<AppletDefinition> applets = [
-            Apps.ContentApp.Components.ContentAppDefinition.Default,
-            Apps.PipelinesApp.Components.PipelinesAppDefinition.Default,
-            Apps.EndpointsApp.Components.EndpointsAppDefinition.Default
-        ];
+        var initializers = new List<IAppletInitializer>();
+
+        foreach(var assembly in assemblies)
+        {
+            // get all types that implement IAppletInitializer from the assembly and have the custom attribute AppletInitializer
+            var types = assembly.GetTypes()
+                .Where(t => 
+                    t.GetInterfaces().Contains(typeof(IAppletInitializer)) && 
+                    t.GetCustomAttribute<AppletInitializerAttribute>() != null
+                )
+                .DistinctBy(t => t.GetCustomAttribute<AppletInitializerAttribute>()!.Name);
+
+            if (types is null || !types.Any())
+            {
+                continue;
+            }
+
+            foreach(var initializerType in types)
+            {
+                // TODO: Do we need to check for empty constructor, throw error, or log?
+                var initializer = Activator.CreateInstance(initializerType) as IAppletInitializer;
+                if (initializer is null)
+                {
+                    continue;
+                }
+
+                // register custom services
+                initializer.RegisterServer(builder.Services);
+
+                initializers.Add(initializer);
+            }
+        }
 
         var ctx = new AppletContext
         {
-            Applets = applets
+            Applets = initializers.Select(i => i.CreateDefinition())
         };
 
         builder.Services.AddCascadingValue<AppletContext>(sp => ctx);

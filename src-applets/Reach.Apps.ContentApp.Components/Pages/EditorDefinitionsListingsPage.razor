@@ -1,0 +1,64 @@
+﻿@page "/apps/content/editor-definitions"
+@rendermode InteractiveWebAssembly
+@inherits ContentBasePage
+<ContentSublayout Title="Editor Definitions">
+    <Toolbar>
+        <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
+            @HeroIcons.SquaresPlus("inline-block mr-2")
+            <span>New Definition</span>
+        </Button>
+        <Button Clicked="@RefreshData" Type="ButtonType.PrimaryOutline">
+            @HeroIcons.ArrowUturnDown("inline-block")
+        </Button>
+    </Toolbar>
+    <Body>
+        <TemplatedGrid Items="@_editorDefinitions">
+            <ColumnTemplate>
+                <Header>ID</Header>
+                <Cell>@context.Id</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Name</Header>
+                <Cell>@context.Name</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Editor</Header>
+                <Cell>@context.EditorType</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Parameters</Header>
+                <Cell>@context.Parameters.Count()</Cell>
+            </ColumnTemplate>
+        </TemplatedGrid>
+
+
+        <Dialog Title="Create Editor Definitions" @bind-IsVisible="@_createContext.IsVisible">
+            <Content>
+                @if (_createContext.IsWaiting)
+                {
+                    <Spinner />
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <Label>Name</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <Label>Editor Type</Label>
+                        <SubLabel>A razor component reference that enables editing of data within the Reach platform.</SubLabel>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.EditorType" />
+                    </div>
+                }
+            </Content>
+            <Footer>
+                <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
+                <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
+            </Footer>
+        </Dialog>
+    </Body>
+</ContentSublayout>

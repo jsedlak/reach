@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Reach.Content.Commands.Editors;
 using Reach.Content.Model;
 using Reach.Content.Views;
+using Reach.Cqrs;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -41,6 +44,21 @@ public class EditorDefinitionService
         var factory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         _graphQlClient = factory.CreateClient("graphql");
         _apiClient = factory.CreateClient("api");
+    }
+
+    public async Task<CommandResponse> Create(CreateEditorDefinitionCommand command)
+    {
+        var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
+        content.Headers.Add("X-Command-Type", typeof(CreateEditorDefinitionCommand).AssemblyQualifiedName);
+
+        // TODO: Move this routing into a helper e.g. ExecuteCommandAsync(Constants.EditorDefinitionEndpoint, ...)
+        var response = await _apiClient.PostAsync(
+            $"api/editor-definitions/{command.AggregateId}/execute", 
+            content
+        );
+
+        return await response.Content.ReadFromJsonAsync<CommandResponse>(_jsonOptions) ?? 
+            new CommandResponse();
     }
 
     public async Task<IEnumerable<EditorDefinitionView>> GetEditorDefinitions(string? query = null)

@@ -1,6 +1,0 @@
-﻿@page "/apps/{*pageRoute}"
-@attribute [Authorize]
-@if(_componentType != null)
-{
-    <DynamicComponent Type="@_componentType" />
-}

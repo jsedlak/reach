@@ -22,7 +22,9 @@ builder.Services.AddRazorComponents()
 builder.AddAuth0WebApp();
 
 // Add our cascading contexts
-builder.AddApplets();
+builder.AddApplets(
+    typeof(Reach.Apps.ContentApp.Components.ContentEditor).Assembly
+);
 
 // Add our theming stuff
 builder.Services.AddTazorServer().Build();
@@ -58,6 +60,7 @@ app.UseAuth0();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly)
+    .AddAdditionalAssemblies(typeof(Reach.Apps.ContentApp.Components._Imports).Assembly);
 
 app.Run();
