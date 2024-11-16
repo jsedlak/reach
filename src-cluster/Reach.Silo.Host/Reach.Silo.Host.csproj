@@ -1,23 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspire.MongoDB.Driver" Version="8.2.2" />
+		<PackageReference Include="Aspire.MongoDB.Driver" Version="9.0.0" />
 		<PackageReference Include="HotChocolate" Version="14.1.0" />
 		<PackageReference Include="HotChocolate.AspNetCore" Version="14.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
-		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="8.2.2" />
-		<PackageReference Include="Aspire.Azure.Data.Tables" Version="8.2.2" />
-		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Orleans.Server" Version="8.2.0" />
-		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="8.2.0" />
-		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="8.2.0" />
-		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="8.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="9.0.0" />
+		<PackageReference Include="Aspire.Azure.Data.Tables" Version="9.0.0" />
+		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Orleans.Server" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Orleans.Streaming " Version="8.2.0" />
 		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
 		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.7" />
@@ -31,6 +31,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Conventions\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Orleans.Streaming" Version="9.0.0" />
 	</ItemGroup>
 
 </Project>
