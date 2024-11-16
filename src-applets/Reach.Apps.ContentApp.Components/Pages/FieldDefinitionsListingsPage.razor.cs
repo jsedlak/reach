@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
-using Reach.Apps.ContentApp.Services;
+﻿using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.Editors;
+using Reach.Content.Commands.Fields;
 using Reach.Content.Views;
 using Tazor.Components.Layout;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
-public partial class EditorDefinitionsListingsPage : ContentBasePage
+public partial class FieldDefinitionsListingsPage : ContentBasePage
 {
-    private IEnumerable<EditorDefinitionView> _editorDefinitions = [];
-    private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
+    private readonly FieldDefinitionService _fieldDefinitionService;
+    private IEnumerable<FieldDefinitionView> _fieldDefinitions = [];
 
-    public EditorDefinitionsListingsPage()
+    private DialogContext<CreateFieldDefinitionCommand> _createContext = new(() => { });
+
+    public FieldDefinitionsListingsPage(FieldDefinitionService fieldDefinitionService)
     {
         _createContext = new(StateHasChanged);
+        _fieldDefinitionService = fieldDefinitionService;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -29,12 +32,12 @@ public partial class EditorDefinitionsListingsPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _editorDefinitions = await EditorDefinitionService.GetEditorDefinitions();
+        _fieldDefinitions = await _fieldDefinitionService.GetFieldDefinitons();
     }
 
     private Task OnBeginCreateClicked()
     {
-        return _createContext.Open(new CreateEditorDefinitionCommand(Guid.NewGuid()));
+        return _createContext.Open(new CreateFieldDefinitionCommand(Guid.NewGuid()));
     }
 
     private Task OnCancelCreateClicked()
@@ -46,12 +49,9 @@ public partial class EditorDefinitionsListingsPage : ContentBasePage
     {
         await _createContext.Confirm(async (model) =>
         {
-            var result = await EditorDefinitionService.Create(model);
+            var result = await _fieldDefinitionService.Create(model);
 
             return (result.IsSuccess, []);
         });
     }
-
-    [Inject]
-    protected EditorDefinitionService EditorDefinitionService { get; set; } = null!;
 }

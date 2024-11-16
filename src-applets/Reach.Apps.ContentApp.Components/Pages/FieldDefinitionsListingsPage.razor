@@ -2,7 +2,61 @@
 @rendermode InteractiveWebAssembly
 @inherits ContentBasePage
 <ContentSublayout Title="Field Definitions">
+    <Toolbar>
+        <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
+            @HeroIcons.SquaresPlus("inline-block mr-2")
+            <span>New Definition</span>
+        </Button>
+        <Button Clicked="@RefreshData" Type="ButtonType.PrimaryOutline">
+            @HeroIcons.ArrowUturnDown("inline-block")
+        </Button>
+    </Toolbar>
     <Body>
-        <p>Field Definitions</p>
+        <TemplatedGrid Items="@_fieldDefinitions">
+            <ColumnTemplate>
+                <Header>ID</Header>
+                <Cell>@context.Id</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Name</Header>
+                <Cell>@context.Name</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Key</Header>
+                <Cell>@context.Key</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Editor Defn.</Header>
+                <Cell>@context.EditorDefinitionId</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Parameters</Header>
+                <Cell>@context.EditorParameters.Count()</Cell>
+            </ColumnTemplate>
+        </TemplatedGrid>
+
+        <Dialog Title="Create Field Definition" @bind-IsVisible="@_createContext.IsVisible" WindowClass="w-1/4">
+            <Content>
+                @if (_createContext.IsWaiting)
+                {
+                    <Spinner />
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <Label>Name</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
+                    </div>
+                }
+            </Content>
+            <Footer>
+                <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
+                <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
+            </Footer>
+        </Dialog>
     </Body>
 </ContentSublayout>

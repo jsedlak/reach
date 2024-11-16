@@ -38,7 +38,8 @@ var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsCon
 builder.Services
     .AddGraphQLServer()
     .AddQueryType(q => q.Name("Query"))
-    .AddType<EditorDefinitionQueries>();
+    .AddType<EditorDefinitionQueries>()
+    .AddType<FieldDefinitionQueries>();
 
 // Add Microsoft Orleans
 builder.UseOrleans(o =>

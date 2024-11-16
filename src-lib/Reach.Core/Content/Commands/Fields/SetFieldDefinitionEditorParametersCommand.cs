@@ -1,4 +1,5 @@
-﻿using Reach.Cqrs;
+﻿using Reach.Content.Model;
+using Reach.Cqrs;
 
 namespace Reach.Content.Commands.Fields;
 
@@ -11,5 +12,5 @@ public class SetFieldDefinitionEditorParametersCommand : AggregateCommand
     }
 
     [Id(0)]
-    public Dictionary<string, string> EditorParameters { get; set; } = new();
+    public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
 }

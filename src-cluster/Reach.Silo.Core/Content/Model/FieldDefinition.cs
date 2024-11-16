@@ -55,7 +55,7 @@ public class FieldDefinition
     /// <summary>
     /// Gets or Sets the set of parameters and values to pass to the editor component
     /// </summary>
-    public Dictionary<string, string> EditorParameters { get; set; } = new();
+    public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
 
     /// <summary>
     /// Gets or Sets whether this definition has been deleted

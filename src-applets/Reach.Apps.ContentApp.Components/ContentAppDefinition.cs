@@ -22,10 +22,12 @@ public class ContentAppDefinition : IAppletInitializer
     public void RegisterServer(IServiceCollection services)
     {
         services.AddScoped<EditorDefinitionService>();
+        services.AddScoped<FieldDefinitionService>();
     }
 
     public void RegisterClient(IServiceCollection services)
     {
         services.AddScoped<EditorDefinitionService>();
+        services.AddScoped<FieldDefinitionService>();
     }
 }

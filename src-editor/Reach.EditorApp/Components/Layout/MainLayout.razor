@@ -1,11 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <TopBar @rendermode="InteractiveServer" />
+<div class="page flex min-h-full">
+    <Sidebar />
 
-    <main>
-        @Body
-    </main>
+    <div class="flex flex-grow flex-col">
+        <Toolbar />
+
+        <div class="w-full">
+            <main class="p-6">
+                @Body
+            </main>
+        </div>
+    </div>
+    
 </div>
 
 <div id="blazor-error-ui">

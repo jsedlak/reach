@@ -1,4 +1,6 @@
-﻿namespace Reach.Content.Events.Fields;
+﻿using Reach.Content.Model;
+
+namespace Reach.Content.Events.Fields;
 
 [GenerateSerializer]
 public class FieldDefinitionEditorParametersSetEvent : BaseFieldDefinitionEvent
@@ -9,5 +11,5 @@ public class FieldDefinitionEditorParametersSetEvent : BaseFieldDefinitionEvent
     }
 
     [Id(0)]
-    public Dictionary<string, string> EditorParameters { get; set; } = new();
+    public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
 }
