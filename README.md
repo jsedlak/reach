@@ -2,6 +2,10 @@
 
 Reach is an open source, headless, composable content platform built on .NET/Blazor, Tailwind, Aspire, Microsoft Orleans, Mongo, EventHubs, Azure Storage and other associated technologies. It is an exploration in what a modern content management system would look like on .NET. Easily create and manage content, manage data sources and workflows, and expose data endpoints all from one web application. Develop or install custom applets that extend the ecosystem. Deploy locally or use a cloud hosted option.
 
+> Image is a just a concept of the intended design
+
+![Reach Content Platform](./doc/interface.png)
+
 ## Overview
 
 The core platform is built upon .NET and Microsoft Orleans, a framework for building modern distributed applications. Fields, Compnents and Content are exposed by the core platform and managed by Orleans. For example, every piece of Content is represented by an Event Sourced Grain, allowing for significant scalability while maintaining historical/change data.
