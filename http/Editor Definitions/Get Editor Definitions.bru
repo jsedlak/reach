@@ -1,0 +1,27 @@
+meta {
+  name: Get Editor Definitions
+  type: graphql
+  seq: 3
+}
+
+post {
+  url: https://localhost:7208/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  query {
+      editorDefinitions {
+          id
+          name
+          editorType
+          parameters {
+            name
+            displayName
+            description
+            type
+          }
+      }
+  }
+}

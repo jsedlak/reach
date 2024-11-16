@@ -1,0 +1,37 @@
+﻿<div class="flex">
+    @* Sidebar *@
+    <div class="w-64 bg-gray-800 text-white h-screen p-4 hidden lg:block min-w-64">
+        <nav class="space-y-2">
+            @foreach (var item in _navigationItems)
+            {
+                if (item.Href is null) { continue; }
+
+                var anchorClass = !IsPathMatched(item.Href) ?
+                "flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded" :
+                "flex items-center px-4 py-2 bg-indigo-600 text-gray-300 hover:bg-gray-700 rounded";
+
+                <a href="@item.Href" class="@anchorClass">
+                    @item.LeftIcon
+                    <span class="flex-shrink-1">@item.Text</span>
+                </a>
+            }
+        </nav>
+    </div>
+
+    <div class="resizer cursor-col-resize w-1 bg-gray-900">
+    </div>
+
+    @* Content *@
+    <div class="flex-1 p-4">
+        <div class="flex justify-between items-center mt-3 mb-3">
+            <h1 class="text-2xl font-semibold">@Title</h1>
+            @if (Toolbar is not null)
+            {
+                <div class="flex items-center space-x-2">
+                    @Toolbar
+                </div>
+            }
+        </div>
+        @Body
+    </div>
+</div>

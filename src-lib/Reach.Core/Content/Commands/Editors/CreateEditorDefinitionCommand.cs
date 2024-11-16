@@ -5,6 +5,11 @@ namespace Reach.Content.Commands.Editors;
 [GenerateSerializer]
 public class CreateEditorDefinitionCommand : AggregateCommand
 {
+    public CreateEditorDefinitionCommand()
+        : base(Guid.NewGuid())
+    {
+    }
+
     public CreateEditorDefinitionCommand(Guid aggregateId) 
         : base(aggregateId)
     {

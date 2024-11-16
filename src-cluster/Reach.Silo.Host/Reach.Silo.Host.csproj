@@ -8,6 +8,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Aspire.MongoDB.Driver" Version="8.2.2" />
+		<PackageReference Include="HotChocolate" Version="14.1.0" />
+		<PackageReference Include="HotChocolate.AspNetCore" Version="14.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
 		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="8.2.2" />
 		<PackageReference Include="Aspire.Azure.Data.Tables" Version="8.2.2" />
@@ -25,6 +27,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\Reach.Silo.Core\Reach.Silo.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Conventions\" />
 	</ItemGroup>
 
 </Project>

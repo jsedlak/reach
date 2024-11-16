@@ -8,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add our aspire hook
 builder.AddServiceDefaults();
 
+// Add our HTTP clients!
+// TODO: Move to Service Defaults
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://localhost:7208/"));
+builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
@@ -17,7 +22,9 @@ builder.Services.AddRazorComponents()
 builder.AddAuth0WebApp();
 
 // Add our cascading contexts
-builder.AddApplets();
+builder.AddApplets(
+    typeof(Reach.Apps.ContentApp.Components.ContentEditor).Assembly
+);
 
 // Add our theming stuff
 builder.Services.AddTazorServer().Build();
@@ -53,6 +60,7 @@ app.UseAuth0();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly)
+    .AddAdditionalAssemblies(typeof(Reach.Apps.ContentApp.Components._Imports).Assembly);
 
 app.Run();

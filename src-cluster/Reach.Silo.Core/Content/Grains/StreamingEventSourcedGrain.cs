@@ -1,6 +1,5 @@
 ﻿using Orleans.Streams;
 using Petl.EventSourcing;
-using Reach.Content.Events.Fields;
 
 namespace Reach.Silo.Content.Grains;
 
@@ -9,7 +8,7 @@ public abstract class StreamingEventSourcedGrain<TState, TEvent> : EventSourcedG
     where TEvent : class
 {
     private readonly string _streamId = null!;
-    private IAsyncStream<BaseFieldDefinitionEvent>? _eventStream;
+    private IAsyncStream<TEvent>? _eventStream;
 
     protected StreamingEventSourcedGrain(string streamId)
     {
@@ -24,7 +23,7 @@ public abstract class StreamingEventSourcedGrain<TState, TEvent> : EventSourcedG
         var streamId = StreamId.Create(_streamId, myId);
 
         // grab a ref to the stream using the stream id
-        _eventStream = streamProvider.GetStream<BaseFieldDefinitionEvent>(streamId);
+        _eventStream = streamProvider.GetStream<TEvent>(streamId);
 
         return base.OnActivateAsync(cancellationToken);
     }
