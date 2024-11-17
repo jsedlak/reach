@@ -3,6 +3,8 @@ using Reach.EditorApp.Runtime;
 using Tazor.Components;
 using Microsoft.AspNetCore.Authorization;
 using Reach.EditorApp.Security;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,6 @@ builder.AddServiceDefaults();
 
 // Add our HTTP clients!
 // TODO: Move to Service Defaults
-// builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://localhost:7208/"));
 builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
 

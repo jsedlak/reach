@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using Reach.Content.Commands.Editors;
 using Reach.Cqrs;
 using System.Net.Http.Headers;
@@ -19,8 +20,12 @@ public abstract class BaseService
         PropertyNameCaseInsensitive = true
     };
 
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
+
     protected BaseService(IServiceProvider serviceProvider)
     {
+        _authenticationStateProvider = serviceProvider.GetRequiredService<AuthenticationStateProvider>();
+
         var factory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         _graphQlClient = factory.CreateClient("graphql");
         _apiClient = factory.CreateClient("api");
@@ -29,7 +34,18 @@ public abstract class BaseService
     protected async Task<CommandResponse> ExecuteCommandAsync<TCommand>(string path, TCommand command)
         where TCommand : AggregateCommand
     {
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+        if (state == null)
+        {
+            throw new InvalidOperationException("You must be logged in to execute a command.");
+        }
+
+        _apiClient.SetAuthorization(state.User);
+
+        // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
+
         content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
 
         var response = await _apiClient.PostAsync(
@@ -43,12 +59,21 @@ public abstract class BaseService
 
     protected async Task<IEnumerable<TView>> QueryGraphAsync<TView>(string prop, string query)
     {
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+       
+        if(state == null)
+        {
+            throw new InvalidOperationException("You must be logged in to execute a graphql request.");
+        }
+
+        _graphQlClient.SetAuthorization(state.User);
+
+        // create and secure the request
+        query = JsonSerializer.Serialize(new { query });
+        var requestContent = new StringContent(query, mediaType: ApplicationJsonMediaType);
+
         // bundle up the graphql request
-        query = JsonSerializer.Serialize(new { query = query });
-        var result = await _graphQlClient.PostAsync(
-            "graphql/",
-            new StringContent(query, mediaType: ApplicationJsonMediaType)
-        );
+        var result = await _graphQlClient.PostAsync("graphql/", requestContent);
 
         // get the response body and parse it into json
         var contentString = await result.Content.ReadAsStringAsync();
@@ -77,3 +102,4 @@ public abstract class BaseService
 
     protected HttpClient GraphQlClient => _graphQlClient;
 }
+

@@ -23,7 +23,6 @@ public partial class Sidebar : ComponentBase
                 Items = [
                     new NavItem { Text = "Content", Href = "/apps/content", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Components", Href = "/apps/content/components", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
-                    new NavItem { Text = "Fields", Href = "/apps/content/fields", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Field Definitions", Href = "/apps/content/field-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Editor Definitions", Href = "/apps/content/editor-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Renderer Definitions", Href = "/apps/content/renderer-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },

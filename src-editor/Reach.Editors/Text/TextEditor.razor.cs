@@ -6,7 +6,7 @@ public partial class TextEditor : BaseEditor
 {
     private string _value = string.Empty;
     
-    public override Task OnValueSetAsync(string value)
+    protected override Task OnValueSetAsync(string value)
     {
         _value = value;
         return Task.CompletedTask;

@@ -21,13 +21,13 @@ public class ContentAppDefinition : IAppletInitializer
 
     public void RegisterServer(IServiceCollection services)
     {
-        services.AddScoped<EditorDefinitionService>();
-        services.AddScoped<FieldDefinitionService>();
+        services.AddTransient<EditorDefinitionService>();
+        services.AddTransient<FieldDefinitionService>();
     }
 
     public void RegisterClient(IServiceCollection services)
     {
-        services.AddScoped<EditorDefinitionService>();
-        services.AddScoped<FieldDefinitionService>();
+        services.AddTransient<EditorDefinitionService>();
+        services.AddTransient<FieldDefinitionService>();
     }
 }

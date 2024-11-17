@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.Editors;
 using Reach.Content.Views;
@@ -54,4 +55,8 @@ public partial class EditorDefinitionsListingsPage : ContentBasePage
 
     [Inject]
     protected EditorDefinitionService EditorDefinitionService { get; set; } = null!;
+
+    [Inject]
+
+    private AuthenticationStateProvider authenticationStateProvider { get; set; }
 }

@@ -1,11 +1,12 @@
 ﻿@page "/client-debug"
 @attribute [Authorize]
-@rendermode InteractiveAuto
+@rendermode InteractiveWebAssembly
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter for @username</h1>
 
+<p class="text-bold">@RendererInfo.Name (@(RendererInfo.IsInteractive ? "Interactive" : "Static"))</p>
 <ul>
     @foreach(var claim in claims)
     {
@@ -18,24 +19,50 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
+
     private int currentCount = 0;
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
+
+    [Inject]
+
+    private AuthenticationStateProvider authenticationStateProvider { get; set; }
 
     private string username = "";
     private IEnumerable<string> claims = [];
 
     protected override async Task OnInitializedAsync()
     {
-        if (authenticationState is not null)
-        {
-            var state = await authenticationState;
-            username = state?.User?.Identity?.Name ?? "uh oh";
-            claims = state?.User.Claims.Select(m => m.ToString()) ?? [];
-        }
+
         await base.OnInitializedAsync();
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (authenticationState is not null)
+        {
+
+            // var state = await authenticationState;
+            // username = state?.User?.Identity?.Name ?? "uh oh";
+            // claims = state?.User.Claims.Select(m => m.ToString()) ?? [];
+
+            // StateHasChanged();
+        }
+
+
+
+        var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+        username = state?.User?.Identity?.Name ?? "uh oh";
+        claims = state?.User.Claims.Select(m => m.ToString()) ?? [];
+
+        foreach(var claim in claims) {
+            Console.WriteLine($"{claim}");
+        }
+    }
+
 
     private void IncrementCount()
     {
