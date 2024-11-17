@@ -97,7 +97,8 @@ public static class HostExtensions
         });
 
         builder.Services.AddCascadingAuthenticationState();
-        builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+        // builder.Services.AddAuthenticationStateSerialization();
+        // builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 
         return builder;
     }

@@ -1,6 +1,7 @@
 ﻿@page "/apps/content/editor-definitions"
 @rendermode InteractiveWebAssembly
 @inherits ContentBasePage
+@attribute [TenantRequired]
 <ContentSublayout Title="Editor Definitions">
     <Toolbar>
         <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">

@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Reach.EditorApp.Client.Authentication;
-using Reach.Membership.Views;
 
 namespace Reach.EditorApp.Client.Components.Layout;
 
 public partial class Toolbar : ComponentBase
 {
-    private UserContext _userContext = new UserContext();
+    private UserContext _userContext = new UserContext("","","");
 
     protected override async Task OnInitializedAsync()
     {
