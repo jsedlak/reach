@@ -1,4 +1,6 @@
-﻿namespace Reach.Content.Views;
+﻿using Reach.Content.Model;
+
+namespace Reach.Content.Views;
 
 public class FieldDefinitionView
 {
@@ -10,7 +12,7 @@ public class FieldDefinitionView
 
     public Guid EditorDefinitionId { get; set; }
 
-    public Dictionary<string, string> EditorParameters { get; set; } = new();
+    public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
 
-    public EditorDefinitionView EditorDefinition { get; set; } = new();
+    public EditorDefinitionView? EditorDefinition { get; set; } = new();
 }

@@ -19,7 +19,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
             Name = command.Name,
             Key = command.Name.ToSlug(),
             EditorDefinitionId = command.EditorDefinitionId,
-            EditorParameters = new Dictionary<string, string>()
+            EditorParameters = Array.Empty<EditorParameter>()
         });
 
         return new CommandResponse()

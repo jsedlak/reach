@@ -11,52 +11,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,100..900;1,100..900&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          darkMode: 'selector'
+        }
+    </script>
 
     <link rel="stylesheet" href="app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
 </head>
 
-<body class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-full h-full max-w-full overflow-x-hidden">
+<body class="bg-white text-gray-800 dark:bg-gray-700 dark:text-white w-full h-full max-w-full overflow-x-hidden">
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script src="/_content/Tazor.Components/prism.js" data-manual></script>
     <script src="_content/Tazor.Components/tazor.js"></script>
-    <script>
-        document.addEventListener('mousedown', function(event) {
-            console.log('click detected');
-
-            if(!event.target || !event.target.matches('.resizer')) {
-                return;
-            }
-
-            event.preventDefault();
-
-            console.log('resizer click detected');
-
-            const resizer = event.target;
-            const resizable = event.target.previousElementSibling;
-
-            const startX = event.clientX;
-            const startWidth = resizable.offsetWidth;
-
-            function onMouseMove(e) {
-                const newWidth = startWidth + (e.clientX - startX);
-                resizable.style.width = newWidth + 'px';
-            }
-
-            function onMouseUp() {
-                console.log('onMouseUp');
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-                document.removeEventListener('dragend', onMouseUp);
-            }
-
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-            document.addEventListener('dragend', onMouseUp);
-        });
-    </script>
+    <script src="~/app.js"></script>
 </body>
 
 </html>
