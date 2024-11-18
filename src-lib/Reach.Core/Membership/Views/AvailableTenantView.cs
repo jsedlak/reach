@@ -10,4 +10,6 @@ public class AvailableTenantView
     public string Name { get; set; } = string.Empty;
 
     public string IconUrl { get; set; } = string.Empty;
+
+    public string RegionId { get; set; } = string.Empty;
 }

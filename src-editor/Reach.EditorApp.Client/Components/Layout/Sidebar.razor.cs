@@ -16,7 +16,7 @@ public partial class Sidebar : ComponentBase
         _navigation.LocationChanged += (_, __) => { StateHasChanged(); };
 
         _items = [
-            new NavItem { Text = "Dashboard", Href = "/", LeftIcon = HeroIcons.ChartBar(widthAndHeight: "size-4")},
+            new NavItem { Text = "Dashboard", Href = "/dashboard", LeftIcon = HeroIcons.ChartBar(widthAndHeight: "size-4")},
             new NavGroup {
                 Title = "Content",
                 Icon = HeroIcons.DocumentMagnifyingGlass(widthAndHeight: "size-4"),

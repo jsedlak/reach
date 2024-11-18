@@ -17,6 +17,8 @@ builder.AddApplets(
     typeof(Reach.Apps.ContentApp.Components.ContentEditor).Assembly
 );
 
+Console.WriteLine(builder.Configuration.GetDebugView());
+
 // Add our HTTP clients!
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://localhost:7208/"));
 builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));

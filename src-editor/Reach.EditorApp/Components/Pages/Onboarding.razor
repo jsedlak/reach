@@ -1,0 +1,87 @@
+﻿@page "/onboarding"
+@layout GlobalCenteredLayout
+
+<div class="bg-gradient-to-br from-gray-900 to-indigo-800 shadow-xl rounded-lg border border-gray-200 p-2"
+     style="max-width: 50%">
+    <div class="px-10 py-3 text-white text-center mb-3 font-bold text-2xl">
+        Welcome to Reach!
+    </div>
+    <div class="p-10 bg-white rounded-lg">
+        <p class="leading-loose mb-4">
+            Let's create your first tenant, so that you can start creating
+            content! Every tenant lives within a single region. You may
+            select replication regions once the tenant has been created.
+        </p>
+
+        <div class="mb-2">
+            <div class="font-bold mb-1">Tenant Name</div>
+            <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
+                   value="blanco mac n cheese" />
+        </div>
+
+        <div class="mb-2">
+            <div class="font-bold mb-1">Region</div>
+            <select class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full">
+                <option selected>US East</option>
+                <option>US West</option>
+                <option>Europe</option>
+                <option>Asia</option>
+            </select>
+        </div>
+
+        <div class="mb-2">
+            <div class="font-bold mb-1">Slug</div>
+            <div class="relative">
+                <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
+                       value="blanco" />
+                <div class="absolute right-2 top-2 text-green-400">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         class="size-6">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+                <div class="text-xs opacity-75">
+                    https://eus.reachcms.io/v1/blanco
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 flex items-bottom justify-between">
+            <a href="#"
+               class="opacity-75 underline text-xs flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="currentColor"
+                     class="size-6">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+
+                <span>Skip onboarding...</span>
+            </a>
+            <a href="#"
+               class="border border-indigo-600 text-indigo-600 transition-all hover:bg-indigo-600 hover:text-white rounded-lg py-2 px-3 flex items-center gap-2">
+                Create
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="currentColor"
+                     class="size-6">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>

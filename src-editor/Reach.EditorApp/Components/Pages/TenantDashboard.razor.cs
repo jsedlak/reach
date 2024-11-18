@@ -2,7 +2,6 @@
 
 namespace Reach.EditorApp.Components.Pages;
 
-public partial class Home : ComponentBase
+public partial class TenantDashboard : ComponentBase
 {
-    
 }

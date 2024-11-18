@@ -43,6 +43,7 @@ var silo = builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
 
 /* Add Our Editor Application */
 builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
+    .WithReference(silo)
     .WaitFor(mongo)
     .WaitFor(silo);
 

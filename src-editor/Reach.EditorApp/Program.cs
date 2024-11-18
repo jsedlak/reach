@@ -17,8 +17,8 @@ builder.AddServiceDefaults();
 
 // Add our HTTP clients!
 // TODO: Move to Service Defaults
-builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://localhost:7208/"));
-builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://reach-silo/")).AddServiceDiscovery();
+builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://reach-silo/")).AddServiceDiscovery();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -39,6 +39,8 @@ builder.AddApplets(
 
 // Add our theming stuff
 builder.Services.AddTazorServer().Build();
+
+Console.WriteLine(builder.Configuration.GetDebugView());
 
 /* #################################### */
 /* EXECUTE THE APPLICATION              */
