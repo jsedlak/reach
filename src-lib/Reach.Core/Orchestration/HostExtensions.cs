@@ -19,10 +19,14 @@ public static class HostExtensions
     public static IServiceCollection WithDelegatedRegionUrls(
         this IServiceCollection services,
         Func<Region, string> apiBaseUrlCallback,
-        Func<Region, string> graphBaseUrlCallback)
+        Func<Region, string> graphBaseUrlCallback,
+        Func<Region, string> tenantBaseUrlCallback)
     {
         return services.AddScoped<IRegionUrlFormatter, DelegatingRegionUrlFormatter>(sp =>
-            new DelegatingRegionUrlFormatter(apiBaseUrlCallback, graphBaseUrlCallback)
+            new DelegatingRegionUrlFormatter(
+                apiBaseUrlCallback, 
+                graphBaseUrlCallback,
+                tenantBaseUrlCallback)
         );
     }
 

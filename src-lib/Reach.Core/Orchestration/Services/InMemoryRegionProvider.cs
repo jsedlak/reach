@@ -14,7 +14,7 @@ public sealed class InMemoryRegionProvider : IRegionProvider
         foreach (var region in regions)
         {
             region.ApiUrl = formatter.GetApiBaseUrl(region);
-            region.GraphUrl = formatter.GetApiBaseUrl(region);
+            region.GraphUrl = formatter.GetGraphBaseUrl(region);
         }
     }
 

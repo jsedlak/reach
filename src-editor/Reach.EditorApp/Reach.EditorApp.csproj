@@ -8,9 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.Azure.Data.Tables" Version="9.0.0" />
+		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="9.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
 		<PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.1" />
+		<PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.0.0" />
 		<PackageReference Include="Tazor.Components" Version="0.0.30" />
+		<PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,6 +23,7 @@
 	  <ProjectReference Include="..\..\src-applets\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj" />
 	  <ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
 	  <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+	  <ProjectReference Include="..\..\src-lib\Reach.Membership.AzureTables\Reach.Membership.AzureTables.csproj" />
 	  <ProjectReference Include="..\..\src-lib\Reach.Security\Reach.Security.csproj" />
 	  <ProjectReference Include="..\Reach.EditorApp.Client\Reach.EditorApp.Client.csproj" />
 	  <ProjectReference Include="..\Reach.EditorApp.Core\Reach.EditorApp.Core.csproj" />

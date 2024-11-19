@@ -8,4 +8,6 @@ public interface IRegionUrlFormatter
     string GetApiBaseUrl(Region region);
 
     string GetGraphBaseUrl(Region region);
+
+    string GetTenantBaseUrl(Region region);
 }

@@ -1,0 +1,63 @@
+﻿using Microsoft.AspNetCore.Components;
+using Reach.EditorApp.Client.Services;
+using Reach.Membership.Model;
+using Reach.Membership.Views;
+using Reach.Orchestration.Model;
+
+namespace Reach.EditorApp.Client.Pages;
+
+public partial class Onboarding : ComponentBase
+{
+    private readonly HttpTenantService _tenantService;
+    private readonly HttpRegionService _regionService;
+    private readonly NavigationManager _navigation;
+
+    private IEnumerable<Region> _regions = [];
+
+    private bool _isProcessing = false;
+    private Tenant _model = new() { PartitionKey = "", RowKey = "" };
+    private string? _errorMessage = null;
+
+    public Onboarding(
+        HttpTenantService tenantService, 
+        HttpRegionService regionService,
+        NavigationManager navigationManager)
+    {
+        _tenantService = tenantService ?? throw new ArgumentNullException(nameof(tenantService));
+        _regionService = regionService ?? throw new ArgumentNullException(nameof(regionService));
+        _navigation = navigationManager;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(firstRender)
+        {
+            _regions = await _regionService.GetAllRegionsAsync();
+            StateHasChanged();
+        }
+    }
+
+    private async Task BeginCreate()
+    {
+        _errorMessage = null;
+        _isProcessing = true;
+        StateHasChanged();
+
+        _model.OwnerIdentifier = "DUMMY";
+        var result = await _tenantService.CreateAsync(_model);
+
+        if(result.IsSuccess)
+        {
+            _navigation.NavigateTo("/");
+        }
+        else
+        {
+            _errorMessage = "Could not create the tenant!";
+        }
+
+        _isProcessing = false;
+        StateHasChanged();
+    }
+}

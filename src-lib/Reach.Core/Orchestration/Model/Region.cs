@@ -11,4 +11,6 @@ public class Region
     public string ApiUrl { get; set; } = null!;
 
     public string GraphUrl { get; set; } = null!;
+
+    public string TenantUrl { get; set; } = null!;
 }

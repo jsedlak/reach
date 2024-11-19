@@ -3,9 +3,11 @@
 <div class="page flex min-h-full flex-col">
     <TopBar />
 
-    <main class="flex-grow h-full w-full flex flex-col justify-center items-center">
-        @Body
-    </main>
+    <div class="flex-grow flex flex-col">
+        <main class="w-full p-6">
+            @Body
+        </main>
+    </div>
 </div>
 
 <div id="blazor-error-ui">
@@ -14,6 +16,6 @@
     <a class="dismiss">🗙</a>
 </div>
 @code {
-    [CascadingParameter]
-    public AppletContext AppletContext { get; set; } = null!;
+    // [CascadingParameter]
+    // public AppletContext AppletContext { get; set; } = null!;
 }

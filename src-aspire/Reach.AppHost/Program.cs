@@ -20,6 +20,7 @@ var storage = builder.AddAzureStorage("reach-cluster-storage")
 var grainStorage = storage.AddBlobs("grain-state");
 var streamingStorage = storage.AddTables("streaming");
 var cluster = storage.AddTables("clustering");
+var tenantStorage = storage.AddTables("tenant-storage");
 
 var orleans = builder.AddOrleans("reach-cluster")
     .WithClusterId("reach")
@@ -44,6 +45,7 @@ var silo = builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
 /* Add Our Editor Application */
 builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
     .WithReference(silo)
+    .WithReference(tenantStorage)
     .WaitFor(mongo)
     .WaitFor(silo);
 

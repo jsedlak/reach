@@ -3,8 +3,11 @@ using Reach.EditorApp.Runtime;
 using Tazor.Components;
 using Microsoft.AspNetCore.Authorization;
 using Reach.EditorApp.Security;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.AspNetCore.Components.Authorization;
+using Reach.Orchestration;
+using Reach.Orchestration.Model;
+using Reach.Membership.ServiceModel;
+using Reach.Membership.Services;
+using Reach.EditorApp.Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +17,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add our aspire hook
 builder.AddServiceDefaults();
+builder.Services.AddHttpForwarderWithServiceDiscovery();
+
+// grab storage provideer
+//builder.AddAzureTableClient("tenant-storage", settings => settings.)
+builder.AddKeyedAzureTableClient("tenant-storage");
+
+// Add multi-tenancy support!
+// TODO: Figure out how we can pass the cluster endpoint dynamically
+builder.Services.WithInMemoryRegions(new Region { Id = Guid.Empty, Name = "Global", Key = "global" });
+builder.Services.WithPathRegionUrls("https://localhost:7208/", "api", "graphql");
+builder.Services.AddScoped<ITenantRepository, AzureTablesTenantRepository>();
 
 // Add our HTTP clients!
 // TODO: Move to Service Defaults
+builder.Services.AddHttpClient("global", client => client.BaseAddress = new Uri("https://reach-silo/")).AddServiceDiscovery();
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("https://reach-silo/")).AddServiceDiscovery();
 builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://reach-silo/")).AddServiceDiscovery();
 
@@ -26,11 +41,18 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents()
     .AddAuthenticationStateSerialization(options => options.SerializeAllClaims = true);
 
+builder.Services.AddControllers();
+
 // Configure authentication
 builder.AddAuth0WebApp();
 
+// Configure authorization
 builder.Services.AddAuthorization();
 builder.Services.AddSingleton<IAuthorizationHandler, TenantAuthorizationHandler>();
+
+// Add our repositories
+builder.Services.AddScoped<HttpTenantService>();
+builder.Services.AddScoped<HttpRegionService>();
 
 // Add our cascading contexts
 builder.AddApplets(
@@ -72,5 +94,12 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Reach.EditorApp.Client._Imports).Assembly)
     .AddAdditionalAssemblies(typeof(Reach.Apps.ContentApp.Components._Imports).Assembly);
+
+app.MapControllers();
+
+// TODO: Formalize into an extension (MapClusterProxy)
+// TODO: Make optional!!
+app.MapForwarder("/api", "https://reach-silo/api").RequireAuthorization();
+app.MapForwarder("/graphql", "https://reach-silo/graphql").RequireAuthorization();
 
 app.Run();
