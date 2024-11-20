@@ -1,20 +1,33 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using Reach.Apps.ContentApp.Services;
+using Reach.Components.Context;
 using Reach.Content.Commands.Editors;
 using Reach.Content.Views;
+using Reach.Membership.Views;
+using Reach.Security;
 using Tazor.Components.Layout;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
-public partial class EditorDefinitionsListingsPage : ContentBasePage
+[TenantRequired]
+public partial class EditorDefinitionListingPage : ContentBasePage
 {
+    private readonly ITenantContext? _tenantContext;
+
     private IEnumerable<EditorDefinitionView> _editorDefinitions = [];
+
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
 
-    public EditorDefinitionsListingsPage()
+    private AvailableTenantView? _tenant;
+
+    public EditorDefinitionListingPage(EditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
     {
+        EditorDefinitionService = editorDefinitionService;
+
         _createContext = new(StateHasChanged);
+
+        _tenantContext = serviceProvider.GetRequiredService<ITenantContext>();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -31,6 +44,7 @@ public partial class EditorDefinitionsListingsPage : ContentBasePage
     private async Task RefreshData()
     {
         _editorDefinitions = await EditorDefinitionService.GetEditorDefinitions();
+        _tenant = await _tenantContext.GetCurrentTenant();
     }
 
     private Task OnBeginCreateClicked()
@@ -53,10 +67,5 @@ public partial class EditorDefinitionsListingsPage : ContentBasePage
         });
     }
 
-    [Inject]
-    protected EditorDefinitionService EditorDefinitionService { get; set; } = null!;
-
-    [Inject]
-
-    private AuthenticationStateProvider authenticationStateProvider { get; set; }
+    private EditorDefinitionService EditorDefinitionService { get; }
 }

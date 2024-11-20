@@ -3,6 +3,7 @@ using Reach.EditorApp.Client.Services;
 using Reach.Membership.Model;
 using Reach.Membership.Views;
 using Reach.Orchestration.Model;
+using Reach.Orchestration.ServiceModel;
 
 namespace Reach.EditorApp.Client.Pages;
 
@@ -11,6 +12,7 @@ public partial class Onboarding : ComponentBase
     private readonly HttpTenantService _tenantService;
     private readonly HttpRegionService _regionService;
     private readonly NavigationManager _navigation;
+    private readonly IRegionUrlFormatter _regionUrlFormatter;
 
     private IEnumerable<Region> _regions = [];
 
@@ -21,11 +23,13 @@ public partial class Onboarding : ComponentBase
     public Onboarding(
         HttpTenantService tenantService, 
         HttpRegionService regionService,
-        NavigationManager navigationManager)
+        NavigationManager navigationManager,
+        IRegionUrlFormatter regionUrlFormatter)
     {
-        _tenantService = tenantService ?? throw new ArgumentNullException(nameof(tenantService));
-        _regionService = regionService ?? throw new ArgumentNullException(nameof(regionService));
+        _tenantService = tenantService;
+        _regionService = regionService;
         _navigation = navigationManager;
+        _regionUrlFormatter = regionUrlFormatter;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

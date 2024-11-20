@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Reach.Components;
 
 namespace Reach.EditorApp.Components.Pages;
 
-public partial class TenantDashboard : ComponentBase
+public partial class TenantDashboard : BaseTenantComponent
 {
-    [Parameter]
-    public string TenantSlug { get; set; } = string.Empty;
 }

@@ -6,11 +6,11 @@ namespace Reach.Orchestration.Services;
 public class PathBasedRegionUrlFormatter : IRegionUrlFormatter
 {
     private readonly string _format;
-    private readonly string _apiRoute = "/v1/api";
-    private readonly string _graphRoute = "/v1/graph";
+    private readonly string _apiRoute;
+    private readonly string _graphRoute;
 
     public PathBasedRegionUrlFormatter(
-        string format, 
+        string format,
         string apiRoute = "/v1/api", 
         string graphRoute = "/v1/graph")
     {
@@ -34,8 +34,8 @@ public class PathBasedRegionUrlFormatter : IRegionUrlFormatter
         return $"{_format}{_graphRoute}".ToLower().Replace("{region}", region.Key.ToLower());
     }
 
-    public string GetTenantBaseUrl(Region region)
+    public string GetTenantBaseUrl(Region region, string tenantSlug = "")
     {
-        return $"{_format}".ToLower().Replace("{region}", region.Key.ToLower());
+        return $"{_format}/app/{tenantSlug}".ToLower().Replace("{region}", region.Key.ToLower());
     }
 }

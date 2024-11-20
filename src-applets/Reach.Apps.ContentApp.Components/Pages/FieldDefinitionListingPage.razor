@@ -1,8 +1,7 @@
-﻿@page "/apps/content/editor-definitions"
-@rendermode InteractiveWebAssembly
+﻿@page "/app/{tenantSlug}/content/field-definitions"
 @inherits ContentBasePage
-@attribute [TenantRequired]
-<ContentSublayout Title="Editor Definitions">
+@rendermode InteractiveWebAssembly
+<ContentSublayout Title="Field Definitions">
     <Toolbar>
         <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
             @HeroIcons.SquaresPlus("inline-block mr-2")
@@ -13,7 +12,7 @@
         </Button>
     </Toolbar>
     <Body>
-        <TemplatedGrid Items="@_editorDefinitions">
+        <TemplatedGrid Items="@_fieldDefinitions">
             <ColumnTemplate>
                 <Header>ID</Header>
                 <Cell>@context.Id</Cell>
@@ -25,18 +24,22 @@
             </ColumnTemplate>
 
             <ColumnTemplate>
-                <Header>Editor</Header>
-                <Cell>@context.EditorType</Cell>
+                <Header>Key</Header>
+                <Cell>@context.Key</Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Editor Defn.</Header>
+                <Cell>@context.EditorDefinitionId</Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
                 <Header>Parameters</Header>
-                <Cell>@context.Parameters.Count()</Cell>
+                <Cell>@context.EditorParameters.Count()</Cell>
             </ColumnTemplate>
         </TemplatedGrid>
 
-
-        <Dialog Title="Create Editor Definitions" @bind-IsVisible="@_createContext.IsVisible">
+        <Dialog Title="Create Field Definition" @bind-IsVisible="@_createContext.IsVisible" WindowClass="w-1/4">
             <Content>
                 @if (_createContext.IsWaiting)
                 {
@@ -47,12 +50,6 @@
                     <div class="mb-3">
                         <Label>Name</Label>
                         <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                    </div>
-
-                    <div class="mb-3">
-                        <Label>Editor Type</Label>
-                        <SubLabel>A razor component reference that enables editing of data within the Reach platform.</SubLabel>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.EditorType" />
                     </div>
                 }
             </Content>

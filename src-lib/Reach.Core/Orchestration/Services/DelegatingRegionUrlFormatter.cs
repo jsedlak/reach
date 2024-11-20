@@ -7,11 +7,11 @@ public class DelegatingRegionUrlFormatter : IRegionUrlFormatter
 {
     private readonly Func<Region, string> _apiBaseUrlCallback;
     private readonly Func<Region, string> _graphBaseUrlCallback;
-    private readonly Func<Region, string> _tenantBaseUrlCallback;
+    private readonly Func<Region, string, string> _tenantBaseUrlCallback;
 
     public DelegatingRegionUrlFormatter(Func<Region, string> getApiBaseUrl, 
         Func<Region, string> getGraphBaseUrl,
-        Func<Region, string> getTenantBaseUrl)
+        Func<Region, string, string> getTenantBaseUrl)
     {
         _apiBaseUrlCallback = getApiBaseUrl;
         _graphBaseUrlCallback = getGraphBaseUrl;
@@ -28,8 +28,8 @@ public class DelegatingRegionUrlFormatter : IRegionUrlFormatter
         return _graphBaseUrlCallback(region);
     }
 
-    public string GetTenantBaseUrl(Region region)
+    public string GetTenantBaseUrl(Region region, string tenantSlug = "")
     {
-        return _tenantBaseUrlCallback(region);
+        return _tenantBaseUrlCallback(region, tenantSlug);
     }
 }

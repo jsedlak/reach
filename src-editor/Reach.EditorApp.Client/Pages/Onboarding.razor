@@ -3,12 +3,13 @@
 @rendermode InteractiveWebAssembly
 
 <div class="bg-gradient-to-br from-gray-900 to-indigo-800 shadow-xl rounded-lg border border-gray-200 p-2"
-style="max-width: 50%">
+     style="max-width: 50%">
     <div class="px-10 py-3 text-white text-center mb-3 font-bold text-2xl">
         Welcome to Reach!
     </div>
     <div class="p-10 bg-white rounded-lg">
-        @if(_errorMessage is not null) {
+        @if (_errorMessage is not null)
+        {
             <Alert Type="AlertType.Error" Title="Error Creating Tenant">
                 <Content>
                     @_errorMessage
@@ -25,15 +26,16 @@ style="max-width: 50%">
         <div class="mb-2">
             <div class="font-bold mb-1">Tenant Name</div>
             <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-            @bind="@_model.Name" />
+                   @bind="@_model.Name" />
         </div>
 
         <div class="mb-2">
             <div class="font-bold mb-1">Region</div>
             <select @bind="@_model.RegionId"
-            class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full">
+                    class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full">
                 <option value="">Please select a region...</option>
-                @foreach(var region in _regions) {
+                @foreach (var region in _regions)
+                {
                     <option value="@region.Key">@region.Name (@region.Key)</option>
                 }
             </select>
@@ -43,24 +45,33 @@ style="max-width: 50%">
             <div class="font-bold mb-1">Slug</div>
             <div class="relative">
                 <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-                @bind="@_model.Slug" />
+                       @bind="@_model.Slug" />
                 <div class="absolute right-2 top-2 text-green-400">
                     <svg xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6">
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         class="size-6">
                         <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              stroke-linejoin="round"
+                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                 </div>
                 <div class="text-xs opacity-75">
                     @{
-                        var regionSlug = _regions.FirstOrDefault(m => m.Key == _model.RegionId)?.Key ?? "";
+                        var selectedRegion = _regions.FirstOrDefault(m => m.Key == _model.RegionId);
                     }
-                    https://@(regionSlug).reachcms.io/v1/@(_model.Slug)
+                    @if (selectedRegion != null)
+                    {
+                        <span>
+                            @_regionUrlFormatter.GetTenantBaseUrl(selectedRegion, _model.Slug)
+                        </span>
+                    }
+                    else
+                    {
+                        <span>&nbsp;</span>
+                    }
                 </div>
             </div>
         </div>

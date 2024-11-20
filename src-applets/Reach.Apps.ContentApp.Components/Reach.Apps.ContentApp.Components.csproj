@@ -18,10 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Security\Reach.Security.csproj" />
     <ProjectReference Include="..\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj" />

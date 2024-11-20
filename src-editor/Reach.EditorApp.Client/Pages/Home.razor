@@ -16,8 +16,14 @@
 
 <!-- ACTUAL TENANTS YAY -->
 <div class="my-10">
+    <div class="flex items-center justify-between">
+        <h1 class="text-4xl">Your Tenants</h1>
+        <Button Type="ButtonType.Primary">
+            @HeroIcons.SquaresPlus("inline-block mr-2") Create Tenant
+        </Button>
+    </div>
     <div class="my-3 grid grid-cols-4 gap-4">
-        @foreach(var tenant in _tenants) 
+        @foreach (var tenant in _tenants)
         {
             <div class="border border-gray-200 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative">
                 <div class="absolute right-2 top-2">
@@ -33,13 +39,13 @@
                     </svg>
                 </div>
                 <a class="flex items-center gap-4"
-                    href="@(tenant.TenantUrl)">
+                   href="@(_regionUrlFormatter.GetTenantBaseUrl(tenant.Region, tenant.Slug))">
                     <div class="">
                         <img src="@tenant.IconUrl" class="rounded-lg w-10" />
                     </div>
                     <div>
                         <div class="font-bold flex items-center gap-2">
-                            @tenant.Name 
+                            @tenant.Name
                         </div>
                         <div class="opacity-75 text-sm">@tenant.Region.Name</div>
                     </div>
@@ -48,7 +54,7 @@
         }
     </div>
 </div>
-
+@* 
 <!-- FAVORITES -->
 <div class="my-10">
     <h1 class="text-4xl">Favorited Tenants</h1>
@@ -351,4 +357,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@

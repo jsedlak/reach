@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Reach.Apps.ContentApp.Services;
-using Reach.Content.Views;
+using Microsoft.AspNetCore.Components.Authorization;
+using Reach.Components;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
-public abstract class ContentBasePage : ComponentBase
+public abstract class ContentBasePage : BaseTenantComponent
 {
     [Inject]
-    protected IServiceProvider ServiceProvider { get; set; } = null!;
+    protected AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 }

@@ -8,6 +8,10 @@ using Reach.Orchestration.Model;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Services;
 using Reach.EditorApp.Client.Services;
+using Reach.Apps.ContentApp.Components.Pages;
+using Microsoft.AspNetCore.Components;
+using Reach.Components.Context;
+using Reach.Membership.Views;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,13 +54,21 @@ builder.AddAuth0WebApp();
 builder.Services.AddAuthorization();
 builder.Services.AddSingleton<IAuthorizationHandler, TenantAuthorizationHandler>();
 
+builder.Services.AddScoped<ITenantContext, TenantContext>(sp =>
+{
+    return new TenantContext(
+        () => Task.FromResult((IEnumerable<AvailableTenantView>)[]),
+        sp.GetRequiredService<NavigationManager>()
+    );
+});
+
 // Add our repositories
 builder.Services.AddScoped<HttpTenantService>();
 builder.Services.AddScoped<HttpRegionService>();
 
 // Add our cascading contexts
 builder.AddApplets(
-    typeof(Reach.Apps.ContentApp.Components.ContentEditor).Assembly
+    typeof(ContentEditorPage).Assembly
 );
 
 // Add our theming stuff
@@ -98,7 +110,6 @@ app.MapRazorComponents<App>()
 app.MapControllers();
 
 // TODO: Formalize into an extension (MapClusterProxy)
-// TODO: Make optional!!
 app.MapForwarder("/api", "https://reach-silo/api").RequireAuthorization();
 app.MapForwarder("/graphql", "https://reach-silo/graphql").RequireAuthorization();
 

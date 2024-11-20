@@ -9,5 +9,5 @@ public interface IRegionUrlFormatter
 
     string GetGraphBaseUrl(Region region);
 
-    string GetTenantBaseUrl(Region region);
+    string GetTenantBaseUrl(Region region, string tenantSlug = "");
 }
