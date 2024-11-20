@@ -38,6 +38,36 @@ Add a class that returns an `AppletDefinition` instance.
 
 Reference this library from the Reach Editor project, and add the applet definition in `HostBuilderExtensions`.
 
+## Routing
+
+Reach uses a number of route variations to handle traffic depending on whether it is running in self-hosted (single region) or cloud hosted (multi-region) mode. The following diagram documents the overall strategy for routing.
+
+The Blazor Server project (`Reach.EditorApp`) maintains a forwarding proxy for any route not matched by a Global API Controller (Tenants, Regions, Account Services). Simultaneously, Region URL Formatters provide routing for each Tenant's API endpoints. In a self-hosted setup, all routing navigates through the forwarding proxy.
+
+![Reach Routing Architecture](./doc/routing-architecture.png)
+
+### Self Hosted URLs
+
+For this example, we will host using the Aspire app on a local machine.
+
+| Description | URL |
+| --- | --- |
+| Global API | localhost:7120/api |
+| Tenant API | localhost:7120/api/* |
+| Tenant GraphQL | localhost:7120/graphql |
+| Tenant Dashboard | localhost:7120/app/{tenantSlug}
+
+### Cloud Hosted URLs
+
+For this example, we will use the reachcms.io hosting platform. Note that in the case of Region based routing, the API and GraphQL requests for each tenant are sent directly to the Orleans cluster for performance.
+
+| Description | URL |
+| --- | --- |
+| Global API | reachcms.io/api |
+| Tenant API | {regionKey}.reachcms.io/api/* |
+| Tenant GraphQL | {regionKey}.reachcms.io/graphql |
+| Tenant Dashboard | reachcms.io/app/{tenantSlug} |
+
 ## Authentication
 
 > **NOTE**: This section is subject to change as the framework develops.
