@@ -7,11 +7,12 @@ using Reach.Orchestration;
 using Reach.Orchestration.Model;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Services;
-using Reach.EditorApp.Client.Services;
+using Reach.EditorApp.Services;
 using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
-using Reach.Membership.Views;
+using Reach.EditorApp.Services;
+using Reach.EditorApp.ServiceModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,15 +57,17 @@ builder.Services.AddSingleton<IAuthorizationHandler, TenantAuthorizationHandler>
 
 builder.Services.AddScoped<ITenantContext, TenantContext>(sp =>
 {
+    var svc = sp.GetRequiredService<ITenantService>();
+
     return new TenantContext(
-        () => Task.FromResult((IEnumerable<AvailableTenantView>)[]),
+        async () => await svc.GetTenantsForUserAsync(),
         sp.GetRequiredService<NavigationManager>()
     );
 });
 
 // Add our repositories
-builder.Services.AddScoped<HttpTenantService>();
-builder.Services.AddScoped<HttpRegionService>();
+builder.Services.AddScoped<ITenantService, RepositoryTenantService>();
+builder.Services.AddScoped<IRegionService, ProviderRegionService>();
 
 // Add our cascading contexts
 builder.AddApplets(

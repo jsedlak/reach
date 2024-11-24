@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Reach.Applets;
-using Reach.EditorApp.ContextProviders;
 using System.Reflection;
 
 namespace Reach.EditorApp.Client.Runtime;
@@ -47,13 +46,6 @@ public static class AppletExtensions
                 initializers.Add(initializer);
             }
         }
-
-        var ctx = new AppletContext
-        {
-            Applets = initializers.Select(i => i.CreateDefinition())
-        };
-
-        builder.Services.AddCascadingValue<AppletContext>(sp => ctx);
 
         return builder;
 

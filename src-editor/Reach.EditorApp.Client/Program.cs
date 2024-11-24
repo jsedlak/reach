@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Reach.Apps.ContentApp.Components.Pages;
 using Reach.Components.Context;
 using Reach.EditorApp.Client.Runtime;
-using Reach.EditorApp.Client.Services;
-using Reach.Membership.Views;
+using Reach.EditorApp.Services;
+using Reach.EditorApp.ServiceModel;
 using Reach.Orchestration;
 using Tazor.Components;
 using Tazor.Wasm;
@@ -25,7 +25,7 @@ builder.AddApplets(
 
 builder.Services.AddScoped<ITenantContext, TenantContext>(sp =>
 {
-    var repoSvc = sp.GetRequiredService<HttpTenantService>();
+    var repoSvc = sp.GetRequiredService<ITenantService>();
     return new TenantContext(
         () => repoSvc.GetTenantsForUserAsync(),
         sp.GetRequiredService<NavigationManager>()
@@ -38,8 +38,8 @@ builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("ht
 builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
 
 // Add our repositories & services
-builder.Services.AddSingleton<HttpTenantService>();
-builder.Services.AddSingleton<HttpRegionService>();
+builder.Services.AddSingleton<ITenantService, HttpTenantService>();
+builder.Services.AddSingleton<IRegionService, HttpRegionService>();
 
 // Add our region generation, we're running local only so use our host
 builder.Services.WithPathRegionUrls(builder.HostEnvironment.BaseAddress, "api", "graphql"); // Configure for localhost

@@ -1,9 +1,19 @@
 ﻿@page "/app/{tenantSlug}"
 @inherits BaseTenantComponent
-
+@rendermode InteractiveServer
 <PageTitle>Dashboard - Reach</PageTitle>
 
 <h1>Welcome to @TenantSlug!</h1>
+
+<div class="my-3 p-10 bg-gray-100">
+    <p>
+        <span class="font-bold">Render Mode:</span> @RendererInfo.Name
+    </p>
+    <p>
+        <span class="font-bold">Tenant:</span> @(_tenant?.Name)
+    </p>
+
+</div>
 
 <!-- plan overview -->
 <div class="my-3 bg-gradient-to-r from-indigo-800 to-purple-600 shadow-lg rounded-lg p-6 text-white flex items-center justify-between">

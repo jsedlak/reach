@@ -1,10 +1,6 @@
 ﻿using Auth0.AspNetCore.Authentication;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Applets;
-using Reach.EditorApp.Authentication;
-using Reach.EditorApp.ContextProviders;
 using Reach.Security;
 using System.Reflection;
 using System.Security.Claims;
@@ -55,13 +51,6 @@ public static class HostExtensions
                 initializers.Add(initializer);
             }
         }
-
-        var ctx = new AppletContext
-        {
-            Applets = initializers.Select(i => i.CreateDefinition())
-        };
-
-        builder.Services.AddCascadingValue<AppletContext>(sp => ctx);
 
         return builder;
     }

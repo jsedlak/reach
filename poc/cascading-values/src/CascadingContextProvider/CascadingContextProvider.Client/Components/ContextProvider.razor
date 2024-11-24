@@ -1,0 +1,55 @@
+﻿@implements IDisposable
+@inject PersistentComponentState ApplicationState
+@inject NavigationManager Navigation
+@rendermode InteractiveAuto
+<p>
+    <strong>Context Provider</strong><br/>
+    <strong>Tenant:</strong> @TenantContext.Name<br />
+    <strong>Renderer:</strong> @RendererInfo.Name
+</p>
+@code {
+    [CascadingParameter]
+    public TenantContext TenantContext { get; set; } = null!;
+
+    private PersistingComponentStateSubscription subscription;
+
+    protected override Task OnInitializedAsync()
+    {
+
+        // Navigation.LocationChanged += (_, _) => StateHasChanged();
+
+        // subscription = ApplicationState.RegisterOnPersisting(() =>
+        // {
+        //     ApplicationState.PersistAsJson("CURRENT_TENANT", TenantContext.Name);
+        //     return Task.CompletedTask;
+        // });
+
+        // if (!ApplicationState.TryTakeFromJson<string>("CURRENT_TENANT", out var restored))
+        // {
+        //     Console.WriteLine("Calling for tenants.");
+        //     TenantContext.Name = new Uri(Navigation.Uri).PathAndQuery.Split(["/"], StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "NULL";
+        // }
+        // else
+        // {
+        //     TenantContext.Name = restored!;
+        // }
+
+        return Task.CompletedTask;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            TenantContext.Name = new Uri(Navigation.Uri).PathAndQuery.Split(["/"], StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "NULL";
+            StateHasChanged();
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        subscription.Dispose();
+    }
+}

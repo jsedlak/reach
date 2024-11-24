@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Reach.EditorApp.Client.Services;
+using Reach.EditorApp.ServiceModel;
 using Reach.Membership.Model;
-using Reach.Membership.Views;
 using Reach.Orchestration.Model;
 using Reach.Orchestration.ServiceModel;
 
@@ -9,8 +8,8 @@ namespace Reach.EditorApp.Client.Pages;
 
 public partial class Onboarding : ComponentBase
 {
-    private readonly HttpTenantService _tenantService;
-    private readonly HttpRegionService _regionService;
+    private readonly ITenantService _tenantService;
+    private readonly IRegionService _regionService;
     private readonly NavigationManager _navigation;
     private readonly IRegionUrlFormatter _regionUrlFormatter;
 
@@ -21,8 +20,8 @@ public partial class Onboarding : ComponentBase
     private string? _errorMessage = null;
 
     public Onboarding(
-        HttpTenantService tenantService, 
-        HttpRegionService regionService,
+        ITenantService tenantService, 
+        IRegionService regionService,
         NavigationManager navigationManager,
         IRegionUrlFormatter regionUrlFormatter)
     {
