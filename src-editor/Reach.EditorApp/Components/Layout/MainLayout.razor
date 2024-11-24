@@ -1,7 +1,4 @@
-﻿@using Reach.Components.Context
-@using Reach.Membership.Views
-@inherits LayoutComponentBase
-@inject ITenantContext TenantContext
+﻿@inherits LayoutComponentBase
 <div class="page flex min-h-full">
     <Sidebar />
 
@@ -12,9 +9,6 @@
             <main class="p-6">
                 @Body
                 <Reach.EditorApp.Client.Components.Providers.TenantProvider />
-                <Reach.EditorApp.Client.Components.Debug.TenantDebug />
-                <Reach.EditorApp.Client.Components.Debug.TenantDebug @rendermode="InteractiveServer" />
-                <Reach.EditorApp.Client.Components.Debug.TenantDebug @rendermode="InteractiveWebAssembly" />
             </main>
         </div>
     </div>
@@ -24,15 +18,3 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-@code {
-    private IEnumerable<AvailableTenantView> _tenants = [];
-    private AvailableTenantView _currentTenant = new();
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        _tenants = await TenantContext.GetAllTenants();
-        _currentTenant = await TenantContext.GetCurrentTenant() ?? new();
-        StateHasChanged();
-    }
-}
