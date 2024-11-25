@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
   </ItemGroup>
 

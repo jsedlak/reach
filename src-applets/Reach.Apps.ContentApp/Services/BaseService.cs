@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using Reach.Content.Commands.Editors;
+using Microsoft.Extensions.Logging;
+using Reach.Components.Context;
 using Reach.Cqrs;
+using Reach.Membership;
+using Reach.Membership.Views;
+using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -20,15 +24,67 @@ public abstract class BaseService
         PropertyNameCaseInsensitive = true
     };
 
+    private readonly ITenantContext _tenantContext;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
+    private readonly ILogger _logger;
 
-    protected BaseService(IServiceProvider serviceProvider)
+    protected BaseService(ITenantContext tenantContext, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _authenticationStateProvider = serviceProvider.GetRequiredService<AuthenticationStateProvider>();
+        _tenantContext = tenantContext;
+        _authenticationStateProvider = authenticationStateProvider;
+        _logger = logger;
 
-        var factory = serviceProvider.GetRequiredService<IHttpClientFactory>();
-        _graphQlClient = factory.CreateClient("graphql");
-        _apiClient = factory.CreateClient("api");
+        _graphQlClient = httpClientFactory.CreateClient("graphql");
+        _apiClient = httpClientFactory.CreateClient("api");
+    }
+
+    /// <summary>
+    /// Ensures the tenant can be loaed from the URL and is valid for 
+    /// the current user. If not, it redirects the user to the 
+    /// dashboard and returns false.
+    /// </summary>
+    /// <returns></returns>
+    private async Task<AvailableTenantView?> EnsureTenant()
+    {
+        var tenant = await _tenantContext.GetCurrentTenant();
+
+        if (tenant == null)
+        {
+            return null;
+        }
+
+        return tenant;
+    }
+
+    /// <summary>
+    /// Prepares an HTTP client with the custom headers we'll need
+    /// </summary>
+    /// <param name="client"></param>
+    /// <returns></returns>
+    private async Task<AvailableTenantView> PrepareClient(HttpClient client, Expression<Func<AvailableTenantView, string>> getUrl)
+    {
+        var tenant = await EnsureTenant();
+
+        if (tenant == null)
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        client.BaseAddress = new Uri(getUrl.Compile().Invoke(tenant));
+
+        // Remove the tenant id header if it's been set already
+        if (client.DefaultRequestHeaders.Contains(TenantHttpConstants.TenantIdHeader))
+        {
+            client.DefaultRequestHeaders.Remove(TenantHttpConstants.TenantIdHeader);
+        }
+
+        // Add the tenant id to ensure it's up to date
+        client.DefaultRequestHeaders.Add(
+            TenantHttpConstants.TenantIdHeader,
+            tenant.TenantId.ToString()
+        );
+
+        return tenant;
     }
 
     protected async Task<CommandResponse> ExecuteCommandAsync<TCommand>(string path, TCommand command)
@@ -38,15 +94,19 @@ public abstract class BaseService
 
         if (state == null)
         {
-            throw new InvalidOperationException("You must be logged in to execute a command.");
+            throw new UnauthorizedAccessException();
         }
 
+        // apply security
+        _logger.LogInformation("Preparing API Client");
+        var tenant = await PrepareClient(_apiClient, m => m.Region.ApiUrl);
         _apiClient.SetAuthorization(state.User);
 
         // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
 
         content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
+        content.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
 
         var response = await _apiClient.PostAsync(
             $"api/{path}/{command.AggregateId}/execute",
@@ -66,11 +126,16 @@ public abstract class BaseService
             throw new InvalidOperationException("You must be logged in to execute a graphql request.");
         }
 
+        // apply security
+        var tenant = await PrepareClient(_apiClient, m => m.Region.GraphUrl);
         _graphQlClient.SetAuthorization(state.User);
 
         // create and secure the request
         query = JsonSerializer.Serialize(new { query });
         var requestContent = new StringContent(query, mediaType: ApplicationJsonMediaType);
+
+        // add our headers
+        requestContent.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
 
         // bundle up the graphql request
         var result = await _graphQlClient.PostAsync("graphql/", requestContent);
