@@ -1,6 +1,4 @@
-﻿using HotChocolate;
-using HotChocolate.Types;
-using Reach.Content.ServiceModel;
+﻿using Reach.Content.ServiceModel;
 using Reach.Content.Views;
 
 namespace Reach.Silo.Host.Queries;
@@ -8,14 +6,18 @@ namespace Reach.Silo.Host.Queries;
 [ExtendObjectType("Query")]
 public class EditorDefinitionQueries
 {
-    public Task<IQueryable<EditorDefinitionView>> EditorDefinitions([Service] IEditorDefinitionViewReadRepository repository) =>
-        repository.Query();
+    public Task<IQueryable<EditorDefinitionView>> EditorDefinitions(
+        [GlobalState]string tenantId, 
+        [Service] IEditorDefinitionViewReadRepository repository) =>
+        repository.Query(Guid.Parse(tenantId));
 }
 
 
 [ExtendObjectType("Query")]
 public class FieldDefinitionQueries
 {
-    public Task<IQueryable<FieldDefinitionView>> FieldDefinitions([Service] IFieldDefinitionViewReadRepository repository) =>
-        repository.Query();
+    public Task<IQueryable<FieldDefinitionView>> FieldDefinitions(
+        [GlobalState] string tenantId, 
+        [Service] IFieldDefinitionViewReadRepository repository) =>
+        repository.Query(Guid.Parse(tenantId));
 }

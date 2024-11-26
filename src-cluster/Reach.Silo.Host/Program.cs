@@ -30,7 +30,8 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType(q => q.Name("Query"))
     .AddType<EditorDefinitionQueries>()
-    .AddType<FieldDefinitionQueries>();
+    .AddType<FieldDefinitionQueries>()
+    .AddHttpRequestInterceptor<TenantInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
 builder.UseOrleans(o =>

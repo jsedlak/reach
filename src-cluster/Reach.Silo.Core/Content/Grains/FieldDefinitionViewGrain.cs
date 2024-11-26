@@ -38,7 +38,8 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
         {
             result = new Reach.Content.Views.FieldDefinitionView()
             {
-                Id = @event.AggregateId
+                Id = @event.AggregateId,
+                TenantId = @event.TenantId
             };
         }
 

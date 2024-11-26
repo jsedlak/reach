@@ -6,9 +6,10 @@
 [GenerateSerializer]
 public abstract class BaseEvent
 {
-    protected BaseEvent(Guid aggregateId)
+    protected BaseEvent(Guid aggregateId, Guid tenantId)
     {
         AggregateId = aggregateId;
+        TenantId = tenantId;
     }
 
     /// <summary>
@@ -22,4 +23,10 @@ public abstract class BaseEvent
     /// </summary>
     [Id(1)]
     public DateTimeOffset Timestamp { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the tenant to which this event belongs
+    /// </summary>
+    [Id(2)]
+    public Guid TenantId { get; set; } = Guid.Empty;
 }

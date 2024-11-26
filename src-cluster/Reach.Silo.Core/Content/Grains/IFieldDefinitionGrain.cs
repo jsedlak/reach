@@ -3,7 +3,7 @@ using Reach.Cqrs;
 
 namespace Reach.Silo.Content.Grains;
 
-public interface IFieldDefinitionGrain : IGrainWithGuidKey
+public interface IFieldDefinitionGrain : IGrainWithGuidCompoundKey
 {
     Task<CommandResponse> Create(CreateFieldDefinitionCommand command);
 

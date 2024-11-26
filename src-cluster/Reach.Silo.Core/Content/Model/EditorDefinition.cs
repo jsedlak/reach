@@ -10,6 +10,7 @@ public class EditorDefinition
     public void Apply(EditorDefinitionCreatedEvent @event)
     {
         Id = @event.AggregateId;
+        TenantId = @event.TenantId;
         Name = @event.Name;
         EditorType = @event.EditorType;
     }
@@ -28,6 +29,11 @@ public class EditorDefinition
     /// Gets or Sets the unique identifier for this editor definition
     /// </summary>
     public Guid Id { get; set; } = Guid.NewGuid();
+
+    /// <summary>
+    /// Gets or Sets the identifier of the tenant to which this definition belongs
+    /// </summary>
+    public Guid TenantId { get; set; } = Guid.Empty;
 
     /// <summary>
     /// Gets or Sets the display name for this editor definition, shown and used often in the Editor App

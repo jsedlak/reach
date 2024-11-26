@@ -5,8 +5,8 @@ namespace Reach.Content.Events.Editors;
 [GenerateSerializer]
 public class EditorDefinitionParametersSetEvent : BaseEditorDefinitionEvent
 {
-    public EditorDefinitionParametersSetEvent(Guid aggregateId) 
-        : base(aggregateId)
+    public EditorDefinitionParametersSetEvent(Guid aggregateId, Guid tenantId)
+        : base(aggregateId, tenantId)
     {
     }
 

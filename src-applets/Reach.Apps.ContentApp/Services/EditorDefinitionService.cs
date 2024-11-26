@@ -14,6 +14,7 @@ public class EditorDefinitionService : BaseService
     query {
         editorDefinitions {
             id
+            tenantId
             name
             editorType
             parameters {

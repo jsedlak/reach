@@ -8,6 +8,11 @@ public class GrainEndpointConfig<TGrain>
     {
         var methodInfo = typeof(TGrain).GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
 
+        if(methodInfo is null)
+        {
+            throw new InvalidOperationException($"Cannot find the method {methodName} on {commandType.FullName}");
+        }
+
         Maps.Add(new GrainEndpointCommandMap<TGrain>
         {
             CommandType = commandType,

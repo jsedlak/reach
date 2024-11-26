@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using Reach.Cqrs;
+using System.Linq.Expressions;
 
 namespace Reach.Silo.Content.Services;
 
@@ -26,6 +27,12 @@ public abstract class MongoViewRepository<TView> where TView : class, IView
     {
         var col = GetCollection();
         return Task.FromResult((IQueryable<TView>)col.AsQueryable());
+    }
+
+    public Task<IQueryable<TView>> QueryAsync(Expression<Func<TView, bool>> predicate)
+    {
+        var col = GetCollection();
+        return Task.FromResult((IQueryable<TView>)col.AsQueryable().Where(predicate));
     }
 
     public async Task<TView?> GetAsync(Guid id)

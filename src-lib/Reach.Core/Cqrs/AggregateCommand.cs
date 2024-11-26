@@ -16,4 +16,7 @@ public abstract class AggregateCommand
     /// </summary>
     [Id(0)]
     public Guid AggregateId { get; set; } = Guid.NewGuid();
+
+    [Id(1)]
+    public Guid TenantId { get; set; } = Guid.Empty;
 }

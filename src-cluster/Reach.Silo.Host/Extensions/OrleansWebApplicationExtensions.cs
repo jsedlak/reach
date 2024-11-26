@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Reach.Cqrs;
+using Reach.Membership;
 using System.Reflection;
 
 namespace Reach.Silo.Host.Extensions;
@@ -22,7 +23,7 @@ public static class OrleansWebApplicationExtensions
         this WebApplication application,
         string route,
         Action<GrainEndpointConfig<TGrain>>? configure = null)
-        where TGrain : class, IGrainWithGuidKey
+        where TGrain : class, IGrainWithGuidCompoundKey
     {
         var config = new GrainEndpointConfig<TGrain>();
 
@@ -44,12 +45,23 @@ public static class OrleansWebApplicationExtensions
         var sanitizedRoute = route.TrimStart('/').TrimEnd('/').Trim();
         application.MapPost(
             $"/api/{sanitizedRoute}/{{aggregateId}}/execute",
-            async ([FromRoute] Guid aggregateId, 
-            [FromServices] IClusterClient clusterClient, 
-            [FromHeader(Name = "X-Command-Type")]string commandTypeHeader,
-            HttpRequest request) =>
+            async (
+                [FromRoute] Guid aggregateId, 
+                [FromServices] IClusterClient clusterClient, 
+                [FromHeader(Name = "X-Command-Type")]string commandTypeHeader,
+                [FromHeader(Name = TenantHttpConstants.TenantIdHeader)]string tenantIdHeader,
+                HttpRequest request
+            ) =>
             {
-                var grain = clusterClient.GetGrain<TGrain>(aggregateId);
+                if(string.IsNullOrWhiteSpace(tenantIdHeader) || !Guid.TryParse(tenantIdHeader, out Guid tenantId))
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                // TODO: Validate the user can access this tenant
+
+                // get access to the grain
+                var grain = clusterClient.GetGrain<TGrain>(aggregateId, tenantIdHeader.ToString());
                 var commandType = Type.GetType(commandTypeHeader)!;
 
                 string body = "";
@@ -58,11 +70,21 @@ public static class OrleansWebApplicationExtensions
                     body = await stream.ReadToEndAsync();
                 }
 
+                // deserialize the command
                 var command = JsonConvert.DeserializeObject(body, commandType);
 
-                var map = config.Maps.First(m => m.CommandType == commandType);
+                // force the tenant id into the command to avoid chance
+                // user submits with tenant header but substitutes another 
+                // tenant in the command body
+                if (command is AggregateCommand aggregateCommand)
+                {
+                    aggregateCommand.TenantId = tenantId;
+                }
 
+                // route the command to the grain
+                var map = config.Maps.First(m => m.CommandType == commandType);
                 var response = (Task<CommandResponse>)map.Method.Invoke(grain, [command])!;
+
                 return await response;
             }
         );

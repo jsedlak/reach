@@ -6,52 +6,47 @@ using Reach.Silo.Content.ServiceModel;
 
 namespace Reach.Silo.Content.Services;
 
-public class MongoFieldDefinitionViewRepository : IFieldDefinitionViewWriteRepository, IFieldDefinitionViewReadRepository
+public class MongoFieldDefinitionViewRepository : MongoViewRepository<FieldDefinitionView>,
+    IFieldDefinitionViewWriteRepository, IFieldDefinitionViewReadRepository
 {
     public const string CollectionName = "field_defns";
 
-    private readonly IMongoDatabase _database;
-
 
     public MongoFieldDefinitionViewRepository(IMongoClient mongoClient, IOptions<MongoViewRepositoryOptions> options)
+        : base(mongoClient, options.Value.Database, CollectionName)
     {
-        _database = mongoClient.GetDatabase(options.Value.Database);
     }
 
-    public async Task<FieldDefinitionView?> Get(Guid id)
+    public async Task Upsert(FieldDefinitionView view)
     {
-        return await _database.GetCollection<FieldDefinitionView>(CollectionName)
-            .Find(x => x.Id == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<FieldDefinitionView?> Get(string key)
-    {
-        return await _database.GetCollection<FieldDefinitionView>(CollectionName)
-            .Find(x => x.Key == key).FirstOrDefaultAsync();
-    }
-
-    public Task<IQueryable<FieldDefinitionView>> Query()
-    {
-        var result = _database
-            .GetCollection<FieldDefinitionView>(CollectionName)
-            .AsQueryable();
-
-        return Task.FromResult((IQueryable<FieldDefinitionView>)result);
-    }
-
-    public async Task Upsert(FieldDefinitionView fieldDefinitionView)
-    {
-        var col = _database.GetCollection<FieldDefinitionView>(CollectionName);
-        await col.ReplaceOneAsync(
-            m => m.Id == fieldDefinitionView.Id,
-            fieldDefinitionView,
-            new ReplaceOptions() { IsUpsert = true }
-        );
+        await UpsertAsync(view);
     }
 
     public async Task Delete(Guid id)
     {
-        var col = _database.GetCollection<FieldDefinitionView>(CollectionName);
-        await col.DeleteOneAsync(x => x.Id == id);
+        await DeleteAsync(id);
     }
+
+    public async Task<FieldDefinitionView?> Get(Guid id)
+    {
+        return await GetAsync(id);
+    }
+
+    public async Task<FieldDefinitionView?> Get(string key)
+    {
+        var result = await QueryAsync(m => m.Key == key);
+        return result.FirstOrDefault();
+    }
+
+    public async Task<IQueryable<FieldDefinitionView>> Query()
+    {
+        return await QueryAsync();
+    }
+
+    public async Task<IQueryable<FieldDefinitionView>> Query(Guid tenantId)
+    {
+        return await QueryAsync(m => m.TenantId == tenantId);
+    }
+
+    
 }

@@ -51,6 +51,11 @@ public partial class FieldDefinitionListingPage : ContentBasePage
     {
         await _createContext.Confirm(async (model) =>
         {
+            if (model == null)
+            {
+                return (false, ["Invalid data."]);
+            }
+
             var result = await FieldDefinitionService.Create(model);
 
             return (result.IsSuccess, []);

@@ -18,8 +18,7 @@ public abstract class BaseService
 {
     private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
 
-    private readonly HttpClient _graphQlClient;
-    private readonly HttpClient _apiClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         Converters = { new EditorParameterTypeConverter() },
@@ -37,13 +36,14 @@ public abstract class BaseService
         _authenticationStateProvider = authenticationStateProvider;
         _logger = logger;
         _tenantService = tenantService;
+        _httpClientFactory = httpClientFactory;
 
-        _graphQlClient = httpClientFactory.CreateClient("graphql");
-        _apiClient = httpClientFactory.CreateClient("api");
+        //_graphQlClient = httpClientFactory.CreateClient("graphql");
+        //_apiClient = httpClientFactory.CreateClient("api");
     }
 
     /// <summary>
-    /// Ensures the tenant can be loaed from the URL and is valid for 
+    /// Ensures the tenant can be loaded from the URL and is valid for 
     /// the current user. If not, it redirects the user to the 
     /// dashboard and returns false.
     /// </summary>
@@ -82,14 +82,15 @@ public abstract class BaseService
         // Remove the tenant id header if it's been set already
         if (client.DefaultRequestHeaders.Contains(TenantHttpConstants.TenantIdHeader))
         {
-            client.DefaultRequestHeaders.Remove(TenantHttpConstants.TenantIdHeader);
+            var removeResult = client.DefaultRequestHeaders.Remove(TenantHttpConstants.TenantIdHeader);
+            Console.WriteLine($"Removal of TenantHeader was {removeResult}");
         }
 
         // Add the tenant id to ensure it's up to date
-        client.DefaultRequestHeaders.Add(
-            TenantHttpConstants.TenantIdHeader,
-            tenant.TenantId.ToString()
-        );
+        //client.DefaultRequestHeaders.Add(
+        //    TenantHttpConstants.TenantIdHeader,
+        //    tenant.TenantId.ToString()
+        //);
 
         return tenant;
     }
@@ -104,10 +105,12 @@ public abstract class BaseService
             throw new UnauthorizedAccessException();
         }
 
+        var client = _httpClientFactory.CreateClient("api");
+
         // apply security
         _logger.LogInformation("Preparing API Client");
-        var tenant = await PrepareClient(_apiClient, m => m.Region.ApiUrl);
-        _apiClient.SetAuthorization(state.User);
+        var tenant = await PrepareClient(client, m => m.Region.ApiUrl);
+        client.SetAuthorization(state.User);
 
         // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
@@ -115,7 +118,7 @@ public abstract class BaseService
         content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
         content.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
 
-        var response = await _apiClient.PostAsync(
+        var response = await client.PostAsync(
             $"api/{path}/{command.AggregateId}/execute",
             content
         );
@@ -133,9 +136,11 @@ public abstract class BaseService
             throw new InvalidOperationException("You must be logged in to execute a graphql request.");
         }
 
+        var client = _httpClientFactory.CreateClient("graphql");
+
         // apply security
-        var tenant = await PrepareClient(_apiClient, m => m.Region.GraphUrl);
-        _graphQlClient.SetAuthorization(state.User);
+        var tenant = await PrepareClient(client, m => m.Region.GraphUrl);
+        client.SetAuthorization(state.User);
 
         // create and secure the request
         query = JsonSerializer.Serialize(new { query });
@@ -145,7 +150,7 @@ public abstract class BaseService
         requestContent.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
 
         // bundle up the graphql request
-        var result = await _graphQlClient.PostAsync("graphql/", requestContent);
+        var result = await client.PostAsync("graphql/", requestContent);
 
         // get the response body and parse it into json
         var contentString = await result.Content.ReadAsStringAsync();
@@ -170,8 +175,8 @@ public abstract class BaseService
         return resultCollection as IEnumerable<TView> ?? Array.Empty<TView>();
     }
 
-    protected HttpClient ApiClient => _apiClient;
+    //protected HttpClient ApiClient => _apiClient;
 
-    protected HttpClient GraphQlClient => _graphQlClient;
+    //protected HttpClient GraphQlClient => _graphQlClient;
 }
 

@@ -14,7 +14,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> Create(CreateFieldDefinitionCommand command)
     {
-        await Raise(new FieldDefinitionCreatedEvent(command.AggregateId)
+        await Raise(new FieldDefinitionCreatedEvent(command.AggregateId, command.TenantId)
         {
             Name = command.Name,
             Key = command.Name.ToSlug(),
@@ -30,7 +30,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> SetEditorDefinition(SetFieldDefinitionEditorCommand command)
     {
-        await Raise(new FieldDefinitionEditorSetEvent(command.AggregateId)
+        await Raise(new FieldDefinitionEditorSetEvent(command.AggregateId, command.TenantId)
         {
             EditorDefinitionId = command.EditorDefinitionId,
         });
@@ -43,7 +43,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> SetEditorParameters(SetFieldDefinitionEditorParametersCommand command)
     {
-        await Raise(new FieldDefinitionEditorParametersSetEvent(command.AggregateId)
+        await Raise(new FieldDefinitionEditorParametersSetEvent(command.AggregateId, command.TenantId)
         {
             EditorParameters = command.EditorParameters
         });
@@ -56,7 +56,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> Delete(DeleteFieldDefinitionCommand command)
     {
-        await Raise(new FieldDefinitionDeletedEvent(command.AggregateId));
+        await Raise(new FieldDefinitionDeletedEvent(command.AggregateId, command.TenantId));
 
         return new CommandResponse()
         {

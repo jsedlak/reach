@@ -1,10 +1,13 @@
 ﻿using Reach.Content.Model;
+using Reach.Cqrs;
 
 namespace Reach.Content.Views;
 
-public class FieldDefinitionView
+public class FieldDefinitionView : IView
 {
     public Guid Id { get; set; }
+
+    public Guid TenantId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 

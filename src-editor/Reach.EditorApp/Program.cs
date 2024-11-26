@@ -12,6 +12,8 @@ using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
+using Yarp.ReverseProxy.Transforms;
+using Reach.Membership;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +110,7 @@ app.MapControllers();
 
 // TODO: Formalize into an extension (MapClusterProxy)
 app.MapForwarder("/api", "https://reach-silo/api").RequireAuthorization();
-app.MapForwarder("/graphql", "https://reach-silo/graphql").RequireAuthorization();
+app.MapForwarder("/graphql", "https://reach-silo/graphql", opt => opt.CopyRequestHeaders = true)
+    .RequireAuthorization();
 
 app.Run();

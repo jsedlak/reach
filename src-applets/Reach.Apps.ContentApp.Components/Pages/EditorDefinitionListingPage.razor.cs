@@ -55,6 +55,11 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     {
         await _createContext.Confirm(async (model) =>
         {
+            if(model == null)
+            {
+                return (false, ["Invalid data."]);
+            }
+
             var result = await EditorDefinitionService.Create(model);
 
             return (result.IsSuccess, []);
@@ -64,5 +69,5 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     private EditorDefinitionService EditorDefinitionService { get; }
 
     [CascadingParameter]
-    public TenantContext TenantContext { get; set; }
+    public TenantContext TenantContext { get; set; } = null!;
 }
