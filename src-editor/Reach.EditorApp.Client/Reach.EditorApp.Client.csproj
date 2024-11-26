@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<Folder Include="Components\Account\" />
+		<Folder Include="Contexts\" />
 	</ItemGroup>
 
 	<ItemGroup>

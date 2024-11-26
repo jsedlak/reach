@@ -3,14 +3,14 @@
 @rendermode InteractiveServer
 <PageTitle>Dashboard - Reach</PageTitle>
 
-<h1>Welcome to @TenantSlug!</h1>
+<h1>Welcome to @TenantContext.CurrentTenant?.Name!</h1>
 
 <div class="my-3 p-10 bg-gray-100">
     <p>
         <span class="font-bold">Render Mode:</span> @RendererInfo.Name
     </p>
     <p>
-        <span class="font-bold">Tenant:</span> @(_tenant?.Name)
+        <span class="font-bold">Tenant:</span> @(TenantContext.CurrentTenant?.Name)
     </p>
 
 </div>

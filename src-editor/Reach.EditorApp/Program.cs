@@ -23,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.Services.AddHttpForwarderWithServiceDiscovery();
 
-// grab storage provideer
+// grab storage provider
 //builder.AddAzureTableClient("tenant-storage", settings => settings.)
 builder.AddKeyedAzureTableClient("tenant-storage");
 
@@ -54,15 +54,10 @@ builder.AddAuth0WebApp();
 builder.Services.AddAuthorization();
 builder.Services.AddSingleton<IAuthorizationHandler, TenantAuthorizationHandler>();
 
-builder.Services.AddScoped<ITenantContext, TenantContext>(sp =>
-{
-    var svc = sp.GetRequiredService<ITenantService>();
-
-    return new TenantContext(
-        async () => await svc.GetTenantsForUserAsync(),
-        sp.GetRequiredService<NavigationManager>()
-    );
-});
+// Add support for our tenant identification and selection
+builder.Services.AddCascadingValue(static sp => 
+    new CascadingValueSource<TenantContext>(new TenantContext(), false)
+);
 
 // Add our repositories
 builder.Services.AddScoped<ITenantService, RepositoryTenantService>();

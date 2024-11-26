@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Reach.Apps.ContentApp.Services;
 using Reach.Components.Context;
@@ -13,21 +14,15 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 [TenantRequired]
 public partial class EditorDefinitionListingPage : ContentBasePage
 {
-    private readonly ITenantContext? _tenantContext;
-
     private IEnumerable<EditorDefinitionView> _editorDefinitions = [];
 
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
-
-    private AvailableTenantView? _tenant;
 
     public EditorDefinitionListingPage(EditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
     {
         EditorDefinitionService = editorDefinitionService;
 
         _createContext = new(StateHasChanged);
-
-        _tenantContext = serviceProvider.GetRequiredService<ITenantContext>();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -44,7 +39,6 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     private async Task RefreshData()
     {
         _editorDefinitions = await EditorDefinitionService.GetEditorDefinitions();
-        _tenant = await _tenantContext.GetCurrentTenant();
     }
 
     private Task OnBeginCreateClicked()
@@ -68,4 +62,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     }
 
     private EditorDefinitionService EditorDefinitionService { get; }
+
+    [CascadingParameter]
+    public TenantContext TenantContext { get; set; }
 }

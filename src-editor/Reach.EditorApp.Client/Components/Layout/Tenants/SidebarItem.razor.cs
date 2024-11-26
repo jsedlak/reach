@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Tazor.Components.Navigation;
 
-namespace Reach.EditorApp.Client.Components.Layout;
+namespace Reach.EditorApp.Client.Components.Layout.Tenants;
 
 public partial class SidebarItem : ComponentBase
 {

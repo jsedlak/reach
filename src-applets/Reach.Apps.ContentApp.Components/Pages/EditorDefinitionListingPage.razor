@@ -12,11 +12,9 @@
         </Button>
     </Toolbar>
     <Body>
-        <p class="mb-3 font-bold text-lg">Tenant Context Id: @_tenantContext?.Id</p>
-
-        @if(_tenant is not null) {
+        @if(TenantContext.CurrentTenant is not null) {
             <p class="mb-3 font-bold text-lg">
-                Tenant: @_tenant.Name (@_tenant.TenantId)
+                Tenant: @TenantContext.CurrentTenant.Name (@TenantContext.CurrentTenant.TenantId)
             </p>
         }
         else {

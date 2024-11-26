@@ -23,14 +23,10 @@ builder.AddApplets(
     typeof(ContentEditorPage).Assembly
 );
 
-builder.Services.AddScoped<ITenantContext, TenantContext>(sp =>
-{
-    var repoSvc = sp.GetRequiredService<ITenantService>();
-    return new TenantContext(
-        () => repoSvc.GetTenantsForUserAsync(),
-        sp.GetRequiredService<NavigationManager>()
-    );
-});
+// Add support for our tenant identification and selection
+builder.Services.AddCascadingValue(static sp =>
+    new CascadingValueSource<TenantContext>(new TenantContext(), false)
+);
 
 // Add our HTTP clients!
 builder.Services.AddHttpClient("global", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));

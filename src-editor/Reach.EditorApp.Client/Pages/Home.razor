@@ -18,14 +18,23 @@
 <div class="my-10">
     <div class="flex items-center justify-between">
         <h1 class="text-4xl">Your Tenants</h1>
-        <Button Type="ButtonType.Primary">
+        <Button Type="ButtonType.Primary" Href="/onboarding">
             @HeroIcons.SquaresPlus("inline-block mr-2") Create Tenant
         </Button>
     </div>
     <div class="my-3 grid grid-cols-4 gap-4">
+        @if(_isLoadingTenants)
+        {
+            <div class="w-full p-10 flex justify-center items-center">
+                <Spinner />
+            </div>
+        }
+
         @foreach (var tenant in _tenants)
         {
-            <div class="border border-gray-200 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative">
+            var tenantDashboardUrl = _regionUrlFormatter.GetTenantBaseUrl(tenant.Region, tenant.Slug);
+            <div class="border border-gray-200 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative"
+                @onclick=@(() => _navigation.NavigateTo(tenantDashboardUrl))>
                 <div class="absolute right-2 top-2">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          fill="none"
@@ -39,7 +48,7 @@
                     </svg>
                 </div>
                 <a class="flex items-center gap-4"
-                   href="@(_regionUrlFormatter.GetTenantBaseUrl(tenant.Region, tenant.Slug))">
+                   href="@(tenantDashboardUrl)">
                     <div class="">
                         <img src="@tenant.IconUrl" class="rounded-lg w-10" />
                     </div>

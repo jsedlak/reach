@@ -1,41 +1,6 @@
-﻿@using Reach.Components.Context
-@using Reach.Membership.Views
-@implements IDisposable
-@inject ITenantContext TenantContext
-@inject PersistentComponentState ApplicationState
-@rendermode InteractiveAuto
+﻿@rendermode InteractiveAuto
 <div class="bg-gray-100 rounded-lg p-10 my-3">
     <h1 class="font-bold mb-2">TenantProvider</h1>
-    <p><span class="font-bold">Current Tenant:</span> @(_currentTenant?.Name ?? "No Tenant Selected")</p>
+    <p><span class="font-bold">Current Tenant:</span> @(TenantContext.CurrentTenant?.Name ?? "No Tenant Selected")</p>
     <p><span class="font-bold">Renderer:</span> @RendererInfo.Name</p>
 </div>
-@code {
-    private IEnumerable<AvailableTenantView> _tenants = [];
-    private AvailableTenantView _currentTenant = new();
-
-    private PersistingComponentStateSubscription subscription;
-
-    protected override async Task OnInitializedAsync()
-    {
-        subscription = ApplicationState.RegisterOnPersisting(() =>
-        {
-            ApplicationState.PersistAsJson("CURRENT_TENANT", _currentTenant);
-            return Task.CompletedTask;
-        });
-
-        if(!ApplicationState.TryTakeFromJson<AvailableTenantView>("CURRENT_TENANT", out var restored)) 
-        {
-            Console.WriteLine("Calling for tenants.");
-            _tenants = await TenantContext.GetAllTenants();
-            _currentTenant = await TenantContext.GetCurrentTenant() ?? new();
-        }
-        else {
-            _currentTenant = restored!;
-        }
-    }
-
-    void IDisposable.Dispose()
-    {
-        subscription.Dispose();
-    }
-}

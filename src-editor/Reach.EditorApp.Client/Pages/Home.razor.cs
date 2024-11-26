@@ -13,6 +13,8 @@ public partial class Home : ComponentBase
 
     private IEnumerable<AvailableTenantView> _tenants = [];
 
+    private bool _isLoadingTenants = false;
+
     public Home(ITenantService tenantService, NavigationManager navigation, IRegionUrlFormatter regionUrlFormatter)
     {
         _tenantService = tenantService;
@@ -26,6 +28,9 @@ public partial class Home : ComponentBase
 
         if(firstRender)
         {
+            _isLoadingTenants = true;
+            StateHasChanged();
+
             _tenants = await _tenantService.GetTenantsForUserAsync();
 
             if (!_tenants.Any())
@@ -33,6 +38,7 @@ public partial class Home : ComponentBase
                 _navigation.NavigateTo("/onboarding");
             }
 
+            _isLoadingTenants = false;
             StateHasChanged();
         }
     }

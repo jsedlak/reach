@@ -55,7 +55,8 @@ For this example, we will host using the Aspire app on a local machine.
 | Global API | localhost:7120/api |
 | Tenant API | localhost:7120/api/* |
 | Tenant GraphQL | localhost:7120/graphql |
-| Tenant Dashboard | localhost:7120/app/{tenantSlug}
+| Tenant Dashboard | localhost:7120/app/{tenantSlug} |
+| Content App | localhost:7120/app/{tenantSlug}/content |
 
 ### Cloud Hosted URLs
 
@@ -67,6 +68,7 @@ For this example, we will use the reachcms.io hosting platform. Note that in the
 | Tenant API | {regionKey}.reachcms.io/api/* |
 | Tenant GraphQL | {regionKey}.reachcms.io/graphql |
 | Tenant Dashboard | reachcms.io/app/{tenantSlug} |
+| Content App | reachcms.io/app/{tenantSlug}/content |
 
 ## Authentication
 

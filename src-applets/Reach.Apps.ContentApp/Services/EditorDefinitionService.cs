@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
-using Reach.Components.Context;
 using Reach.Content.Commands.Editors;
 using Reach.Content.Views;
 using Reach.Cqrs;
+using Reach.EditorApp.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
@@ -25,8 +26,8 @@ public class EditorDefinitionService : BaseService
     }
     ";
 
-    public EditorDefinitionService(ITenantContext tenantContext, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<EditorDefinitionService> logger)
-        : base(tenantContext, authenticationStateProvider, httpClientFactory, logger)
+    public EditorDefinitionService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<EditorDefinitionService> logger) 
+        : base(tenantService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
     {
     }
 

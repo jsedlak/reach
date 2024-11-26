@@ -1,10 +1,12 @@
 ﻿
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using Reach.Components.Context;
 using Reach.Content.Commands.Fields;
 using Reach.Content.Views;
 using Reach.Cqrs;
+using Reach.EditorApp.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
@@ -37,8 +39,8 @@ public class FieldDefinitionService : BaseService
     }
     ";
 
-    public FieldDefinitionService(ITenantContext tenantContext, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<FieldDefinitionService> logger)
-        : base(tenantContext, authenticationStateProvider, httpClientFactory, logger)
+    public FieldDefinitionService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<FieldDefinitionService> logger)
+        : base(tenantService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
     {
     }
 

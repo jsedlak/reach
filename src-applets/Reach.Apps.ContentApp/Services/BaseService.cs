@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Reach.Components.Context;
 using Reach.Cqrs;
+using Reach.EditorApp.ServiceModel;
 using Reach.Membership;
 using Reach.Membership.Views;
 using System.Linq.Expressions;
@@ -24,15 +26,17 @@ public abstract class BaseService
         PropertyNameCaseInsensitive = true
     };
 
-    private readonly ITenantContext _tenantContext;
+    private readonly NavigationManager _navigationManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly ILogger _logger;
+    private readonly ITenantService _tenantService;
 
-    protected BaseService(ITenantContext tenantContext, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
+    protected BaseService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _tenantContext = tenantContext;
+        _navigationManager = navigationManager;
         _authenticationStateProvider = authenticationStateProvider;
         _logger = logger;
+        _tenantService = tenantService;
 
         _graphQlClient = httpClientFactory.CreateClient("graphql");
         _apiClient = httpClientFactory.CreateClient("api");
@@ -46,14 +50,17 @@ public abstract class BaseService
     /// <returns></returns>
     private async Task<AvailableTenantView?> EnsureTenant()
     {
-        var tenant = await _tenantContext.GetCurrentTenant();
+        var tenants = await _tenantService.GetTenantsForUserAsync();
+        var path = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).ToLower();
 
-        if (tenant == null)
+        var pathSplit = path.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
+
+        if (pathSplit.Length > 1 && pathSplit[0].Equals("app"))
         {
-            return null;
+            return tenants.FirstOrDefault(m => m.Slug == pathSplit[1]);
         }
 
-        return tenant;
+        return null;
     }
 
     /// <summary>
