@@ -1,6 +1,6 @@
 ﻿@rendermode InteractiveAuto
 <div class="bg-gray-100 rounded-lg p-10 my-3">
     <h1 class="font-bold mb-2">TenantProvider</h1>
-    <p><span class="font-bold">Current Tenant:</span> @(TenantContext.CurrentTenant?.Name ?? "No Tenant Selected")</p>
+    <p><span class="font-bold">Current Tenant:</span> @(TenantContext.CurrentHub?.Name ?? "No Hub Selected")</p>
     <p><span class="font-bold">Renderer:</span> @RendererInfo.Name</p>
 </div>

@@ -7,9 +7,10 @@ namespace Reach.Silo.Host.Queries;
 public class EditorDefinitionQueries
 {
     public Task<IQueryable<EditorDefinitionView>> EditorDefinitions(
-        [GlobalState]string tenantId, 
+        [GlobalState]string organizationId,
+        [GlobalState]string hubId,
         [Service] IEditorDefinitionViewReadRepository repository) =>
-        repository.Query(Guid.Parse(tenantId));
+        repository.Query(Guid.Parse(organizationId), Guid.Parse(hubId));
 }
 
 
@@ -17,7 +18,8 @@ public class EditorDefinitionQueries
 public class FieldDefinitionQueries
 {
     public Task<IQueryable<FieldDefinitionView>> FieldDefinitions(
-        [GlobalState] string tenantId, 
+        [GlobalState] string organizationId,
+        [GlobalState] string hubId,
         [Service] IFieldDefinitionViewReadRepository repository) =>
-        repository.Query(Guid.Parse(tenantId));
+        repository.Query(Guid.Parse(organizationId), Guid.Parse(hubId));
 }

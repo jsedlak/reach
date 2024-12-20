@@ -35,8 +35,8 @@ public class MongoEditorDefinitionViewRepository : MongoViewRepository<EditorDef
         return await QueryAsync();
     }
 
-    public async Task<IQueryable<EditorDefinitionView>> Query(Guid tenantId)
+    public async Task<IQueryable<EditorDefinitionView>> Query(Guid organizationId, Guid hubId)
     {
-        return await QueryAsync(m => m.TenantId == tenantId);
+        return await QueryAsync(m => m.OrganizationId == organizationId && m.HubId == hubId);
     }
 }

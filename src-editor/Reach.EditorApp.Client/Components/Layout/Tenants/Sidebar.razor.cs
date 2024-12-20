@@ -16,7 +16,7 @@ public partial class Sidebar : ComponentBase
         _navigation = navigationManager;
         _navigation.LocationChanged += (_, __) => { StateHasChanged(); };
 
-        var basePath = string.Join("/", navigationManager.ToBaseRelativePath(navigationManager.Uri).Split(["/"], StringSplitOptions.RemoveEmptyEntries).Take(2));
+        var basePath = string.Join("/", navigationManager.ToBaseRelativePath(navigationManager.Uri).Split(["/"], StringSplitOptions.RemoveEmptyEntries).Take(3));
         
         _items = [
             new NavItem { Text = "Dashboard", Href = $"{basePath}/", LeftIcon = HeroIcons.ChartBar(widthAndHeight: "size-4")},

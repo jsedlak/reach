@@ -22,7 +22,7 @@ public abstract class SubscribedViewGrain<TEvent> : Grain, IStreamSubscriptionOb
 
     public async Task OnNextAsync(TEvent item, StreamSequenceToken? token = null)
     {
-        _logger.LogInformation($"Captured event: {item.GetType().Name}");
+        _logger.LogInformation($"Captured event: {item!.GetType().Name}");
 
         try
         {

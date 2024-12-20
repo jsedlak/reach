@@ -8,32 +8,46 @@ namespace Reach.Components.Context;
 /// </summary>
 public sealed class TenantContext : INotifyPropertyChanged
 {
-    private AvailableTenantView? _currentTenant;
-    private IEnumerable<AvailableTenantView> _availableTenantViews = [];
+    private AvailableHubView? _currentHub;
+    private IEnumerable<AvailableHubView> _availableHubs = [];
+    private IEnumerable<AvailableOrganizationView> _availableOrganizations = [];
 
     /// <summary>
     /// Gets or Sets the current tenant being viewed
     /// </summary>
-    public AvailableTenantView? CurrentTenant
+    public AvailableHubView? CurrentHub
     {
-        get { return _currentTenant; }
+        get { return _currentHub; }
         set
         {
-            _currentTenant = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTenant)));
+            _currentHub = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentHub)));
         }
     }
 
     /// <summary>
     /// Gets or Sets the list of tenants the user has access to
     /// </summary>
-    public IEnumerable<AvailableTenantView> AvailableTenants
+    public IEnumerable<AvailableOrganizationView> AvailableOrganizations
     {
-        get { return _availableTenantViews; }
+        get { return _availableOrganizations; }
         set
         {
-            _availableTenantViews = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AvailableTenants)));
+            _availableOrganizations = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AvailableOrganizations)));
+        }
+    }
+
+    /// <summary>
+    /// Gets or Sets the list of tenants the user has access to
+    /// </summary>
+    public IEnumerable<AvailableHubView> AvailableHubs
+    {
+        get { return _availableHubs; }
+        set
+        {
+            _availableHubs = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AvailableHubs)));
         }
     }
 

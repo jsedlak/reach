@@ -23,7 +23,7 @@ public static class OrleansWebApplicationExtensions
         this WebApplication application,
         string route,
         Action<GrainEndpointConfig<TGrain>>? configure = null)
-        where TGrain : class, IGrainWithGuidCompoundKey
+        where TGrain : class, IGrainWithStringKey
     {
         var config = new GrainEndpointConfig<TGrain>();
 
@@ -49,11 +49,17 @@ public static class OrleansWebApplicationExtensions
                 [FromRoute] Guid aggregateId, 
                 [FromServices] IClusterClient clusterClient, 
                 [FromHeader(Name = "X-Command-Type")]string commandTypeHeader,
-                [FromHeader(Name = TenantHttpConstants.TenantIdHeader)]string tenantIdHeader,
+                [FromHeader(Name = MembershipHttpConstants.OrganizationIdHeader)]string organizationIdHeader,
+                [FromHeader(Name = MembershipHttpConstants.HubIdHeader)]string hubIdHeader,
                 HttpRequest request
             ) =>
             {
-                if(string.IsNullOrWhiteSpace(tenantIdHeader) || !Guid.TryParse(tenantIdHeader, out Guid tenantId))
+                if(string.IsNullOrWhiteSpace(organizationIdHeader) || !Guid.TryParse(organizationIdHeader, out Guid organizationId))
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                if (string.IsNullOrWhiteSpace(hubIdHeader) || !Guid.TryParse(hubIdHeader, out Guid hubId))
                 {
                     throw new UnauthorizedAccessException();
                 }
@@ -61,7 +67,7 @@ public static class OrleansWebApplicationExtensions
                 // TODO: Validate the user can access this tenant
 
                 // get access to the grain
-                var grain = clusterClient.GetGrain<TGrain>(aggregateId, tenantIdHeader.ToString());
+                var grain = clusterClient.GetGrain<TGrain>(new AggregateId(organizationId, hubId, aggregateId));
                 var commandType = Type.GetType(commandTypeHeader)!;
 
                 string body = "";
@@ -78,7 +84,8 @@ public static class OrleansWebApplicationExtensions
                 // tenant in the command body
                 if (command is AggregateCommand aggregateCommand)
                 {
-                    aggregateCommand.TenantId = tenantId;
+                    aggregateCommand.OrganizationId = organizationId;
+                    aggregateCommand.HubId = hubId;
                 }
 
                 // route the command to the grain

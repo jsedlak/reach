@@ -64,19 +64,21 @@ public static class HostExtensions
     {
         builder.Services.AddAuth0WebAppAuthentication(options =>
         {
-            options.Domain = builder.Configuration["Auth0:Domain"];
-            options.ClientId = builder.Configuration["Auth0:ClientId"];
+            options.Domain = builder.Configuration["Auth0:Domain"]!;
+            options.ClientId = builder.Configuration["Auth0:ClientId"]!;
             options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
             options.OpenIdConnectEvents = new OpenIdConnectEvents
             {
-                OnTokenValidated = async context =>
+                OnTokenValidated = context =>
                 {
-                    var token = context.TokenEndpointResponse.AccessToken;
+                    var token = context.TokenEndpointResponse!.AccessToken;
 
                     var appIdentity = new ClaimsIdentity();
                     appIdentity.AddClaim(new Claim(CustomClaimTypes.AccessToken, token));
 
-                    context.Principal.AddIdentity(appIdentity);
+                    context.Principal!.AddIdentity(appIdentity);
+
+                    return Task.CompletedTask;
                 }
             };
         })

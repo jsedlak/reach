@@ -3,8 +3,8 @@
 [GenerateSerializer]
 public class TemplateCreatedEvent : BaseTemplateEvent
 {
-    public TemplateCreatedEvent(Guid aggregateId, Guid tenantId)
-        : base(aggregateId, tenantId)
+    public TemplateCreatedEvent(Guid aggregateId, Guid organizationId, Guid hubId)
+        : base(aggregateId, organizationId, hubId)
     {
     }
 

@@ -16,27 +16,14 @@ public static class HostExtensions
         });
     }
 
-    public static IServiceCollection WithDelegatedRegionUrls(
-        this IServiceCollection services,
-        Func<Region, string> apiBaseUrlCallback,
-        Func<Region, string> graphBaseUrlCallback,
-        Func<Region, string, string> tenantBaseUrlCallback)
-    {
-        return services.AddScoped<IRegionUrlFormatter, DelegatingRegionUrlFormatter>(sp =>
-            new DelegatingRegionUrlFormatter(
-                apiBaseUrlCallback, 
-                graphBaseUrlCallback,
-                tenantBaseUrlCallback)
-        );
-    }
-
     public static IServiceCollection WithPathRegionUrls(
         this IServiceCollection services,
         string baseUrlFormat,
+        string baseUrlRegionFormat,
         string apiRoute = "/v1/api/",
         string graphRoute = "/v1/graph/")
     {
         return services.AddScoped<IRegionUrlFormatter, PathBasedRegionUrlFormatter>(sp =>
-            new PathBasedRegionUrlFormatter(baseUrlFormat, apiRoute, graphRoute));
+            new PathBasedRegionUrlFormatter(baseUrlFormat, baseUrlRegionFormat, apiRoute, graphRoute));
     }
 }

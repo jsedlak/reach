@@ -20,7 +20,7 @@ var storage = builder.AddAzureStorage("reach-cluster-storage")
 var grainStorage = storage.AddBlobs("grain-state");
 var streamingStorage = storage.AddTables("streaming");
 var cluster = storage.AddTables("clustering");
-var tenantStorage = storage.AddTables("tenant-storage");
+var tenantStorage = storage.AddTables("membership-storage");
 
 var orleans = builder.AddOrleans("reach-cluster")
     .WithClusterId("reach")

@@ -1,16 +1,16 @@
-﻿@page "/app/{tenantSlug}"
+﻿@page "/app/{organizationSlug}/{hubSlug}"
 @inherits BaseTenantComponent
 @rendermode InteractiveServer
 <PageTitle>Dashboard - Reach</PageTitle>
 
-<h1>Welcome to @TenantContext.CurrentTenant?.Name!</h1>
+<h1>Welcome to @TenantContext.CurrentHub?.Name!</h1>
 
 <div class="my-3 p-10 bg-gray-100">
     <p>
         <span class="font-bold">Render Mode:</span> @RendererInfo.Name
     </p>
     <p>
-        <span class="font-bold">Tenant:</span> @(TenantContext.CurrentTenant?.Name)
+        <span class="font-bold">Tenant:</span> @(TenantContext.CurrentHub?.Name)
     </p>
 
 </div>

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Reach.Apps.ContentApp.Services;
+﻿using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.Fields;
 using Reach.Content.Views;
 using Reach.Security;

@@ -5,6 +5,7 @@ using Reach.Content.Commands.Editors;
 using Reach.Content.Views;
 using Reach.Cqrs;
 using Reach.EditorApp.ServiceModel;
+using Reach.Membership.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
@@ -14,7 +15,8 @@ public class EditorDefinitionService : BaseService
     query {
         editorDefinitions {
             id
-            tenantId
+            organizationId
+            hubId
             name
             editorType
             parameters {
@@ -27,8 +29,8 @@ public class EditorDefinitionService : BaseService
     }
     ";
 
-    public EditorDefinitionService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<EditorDefinitionService> logger) 
-        : base(tenantService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
+    public EditorDefinitionService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<EditorDefinitionService> logger) 
+        : base(organizationService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
     {
     }
 

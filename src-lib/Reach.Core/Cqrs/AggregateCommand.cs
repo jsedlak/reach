@@ -17,6 +17,15 @@ public abstract class AggregateCommand
     [Id(0)]
     public Guid AggregateId { get; set; } = Guid.NewGuid();
 
+    /// <summary>
+    /// Gets or Sets the unique identifier of the organization to which the resource belongs
+    /// </summary>
     [Id(1)]
-    public Guid TenantId { get; set; } = Guid.Empty;
+    public Guid OrganizationId { get; set; } = Guid.Empty;
+
+    /// <summary>
+    /// Gets or Sets the unique identifier of the hub to which the resource belongs
+    /// </summary>
+    [Id(2)]
+    public Guid HubId { get; set; } = Guid.Empty;
 }

@@ -1,11 +1,11 @@
 ﻿@rendermode InteractiveAuto
 <ClickContainer OnClickedOutside="@OnClickedOutside">
     <div class="relative">
-        @if (TenantContext.CurrentTenant is not null)
+        @if (TenantContext.CurrentHub is not null)
         {
             <a class="cursor-pointer flex items-center gap-2" @onclick="@OnDropdownClicked">
-                <img src="@TenantContext.CurrentTenant.IconUrl" class="rounded-lg size-8" />
-                <span class="text-gray-700 dark:text-white text-sm">@TenantContext.CurrentTenant.Name</span>
+                <img src="@TenantContext.CurrentHub.IconUrl" class="rounded-lg size-8" />
+                <span class="text-gray-700 dark:text-white text-sm">@TenantContext.CurrentHub.Name</span>
                 @HeroIcons.ChevronDown(widthAndHeight: "size-4")
             </a>
         }
@@ -17,24 +17,29 @@
         @if (_isOpen)
         {
             <div class="absolute left-0 top-100 mt-2 rounded-lg overflow-hidden z-50 min-w-[200px] space-y-2 bg-white dark:bg-gray-900 shadow-lg rounded-lg border border-gray-300">
-                @foreach (var tenant in TenantContext.AvailableTenants)
-                {
-                    var localizedUrl = new Uri(_navigationManager.Uri).PathAndQuery.Replace($"app/{TenantContext.CurrentTenant?.Slug.ToLower()}", "");
+                @{
+                    var currentOrg = TenantContext.AvailableOrganizations.FirstOrDefault(m => m.Id == TenantContext.CurrentHub?.OrganizationId);
+                }
+                @if(currentOrg != null) {
+                    @foreach (var hub in currentOrg.Hubs)
+                    {
+                        var localizedUrl = new Uri(_navigationManager.Uri).PathAndQuery.Replace($"app/{TenantContext.CurrentHub?.Slug.ToLower()}", "");
 
-                    var tenantDashboardUrl = _regionUrlFormatter.GetTenantBaseUrl(tenant.Region, tenant.Slug).TrimEnd('/') +
-                        "/" + localizedUrl.TrimStart('/');
+                        var tenantDashboardUrl = _regionUrlFormatter.GetHubBaseUrl(hub.Region, currentOrg.Slug, hub.Slug).TrimEnd('/') +
+                            "/" + localizedUrl.TrimStart('/');
 
-                    var tenantClass = TenantContext.CurrentTenant != null &&
-                        tenant.TenantId == TenantContext.CurrentTenant.TenantId ?
-                    "bg-indigo-800 text-white" :
-                    "text-gray-700 hover:bg-indigo-800 hover:text-white";
+                        var hubClass = TenantContext.CurrentHub != null &&
+                        hub.Id == TenantContext.CurrentHub.Id ?
+                        "bg-indigo-800 text-white" :
+                        "text-gray-700 hover:bg-indigo-800 hover:text-white";
 
-                    <a class="p-3 cursor-pointer flex gap-2 items-center @tenantClass"
-                       @onclick="@OnDropdownClicked"
-                       href="@tenantDashboardUrl">
-                        <img src="@tenant.IconUrl" class="rounded-lg size-8" />
-                        <span class="text-sm whitespace-nowrap">@tenant.Name</span>
-                    </a>
+                        <a class="p-3 cursor-pointer flex gap-2 items-center @hubClass "
+                           @onclick="@OnDropdownClicked"
+                           href="@tenantDashboardUrl">
+                            <img src="@hub.IconUrl" class="rounded-lg size-8" />
+                            <span class="text-sm whitespace-nowrap">@hub.Name</span>
+                        </a>
+                    }
                 }
             </div>
         }

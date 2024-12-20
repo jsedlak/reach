@@ -31,7 +31,7 @@ builder.Services
     .AddQueryType(q => q.Name("Query"))
     .AddType<EditorDefinitionQueries>()
     .AddType<FieldDefinitionQueries>()
-    .AddHttpRequestInterceptor<TenantInterceptor>();
+    .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
 builder.UseOrleans(o =>

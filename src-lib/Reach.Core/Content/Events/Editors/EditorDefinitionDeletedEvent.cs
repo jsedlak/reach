@@ -3,8 +3,8 @@
 [GenerateSerializer]
 public class EditorDefinitionDeletedEvent : BaseEditorDefinitionEvent
 {
-    public EditorDefinitionDeletedEvent(Guid aggregateId, Guid tenantId)
-        : base(aggregateId, tenantId)
+    public EditorDefinitionDeletedEvent(Guid aggregateId, Guid organizationId, Guid hubId)
+        : base(aggregateId, organizationId, hubId)
     {
     }
 }

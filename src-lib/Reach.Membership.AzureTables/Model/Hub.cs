@@ -3,7 +3,7 @@ using Azure.Data.Tables;
 
 namespace Reach.Membership.Model;
 
-public class Tenant : ITableEntity
+public sealed class Hub : ITableEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -13,7 +13,11 @@ public class Tenant : ITableEntity
 
     public string OwnerIdentifier { get; set; } = null!;
 
-    public string RegionId { get; set; } = string.Empty;
+    public string RegionKey { get; set; } = string.Empty;
+
+    public string IconUrl { get; set; } = string.Empty;
+
+    public Guid OrganizationId { get; set; } = Guid.Empty;
 
     #region Azure Table Stuff
     public required string PartitionKey { get; set; }

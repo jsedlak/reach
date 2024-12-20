@@ -30,7 +30,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
 
     public async Task Handle(FieldDefinitionCreatedEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionCreatedEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+        _logger.LogInformation($"{nameof(FieldDefinitionCreatedEvent)} handled on Grain ID {this.GetGrainId()}.");
 
         var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
 
@@ -39,7 +39,8 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
             result = new Reach.Content.Views.FieldDefinitionView()
             {
                 Id = @event.AggregateId,
-                TenantId = @event.TenantId
+                OrganizationId = @event.OrganizationId,
+                HubId = @event.HubId
             };
         }
 
@@ -54,14 +55,14 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
 
     public async Task Handle(FieldDefinitionDeletedEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionDeletedEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+        _logger.LogInformation($"{nameof(FieldDefinitionDeletedEvent)} handled on Grain ID {this.GetGrainId()}.");
 
         await _fieldDefinitionViewWriteRepository.Delete(@event.AggregateId);
     }
 
     public async Task Handle(FieldDefinitionEditorSetEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionEditorSetEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+        _logger.LogInformation($"{nameof(FieldDefinitionEditorSetEvent)} handled on Grain ID {this.GetGrainId()}.");
 
         var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
 
@@ -78,7 +79,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
 
     public async Task Handle(FieldDefinitionEditorParametersSetEvent @event)
     {
-        _logger.LogInformation($"{nameof(FieldDefinitionEditorParametersSetEvent)} handled on Grain ID {this.GetGrainId().GetGuidKey()}.");
+        _logger.LogInformation($"{nameof(FieldDefinitionEditorParametersSetEvent)} handled on Grain ID {this.GetGrainId()}.");
 
         var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
 

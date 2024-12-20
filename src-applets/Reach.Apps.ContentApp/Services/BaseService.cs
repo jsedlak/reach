@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Reach.Components.Context;
 using Reach.Cqrs;
-using Reach.EditorApp.ServiceModel;
 using Reach.Membership;
+using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
@@ -28,14 +26,14 @@ public abstract class BaseService
     private readonly NavigationManager _navigationManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly ILogger _logger;
-    private readonly ITenantService _tenantService;
+    private readonly IOrganizationService _organizationService;
 
-    protected BaseService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
+    protected BaseService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
     {
         _navigationManager = navigationManager;
         _authenticationStateProvider = authenticationStateProvider;
         _logger = logger;
-        _tenantService = tenantService;
+        _organizationService = organizationService;
         _httpClientFactory = httpClientFactory;
 
         //_graphQlClient = httpClientFactory.CreateClient("graphql");
@@ -48,19 +46,23 @@ public abstract class BaseService
     /// dashboard and returns false.
     /// </summary>
     /// <returns></returns>
-    private async Task<AvailableTenantView?> EnsureTenant()
+    private async Task<MembershipView> EnsureMembership()
     {
-        var tenants = await _tenantService.GetTenantsForUserAsync();
+        var view = new MembershipView();
+
+        var organizations = await _organizationService.GetOrganizationsForUserAsync();
         var path = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).ToLower();
 
         var pathSplit = path.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
 
-        if (pathSplit.Length > 1 && pathSplit[0].Equals("app"))
+        // TODO: We need to get this from a Region formatter, don't we?
+        if (pathSplit.Length > 2 && pathSplit[0].Equals("app"))
         {
-            return tenants.FirstOrDefault(m => m.Slug == pathSplit[1]);
+            view.Organization = organizations.FirstOrDefault(m => m.Slug == pathSplit[1]);
+            view.Hub = view.Organization?.Hubs.FirstOrDefault(m => m.Slug == pathSplit[2]);
         }
 
-        return null;
+        return view;
     }
 
     /// <summary>
@@ -68,31 +70,24 @@ public abstract class BaseService
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>
-    private async Task<AvailableTenantView> PrepareClient(HttpClient client, Expression<Func<AvailableTenantView, string>> getUrl)
+    private async Task<MembershipView> PrepareClient(HttpClient client, Expression<Func<MembershipView, string>> getUrl)
     {
-        var tenant = await EnsureTenant();
+        var membership = await EnsureMembership();
 
-        if (tenant == null)
+        if (membership == null || !membership.IsValid)
         {
             throw new UnauthorizedAccessException();
         }
 
-        client.BaseAddress = new Uri(getUrl.Compile().Invoke(tenant));
+        client.BaseAddress = new Uri(getUrl.Compile().Invoke(membership));
 
-        // Remove the tenant id header if it's been set already
-        if (client.DefaultRequestHeaders.Contains(TenantHttpConstants.TenantIdHeader))
-        {
-            var removeResult = client.DefaultRequestHeaders.Remove(TenantHttpConstants.TenantIdHeader);
-            Console.WriteLine($"Removal of TenantHeader was {removeResult}");
-        }
+        return membership;
+    }
 
-        // Add the tenant id to ensure it's up to date
-        //client.DefaultRequestHeaders.Add(
-        //    TenantHttpConstants.TenantIdHeader,
-        //    tenant.TenantId.ToString()
-        //);
-
-        return tenant;
+    private void AddHeaders(HttpContent content, MembershipView membership)
+    {
+        content.Headers.Add(MembershipHttpConstants.OrganizationIdHeader, membership.Organization!.Id.ToString());
+        content.Headers.Add(MembershipHttpConstants.HubIdHeader, membership.Hub!.Id.ToString());
     }
 
     protected async Task<CommandResponse> ExecuteCommandAsync<TCommand>(string path, TCommand command)
@@ -109,14 +104,14 @@ public abstract class BaseService
 
         // apply security
         _logger.LogInformation("Preparing API Client");
-        var tenant = await PrepareClient(client, m => m.Region.ApiUrl);
+        var membership = await PrepareClient(client, m => m.Hub!.Region.ApiUrl);
         client.SetAuthorization(state.User);
 
         // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
 
         content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
-        content.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
+        AddHeaders(content, membership);
 
         var response = await client.PostAsync(
             $"api/{path}/{command.AggregateId}/execute",
@@ -139,7 +134,7 @@ public abstract class BaseService
         var client = _httpClientFactory.CreateClient("graphql");
 
         // apply security
-        var tenant = await PrepareClient(client, m => m.Region.GraphUrl);
+        var membership = await PrepareClient(client, m => m.Hub!.Region.GraphUrl);
         client.SetAuthorization(state.User);
 
         // create and secure the request
@@ -147,7 +142,7 @@ public abstract class BaseService
         var requestContent = new StringContent(query, mediaType: ApplicationJsonMediaType);
 
         // add our headers
-        requestContent.Headers.Add(TenantHttpConstants.TenantIdHeader, tenant.TenantId.ToString());
+        AddHeaders(requestContent, membership);
 
         // bundle up the graphql request
         var result = await client.PostAsync("graphql/", requestContent);
@@ -175,8 +170,13 @@ public abstract class BaseService
         return resultCollection as IEnumerable<TView> ?? Array.Empty<TView>();
     }
 
-    //protected HttpClient ApiClient => _apiClient;
+    private class MembershipView
+    {
+        public AvailableOrganizationView? Organization { get; set; }
 
-    //protected HttpClient GraphQlClient => _graphQlClient;
+        public AvailableHubView? Hub { get; set; }
+
+        public bool IsValid => Organization != null && Hub != null;
+    }
 }
 
