@@ -1,3 +1,5 @@
+using Aspire.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 /* Add Our IDP */
@@ -9,6 +11,12 @@ var builder = DistributedApplication.CreateBuilder(args);
 //    .AddEventHub("ReachEvents");
 
 //var eventHubConnectionString = eventHubs.PublishAsConnectionString();
+
+/* PostgreSQL */
+var postgres = builder.AddPostgres("postgres")
+    .WithPgAdmin()
+    .WithPgWeb();
+var membershipDb = postgres.AddDatabase("membershipdb");
 
 /* Add Our Mongo Storage */
 var mongo = builder.AddMongoDB("reach-mongo", 52296);
@@ -35,18 +43,22 @@ var silo = builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
     .WithExternalHttpEndpoints()
     .WithReference(orleans)
     .WithReference(mongo)
+    .WithReference(membershipDb)
     //.WithReference(eventHubs)
     //.WithReference(eventHubConnectionString, "EventHubsConnectionString")
     .WaitFor(grainStorage)
     .WaitFor(cluster)
     .WaitFor(streamingStorage)
-    .WaitFor(mongo);
+    .WaitFor(mongo)
+    .WaitFor(postgres);
 
 /* Add Our Editor Application */
 builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
     .WithReference(silo)
     .WithReference(tenantStorage)
+    .WithReference(membershipDb)
     .WaitFor(mongo)
-    .WaitFor(silo);
+    .WaitFor(silo)
+    .WaitFor(postgres);
 
 builder.Build().Run();
