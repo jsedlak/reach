@@ -12,6 +12,8 @@ using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
+using Reach.Membership.AzureTables;
+using Reach.Membership.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,12 +60,12 @@ builder.Services.AddCascadingValue(static sp =>
 );
 
 // Add our repositories
-builder.Services.AddScoped<IOrganizationReadRepository, AzureTablesOrganizationRepository>();
-builder.Services.AddScoped<IOrganizationWriteRepository, AzureTablesOrganizationRepository>();
 builder.Services.AddScoped<IAccountResolver, AuthenticationStateAccountResolver>();
-builder.Services.AddScoped<IOrganizationService, AzureTablesOrganizationService>();
-
 builder.Services.AddScoped<IRegionService, ProviderRegionService>();
+
+// Configure Membership & Tenancy
+// builder.AddAzureTablesMembership();
+builder.AddPostgresMembership("membership-database");
 
 // Add our cascading contexts
 builder.AddApplets(

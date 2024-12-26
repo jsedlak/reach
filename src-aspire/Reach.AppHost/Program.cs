@@ -16,6 +16,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 var postgres = builder.AddPostgres("postgres")
     .WithPgAdmin()
     .WithPgWeb();
+
 var membershipDb = postgres.AddDatabase("membershipdb");
 
 /* Add Our Mongo Storage */
