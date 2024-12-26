@@ -7,7 +7,7 @@ using Reach.Orchestration.ServiceModel;
 
 namespace Reach.Membership.Postgres.Services;
 
-public class PostgresOrganizationService : IOrganizationService
+internal class PostgresOrganizationService : IOrganizationService
 {
     private readonly MembershipDbContext _membershipContext;
     private readonly IRegionProvider _regionProvider;

@@ -2,7 +2,7 @@
 
 namespace Reach.Membership.ServiceModel;
 
-public interface IOrganizationWriteRepository
+internal interface IOrganizationWriteRepository
 {
     Task CreateOrganization(Organization organization);
 

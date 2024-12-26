@@ -10,11 +10,9 @@ public class AzureTablesOrganizationService : IOrganizationService
 {
     private readonly IOrganizationReadRepository _organizationReadRepository;
     private readonly IOrganizationWriteRepository _organizationWriteRepository;
-    private readonly IAccountResolver _accountResolver;
     private readonly IRegionProvider _regionProvider;
 
-    public AzureTablesOrganizationService(
-        IAccountResolver accountResolver,
+    internal AzureTablesOrganizationService(
         IRegionProvider regionProvider,
         IOrganizationReadRepository organizationReadRepository,
         IOrganizationWriteRepository organizationWriteRepository)
@@ -22,7 +20,6 @@ public class AzureTablesOrganizationService : IOrganizationService
         _regionProvider = regionProvider;
         _organizationReadRepository = organizationReadRepository;
         _organizationWriteRepository = organizationWriteRepository;
-        _accountResolver = accountResolver;
     }
 
     public async Task<CommandResponse> CreateOrganization(Guid id, string name, string slug, string ownerId)
@@ -59,9 +56,7 @@ public class AzureTablesOrganizationService : IOrganizationService
 
     public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync()
     {
-        var userId = await _accountResolver.GetCurrentAccountAsync();
-
-        return await GetOrganizationsForUserAsync(userId);
+        throw new NotImplementedException();
     }
 
     public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId)

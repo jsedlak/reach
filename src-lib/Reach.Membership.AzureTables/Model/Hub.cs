@@ -3,7 +3,7 @@ using Azure.Data.Tables;
 
 namespace Reach.Membership.Model;
 
-public sealed class Hub : ITableEntity
+internal sealed class Hub : ITableEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 

@@ -60,7 +60,6 @@ builder.Services.AddCascadingValue(static sp =>
 );
 
 // Add our repositories
-builder.Services.AddScoped<IAccountResolver, AuthenticationStateAccountResolver>();
 builder.Services.AddScoped<IRegionService, ProviderRegionService>();
 
 // Configure Membership & Tenancy

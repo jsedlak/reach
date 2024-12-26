@@ -3,7 +3,7 @@ using Reach.Membership.Postgres.Model;
 
 namespace Reach.Membership.Postgres.Data;
 
-public class MembershipDbContext : DbContext
+internal class MembershipDbContext : DbContext
 {
     public MembershipDbContext(DbContextOptions options) 
         : base(options)

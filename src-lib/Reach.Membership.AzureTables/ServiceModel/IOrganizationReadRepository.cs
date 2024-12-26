@@ -2,7 +2,7 @@
 
 namespace Reach.Membership.ServiceModel;
 
-public interface IOrganizationReadRepository
+internal interface IOrganizationReadRepository
 {
     Task<IEnumerable<Organization>> GetOrganizationsForUser(string userId);
 

@@ -2,7 +2,7 @@
 
 namespace Reach.Membership.Postgres.Model;
 
-public class Organization
+internal class Organization
 {
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();

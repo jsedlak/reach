@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Reach.Membership.Services;
 
-public sealed class AzureTablesOrganizationRepository : IOrganizationReadRepository, IOrganizationWriteRepository
+internal sealed class AzureTablesOrganizationRepository : IOrganizationReadRepository, IOrganizationWriteRepository
 {
     public const string OrganizationsTable = "organizations";
     public const string HubsTable = "hubs";
