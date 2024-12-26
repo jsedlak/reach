@@ -12,8 +12,8 @@ using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
-using Yarp.ReverseProxy.Transforms;
-using Reach.Membership;
+using Reach.Membership.AzureTables;
+using Reach.Membership.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,14 +26,12 @@ builder.AddServiceDefaults();
 builder.Services.AddHttpForwarderWithServiceDiscovery();
 
 // grab storage provider
-//builder.AddAzureTableClient("tenant-storage", settings => settings.)
-builder.AddKeyedAzureTableClient("tenant-storage");
+builder.AddKeyedAzureTableClient("membership-storage");
 
 // Add multi-tenancy support!
 // TODO: Figure out how we can pass the cluster endpoint dynamically
 builder.Services.WithInMemoryRegions(new Region { Id = Guid.Empty, Name = "Global", Key = "global" });
-builder.Services.WithPathRegionUrls("https://localhost:7208/", "api", "graphql");
-builder.Services.AddScoped<ITenantRepository, AzureTablesTenantRepository>();
+builder.Services.WithPathRegionUrls("https://localhost:7208/", "https://localhost:7208/", "api", "graphql");
 
 // Add our HTTP clients!
 // TODO: Move to Service Defaults
@@ -62,8 +60,11 @@ builder.Services.AddCascadingValue(static sp =>
 );
 
 // Add our repositories
-builder.Services.AddScoped<ITenantService, RepositoryTenantService>();
 builder.Services.AddScoped<IRegionService, ProviderRegionService>();
+
+// Configure Membership & Tenancy
+// builder.AddAzureTablesMembership();
+builder.AddPostgresMembership("membership-database");
 
 // Add our cascading contexts
 builder.AddApplets(

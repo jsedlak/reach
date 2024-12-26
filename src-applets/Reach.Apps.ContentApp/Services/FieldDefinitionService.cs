@@ -7,6 +7,7 @@ using Reach.Content.Commands.Fields;
 using Reach.Content.Views;
 using Reach.Cqrs;
 using Reach.EditorApp.ServiceModel;
+using Reach.Membership.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
@@ -17,6 +18,8 @@ public class FieldDefinitionService : BaseService
         fieldDefinitions {
             id
             name
+            organizationId
+            hubId
             key
             editorDefinitionId
             editorParameters {
@@ -26,6 +29,8 @@ public class FieldDefinitionService : BaseService
             editorDefinition {
                 id
                 name
+                organizationId
+                hubId
                 displayName
                 editorType
                 parameters {
@@ -39,8 +44,8 @@ public class FieldDefinitionService : BaseService
     }
     ";
 
-    public FieldDefinitionService(ITenantService tenantService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<FieldDefinitionService> logger)
-        : base(tenantService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
+    public FieldDefinitionService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<FieldDefinitionService> logger)
+        : base(organizationService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
     {
     }
 

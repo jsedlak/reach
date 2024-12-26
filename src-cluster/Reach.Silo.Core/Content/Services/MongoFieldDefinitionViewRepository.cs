@@ -43,9 +43,9 @@ public class MongoFieldDefinitionViewRepository : MongoViewRepository<FieldDefin
         return await QueryAsync();
     }
 
-    public async Task<IQueryable<FieldDefinitionView>> Query(Guid tenantId)
+    public async Task<IQueryable<FieldDefinitionView>> Query(Guid organizationId, Guid hubId)
     {
-        return await QueryAsync(m => m.TenantId == tenantId);
+        return await QueryAsync(m => m.OrganizationId == organizationId && m.HubId == hubId);
     }
 
     

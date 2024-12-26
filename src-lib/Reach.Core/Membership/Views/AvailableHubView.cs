@@ -2,12 +2,11 @@
 
 namespace Reach.Membership.Views;
 
-/// <summary>
-/// Represents a tenant that the current user has access to in some manner
-/// </summary>
-public class AvailableTenantView
+public class AvailableHubView
 {
-    public Guid TenantId { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
+
+    public Guid OrganizationId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
@@ -16,6 +15,4 @@ public class AvailableTenantView
     public string IconUrl { get; set; } = string.Empty;
 
     public Region Region { get; set; } = new();
-
-    public string TenantUrl => $"{Region.TenantUrl}/{Slug}/dashboard";
 }

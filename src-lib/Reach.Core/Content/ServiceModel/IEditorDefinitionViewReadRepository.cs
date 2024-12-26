@@ -7,7 +7,7 @@ public interface IEditorDefinitionViewReadRepository
     Task<IQueryable<EditorDefinitionView>> Query();
 
 
-    Task<IQueryable<EditorDefinitionView>> Query(Guid tenantId);
+    Task<IQueryable<EditorDefinitionView>> Query(Guid organizationId, Guid hubId);
 
-    Task<EditorDefinitionView> Get(Guid id);
+    Task<EditorDefinitionView?> Get(Guid id);
 }

@@ -5,5 +5,8 @@ namespace Reach.Components;
 public abstract class BaseTenantComponent : ComponentBase
 {
     [Parameter]
-    public string TenantSlug { get; set; } = null!;
+    public string OrganizationSlug { get; set; } = null!;
+
+    [Parameter]
+    public string HubSlug { get; set; } = null!;
 }

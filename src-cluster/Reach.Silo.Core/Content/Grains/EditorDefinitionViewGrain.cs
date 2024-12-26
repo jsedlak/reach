@@ -29,7 +29,8 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
             result = new Reach.Content.Views.EditorDefinitionView()
             {
                 Id = @event.AggregateId,
-                TenantId = @event.TenantId
+                OrganizationId = @event.OrganizationId,
+                HubId = @event.HubId
             };
         }
 

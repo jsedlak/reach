@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reach.Cqrs;
-using Reach.Membership.Model;
+using Reach.EditorApp.ApiModel;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
 using Reach.Orchestration.ServiceModel;
@@ -9,48 +9,45 @@ using Reach.Orchestration.ServiceModel;
 namespace Reach.EditorApp.Controllers;
 
 [ApiController]
-[Route("api/tenants")]
-public class TenantsController : Controller
+[Route("api/organizations")]
+public class OrganizationsController : Controller
 {
-    private readonly ITenantRepository _tenantRepository;
+    private readonly IOrganizationService _organizationService;
     private readonly IRegionProvider _regionProvider;
 
-    public TenantsController(ITenantRepository tenantRepository, IRegionProvider regionProvider)
+    public OrganizationsController(IOrganizationService organizationService, IRegionProvider regionProvider)
     {
-        _tenantRepository = tenantRepository;
+        _organizationService = organizationService;
         _regionProvider = regionProvider;
     }
 
     [Authorize]
     [HttpGet]
-    public async Task<IEnumerable<AvailableTenantView>> GetTenants()
+    public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizations()
     {
-        // TODO: Move this into a service class
         var userId = HttpContext.User.Identity?.Name ?? "uhoh";
-        var result = await _tenantRepository.GetAllForUser(userId);
-
-        var regions = await _regionProvider.GetAll();
-
-        return result.Select(m => new AvailableTenantView
-        {
-            TenantId = m.Id,
-            Name = m.Name,
-            Slug = m.Slug,
-            Region = regions.First(region => region.Key == m.RegionId),
-            IconUrl = $"https://picsum.photos/seed/{m.Id}/200"
-        });
+        var result = await _organizationService.GetOrganizationsForUserAsync(userId);
+        return result;
     }
 
     [Authorize]
     [HttpPost]
-    public async Task<CommandResponse> Create([FromBody] Tenant tenant)
+    public async Task<CommandResponse> Create([FromBody] CreateOrganizationRequest request)
     {
         var userId = HttpContext.User.Identity?.Name ?? "uhoh";
-        tenant.OwnerIdentifier = userId;
 
-        var result = await _tenantRepository.Create(tenant);
+        var result = await _organizationService.CreateOrganization(request.Id, request.Name, request.Slug, userId);
         return result;
     }
 
+    [Authorize]
+    [HttpPost("{organizationId}/hubs")]
+    public async Task<CommandResponse> Create([FromRoute] Guid organizationId, [FromBody] CreateHubRequest request)
+    {
+        var userId = HttpContext.User.Identity?.Name ?? "uhoh";
+
+        var result = await _organizationService.CreateHub(request.Id, organizationId, request.Name, request.Slug, request.IconUrl, request.RegionKey);
+        return result;
+    }
 
 }

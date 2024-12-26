@@ -8,6 +8,7 @@ using Reach.EditorApp.ServiceModel;
 using Reach.Orchestration;
 using Tazor.Components;
 using Tazor.Wasm;
+using Reach.Membership.ServiceModel;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -34,7 +35,7 @@ builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri("ht
 builder.Services.AddHttpClient("graphql", client => client.BaseAddress = new Uri("https://localhost:7208/"));
 
 // Add our repositories & services
-builder.Services.AddSingleton<ITenantService, HttpTenantService>();
+builder.Services.AddSingleton<IOrganizationService, HttpOrganizationService>();
 builder.Services.AddSingleton<IRegionService, HttpRegionService>();
 
 // Add our region generation, we're running local only so use our host

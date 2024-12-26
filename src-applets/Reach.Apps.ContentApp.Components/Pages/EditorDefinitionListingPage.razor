@@ -1,4 +1,4 @@
-﻿@page "/app/{tenantSlug}/content/editor-definitions"
+﻿@page "/app/{organizationSlug}/{hubSlug}/content/editor-definitions"
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
 <ContentSublayout Title="Editor Definitions">
@@ -12,9 +12,9 @@
         </Button>
     </Toolbar>
     <Body>
-        @if(TenantContext.CurrentTenant is not null) {
+        @if(TenantContext.CurrentHub is not null) {
             <p class="mb-3 font-bold text-lg">
-                Tenant: @TenantContext.CurrentTenant.Name (@TenantContext.CurrentTenant.TenantId)
+                Hub: @TenantContext.CurrentHub.Name (@TenantContext.CurrentHub.Id)
             </p>
         }
         else {

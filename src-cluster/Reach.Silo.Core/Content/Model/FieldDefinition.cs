@@ -11,7 +11,8 @@ public class FieldDefinition
     public void Apply(FieldDefinitionCreatedEvent @event)
     {
         Id = @event.AggregateId;
-        TenantId = @event.TenantId;
+        OrganizationId = @event.OrganizationId;
+        HubId = @event.HubId;
         Name = @event.Name;
         Key = @event.Key;
         EditorDefinitionId = @event.EditorDefinitionId;
@@ -39,9 +40,14 @@ public class FieldDefinition
     public Guid Id { get; set; } = Guid.NewGuid();
 
     /// <summary>
-    /// Gets or Sets the identifier of the tenant to which this definition belongs
+    /// Gets or Sets the identifier of the organization to which this definition belongs
     /// </summary>
-    public Guid TenantId { get; set; } = Guid.Empty;
+    public Guid OrganizationId { get; set; } = Guid.Empty;
+
+    /// <summary>
+    /// Gets or Sets the identifier of the hub to which this definition belongs
+    /// </summary>
+    public Guid HubId { get; set; } = Guid.Empty;
 
     /// <summary>
     /// Gets or Sets the display name for this field definition

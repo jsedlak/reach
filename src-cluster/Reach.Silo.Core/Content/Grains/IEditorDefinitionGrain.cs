@@ -4,7 +4,7 @@ using Reach.Cqrs;
 
 namespace Reach.Silo.Content.Grains;
 
-public interface IEditorDefinitionGrain : IGrainWithGuidCompoundKey
+public interface IEditorDefinitionGrain : IGrainWithStringKey
 {
     Task<CommandResponse> Create(CreateEditorDefinitionCommand command);
 

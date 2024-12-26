@@ -7,7 +7,9 @@ public class FieldDefinitionView : IView
 {
     public Guid Id { get; set; }
 
-    public Guid TenantId { get; set; }
+    public Guid OrganizationId { get; set; }
+
+    public Guid HubId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 

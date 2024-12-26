@@ -6,7 +6,7 @@ public interface IFieldDefinitionViewReadRepository
 {
     Task<IQueryable<FieldDefinitionView>> Query();
 
-    Task<IQueryable<FieldDefinitionView>> Query(Guid tenantId);
+    Task<IQueryable<FieldDefinitionView>> Query(Guid organizationId, Guid hubId);
 
     Task<FieldDefinitionView?> Get(Guid id);
 
