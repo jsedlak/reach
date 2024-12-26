@@ -15,13 +15,5 @@ public interface IOrganizationService
     /// <summary>
     /// Gets all available organizations and hubs for the current user
     /// </summary>
-    /// <returns></returns>
-    // TODO: Remove this and use the userId passed option
-    [Obsolete]
-    Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync();
-
-    /// <summary>
-    /// Gets all available organizations and hubs for the current user
-    /// </summary>
     Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId);
 }

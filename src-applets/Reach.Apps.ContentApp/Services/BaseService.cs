@@ -46,11 +46,11 @@ public abstract class BaseService
     /// dashboard and returns false.
     /// </summary>
     /// <returns></returns>
-    private async Task<MembershipView> EnsureMembership()
+    private async Task<MembershipView> EnsureMembership(string userId)
     {
         var view = new MembershipView();
 
-        var organizations = await _organizationService.GetOrganizationsForUserAsync();
+        var organizations = await _organizationService.GetOrganizationsForUserAsync(userId);
         var path = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).ToLower();
 
         var pathSplit = path.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
@@ -72,7 +72,14 @@ public abstract class BaseService
     /// <returns></returns>
     private async Task<MembershipView> PrepareClient(HttpClient client, Expression<Func<MembershipView, string>> getUrl)
     {
-        var membership = await EnsureMembership();
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+        if (state == null || state.User.Identity == null || !state.User.Identity.IsAuthenticated)
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        var membership = await EnsureMembership(state.User.Identity!.Name);
 
         if (membership == null || !membership.IsValid)
         {
@@ -80,6 +87,7 @@ public abstract class BaseService
         }
 
         client.BaseAddress = new Uri(getUrl.Compile().Invoke(membership));
+        client.SetAuthorization(state.User);
 
         return membership;
     }
@@ -93,19 +101,11 @@ public abstract class BaseService
     protected async Task<CommandResponse> ExecuteCommandAsync<TCommand>(string path, TCommand command)
         where TCommand : AggregateCommand
     {
-        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-
-        if (state == null)
-        {
-            throw new UnauthorizedAccessException();
-        }
-
         var client = _httpClientFactory.CreateClient("api");
 
         // apply security
         _logger.LogInformation("Preparing API Client");
         var membership = await PrepareClient(client, m => m.Hub!.Region.ApiUrl);
-        client.SetAuthorization(state.User);
 
         // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
@@ -124,19 +124,11 @@ public abstract class BaseService
 
     protected async Task<IEnumerable<TView>> QueryGraphAsync<TView>(string prop, string query)
     {
-        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-       
-        if(state == null)
-        {
-            throw new InvalidOperationException("You must be logged in to execute a graphql request.");
-        }
-
         var client = _httpClientFactory.CreateClient("graphql");
 
         // apply security
         var membership = await PrepareClient(client, m => m.Hub!.Region.GraphUrl);
-        client.SetAuthorization(state.User);
-
+     
         // create and secure the request
         query = JsonSerializer.Serialize(new { query });
         var requestContent = new StringContent(query, mediaType: ApplicationJsonMediaType);

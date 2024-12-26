@@ -44,20 +44,8 @@ public class HttpOrganizationService : IOrganizationService
         return result ?? new();
     }
 
-    public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync()
-    {
-        return await _httpClient.GetFromJsonAsync<IEnumerable<AvailableOrganizationView>>("/api/organizations") ?? [];
-    }
-
     public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId)
     {
         return await _httpClient.GetFromJsonAsync<IEnumerable<AvailableOrganizationView>>("/api/organizations") ?? [];
     }
-
-    //public async Task<CommandResponse> CreateAsync(Tenant tenant)
-    //{
-    //    var response = await _httpClient.PostAsJsonAsync("/api/tenants", tenant);
-    //    var result = await response.Content.ReadFromJsonAsync<CommandResponse>();
-    //    return result ?? new();
-    //}
 }

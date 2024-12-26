@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Reach.Components.Context;
 using Reach.Membership.ServiceModel;
@@ -42,9 +43,16 @@ public partial class TenantProvider : ComponentBase, IDisposable
 
         if (!_applicationState.TryTakeFromJson<AvailableHubView>(PersistentStateKey, out var restored))
         {
-            Console.WriteLine("Calling for tenants.");
+            Console.WriteLine("Calling for organizations and hubs.");
+
+            if(AuthenticationState.User.Identity == null || AuthenticationState.User.Identity.Name == null || AuthenticationState.User.Identity.IsAuthenticated)
+            {
+                Console.WriteLine("Cannot request orgs because Authentication State is null.");
+                return;
+            }
+
             // TODO: Need to query for current org, or do we ?
-            var orgs = await _organizationService.GetOrganizationsForUserAsync();
+            var orgs = await _organizationService.GetOrganizationsForUserAsync(AuthenticationState.User.Identity.Name);
             TenantContext.AvailableOrganizations = orgs;
             TenantContext.AvailableHubs = orgs.SelectMany(m => m.Hubs);
             TenantContext.CurrentHub = GetCurrentHub();
@@ -75,6 +83,9 @@ public partial class TenantProvider : ComponentBase, IDisposable
 
         _navigationManager.LocationChanged -= OnLocationChanged;
     }
+
+    [CascadingParameter]
+    public AuthenticationState AuthenticationState { get; set; }
 
     [CascadingParameter]
     public TenantContext TenantContext { get; set; } = null!;

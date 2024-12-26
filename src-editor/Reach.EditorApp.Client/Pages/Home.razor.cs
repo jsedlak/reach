@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
@@ -27,12 +29,16 @@ public partial class Home : ComponentBase
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if(firstRender)
+        var userIsAuthenticated = AuthenticationState.User.Identity != null &&
+            AuthenticationState.User.Identity.IsAuthenticated &&
+            AuthenticationState.User.Identity.Name != null;
+
+        if(firstRender && userIsAuthenticated)
         {
             _isLoadingTenants = true;
             StateHasChanged();
 
-            _organizations = await _organizationService.GetOrganizationsForUserAsync();
+            _organizations = await _organizationService.GetOrganizationsForUserAsync(AuthenticationState.User.Identity!.Name!);
 
             if (!_organizations.Any())
             {
@@ -43,4 +49,8 @@ public partial class Home : ComponentBase
             StateHasChanged();
         }
     }
+
+    [CascadingParameter]
+    public AuthenticationState AuthenticationState { get; set; }
+
 }
