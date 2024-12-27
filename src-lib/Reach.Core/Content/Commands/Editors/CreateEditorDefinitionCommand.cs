@@ -6,12 +6,13 @@ namespace Reach.Content.Commands.Editors;
 public class CreateEditorDefinitionCommand : AggregateCommand
 {
     public CreateEditorDefinitionCommand()
-        : base(Guid.NewGuid())
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
+        
     }
-
-    public CreateEditorDefinitionCommand(Guid aggregateId) 
-        : base(aggregateId)
+    
+    public CreateEditorDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
+        : base(organizationId, aggregateId, hubId)
     {
     }
 

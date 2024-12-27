@@ -43,7 +43,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private Task OnBeginCreateClicked()
     {
-        return _createContext.Open(new CreateEditorDefinitionCommand(Guid.NewGuid()));
+        return _createContext.Open(new CreateEditorDefinitionCommand(Guid.Empty, Guid.Empty, Guid.NewGuid()));
     }
 
     private Task OnCancelCreateClicked()

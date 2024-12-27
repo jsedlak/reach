@@ -38,7 +38,7 @@ public partial class FieldDefinitionListingPage : ContentBasePage
 
     private Task OnBeginCreateClicked()
     {
-        return _createContext.Open(new CreateFieldDefinitionCommand(Guid.NewGuid()));
+        return _createContext.Open(new CreateFieldDefinitionCommand(Guid.Empty, Guid.Empty, Guid.NewGuid()));
     }
 
     private Task OnCancelCreateClicked()

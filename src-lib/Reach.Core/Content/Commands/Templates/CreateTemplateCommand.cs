@@ -7,8 +7,8 @@ namespace Reach.Content.Commands.Templates;
 /// </summary>
 public class CreateTemplateCommand : AggregateCommand
 {
-    public CreateTemplateCommand(Guid aggregateRootId) 
-        : base(aggregateRootId)
+    public CreateTemplateCommand(Guid organizationId, Guid aggregateId, Guid hubId)
+        : base(organizationId, aggregateId, hubId)
     {
     }
 

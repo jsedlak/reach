@@ -6,13 +6,12 @@ namespace Reach.Content.Commands.Fields;
 public class CreateFieldDefinitionCommand : AggregateCommand
 {
     public CreateFieldDefinitionCommand()
-        : base(Guid.NewGuid())
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
-
     }
-
-    public CreateFieldDefinitionCommand(Guid aggregateId) 
-        : base(aggregateId)
+    
+    public CreateFieldDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
+        : base(organizationId, aggregateId, hubId)
     {
     }
 
