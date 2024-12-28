@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Reach.Content.Events.Editors;
 using Reach.Content.ServiceModel;
+using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.ServiceModel;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.Grains.EditorDefinitions;
 
 [ImplicitStreamSubscription(GrainConstants.EditorDefinition_EventStream)]
 public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitionEvent>, IEditorDefinitionViewGrain
@@ -11,7 +12,7 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
     private readonly IEditorDefinitionViewReadRepository _editorDefinitionViewReadRepository;
     private readonly IEditorDefinitionViewWriteRepository _editorDefinitionViewWriteRepository;
 
-    public EditorDefinitionViewGrain(IEditorDefinitionViewReadRepository editorDefinitionViewReadRepository, 
+    public EditorDefinitionViewGrain(IEditorDefinitionViewReadRepository editorDefinitionViewReadRepository,
         IEditorDefinitionViewWriteRepository editorDefinitionViewWriteRepository,
         ILogger<EditorDefinitionViewGrain> logger)
         : base(logger)
@@ -24,7 +25,7 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
     {
         var result = await _editorDefinitionViewReadRepository.Get(@event.AggregateId);
 
-        if(result is null)
+        if (result is null)
         {
             result = new Reach.Content.Views.EditorDefinitionView()
             {
@@ -49,7 +50,7 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
     {
         var result = await _editorDefinitionViewReadRepository.Get(@event.AggregateId);
 
-        if(result is null)
+        if (result is null)
         {
             throw new InvalidOperationException();
         }

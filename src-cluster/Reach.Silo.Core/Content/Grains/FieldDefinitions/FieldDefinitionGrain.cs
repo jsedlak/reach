@@ -2,12 +2,13 @@
 using Reach.Content.Events.Fields;
 using Reach.Content.Model;
 using Reach.Cqrs;
+using Reach.Silo.Content.GrainModel;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.Grains.FieldDefinitions;
 
 public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, BaseFieldDefinitionEvent>, IFieldDefinitionGrain
 {
-    public FieldDefinitionGrain() 
+    public FieldDefinitionGrain()
         : base(GrainConstants.FieldDefinition_EventStream)
     {
     }

@@ -2,13 +2,14 @@
 using Reach.Content.Events.Editors;
 using Reach.Content.Model;
 using Reach.Cqrs;
+using Reach.Silo.Content.GrainModel;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.Grains.EditorDefinitions;
 
 public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition, BaseEditorDefinitionEvent>, IEditorDefinitionGrain
 {
-    public EditorDefinitionGrain() 
-        :base(GrainConstants.EditorDefinition_EventStream)
+    public EditorDefinitionGrain()
+        : base(GrainConstants.EditorDefinition_EventStream)
     {
     }
 

@@ -2,7 +2,7 @@
 using Reach.Content.Commands.Editors;
 using Reach.Cqrs;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.GrainModel;
 
 public interface IEditorDefinitionGrain : IGrainWithStringKey
 {

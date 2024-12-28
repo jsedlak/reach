@@ -1,6 +1,6 @@
 ﻿namespace Reach.Content.Model;
 
-public class Content
+public class ContentItem
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 

@@ -1,11 +1,10 @@
-﻿using Orleans.Streams.Core;
-using Orleans.Streams;
-using Reach.Content.Events.Fields;
+﻿using Reach.Content.Events.Fields;
 using Microsoft.Extensions.Logging;
 using Reach.Content.ServiceModel;
 using Reach.Silo.Content.ServiceModel;
+using Reach.Silo.Content.GrainModel;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.Grains.FieldDefinitions;
 
 [ImplicitStreamSubscription(GrainConstants.FieldDefinition_EventStream)]
 public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionEvent>, IFieldDefinitionViewGrain
@@ -18,7 +17,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
     public FieldDefinitionViewGrain(
         IFieldDefinitionViewReadRepository fieldDefinitionReadRepository,
         IFieldDefinitionViewWriteRepository fieldDefinitionViewWriteRepository,
-        IEditorDefinitionViewReadRepository editorDefinitionReadRepository, 
+        IEditorDefinitionViewReadRepository editorDefinitionReadRepository,
         ILogger<FieldDefinitionViewGrain> logger)
         : base(logger)
     {
@@ -34,7 +33,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
 
         var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
 
-        if(result is null)
+        if (result is null)
         {
             result = new Reach.Content.Views.FieldDefinitionView()
             {
@@ -66,7 +65,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
 
         var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
 
-        if(result is null)
+        if (result is null)
         {
             throw new InvalidOperationException();
         }

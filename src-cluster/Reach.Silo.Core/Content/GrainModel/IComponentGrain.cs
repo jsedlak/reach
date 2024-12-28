@@ -1,7 +1,7 @@
 using Reach.Content.Commands.Components;
 using Reach.Cqrs;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.GrainModel;
 
 public interface IComponentGrain : IGrainWithStringKey
 {

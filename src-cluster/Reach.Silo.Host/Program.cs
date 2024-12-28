@@ -1,6 +1,6 @@
 using Petl.EventSourcing;
 using Petl.EventSourcing.Providers;
-using Reach.Silo.Content.Grains;
+using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
 
@@ -48,6 +48,9 @@ app.Map("/dashboard", x => x.UseOrleansDashboard());
 // Map our grain endpoints using their interfaces
 app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
 app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
+app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
+app.MapGrainEndpoint<IComponentGrain>("components");
+app.MapGrainEndpoint<IContentGrain>("content");
 app.MapGraphQL().RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 await app.RunAsync();

@@ -1,7 +1,7 @@
 using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Cqrs;
 
-namespace Reach.Silo.Content.Grains;
+namespace Reach.Silo.Content.GrainModel;
 
 /// <summary>
 /// Defines the shape of a component
@@ -18,5 +18,5 @@ public interface IComponentDefinitionGrain : IGrainWithStringKey
 
     Task<CommandResponse> Rename(RenameComponentDefinitionCommand command);
 
-    Task<CommandResponse> SetRendererDefinition(SetRendererDefinitionCommand command);
+    Task<CommandResponse> SetRendererDefinition(SetComponentDefinitionRendererCommand command);
 }
