@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
@@ -13,50 +14,51 @@ public partial class Home : ComponentBase
     private readonly IOrganizationService _organizationService;
     private readonly NavigationManager _navigation;
     private readonly IRegionUrlFormatter _regionUrlFormatter;
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
 
     private IEnumerable<AvailableOrganizationView> _organizations = [];
 
     private bool _isLoadingTenants = false;
 
-    public Home(IOrganizationService organizationService, NavigationManager navigation, IRegionUrlFormatter regionUrlFormatter)
+    public Home(
+        IOrganizationService organizationService, 
+        NavigationManager navigation, 
+        IRegionUrlFormatter regionUrlFormatter,
+        AuthenticationStateProvider authenticationStateProvider)
     {
         _organizationService = organizationService;
         _navigation = navigation;
         _regionUrlFormatter = regionUrlFormatter;
+        _authenticationStateProvider = authenticationStateProvider;
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (AuthenticationState == null)
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity is { IsAuthenticated: true })
         {
-            Console.WriteLine("AuthenticationState is null");
-            return;
+            await OnUserAuthenticated(state.User);
+        }
+    }
+
+    protected virtual async Task OnUserAuthenticated(ClaimsPrincipal principal)
+    {
+        
+        Console.WriteLine(nameof(OnUserAuthenticated));
+        _isLoadingTenants = true;
+        StateHasChanged();
+        
+        _organizations = await _organizationService.GetOrganizationsForUserAsync(
+            principal.Identity!.Name!
+        );
+        
+        if (!_organizations.Any())
+        {
+            _navigation.NavigateTo("/onboarding");
         }
         
-        var userIsAuthenticated = AuthenticationState.User.Identity != null &&
-            AuthenticationState.User.Identity.IsAuthenticated &&
-            AuthenticationState.User.Identity.Name != null;
-
-        if(firstRender && userIsAuthenticated)
-        {
-            _isLoadingTenants = true;
-            StateHasChanged();
-
-            _organizations = await _organizationService.GetOrganizationsForUserAsync(AuthenticationState.User.Identity!.Name!);
-
-            if (!_organizations.Any())
-            {
-                _navigation.NavigateTo("/onboarding");
-            }
-
-            _isLoadingTenants = false;
-            StateHasChanged();
-        }
+        _isLoadingTenants = false;
+        StateHasChanged();
     }
-
-    [CascadingParameter]
-    public AuthenticationState AuthenticationState { get; set; }
 
 }

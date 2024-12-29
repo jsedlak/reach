@@ -1,4 +1,5 @@
-﻿using Reach.Cqrs;
+﻿using Microsoft.EntityFrameworkCore;
+using Reach.Cqrs;
 using Reach.Membership.Postgres.Data;
 using Reach.Membership.Postgres.Model;
 using Reach.Membership.ServiceModel;
@@ -74,10 +75,12 @@ internal class PostgresOrganizationService : IOrganizationService
 
     public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId)
     {
-        var regions = await _regionProvider.GetAll();
+        var regions = (await _regionProvider.GetAll()).ToArray();
 
         var orgs = _membershipContext.Organizations
             .Where(m => m.OwnerIdentifier == userId)
+            .Include(organization => organization.Hubs)
+            .ToList()
             .Select(m => new AvailableOrganizationView
             {
                 Id = m.Id,
