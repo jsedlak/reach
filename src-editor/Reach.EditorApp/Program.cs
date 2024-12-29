@@ -101,6 +101,9 @@ app.UseAntiforgery();
 // Add our auth0 callback endpoints 
 app.UseAuth0();
 
+// configure out postgres membership
+// app.UsePostgresMembership();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()

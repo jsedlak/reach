@@ -29,6 +29,12 @@ public partial class Home : ComponentBase
     {
         await base.OnAfterRenderAsync(firstRender);
 
+        if (AuthenticationState == null)
+        {
+            Console.WriteLine("AuthenticationState is null");
+            return;
+        }
+        
         var userIsAuthenticated = AuthenticationState.User.Identity != null &&
             AuthenticationState.User.Identity.IsAuthenticated &&
             AuthenticationState.User.Identity.Name != null;

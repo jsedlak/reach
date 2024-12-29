@@ -16,6 +16,8 @@ internal class PostgresOrganizationService : IOrganizationService
     {
         _membershipContext = membershipContext;
         _regionProvider = regionProvider;
+
+        _membershipContext.Database.EnsureCreated();
     }
 
     public async Task<CommandResponse> CreateHub(Guid id, Guid organizationId, string name, string slug, string iconUrl, string regionKey)

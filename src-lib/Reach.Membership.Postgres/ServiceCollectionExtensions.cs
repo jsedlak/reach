@@ -23,4 +23,10 @@ public static class RegistrationExtensions
 
         return builder;
     }
+
+    public static IHost UsePostgresMembership(this IHost host)
+    {
+        host.Services.GetRequiredService<MembershipDbContext>().Database.EnsureCreated();
+        return host;
+    }
 }

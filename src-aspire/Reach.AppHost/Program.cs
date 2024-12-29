@@ -17,7 +17,10 @@ var postgres = builder.AddPostgres("postgres")
     .WithPgAdmin()
     .WithPgWeb();
 
-var membershipDb = postgres.AddDatabase("membershipdb");
+var membershipDb = postgres.AddDatabase(
+    name: "membership-database", 
+    databaseName: "membership"
+);
 
 /* Add Our Mongo Storage */
 var mongo = builder.AddMongoDB("reach-mongo", 52296);
