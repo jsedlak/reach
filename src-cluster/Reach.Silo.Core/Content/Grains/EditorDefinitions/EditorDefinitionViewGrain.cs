@@ -23,7 +23,11 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
 
     public async Task Handle(EditorDefinitionCreatedEvent @event)
     {
-        var result = await _editorDefinitionViewReadRepository.Get(@event.AggregateId);
+        var result = await _editorDefinitionViewReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
 
         if (result is null)
         {
@@ -43,12 +47,20 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
 
     public async Task Handle(EditorDefinitionDeletedEvent @event)
     {
-        await _editorDefinitionViewWriteRepository.Delete(@event.AggregateId);
+        await _editorDefinitionViewWriteRepository.Delete(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
     }
 
     public async Task Handle(EditorDefinitionParametersSetEvent @event)
     {
-        var result = await _editorDefinitionViewReadRepository.Get(@event.AggregateId);
+        var result = await _editorDefinitionViewReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
 
         if (result is null)
         {

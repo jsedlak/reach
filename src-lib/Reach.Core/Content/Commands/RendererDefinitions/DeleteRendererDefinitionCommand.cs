@@ -6,13 +6,13 @@ namespace Reach.Content.Commands.RendererDefinitions;
 public class DeleteRendererDefinitionCommand : AggregateCommand
 {
     public DeleteRendererDefinitionCommand() 
-        : base(Guid.Empty, Guid.NewGuid(), Guid.Empty)
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
 
     }
 
-    public DeleteRendererDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public DeleteRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

@@ -31,7 +31,11 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
     {
         _logger.LogInformation($"{nameof(FieldDefinitionCreatedEvent)} handled on Grain ID {this.GetGrainId()}.");
 
-        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+        var result = await _fieldDefinitionReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
 
         if (result is null)
         {
@@ -46,7 +50,11 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
         result.Name = @event.Name;
         result.Key = @event.Key;
         result.EditorDefinitionId = @event.EditorDefinitionId;
-        result.EditorDefinition = await _editorDefinitionReadRepository.Get(@event.EditorDefinitionId);
+        result.EditorDefinition = await _editorDefinitionReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.EditorDefinitionId
+        );
         result.EditorParameters = @event.EditorParameters;
 
         await _fieldDefinitionViewWriteRepository.Upsert(result);
@@ -56,14 +64,22 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
     {
         _logger.LogInformation($"{nameof(FieldDefinitionDeletedEvent)} handled on Grain ID {this.GetGrainId()}.");
 
-        await _fieldDefinitionViewWriteRepository.Delete(@event.AggregateId);
+        await _fieldDefinitionViewWriteRepository.Delete(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
     }
 
     public async Task Handle(FieldDefinitionEditorSetEvent @event)
     {
         _logger.LogInformation($"{nameof(FieldDefinitionEditorSetEvent)} handled on Grain ID {this.GetGrainId()}.");
 
-        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+        var result = await _fieldDefinitionReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
 
         if (result is null)
         {
@@ -71,7 +87,12 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
         }
 
         result.EditorDefinitionId = @event.EditorDefinitionId;
-        result.EditorDefinition = await _editorDefinitionReadRepository.Get(@event.EditorDefinitionId);
+        
+        result.EditorDefinition = await _editorDefinitionReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.EditorDefinitionId
+        );
 
         await _fieldDefinitionViewWriteRepository.Upsert(result);
     }
@@ -80,7 +101,11 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
     {
         _logger.LogInformation($"{nameof(FieldDefinitionEditorParametersSetEvent)} handled on Grain ID {this.GetGrainId()}.");
 
-        var result = await _fieldDefinitionReadRepository.Get(@event.AggregateId);
+        var result = await _fieldDefinitionReadRepository.Get(
+            @event.OrganizationId,
+            @event.HubId,
+            @event.AggregateId
+        );
 
         if (result is null)
         {

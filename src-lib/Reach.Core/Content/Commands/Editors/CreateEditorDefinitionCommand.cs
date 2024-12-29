@@ -11,8 +11,8 @@ public class CreateEditorDefinitionCommand : AggregateCommand
         
     }
     
-    public CreateEditorDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public CreateEditorDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

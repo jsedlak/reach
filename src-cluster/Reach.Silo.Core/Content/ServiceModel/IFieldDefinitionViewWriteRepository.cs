@@ -3,9 +3,6 @@ using Reach.Content.Views;
 
 namespace Reach.Silo.Content.ServiceModel;
 
-public interface IFieldDefinitionViewWriteRepository
+public interface IFieldDefinitionViewWriteRepository : IAggregateViewWriteRepository<FieldDefinitionView>
 {
-    Task Upsert(FieldDefinitionView fieldDefinitionView);
-
-    Task Delete(Guid id);
 }

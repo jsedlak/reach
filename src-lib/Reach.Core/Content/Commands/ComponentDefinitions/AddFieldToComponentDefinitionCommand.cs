@@ -5,8 +5,14 @@ namespace Reach.Content.Commands.ComponentDefinitions;
 [GenerateSerializer]
 public class AddFieldToComponentDefinitionCommand : AggregateCommand
 {
-    public AddFieldToComponentDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public AddFieldToComponentDefinitionCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+        
+    }
+    
+    public AddFieldToComponentDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
     

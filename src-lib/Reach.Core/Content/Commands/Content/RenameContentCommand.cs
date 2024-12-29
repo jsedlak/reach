@@ -10,8 +10,8 @@ public class RenameContentCommand : AggregateCommand
     {
     }
 
-    public RenameContentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public RenameContentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

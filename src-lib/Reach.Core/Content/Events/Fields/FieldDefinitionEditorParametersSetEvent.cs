@@ -5,8 +5,8 @@ namespace Reach.Content.Events.Fields;
 [GenerateSerializer]
 public class FieldDefinitionEditorParametersSetEvent : BaseFieldDefinitionEvent
 {
-    public FieldDefinitionEditorParametersSetEvent(Guid aggregateId, Guid organizationId, Guid hubId)
-        : base(aggregateId, organizationId, hubId)
+    public FieldDefinitionEditorParametersSetEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

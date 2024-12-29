@@ -3,8 +3,8 @@ namespace Reach.Content.Events.Components;
 [GenerateSerializer]
 public class ComponentFieldValueSetEvent : BaseComponentEvent
 {
-    public ComponentFieldValueSetEvent(Guid aggregateId, Guid organizationId, Guid hubId) 
-        : base(aggregateId, organizationId, hubId)
+    public ComponentFieldValueSetEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

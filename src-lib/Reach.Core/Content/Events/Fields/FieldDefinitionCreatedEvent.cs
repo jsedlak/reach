@@ -6,8 +6,8 @@ namespace Reach.Content.Events.Fields;
 [GenerateSerializer]
 public class FieldDefinitionCreatedEvent : BaseFieldDefinitionEvent
 {
-    public FieldDefinitionCreatedEvent(Guid aggregateId, Guid organizationId, Guid hubId)
-        : base(aggregateId, organizationId, hubId)
+    public FieldDefinitionCreatedEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

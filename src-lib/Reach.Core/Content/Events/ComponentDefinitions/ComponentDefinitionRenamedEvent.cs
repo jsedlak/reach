@@ -3,8 +3,8 @@ namespace Reach.Content.Events.ComponentDefinitions;
 [GenerateSerializer]
 public class ComponentDefinitionRenamedEvent : BaseComponentDefinitionEvent
 {
-    public ComponentDefinitionRenamedEvent(Guid aggregateId, Guid organizationId, Guid hubId)
-        : base(aggregateId, organizationId, hubId)
+    public ComponentDefinitionRenamedEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

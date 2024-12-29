@@ -2,9 +2,6 @@
 
 namespace Reach.Silo.Content.ServiceModel;
 
-public interface IEditorDefinitionViewWriteRepository
+public interface IEditorDefinitionViewWriteRepository : IAggregateViewWriteRepository<EditorDefinitionView>
 {
-    Task Upsert(EditorDefinitionView editorDefinitionView);
-
-    Task Delete(Guid id);
 }

@@ -5,8 +5,13 @@ namespace Reach.Content.Commands.Components;
 [GenerateSerializer]
 public class RenameComponentCommand : AggregateCommand
 {
-    public RenameComponentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public RenameComponentCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+    }
+    
+    public RenameComponentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

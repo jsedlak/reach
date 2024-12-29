@@ -5,8 +5,13 @@ namespace Reach.Content.Commands.ComponentDefinitions;
 [GenerateSerializer]
 public class SetComponentDefinitionRendererCommand : AggregateCommand
 {
-    public SetComponentDefinitionRendererCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public SetComponentDefinitionRendererCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+    }
+    
+    public SetComponentDefinitionRendererCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

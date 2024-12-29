@@ -10,8 +10,8 @@ public class MoveContentCommand : AggregateCommand
     {
     }
     
-    public MoveContentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public MoveContentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
     

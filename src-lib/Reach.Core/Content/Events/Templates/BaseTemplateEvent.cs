@@ -5,8 +5,8 @@ namespace Reach.Content.Events.Templates;
 [GenerateSerializer]
 public abstract class BaseTemplateEvent : BaseEvent
 {
-    protected BaseTemplateEvent(Guid aggregateId, Guid organizationId, Guid hubId)
-        : base(aggregateId, organizationId, hubId)
+    protected BaseTemplateEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

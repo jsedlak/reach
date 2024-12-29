@@ -6,7 +6,7 @@
 [GenerateSerializer]
 public abstract class AggregateCommand
 {
-    protected AggregateCommand(Guid organizationId, Guid aggregateId, Guid hubId)
+    protected AggregateCommand(Guid organizationId, Guid hubId, Guid aggregateId)
     {
         AggregateId = aggregateId;
         OrganizationId = organizationId;

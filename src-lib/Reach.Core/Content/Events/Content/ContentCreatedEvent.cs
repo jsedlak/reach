@@ -3,8 +3,8 @@ namespace Reach.Content.Events.Content;
 [GenerateSerializer]
 public class ContentCreatedEvent : BaseContentEvent
 {
-    public ContentCreatedEvent(Guid aggregateId, Guid organizationId, Guid hubId) 
-        : base(aggregateId, organizationId, hubId)
+    public ContentCreatedEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
     

@@ -3,8 +3,8 @@
 [GenerateSerializer]
 public class RendererDefinitionDeletedEvent : BaseRendererDefinitionEvent
 {
-    public RendererDefinitionDeletedEvent(Guid aggregateId, Guid organizationId, Guid hubId) 
-        : base(aggregateId, organizationId, hubId)
+    public RendererDefinitionDeletedEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

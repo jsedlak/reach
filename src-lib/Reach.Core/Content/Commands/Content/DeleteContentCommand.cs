@@ -10,8 +10,8 @@ public class DeleteContentCommand : AggregateCommand
     {
     }
 
-    public DeleteContentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public DeleteContentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

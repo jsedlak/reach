@@ -3,14 +3,8 @@ using Reach.Cqrs;
 
 namespace Reach.Content.Views;
 
-public class EditorDefinitionView : IView
+public class EditorDefinitionView : BaseAggregateView
 {
-    public Guid Id { get; set; }
-
-    public Guid OrganizationId { get; set; }
-
-    public Guid HubId { get; set; }
-
     public string Name { get; set; } = string.Empty;
 
     public string DisplayName { get; set; } = string.Empty;

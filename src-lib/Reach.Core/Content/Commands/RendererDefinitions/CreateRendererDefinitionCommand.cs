@@ -6,13 +6,12 @@ namespace Reach.Content.Commands.RendererDefinitions;
 public class CreateRendererDefinitionCommand : AggregateCommand
 {
     public CreateRendererDefinitionCommand()
-        : base(Guid.Empty, Guid.NewGuid(), Guid.Empty)
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
-
     }
 
-    public CreateRendererDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public CreateRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

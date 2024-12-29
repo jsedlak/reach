@@ -10,8 +10,8 @@ public class CreateContentCommand : AggregateCommand
     {
     }
 
-    public CreateContentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public CreateContentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

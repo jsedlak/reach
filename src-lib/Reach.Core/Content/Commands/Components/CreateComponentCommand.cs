@@ -5,8 +5,13 @@ namespace Reach.Content.Commands.Components;
 [GenerateSerializer]
 public class CreateComponentCommand : AggregateCommand
 {
-    public CreateComponentCommand(Guid organizationId, Guid aggregateId, Guid hubId)
-        : base(organizationId, aggregateId, hubId)
+    public CreateComponentCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+    }
+    
+    public CreateComponentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

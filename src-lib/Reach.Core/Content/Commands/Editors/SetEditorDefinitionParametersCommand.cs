@@ -6,8 +6,13 @@ namespace Reach.Content.Commands.Editors;
 [GenerateSerializer]
 public class SetEditorDefinitionParametersCommand : AggregateCommand
 {
-    public SetEditorDefinitionParametersCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public SetEditorDefinitionParametersCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+    }
+    
+    public SetEditorDefinitionParametersCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

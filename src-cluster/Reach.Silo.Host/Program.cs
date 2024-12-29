@@ -31,6 +31,10 @@ builder.Services
     .AddQueryType(q => q.Name("Query"))
     .AddType<EditorDefinitionQueries>()
     .AddType<FieldDefinitionQueries>()
+    .AddType<ComponentDefinitionQueries>()
+    .AddType<ComponentQueries>()
+    .AddType<RendererDefinitionQueries>()
+    .AddType<ContentItemQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard

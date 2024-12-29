@@ -3,8 +3,8 @@
 [GenerateSerializer]
 public class RendererDefinitionRenamedEvent : BaseRendererDefinitionEvent
 {
-    public RendererDefinitionRenamedEvent(Guid aggregateId, Guid organizationId, Guid hubId) 
-        : base(aggregateId, organizationId, hubId)
+    public RendererDefinitionRenamedEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

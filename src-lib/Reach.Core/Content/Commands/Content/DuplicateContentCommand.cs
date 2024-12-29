@@ -10,8 +10,8 @@ public class DuplicateContentCommand : AggregateCommand
     {
     }
     
-    public DuplicateContentCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public DuplicateContentCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

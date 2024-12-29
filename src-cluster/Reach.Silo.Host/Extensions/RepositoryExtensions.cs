@@ -10,12 +10,24 @@ public static class RepositoryExtensions
     {
         builder.Services.Configure<MongoViewRepositoryOptions>(options => options.Database = "reach");
 
-        builder.Services.AddSingleton<IFieldDefinitionViewWriteRepository, MongoFieldDefinitionViewRepository>();
-        builder.Services.AddSingleton<IFieldDefinitionViewReadRepository, MongoFieldDefinitionViewRepository>();
+        builder.Services.AddScoped<IFieldDefinitionViewWriteRepository, MongoFieldDefinitionViewRepository>();
+        builder.Services.AddScoped<IFieldDefinitionViewReadRepository, MongoFieldDefinitionViewRepository>();
 
-        builder.Services.AddSingleton<IEditorDefinitionViewReadRepository, MongoEditorDefinitionViewRepository>();
-        builder.Services.AddSingleton<IEditorDefinitionViewWriteRepository, MongoEditorDefinitionViewRepository>();
+        builder.Services.AddScoped<IEditorDefinitionViewReadRepository, MongoEditorDefinitionViewRepository>();
+        builder.Services.AddScoped<IEditorDefinitionViewWriteRepository, MongoEditorDefinitionViewRepository>();
+        
+        builder.Services.AddScoped<IComponentDefinitionViewReadRepository, MongoComponentDefinitionViewRepository>();
+        builder.Services.AddScoped<IComponentDefinitionViewWriteRepository, MongoComponentDefinitionViewRepository>();
 
+        builder.Services.AddScoped<IComponentViewReadRepository, MongoComponentViewRepository>();
+        builder.Services.AddScoped<IComponentViewWriteRepository, MongoComponentViewRepository>();
+        
+        builder.Services.AddScoped<IContentItemViewReadRepository, MongoContentItemViewRepository>();
+        builder.Services.AddScoped<IContentItemViewWriteRepository, MongoContentItemViewRepository>();
+        
+        builder.Services.AddScoped<IRendererDefinitionViewReadRepository, MongoRendererDefinitionViewRepository>();
+        builder.Services.AddScoped<IRendererDefinitionViewWriteRepository, MongoRendererDefinitionViewRepository>();
+        
         return builder;
     }
 }

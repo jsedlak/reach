@@ -6,7 +6,7 @@
 [GenerateSerializer]
 public abstract class BaseEvent
 {
-    protected BaseEvent(Guid aggregateId, Guid organizationId, Guid hubId)
+    protected BaseEvent(Guid organizationId, Guid hubId, Guid aggregateId)
     {
         AggregateId = aggregateId;
         OrganizationId = organizationId;

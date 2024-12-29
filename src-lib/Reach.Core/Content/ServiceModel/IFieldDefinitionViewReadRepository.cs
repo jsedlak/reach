@@ -1,14 +1,8 @@
-﻿using Reach.Content.Views;
+﻿using System.Reflection.Metadata;
+using Reach.Content.Views;
 
 namespace Reach.Content.ServiceModel;
 
-public interface IFieldDefinitionViewReadRepository
+public interface IFieldDefinitionViewReadRepository : IAggregateViewReadRepository<FieldDefinitionView>
 {
-    Task<IQueryable<FieldDefinitionView>> Query();
-
-    Task<IQueryable<FieldDefinitionView>> Query(Guid organizationId, Guid hubId);
-
-    Task<FieldDefinitionView?> Get(Guid id);
-
-    Task<FieldDefinitionView?> Get(string key);
 }

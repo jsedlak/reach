@@ -6,13 +6,13 @@ namespace Reach.Content.Commands.RendererDefinitions;
 public class RenameRendererDefinitionCommand : AggregateCommand
 {
     public RenameRendererDefinitionCommand()
-        : base(Guid.Empty, Guid.NewGuid(), Guid.Empty)
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
 
     }
 
-    public RenameRendererDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public RenameRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 

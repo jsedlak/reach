@@ -41,6 +41,12 @@ public abstract class MongoViewRepository<TView> where TView : class, IView
         return (await col.FindAsync(m => m.Id == id)).FirstOrDefault();
     }
 
+    public async Task<TView?> GetAsync(Expression<Func<TView, bool>> predicate)
+    {
+        var col = GetCollection();
+        return (await col.FindAsync(predicate)).FirstOrDefault();
+    }
+
     public async Task UpsertAsync(TView viewModel)
     {
         var col = GetCollection();
@@ -51,9 +57,9 @@ public abstract class MongoViewRepository<TView> where TView : class, IView
         );
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Expression<Func<TView, bool>> predicate)
     {
         var col = GetCollection();
-        await col.DeleteOneAsync(m => m.Id == id);
+        await col.DeleteOneAsync(predicate);
     }
 }

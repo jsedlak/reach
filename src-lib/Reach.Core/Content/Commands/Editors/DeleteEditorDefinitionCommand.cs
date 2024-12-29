@@ -5,8 +5,13 @@ namespace Reach.Content.Commands.Editors;
 [GenerateSerializer]
 public class DeleteEditorDefinitionCommand : AggregateCommand
 {
-    public DeleteEditorDefinitionCommand(Guid organizationId, Guid aggregateId, Guid hubId) 
-        : base(organizationId, aggregateId, hubId)
+    public DeleteEditorDefinitionCommand()
+        : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
+    {
+    }
+    
+    public DeleteEditorDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }

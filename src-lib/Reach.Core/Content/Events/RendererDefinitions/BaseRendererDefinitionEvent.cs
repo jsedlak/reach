@@ -5,8 +5,8 @@ namespace Reach.Content.Events.RendererDefinitions;
 [GenerateSerializer]
 public class BaseRendererDefinitionEvent : BaseEvent
 {
-    public BaseRendererDefinitionEvent(Guid aggregateId, Guid organizationId, Guid hubId) 
-        : base(aggregateId, organizationId, hubId)
+    public BaseRendererDefinitionEvent(Guid organizationId, Guid hubId, Guid aggregateId)
+        : base(organizationId, hubId, aggregateId)
     {
     }
 }
