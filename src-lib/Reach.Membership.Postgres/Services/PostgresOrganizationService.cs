@@ -30,7 +30,7 @@ internal class PostgresOrganizationService : IOrganizationService
             return new CommandResponse();
         }
 
-        organization.Hubs.Add(new Hub
+        _membershipContext.Hubs.Add(new Hub
         {
             Id = id,
             OrganizationId = organizationId,
