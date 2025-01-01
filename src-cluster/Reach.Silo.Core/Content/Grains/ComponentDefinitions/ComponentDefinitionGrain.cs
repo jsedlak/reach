@@ -8,7 +8,8 @@ using Reach.Silo.Content.Model;
 
 namespace Reach.Silo.Content.Grains.ComponentDefinitions;
 
-public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<ComponentDefinition, BaseComponentDefinitionEvent>, IComponentDefinitionGrain
+public sealed class ComponentDefinitionGrain :
+    StreamingEventSourcedGrain<ComponentDefinition, BaseComponentDefinitionEvent>, IComponentDefinitionGrain
 {
     public ComponentDefinitionGrain()
         : base(GrainConstants.ComponentDefinition_EventStream)
@@ -20,7 +21,7 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
         // allow querying of our internal state via an extension
         var ext = new ComponentDefinitionQueryExtension(() => ConfirmedState);
         GrainContext.SetComponent<IComponentDefinitionQueryExtension>(ext);
-        
+
         return base.OnActivateAsync(cancellationToken);
     }
 
@@ -28,7 +29,6 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
     {
         await Raise(new FieldAddedToComponentDefinition(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();
@@ -49,7 +49,6 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
     {
         await Raise(new ComponentDefinitionDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();
@@ -57,10 +56,10 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
 
     public async Task<CommandResponse> RemoveField(RemoveFieldFromComponentDefinitionCommand command)
     {
-        await Raise(new FieldRemovedFromComponentDefinitionEvent(command.AggregateId, command.OrganizationId, command.HubId)
-        {
-
-        });
+        await Raise(
+            new FieldRemovedFromComponentDefinitionEvent(command.AggregateId, command.OrganizationId, command.HubId)
+            {
+            });
 
         return CommandResponse.Success();
     }
@@ -69,7 +68,6 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
     {
         await Raise(new ComponentDefinitionRenamedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();
@@ -79,7 +77,6 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
     {
         await Raise(new ComponentDefinitionRendererSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();

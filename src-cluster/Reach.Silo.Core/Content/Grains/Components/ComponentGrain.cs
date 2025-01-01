@@ -7,7 +7,7 @@ using Reach.Silo.Content.Model;
 
 namespace Reach.Silo.Content.Grains.Components;
 
-public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseComponentEvent>, 
+public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseComponentEvent>,
     IComponentGrain
 {
     public ComponentGrain()
@@ -20,10 +20,10 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
         var defn = base.GrainFactory.GetGrain<IComponentDefinitionGrain>(
             new AggregateId(command.OrganizationId, command.HubId, command.DefinitionId)
         );
-        
+
         var queryExt = defn.AsReference<IComponentDefinitionQueryExtension>();
         var fields = await queryExt.GetFields();
-        
+
         await Raise(new ComponentCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
             Name = command.Name,
@@ -39,7 +39,6 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
     {
         await Raise(new ComponentDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();
@@ -60,10 +59,8 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
     {
         await Raise(new ComponentFieldValueSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
-
         });
 
         return CommandResponse.Success();
     }
 }
-

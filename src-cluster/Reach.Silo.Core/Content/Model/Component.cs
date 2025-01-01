@@ -38,8 +38,6 @@ public class Component
 
     public Guid DefinitionId { get; set; }
 
-    public ComponentDefinition Definition { get; set; } = new();
-
     public string Name { get; set; } = null!;
 
     public string Slug { get; set; } = null!;

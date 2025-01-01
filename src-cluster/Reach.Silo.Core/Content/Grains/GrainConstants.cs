@@ -11,6 +11,4 @@ public static class GrainConstants
     public const string Component_EventStream = "COMPONENT_EVENTS";
 
     public const string RendererDefinition_EventStream = "RENDERER_DEFINITION_EVENTS";
-
-    public const string Content_EventStream = "CONTENT_EVENTS";
 }
