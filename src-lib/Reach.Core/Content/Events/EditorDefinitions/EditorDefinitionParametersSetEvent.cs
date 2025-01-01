@@ -1,6 +1,6 @@
 ﻿using Reach.Content.Model;
 
-namespace Reach.Content.Events.Editors;
+namespace Reach.Content.Events.EditorDefinitions;
 
 [GenerateSerializer]
 public class EditorDefinitionParametersSetEvent : BaseEditorDefinitionEvent

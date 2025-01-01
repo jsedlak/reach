@@ -1,6 +1,6 @@
 ﻿using Reach.Cqrs;
 
-namespace Reach.Content.Commands.Fields;
+namespace Reach.Content.Commands.FieldDefinitions;
 
 [GenerateSerializer]
 public class DeleteFieldDefinitionCommand : AggregateCommand

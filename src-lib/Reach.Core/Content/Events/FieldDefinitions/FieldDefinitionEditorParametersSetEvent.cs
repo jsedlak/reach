@@ -1,6 +1,6 @@
 ﻿using Reach.Content.Model;
 
-namespace Reach.Content.Events.Fields;
+namespace Reach.Content.Events.FieldDefinitions;
 
 [GenerateSerializer]
 public class FieldDefinitionEditorParametersSetEvent : BaseFieldDefinitionEvent

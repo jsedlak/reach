@@ -1,6 +1,6 @@
 ﻿using Reach.Cqrs;
 
-namespace Reach.Content.Events.Editors;
+namespace Reach.Content.Events.EditorDefinitions;
 
 [GenerateSerializer]
 public abstract class BaseEditorDefinitionEvent : BaseEvent

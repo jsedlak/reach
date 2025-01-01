@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using Reach.Components.Context;
-using Reach.Content.Commands.Fields;
+using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
 using Reach.Cqrs;
 using Reach.EditorApp.ServiceModel;

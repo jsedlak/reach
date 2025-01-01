@@ -1,6 +1,6 @@
 ﻿using Reach.Cqrs;
 
-namespace Reach.Content.Commands.Editors;
+namespace Reach.Content.Commands.EditorDefinitions;
 
 [GenerateSerializer]
 public class CreateEditorDefinitionCommand : AggregateCommand

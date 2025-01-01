@@ -1,4 +1,4 @@
-﻿using Reach.Content.Commands.Editors;
+﻿using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Model;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;

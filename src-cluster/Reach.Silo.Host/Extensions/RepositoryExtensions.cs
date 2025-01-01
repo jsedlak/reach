@@ -22,9 +22,6 @@ public static class RepositoryExtensions
         builder.Services.AddScoped<IComponentViewReadRepository, MongoComponentViewRepository>();
         builder.Services.AddScoped<IComponentViewWriteRepository, MongoComponentViewRepository>();
         
-        builder.Services.AddScoped<IContentItemViewReadRepository, MongoContentItemViewRepository>();
-        builder.Services.AddScoped<IContentItemViewWriteRepository, MongoContentItemViewRepository>();
-        
         builder.Services.AddScoped<IRendererDefinitionViewReadRepository, MongoRendererDefinitionViewRepository>();
         builder.Services.AddScoped<IRendererDefinitionViewWriteRepository, MongoRendererDefinitionViewRepository>();
         

@@ -1,4 +1,4 @@
-﻿using Reach.Content.Events.Fields;
+﻿using Reach.Content.Events.FieldDefinitions;
 
 namespace Reach.Content.Model;
 

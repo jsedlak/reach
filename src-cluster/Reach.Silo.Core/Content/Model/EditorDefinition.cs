@@ -1,4 +1,4 @@
-﻿using Reach.Content.Events.Editors;
+﻿using Reach.Content.Events.EditorDefinitions;
 
 namespace Reach.Content.Model;
 

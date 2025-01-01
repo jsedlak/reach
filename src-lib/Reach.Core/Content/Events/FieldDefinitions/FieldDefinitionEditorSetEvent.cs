@@ -1,6 +1,4 @@
-﻿using Reach.Cqrs;
-
-namespace Reach.Content.Events.Fields;
+﻿namespace Reach.Content.Events.FieldDefinitions;
 
 [GenerateSerializer]
 public class FieldDefinitionEditorSetEvent : BaseFieldDefinitionEvent

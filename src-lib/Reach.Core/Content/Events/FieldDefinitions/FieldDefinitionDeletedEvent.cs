@@ -1,5 +1,5 @@
 ﻿
-namespace Reach.Content.Events.Fields;
+namespace Reach.Content.Events.FieldDefinitions;
 
 [GenerateSerializer]
 public class FieldDefinitionDeletedEvent : BaseFieldDefinitionEvent

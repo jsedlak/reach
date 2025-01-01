@@ -1,4 +1,4 @@
-﻿namespace Reach.Content.Events.Editors;
+﻿namespace Reach.Content.Events.EditorDefinitions;
 
 [GenerateSerializer]
 public class EditorDefinitionDeletedEvent : BaseEditorDefinitionEvent
