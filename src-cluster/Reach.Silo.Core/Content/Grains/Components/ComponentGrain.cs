@@ -57,8 +57,13 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
 
     public async Task<CommandResponse> SetFieldValue(SetComponentFieldValueCommand command)
     {
+        var fieldId = command.FieldId ??
+                      TentativeState.Fields.First(m => m.Slug.Equals(command.FieldKey)).Id;
+        
         await Raise(new ComponentFieldValueSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
+            FieldId = fieldId,
+            Value = command.Value
         });
 
         return CommandResponse.Success();

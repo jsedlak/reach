@@ -15,6 +15,8 @@ public class Field
     public Field(Field copy)
     {
         Id = copy.Id;
+        Name = copy.Name;
+        Slug = copy.Slug;
         DefinitionId = copy.DefinitionId;
         Value = copy.Value;
     }
@@ -25,16 +27,22 @@ public class Field
     [Id(0)]
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    [Id(1)]
+    public string Name { get; set; } = null!;
+
+    [Id(2)]
+    public string Slug { get; set; } = null!;
+
     /// <summary>
     /// Gets or Sets the underlying definition
     /// </summary>
-    [Id(1)]
+    [Id(3)]
     public Guid DefinitionId { get; set; }
 
     /// <summary>
     /// Gets or Sets the value being stored by this instance
     /// </summary>
-    [Id(2)]
+    [Id(4)]
     public string Value { get; set; } = string.Empty;
 }
 

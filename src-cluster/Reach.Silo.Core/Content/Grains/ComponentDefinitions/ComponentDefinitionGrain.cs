@@ -29,6 +29,13 @@ public sealed class ComponentDefinitionGrain :
     {
         await Raise(new FieldAddedToComponentDefinition(command.AggregateId, command.OrganizationId, command.HubId)
         {
+            Field = new Field()
+            {
+                Name = command.Name,
+                Slug = command.Slug,
+                DefinitionId = command.FieldDefinitionId,
+                Value = string.Empty
+            }
         });
 
         return CommandResponse.Success();
@@ -59,6 +66,7 @@ public sealed class ComponentDefinitionGrain :
         await Raise(
             new FieldRemovedFromComponentDefinitionEvent(command.AggregateId, command.OrganizationId, command.HubId)
             {
+                FieldId = command.FieldId
             });
 
         return CommandResponse.Success();
@@ -68,6 +76,8 @@ public sealed class ComponentDefinitionGrain :
     {
         await Raise(new ComponentDefinitionRenamedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
+            Name = command.Name,
+            Slug = command.Slug
         });
 
         return CommandResponse.Success();

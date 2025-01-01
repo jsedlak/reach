@@ -201,7 +201,8 @@ public class ComponentTests : DefaultOrleansTestBase
             new CreateComponentCommand(OrganizationId, HubId, Component_HomepageHero_Id)
             {
                 Name = "Homepage Hero",
-                Slug = "homepage-hero"
+                Slug = "homepage-hero",
+                DefinitionId = ComponentDefinition_Hero_Id
             });
         
         Assert.True(createResponse.IsSuccess);
