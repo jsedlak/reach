@@ -15,5 +15,6 @@ public class RemoveFieldFromComponentDefinitionCommand : AggregateCommand
     {
     }
     
+    [Id(0)]
     public Guid FieldId { get; set; }
 }

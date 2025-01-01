@@ -1,6 +1,7 @@
 ﻿using Reach.Content.Events.FieldDefinitions;
+using Reach.Content.Model;
 
-namespace Reach.Content.Model;
+namespace Reach.Silo.Content.Model;
 
 /// <summary>
 /// Describes a type of field that can be used in the platform. For example

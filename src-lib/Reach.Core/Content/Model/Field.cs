@@ -7,6 +7,18 @@
 [GenerateSerializer]
 public class Field
 {
+    public Field()
+    {
+        
+    }
+
+    public Field(Field copy)
+    {
+        Id = copy.Id;
+        DefinitionId = copy.DefinitionId;
+        Value = copy.Value;
+    }
+    
     /// <summary>
     /// Gets or Sets the unique identifier
     /// </summary>

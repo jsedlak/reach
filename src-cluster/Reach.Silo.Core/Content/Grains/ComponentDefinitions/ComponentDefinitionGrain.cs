@@ -3,6 +3,8 @@ using Reach.Content.Events.ComponentDefinitions;
 using Reach.Content.Model;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;
+using Reach.Silo.Content.Grains.Components;
+using Reach.Silo.Content.Model;
 
 namespace Reach.Silo.Content.Grains.ComponentDefinitions;
 
@@ -11,6 +13,15 @@ public sealed class ComponentDefinitionGrain : StreamingEventSourcedGrain<Compon
     public ComponentDefinitionGrain()
         : base(GrainConstants.ComponentDefinition_EventStream)
     {
+    }
+
+    public override Task OnActivateAsync(CancellationToken cancellationToken)
+    {
+        // allow querying of our internal state via an extension
+        var ext = new ComponentDefinitionQueryExtension(() => ConfirmedState);
+        GrainContext.SetComponent<IComponentDefinitionQueryExtension>(ext);
+        
+        return base.OnActivateAsync(cancellationToken);
     }
 
     public async Task<CommandResponse> AddField(AddFieldToComponentDefinitionCommand command)

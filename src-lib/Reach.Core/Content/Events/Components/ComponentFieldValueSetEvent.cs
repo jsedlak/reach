@@ -7,4 +7,10 @@ public class ComponentFieldValueSetEvent : BaseComponentEvent
         : base(organizationId, hubId, aggregateId)
     {
     }
+
+    [Id(0)]
+    public Guid FieldId { get; set; }
+
+    [Id(1)]
+    public string Value { get; set; } = string.Empty;
 }
