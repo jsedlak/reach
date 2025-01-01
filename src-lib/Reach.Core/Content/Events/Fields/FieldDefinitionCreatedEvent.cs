@@ -1,5 +1,4 @@
-﻿
-using Reach.Content.Model;
+﻿using Reach.Content.Model;
 
 namespace Reach.Content.Events.Fields;
 
@@ -11,15 +10,13 @@ public class FieldDefinitionCreatedEvent : BaseFieldDefinitionEvent
     {
     }
 
-    [Id(0)]
-    public string Name { get; set; } = null!;
+    [Id(0)] public string Name { get; set; } = null!;
 
-    [Id(1)]
-    public string Key { get; set; } = null!;
+    [Id(1)] public string Key { get; set; } = null!;
 
-    [Id(2)]
-    public Guid EditorDefinitionId { get; set; }
+    [Id(2)] public string? Group { get; set; }
 
-    [Id(3)]
-    public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
+    [Id(3)] public Guid EditorDefinitionId { get; set; }
+
+    [Id(4)] public EditorParameter[] EditorParameters { get; set; } = Array.Empty<EditorParameter>();
 }

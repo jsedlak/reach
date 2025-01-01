@@ -1,7 +1,8 @@
 ﻿namespace Reach.Content.Model;
 
 /// <summary>
-/// Represents an instance of a <see cref="FieldDefinition"/>
+/// Represents an instance of a <see cref="FieldDefinition"/> combining
+/// parameters and data with an underlying definition
 /// </summary>
 public class Field
 {

@@ -15,7 +15,18 @@ public class CreateContentCommand : AggregateCommand
     {
     }
 
+    /// <summary>
+    /// Gets or Sets a friendly display name for the content
+    /// </summary>
     [Id(0)] public string Name { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or Sets a source friendly key for the component 
+    /// </summary>
     [Id(1)] public string Slug { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or Sets the component definition by which this content is templated
+    /// </summary>
+    [Id(2)] public Guid ComponentDefinitionId { get; set; } = Guid.Empty;
 }

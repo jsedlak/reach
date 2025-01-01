@@ -21,7 +21,8 @@ public sealed class ContentItemGrain : StreamingEventSourcedGrain<ContentItem, B
         await Raise(new ContentCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
         {
             Name = command.Name,
-            Slug = command.Slug
+            Slug = command.Slug,
+            ComponentDefinitionId = command.ComponentDefinitionId
         });
 
         return CommandResponse.Success();
