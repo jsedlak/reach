@@ -9,15 +9,15 @@ public class CreateFieldDefinitionCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
-    
+
     public CreateFieldDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {
     }
 
-    [Id(0)]
-    public string Name { get; set; } = null!;
+    [Id(0)] public string Name { get; set; } = null!;
 
-    [Id(1)]
-    public Guid EditorDefinitionId { get; set; }
+    [Id(1)] public string Slug { get; set; } = null!;
+
+    [Id(2)] public Guid EditorDefinitionId { get; set; }
 }
