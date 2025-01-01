@@ -13,4 +13,7 @@ public class ComponentDefinitionCreatedEvent : BaseComponentDefinitionEvent
 
     [Id(1)]
     public string Slug { get; set; } = null!;
+    
+    [Id(2)]
+    public Guid ParentId { get; set; }
 }

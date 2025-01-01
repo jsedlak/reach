@@ -14,18 +14,21 @@ public partial class TenantProvider : ComponentBase, IDisposable
     private readonly PersistentComponentState _applicationState;
     private readonly NavigationManager _navigationManager;
     private readonly IOrganizationService _organizationService;
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
 
     private PersistingComponentStateSubscription subscription;
 
     public TenantProvider(
         PersistentComponentState applicationState, 
         NavigationManager navigationManager,
-        IOrganizationService organizationService)
+        IOrganizationService organizationService,
+        AuthenticationStateProvider authenticationStateProvider)
     {
         _applicationState = applicationState;
         _navigationManager = navigationManager;
         _navigationManager.LocationChanged += OnLocationChanged;
         _organizationService = organizationService;
+        _authenticationStateProvider = authenticationStateProvider;
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
@@ -45,14 +48,21 @@ public partial class TenantProvider : ComponentBase, IDisposable
         {
             Console.WriteLine("Calling for organizations and hubs.");
 
-            if(AuthenticationState.User.Identity == null || AuthenticationState.User.Identity.Name == null || AuthenticationState.User.Identity.IsAuthenticated)
+            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+            if(state.User.Identity == null || 
+               state.User.Identity.Name == null ||
+               !state.User.Identity.IsAuthenticated)
             {
                 Console.WriteLine("Cannot request orgs because Authentication State is null.");
                 return;
             }
 
             // TODO: Need to query for current org, or do we ?
-            var orgs = await _organizationService.GetOrganizationsForUserAsync(AuthenticationState.User.Identity.Name);
+            var orgs = await _organizationService.GetOrganizationsForUserAsync(
+                state.User.Identity.Name
+            );
+            
             TenantContext.AvailableOrganizations = orgs;
             TenantContext.AvailableHubs = orgs.SelectMany(m => m.Hubs);
             TenantContext.CurrentHub = GetCurrentHub();

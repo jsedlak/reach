@@ -34,7 +34,6 @@ builder.Services
     .AddType<ComponentDefinitionQueries>()
     .AddType<ComponentQueries>()
     .AddType<RendererDefinitionQueries>()
-    .AddType<ContentItemQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
@@ -54,7 +53,6 @@ app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
 app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
-app.MapGrainEndpoint<IContentItemGrain>("content");
 app.MapGraphQL().RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 await app.RunAsync();

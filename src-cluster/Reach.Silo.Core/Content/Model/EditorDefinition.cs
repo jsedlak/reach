@@ -1,6 +1,7 @@
-﻿using Reach.Content.Events.Editors;
+﻿using Reach.Content.Events.EditorDefinitions;
+using Reach.Content.Model;
 
-namespace Reach.Content.Model;
+namespace Reach.Silo.Content.Model;
 
 /// <summary>
 /// Defines the interface between the content platform and a renderable block of code

@@ -1,5 +1,5 @@
 ﻿using Reach.Apps.ContentApp.Services;
-using Reach.Content.Commands.Fields;
+using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
 using Reach.Security;
 using Tazor.Components.Layout;

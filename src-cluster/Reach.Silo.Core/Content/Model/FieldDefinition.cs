@@ -1,6 +1,7 @@
-﻿using Reach.Content.Events.Fields;
+﻿using Reach.Content.Events.FieldDefinitions;
+using Reach.Content.Model;
 
-namespace Reach.Content.Model;
+namespace Reach.Silo.Content.Model;
 
 /// <summary>
 /// Describes a type of field that can be used in the platform. For example
@@ -17,6 +18,7 @@ public class FieldDefinition
         Key = @event.Key;
         EditorDefinitionId = @event.EditorDefinitionId;
         EditorParameters = @event.EditorParameters;
+        Group = @event.Group;
     }
 
     public void Apply(FieldDefinitionEditorSetEvent @event)
@@ -58,6 +60,11 @@ public class FieldDefinition
     /// Gets or Sets a slug version of the name
     /// </summary>
     public string Key { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or Sets the group in which to include this field definition
+    /// </summary>
+    public string? Group { get; set; }
 
     /// <summary>
     /// Gets or Sets the identifier for the data that defines the editor for managing this field's data

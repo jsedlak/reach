@@ -7,4 +7,7 @@ public class FieldRemovedFromComponentDefinitionEvent : BaseComponentDefinitionE
         : base(organizationId, hubId, aggregateId)
     {
     }
+
+    [Id(0)]
+    public Guid FieldId { get; set; }
 }

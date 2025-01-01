@@ -1,5 +1,5 @@
 ﻿using Petl.EventSourcing;
-using Reach.Content.Commands.Editors;
+using Reach.Content.Commands.EditorDefinitions;
 using Reach.Cqrs;
 
 namespace Reach.Silo.Content.GrainModel;

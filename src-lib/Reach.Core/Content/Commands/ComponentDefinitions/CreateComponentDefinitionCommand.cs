@@ -15,7 +15,12 @@ public class CreateComponentDefinitionCommand : AggregateCommand
     {
     }
 
+    [Id(0)]
     public string Name { get; set; } = string.Empty;
 
+    [Id(1)]
     public string Slug { get; set; } = string.Empty;
+
+    [Id(2)]
+    public Guid ParentId { get; set; }
 }

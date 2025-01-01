@@ -15,6 +15,13 @@ public class AddFieldToComponentDefinitionCommand : AggregateCommand
         : base(organizationId, hubId, aggregateId)
     {
     }
-    
-    public Guid FieldId { get; set; }
+
+    [Id(0)]
+    public string Name { get; set; } = null!;
+
+    [Id(1)]
+    public string Slug { get; set; } = null!;
+
+    [Id(2)]
+    public Guid FieldDefinitionId { get; set; }
 }

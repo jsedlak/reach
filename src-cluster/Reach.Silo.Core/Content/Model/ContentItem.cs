@@ -1,4 +1,6 @@
-﻿namespace Reach.Content.Model;
+﻿using Reach.Content.Model;
+
+namespace Reach.Silo.Content.Model;
 
 public class ContentItem
 {

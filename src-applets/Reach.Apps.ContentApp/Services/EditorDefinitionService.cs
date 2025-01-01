@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
-using Reach.Content.Commands.Editors;
+using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Views;
 using Reach.Cqrs;
 using Reach.EditorApp.ServiceModel;

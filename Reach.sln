@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b. Pipelines", "b. Pipeline
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Membership.Postgres", "src-lib\Reach.Membership.Postgres\Reach.Membership.Postgres.csproj", "{A1C94D22-3996-4334-BF5A-A1DF2F4DC025}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Silo.Tests", "src-cluster\Reach.Silo.Tests\Reach.Silo.Tests.csproj", "{E275ACA2-9842-45C9-8147-6365420522D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{A1C94D22-3996-4334-BF5A-A1DF2F4DC025}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1C94D22-3996-4334-BF5A-A1DF2F4DC025}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1C94D22-3996-4334-BF5A-A1DF2F4DC025}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E275ACA2-9842-45C9-8147-6365420522D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E275ACA2-9842-45C9-8147-6365420522D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E275ACA2-9842-45C9-8147-6365420522D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E275ACA2-9842-45C9-8147-6365420522D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +177,7 @@ Global
 		{0FC82E32-000E-4DC1-B59F-885E1134589F} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{039A28F9-5FCB-4784-A3B5-2FAA2F7D1A55} = {2F2F3C91-C2B2-4AE2-9885-C44E0F313218}
 		{A1C94D22-3996-4334-BF5A-A1DF2F4DC025} = {32B998A1-DE49-4048-AB59-9451BB357EF8}
+		{E275ACA2-9842-45C9-8147-6365420522D4} = {5B7438F8-E10A-4FB4-B620-A857CDEB7295}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}

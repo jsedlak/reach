@@ -1,8 +1,9 @@
-﻿using Reach.Content.Commands.Editors;
-using Reach.Content.Events.Editors;
+﻿using Reach.Content.Commands.EditorDefinitions;
+using Reach.Content.Events.EditorDefinitions;
 using Reach.Content.Model;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;
+using Reach.Silo.Content.Model;
 
 namespace Reach.Silo.Content.Grains.EditorDefinitions;
 

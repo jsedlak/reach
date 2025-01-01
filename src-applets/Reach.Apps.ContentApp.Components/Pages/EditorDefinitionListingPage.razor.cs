@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Reach.Apps.ContentApp.Services;
 using Reach.Components.Context;
-using Reach.Content.Commands.Editors;
+using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Views;
 using Reach.Membership.Views;
 using Reach.Security;

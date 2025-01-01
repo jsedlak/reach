@@ -1,4 +1,4 @@
-﻿using Reach.Content.Commands.Fields;
+﻿using Reach.Content.Commands.FieldDefinitions;
 using Reach.Cqrs;
 
 namespace Reach.Silo.Content.GrainModel;

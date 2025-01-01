@@ -2,7 +2,7 @@
 
 Reach is an open source, headless, composable content platform built on .NET/Blazor, Tailwind, Aspire, Microsoft Orleans, Mongo, EventHubs, Azure Storage and other associated technologies. It is an exploration in what a modern content management system would look like on .NET. Easily create and manage content, manage data sources and workflows, and expose data endpoints all from one web application. Develop or install custom applets that extend the ecosystem. Deploy locally or use a cloud hosted option.
 
-> Image is a just a concept of the intended design
+> Image is a just a concept of the originally intended design. Actual runtime design may differ.
 
 ![Reach Content Platform](./doc/interface.png)
 
@@ -15,6 +15,10 @@ In addition, the core platform also exposes a framework for developing and using
 Instead of employing an opinionated notion of how content and data should be managed in terms of Draft/Publish status and a number of other properties, Reach supports the concept of **Pipelines**. These pipelines may be triggered to update, transform and store information into a concept of **Buckets**.
 
 To provide access to these resulting datasets, **Endpoints** provide the capabilities for exposing basic HTTP endpoints for retrieving and querying data stored in **Buckets**.
+
+## Data Architecture
+
+For more information on how data is maintained in Reach, read the [Data Architecture](./doc/data-architecture.md) documentation.
 
 ## Applets
 
