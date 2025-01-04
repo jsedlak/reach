@@ -1,0 +1,29 @@
+<div class="bg-gray-100 rounded-lg p-10 my-3">
+    <p><span class="font-bold"></span>
+        @if (_user is null)
+        {
+            <span>null</span>
+        }
+        else if(_user.Identity is not { IsAuthenticated: true })
+        {
+            <span>Not Authenticated</span>
+        }
+        else
+        {
+            <span>@_user.Identity.Name</span>
+        }
+    </p>
+    
+    @if (_user?.Identity is { IsAuthenticated: true })
+    {
+        <p class="text-sm font-mono font-monospace">
+            <ul>
+                @foreach (var claim in _user.Claims)
+                {
+                    <li><span class="font-bold">@claim.Type</span>: @claim.Value</li>
+                }
+            </ul>  
+        </p>
+    }
+    <p><span class="font-bold">Renderer:</span> @RendererInfo.Name</p>
+</div>

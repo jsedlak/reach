@@ -81,7 +81,7 @@ public partial class TenantProvider : ComponentBase, IDisposable
 
         if (pathSplit.Length > 1 && pathSplit[0].Equals("app"))
         {
-            return TenantContext.AvailableHubs.FirstOrDefault(m => m.Slug == pathSplit[1]);
+            return TenantContext.AvailableHubs.FirstOrDefault(m => m.Slug == pathSplit[2]);
         }
 
         return null;

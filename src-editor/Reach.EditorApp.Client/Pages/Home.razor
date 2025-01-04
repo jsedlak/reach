@@ -1,9 +1,12 @@
 ﻿@page "/"
 @attribute [Authorize]
 @layout GlobalLayout
-@rendermode InteractiveWebAssembly
+@rendermode InteractiveAuto
 
 <PageTitle>Dashboard - Reach</PageTitle>
+
+<!-- AUTH DEBUG -->
+<AuthDebug />
 
 <!-- INITIAL MESSAGE -->
 <div class="bg-gradient-to-br from-gray-900 to-indigo-800 text-white mb-10 mt-3 shadow-xl rounded-lg px-10 py-20 flex flex-col items-center justify-center">
