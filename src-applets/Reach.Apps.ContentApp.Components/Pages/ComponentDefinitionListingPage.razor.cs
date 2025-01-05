@@ -1,25 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components;
 using Reach.Apps.ContentApp.Services;
 using Reach.Components.Context;
-using Reach.Content.Commands.Components;
+using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Content.Views;
-using Reach.Security;
 using Tazor.Components.Layout;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
-[TenantRequired]
-public partial class ComponentListingPage : ContentBasePage
+public partial class ComponentDefinitionListingPage : ContentBasePage
 {
-    private readonly ComponentService _componentService;
-    private IEnumerable<ComponentView> _components;
+    private readonly ComponentDefinitionService _componentDefinitionService;
+    private IEnumerable<ComponentDefinitionView> _componentDefinitions;
 
-    private DialogContext<CreateComponentCommand> _createContext = new(() => { });
+    private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
-    public ComponentListingPage(ComponentService componentService)
+    public ComponentDefinitionListingPage(ComponentDefinitionService componentDefinitionService)
     {
-        _componentService = componentService;
+        _componentDefinitionService = componentDefinitionService;
         
         _createContext = new(StateHasChanged);
     }
@@ -37,7 +34,7 @@ public partial class ComponentListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _components = await _componentService.GetComponents();
+        _componentDefinitions = await _componentDefinitionService.GetComponentDefinitions();
     }
     
     private Task OnBeginCreateClicked()
@@ -59,7 +56,7 @@ public partial class ComponentListingPage : ContentBasePage
                 return (false, ["Invalid data."]);
             }
 
-            var result = await _componentService.Create(model);
+            var result = await _componentDefinitionService.Create(model);
 
             return (result.IsSuccess, []);
         });

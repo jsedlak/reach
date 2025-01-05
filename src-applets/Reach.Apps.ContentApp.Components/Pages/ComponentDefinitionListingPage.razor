@@ -1,4 +1,4 @@
-﻿@page "/app/{organizationSlug}/{hubSlug}/content/component-definitions"
+@page "/app/{organizationSlug}/{hubSlug}/content/component-definitions"
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
 <ContentSublayout Title="Component Definitions">
@@ -22,7 +22,7 @@
     {
         <p class="mb-3 font-bold text-lg">Tenant is NULL!</p>
     }
-    <TemplatedGrid Items="@_components">
+    <TemplatedGrid Items="@_componentDefinitions">
         <ColumnTemplate>
             <Header>ID</Header>
             <Cell>@context.Id</Cell>
@@ -37,11 +37,6 @@
             <Header>Slug</Header>
             <Cell>@context.Slug</Cell>
         </ColumnTemplate>
-        
-        <ColumnTemplate>
-            <Header>Definition</Header>
-            <Cell>@context.DefinitionId</Cell>
-        </ColumnTemplate>
 
         <ColumnTemplate>
             <Header>Fields</Header>
@@ -49,7 +44,7 @@
         </ColumnTemplate>
     </TemplatedGrid>
 
-    <Dialog Title="Create Component" @bind-IsVisible="@_createContext.IsVisible">
+    <Dialog Title="Create Component Definition" @bind-IsVisible="@_createContext.IsVisible">
         <Content>
             @if (_createContext.IsWaiting)
             {

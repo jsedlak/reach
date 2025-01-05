@@ -27,9 +27,15 @@ public class Field
     [Id(0)]
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    /// <summary>
+    /// Gets or Sets the friendly name
+    /// </summary>
     [Id(1)]
     public string Name { get; set; } = null!;
 
+    /// <summary>
+    /// Gets or Sets the source friendly name
+    /// </summary>
     [Id(2)]
     public string Slug { get; set; } = null!;
 
