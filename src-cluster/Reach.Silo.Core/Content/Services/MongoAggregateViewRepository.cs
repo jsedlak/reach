@@ -23,14 +23,21 @@ public abstract class MongoAggregateViewRepository<TAggregate> :
     {
     }
 
-    public Task<IQueryable<TAggregate>> Query(Guid organizationId, Guid hubId)
+    public async Task<IQueryable<TAggregate>> Query(Guid organizationId, Guid hubId)
     {
-        return Query(organizationId, hubId, m => true);
+        var result = await QueryAsync(m =>
+            m.OrganizationId == organizationId &&
+            m.HubId == hubId
+        );
+
+        return result;
     }
 
     public async Task<IQueryable<TAggregate>> Query(Guid organizationId, Guid hubId, Expression<Func<TAggregate, bool>> predicate)
     {
-        var baseQueryResult = await QueryAsync(m => m.OrganizationId == organizationId && m.HubId == hubId);
+        var baseQueryResult = await QueryAsync(
+            m => m.OrganizationId == organizationId && m.HubId == hubId);
+        
         return baseQueryResult.Where(predicate);
     }
 

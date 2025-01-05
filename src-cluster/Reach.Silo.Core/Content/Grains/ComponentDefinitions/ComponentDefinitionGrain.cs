@@ -27,7 +27,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> AddField(AddFieldToComponentDefinitionCommand command)
     {
-        await Raise(new FieldAddedToComponentDefinition(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new FieldAddedToComponentDefinition(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Field = new Field()
             {
@@ -43,7 +43,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> Create(CreateComponentDefinitionCommand command)
     {
-        await Raise(new ComponentDefinitionCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Slug = command.Slug
@@ -54,7 +54,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> Delete(DeleteComponentDefinitionCommand command)
     {
-        await Raise(new ComponentDefinitionDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentDefinitionDeletedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
         });
 
@@ -64,7 +64,7 @@ public sealed class ComponentDefinitionGrain :
     public async Task<CommandResponse> RemoveField(RemoveFieldFromComponentDefinitionCommand command)
     {
         await Raise(
-            new FieldRemovedFromComponentDefinitionEvent(command.AggregateId, command.OrganizationId, command.HubId)
+            new FieldRemovedFromComponentDefinitionEvent(command.OrganizationId, command.HubId, command.AggregateId)
             {
                 FieldId = command.FieldId
             });
@@ -74,7 +74,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> Rename(RenameComponentDefinitionCommand command)
     {
-        await Raise(new ComponentDefinitionRenamedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentDefinitionRenamedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Slug = command.Slug
@@ -85,7 +85,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> SetRendererDefinition(SetComponentDefinitionRendererCommand command)
     {
-        await Raise(new ComponentDefinitionRendererSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentDefinitionRendererSetEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
         });
 

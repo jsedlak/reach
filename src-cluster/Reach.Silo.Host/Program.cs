@@ -1,3 +1,6 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Petl.EventSourcing;
 using Petl.EventSourcing.Providers;
 using Reach.Silo.Content.GrainModel;
@@ -54,6 +57,10 @@ app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
 app.MapGraphQL().RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+// configure storing guids as strings
+// TODO: Remove for prod performance
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 
 await app.RunAsync();
 

@@ -16,7 +16,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> Create(CreateFieldDefinitionCommand command)
     {
-        await Raise(new FieldDefinitionCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new FieldDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Key = command.Name.ToSlug(),
@@ -32,7 +32,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> SetEditorDefinition(SetFieldDefinitionEditorCommand command)
     {
-        await Raise(new FieldDefinitionEditorSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new FieldDefinitionEditorSetEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             EditorDefinitionId = command.EditorDefinitionId,
         });
@@ -45,7 +45,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> SetEditorParameters(SetFieldDefinitionEditorParametersCommand command)
     {
-        await Raise(new FieldDefinitionEditorParametersSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new FieldDefinitionEditorParametersSetEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             EditorParameters = command.EditorParameters
         });
@@ -58,7 +58,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
 
     public async Task<CommandResponse> Delete(DeleteFieldDefinitionCommand command)
     {
-        await Raise(new FieldDefinitionDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId));
+        await Raise(new FieldDefinitionDeletedEvent(command.OrganizationId, command.HubId, command.AggregateId));
 
         return new CommandResponse()
         {

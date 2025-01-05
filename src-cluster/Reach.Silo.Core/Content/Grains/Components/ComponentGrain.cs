@@ -24,7 +24,7 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
         var queryExt = defn.AsReference<IComponentDefinitionQueryExtension>();
         var fields = await queryExt.GetFields();
 
-        await Raise(new ComponentCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Slug = command.Slug,
@@ -37,7 +37,7 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
 
     public async Task<CommandResponse> Delete(DeleteComponentCommand command)
     {
-        await Raise(new ComponentDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentDeletedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
         });
 
@@ -60,7 +60,7 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
         var fieldId = command.FieldId ??
                       TentativeState.Fields.First(m => m.Slug.Equals(command.FieldKey)).Id;
         
-        await Raise(new ComponentFieldValueSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new ComponentFieldValueSetEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             FieldId = fieldId,
             Value = command.Value

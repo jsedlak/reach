@@ -107,6 +107,14 @@ public abstract class BaseService
         _logger.LogInformation("Preparing API Client");
         var membership = await PrepareClient(client, m => m.Hub!.Region.ApiUrl);
 
+        // set the org and hub up
+        if (membership.Organization is not null &&
+            membership.Hub is not null)
+        {
+            command.OrganizationId = membership.Organization.Id;    
+            command.HubId = membership.Hub.Id;
+        }
+        
         // create and secure the request
         var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
 

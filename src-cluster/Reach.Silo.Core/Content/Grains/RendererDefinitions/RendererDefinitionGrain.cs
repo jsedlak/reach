@@ -17,7 +17,7 @@ public class RendererDefinitionGrain : StreamingEventSourcedGrain<RendererDefini
 
     public async Task<CommandResponse> Create(CreateRendererDefinitionCommand command)
     {
-        await Raise(new RendererDefinitionCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new RendererDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Slug = command.Slug
@@ -28,13 +28,13 @@ public class RendererDefinitionGrain : StreamingEventSourcedGrain<RendererDefini
 
     public async Task<CommandResponse> Delete(DeleteRendererDefinitionCommand command)
     {
-        await Raise(new RendererDefinitionDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId));
+        await Raise(new RendererDefinitionDeletedEvent(command.OrganizationId, command.HubId, command.AggregateId));
         return CommandResponse.Success();
     }
 
     public async Task<CommandResponse> Rename(RenameRendererDefinitionCommand command)
     {
-        await Raise(new RendererDefinitionRenamedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new RendererDefinitionRenamedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             Slug = command.Slug

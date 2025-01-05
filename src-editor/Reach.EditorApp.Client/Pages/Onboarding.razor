@@ -7,7 +7,7 @@
     <div class="px-10 py-3 text-white text-center mb-3 font-bold text-2xl">
         Welcome to Reach!
     </div>
-    <div class="p-10 bg-white rounded-lg">
+    <div class="p-10 bg-white dark:bg-gray-700 dark:text-white rounded-lg">
         @if (_errorMessage is not null)
         {
             <Alert Type="AlertType.Error" Title="Error Creating Tenant">
@@ -25,15 +25,17 @@
 
         <div class="mb-2">
             <div class="font-bold mb-1">Organization Name</div>
-            <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-                   @bind="@_model.OrganizationName" />
+            <TextBox @bind-Value="_model.OrganizationName" />
+            @* <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full" *@
+            @*        @bind="@_model.OrganizationName" /> *@
         </div>
 
         <div class="mb-2">
             <div class="font-bold mb-1">Organization Slug</div>
             <div class="relative">
-                <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-                       @bind="@_model.OrganizationSlug" />
+                <TextBox @bind-Value="_model.OrganizationSlug" /> 
+                @* <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full" *@
+                @*        @bind="@_model.OrganizationSlug"/> *@
                 <div class="absolute right-2 top-2 text-green-400">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          fill="none"
@@ -43,7 +45,7 @@
                          class="size-6">
                         <path stroke-linecap="round"
                               stroke-linejoin="round"
-                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                 </div>
                 <div class="text-xs opacity-75">
@@ -66,15 +68,17 @@
 
         <div class="mb-2">
             <div class="font-bold mb-1">Hub Name</div>
-            <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-                   @bind="@_model.HubName" />
+            <TextBox @bind-Value="_model.HubName" />
+            @* <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full" *@
+            @*        @bind="@_model.HubName" /> *@
         </div>
 
         <div class="mb-2">
             <div class="font-bold mb-1">Slug</div>
             <div class="relative">
-                <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full"
-                       @bind="@_model.HubSlug" />
+                <TextBox @bind-Value="_model.HubSlug" />
+                @* <input class="mb-1 rounded-lg px-2 py-2 border border-gray-400 w-full" *@
+                @*        @bind="@_model.HubSlug" /> *@
                 <div class="absolute right-2 top-2 text-green-400">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          fill="none"
@@ -84,7 +88,7 @@
                          class="size-6">
                         <path stroke-linecap="round"
                               stroke-linejoin="round"
-                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                 </div>
                 <div class="text-xs opacity-75">

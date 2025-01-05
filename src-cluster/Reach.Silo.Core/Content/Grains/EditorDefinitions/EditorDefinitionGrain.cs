@@ -16,7 +16,7 @@ public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition
 
     public async Task<CommandResponse> Create(CreateEditorDefinitionCommand command)
     {
-        await Raise(new EditorDefinitionCreatedEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new EditorDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
             EditorType = command.EditorType
@@ -30,7 +30,7 @@ public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition
 
     public async Task<CommandResponse> SetParameters(SetEditorDefinitionParametersCommand command)
     {
-        await Raise(new EditorDefinitionParametersSetEvent(command.AggregateId, command.OrganizationId, command.HubId)
+        await Raise(new EditorDefinitionParametersSetEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Parameters = command.Parameters
         });
@@ -43,7 +43,7 @@ public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition
 
     public async Task<CommandResponse> Delete(DeleteEditorDefinitionCommand command)
     {
-        await Raise(new EditorDefinitionDeletedEvent(command.AggregateId, command.OrganizationId, command.HubId));
+        await Raise(new EditorDefinitionDeletedEvent(command.OrganizationId, command.HubId, command.AggregateId));
 
         return new CommandResponse()
         {
