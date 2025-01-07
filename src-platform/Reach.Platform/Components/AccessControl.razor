@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-
+@inject IJSRuntime JSRuntime
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
@@ -17,6 +17,7 @@
 @code{
     private async Task BeginSignOut(MouseEventArgs args)
     {
+        JSRuntime.InvokeVoidAsync("sessionStorage.clear");
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
     }
