@@ -24,6 +24,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src-cluster\Reach.Silo.Host\Reach.Silo.Host.csproj" />
 		<ProjectReference Include="..\..\src-editor\Reach.EditorApp\Reach.EditorApp.csproj" />
+		<ProjectReference Include="..\..\src-platform\Reach.Platform\Reach.Platform.csproj" />
 	</ItemGroup>
 
 </Project>

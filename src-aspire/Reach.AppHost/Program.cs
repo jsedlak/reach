@@ -65,4 +65,6 @@ builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
     .WaitFor(silo)
     .WaitFor(postgres);
 
+builder.AddProject<Projects.Reach_Platform>("reach-platform");
+
 builder.Build().Run();
