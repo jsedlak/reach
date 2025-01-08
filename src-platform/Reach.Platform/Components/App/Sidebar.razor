@@ -1,0 +1,77 @@
+﻿@{
+    var width = "250px";
+    if (!_isExpanded)
+    {
+        width = "60px";
+    }
+}
+<div class="w-[@width] bg-gray-900 p-3 transition-all">
+    <div class="flex w-full justify-end px-3">
+        <a class="text-white cursor-pointer" @onclick="@(() => { _isExpanded = !_isExpanded; StateHasChanged(); })">
+            @if (_isExpanded)
+            {
+                @HeroIcons.ArrowLongLeft(widthAndHeight: "size-6")
+            }
+            else
+            {
+                @HeroIcons.ArrowLongRight(widthAndHeight: "size-6")
+            }
+
+        </a>
+    </div>
+    <div class="flex items-center justify-center py-6">
+        <a href="/">
+            <img src="/icon-white.svg" class="w-12" />
+        </a>
+    </div>
+
+    <nav class="mt-4 space-y-2">
+        @foreach (var item in _items)
+        {
+            @if (item is NavItem navItem)
+            {
+                <SidebarItem Item="@navItem" IsCurrent="@IsPathMatched(navItem.Href!)" IsExpanded="@_isExpanded" />
+            }
+
+            @if (item is NavGroup navGroup)
+            {
+                var groupClass = _isExpanded ? "p-3 justify-between" : "py-3 justify-center";
+
+                <a class="cursor-pointer font-bold text-white @groupClass border-t flex items-center border-indigo-800"
+                   @onclick=@(() => { navGroup.IsExpanded = !navGroup.IsExpanded; StateHasChanged(); })>
+                   <span class="flex gap-2 items-center">
+                        @navGroup.Icon
+                        @if (_isExpanded)
+                        {
+                            @navGroup.Title
+                        }
+                   </span>
+                    
+                    @if (_isExpanded)
+                    {
+                        @if (navGroup.IsExpanded)
+                        {
+                            @HeroIcons.ChevronUp(widthAndHeight: "size-5")
+                        }
+                        else
+                        {
+                            @HeroIcons.ChevronDown(widthAndHeight: "size-5")
+                        }
+                    }
+                </a>
+
+                @if (navGroup.IsExpanded)
+                {
+                    <div class="space-y-2">
+                        @foreach (var groupItem in navGroup.Items)
+                        {
+                            <SidebarItem Item="@groupItem"
+                                         IsCurrent="@IsPathMatched(groupItem.Href!)"
+                                         IsExpanded="@_isExpanded" />
+                        }
+                    </div>
+                }
+            }
+        }
+    </nav>
+</div>

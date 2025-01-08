@@ -1,0 +1,19 @@
+@inherits LayoutComponentBase
+<div class="page flex min-h-full">
+    <Sidebar />
+
+    <div class="flex flex-grow flex-col">
+        <Toolbar />
+
+        <div class="w-full">
+            <main class="p-6">
+                @Body
+            </main>
+        </div>
+    </div>
+</div>
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

@@ -1,7 +1,7 @@
 ﻿<CascadingAuthenticationState>
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(GlobalLayout)">
             <Authorizing>Authenticating</Authorizing>
             <NotAuthorized>
                 <RedirectToLogin />
@@ -10,8 +10,11 @@
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+        <LayoutView Layout="@typeof(ErrorLayout)">
+            <div class="flex justify-center items-center p-3">
+                <h1 class="text-2xl">404 Oops...</h1>
+                <p class="leading-loose text-lg">Sorry, there's nothing at this address.</p>
+            </div>
         </LayoutView>
     </NotFound>
 </Router>
