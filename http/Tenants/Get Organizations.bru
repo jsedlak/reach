@@ -1,0 +1,21 @@
+meta {
+  name: Get Organizations
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:7208/graphql
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "query": "query { organizations { id } }"
+  }
+}

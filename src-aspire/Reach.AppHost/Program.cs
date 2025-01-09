@@ -57,13 +57,13 @@ var silo = builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
     .WaitFor(postgres);
 
 /* Add Our Editor Application */
-builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
-    .WithReference(silo)
-    .WithReference(tenantStorage)
-    .WithReference(membershipDb)
-    .WaitFor(mongo)
-    .WaitFor(silo)
-    .WaitFor(postgres);
+//builder.AddProject<Projects.Reach_EditorApp>("reach-editor")
+//    .WithReference(silo)
+//    .WithReference(tenantStorage)
+//    .WithReference(membershipDb)
+//    .WaitFor(mongo)
+//    .WaitFor(silo)
+//    .WaitFor(postgres);
 
 builder.AddProject<Projects.Reach_Platform>("reach-platform");
 

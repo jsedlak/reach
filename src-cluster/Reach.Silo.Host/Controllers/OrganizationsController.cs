@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reach.Cqrs;
-using Reach.Orchestration.ApiModel;
+using Reach.Membership.ApiModel;
 
 namespace Reach.Silo.Host.Controllers;
 

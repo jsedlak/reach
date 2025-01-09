@@ -1,4 +1,4 @@
-﻿namespace Reach.Orchestration.ApiModel;
+﻿namespace Reach.Membership.ApiModel;
 
 public sealed class CreateOrganizationRequest
 {

@@ -21,13 +21,16 @@ builder.AddServiceDefaults();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
     {
-        c.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
+        c.Authority = $"{builder.Configuration["Auth0:Domain"]}";
         c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidAudience = builder.Configuration["Auth0:Audience"],
             ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}"
         };
     });
+
+// Routing services
+builder.Services.AddControllers();
 
 // Grab our providers
 builder.AddKeyedAzureTableClient("clustering");
@@ -48,7 +51,7 @@ builder.AddRepositories();
 builder.Services.AddOrleansSerializers();
 builder.Services.AddMongoEventSourcing("reach");
 
-var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsConnectionString");
+// var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsConnectionString");
 
 // Add our GraphQL
 builder.Services
@@ -61,12 +64,13 @@ builder.Services
     .AddType<ComponentQueries>()
     .AddType<RendererDefinitionQueries>()
     .AddType<RegionQueries>()
+    .AddType<OrganizationQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
 builder.UseOrleans(o =>
 {
-    o.UseDashboard(x => x.HostSelf = true);
+    // o.UseDashboard(x => x.HostSelf = true);
 });
 
 var app = builder.Build();
@@ -77,10 +81,7 @@ app.UseAuthorization();
 
 // Grant access to the dashboard, we use the self-host option until the port stuff can be figured out
 app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-app.Map("/dashboard", x => x.UseOrleansDashboard());
-
-// Map controllers
-app.MapControllers();
+// app.Map("/dashboard", x => x.UseOrleansDashboard());
 
 // Map our grain endpoints using their interfaces
 app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
@@ -88,8 +89,11 @@ app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
 app.MapGraphQL()
-    .RequireAuthorization()
+//    .RequireAuthorization()
     .RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+// Map controllers
+app.MapControllers();
 
 // configure storing guids as strings
 // TODO: Remove for prod performance
