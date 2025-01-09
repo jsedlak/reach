@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Petl.EventSourcing;
 using Petl.EventSourcing.Providers;
+using Reach.Orchestration.Model;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
+using Reach.Orchestration;
+using Reach.Membership.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +17,29 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.AddServiceDefaults();
 
+// Add Authentication/Authorization
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
+    {
+        c.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
+        c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidAudience = builder.Configuration["Auth0:Audience"],
+            ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}"
+        };
+    });
+
 // Grab our providers
 builder.AddKeyedAzureTableClient("clustering");
 builder.AddKeyedAzureBlobClient("grain-state");
 builder.AddKeyedAzureTableClient("streaming");
 builder.AddMongoDBClient("reach-mongo");
+
+// Add multi-tenancy support!
+// TODO: Figure out how we can pass the cluster endpoint dynamically
+builder.AddPostgresMembership("membership-database");
+builder.Services.WithInMemoryRegions(new Region { Id = Guid.Empty, Name = "Global", Key = "global" });
+builder.Services.WithPathRegionUrls("https://localhost:7208/", "https://localhost:7208/", "api", "graphql");
 
 // Add our view repositories
 builder.AddRepositories();
@@ -31,12 +53,14 @@ var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsCon
 // Add our GraphQL
 builder.Services
     .AddGraphQLServer()
+    .AddAuthorization()
     .AddQueryType(q => q.Name("Query"))
     .AddType<EditorDefinitionQueries>()
     .AddType<FieldDefinitionQueries>()
     .AddType<ComponentDefinitionQueries>()
     .AddType<ComponentQueries>()
     .AddType<RendererDefinitionQueries>()
+    .AddType<RegionQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
@@ -47,16 +71,25 @@ builder.UseOrleans(o =>
 
 var app = builder.Build();
 
+// Add Auth middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Grant access to the dashboard, we use the self-host option until the port stuff can be figured out
 app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.Map("/dashboard", x => x.UseOrleansDashboard());
+
+// Map controllers
+app.MapControllers();
 
 // Map our grain endpoints using their interfaces
 app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
 app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
-app.MapGraphQL().RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.MapGraphQL()
+    .RequireAuthorization()
+    .RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // configure storing guids as strings
 // TODO: Remove for prod performance

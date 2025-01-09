@@ -10,6 +10,8 @@
 		<PackageReference Include="Aspire.MongoDB.Driver" Version="9.0.0" />
 		<PackageReference Include="HotChocolate" Version="14.1.0" />
 		<PackageReference Include="HotChocolate.AspNetCore" Version="14.1.0" />
+		<PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="14.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
 		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="9.0.0" />
 		<PackageReference Include="Aspire.Azure.Data.Tables" Version="9.0.0" />
@@ -26,6 +28,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\..\src-lib\Reach.Membership.Postgres\Reach.Membership.Postgres.csproj" />
 		<ProjectReference Include="..\Reach.Silo.Core\Reach.Silo.Core.csproj" />
 	</ItemGroup>
 
