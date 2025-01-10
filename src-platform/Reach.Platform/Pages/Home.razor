@@ -1,19 +1,9 @@
 ﻿@page "/"
+@using Reach.Platform.ServiceModel
 @attribute [Authorize]
-@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
-
-@code {
-
-    protected override Task OnInitializedAsync()
-    {
-        Navigation.NavigateTo("/onboarding");
-        return base.OnInitializedAsync();
-    }
-
-}
