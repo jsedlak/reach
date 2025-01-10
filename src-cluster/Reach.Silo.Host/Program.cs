@@ -89,8 +89,8 @@ app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
 app.MapGraphQL()
-//    .RequireAuthorization()
-    .RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    .RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+    .RequireAuthorization();
 
 // Map controllers
 app.MapControllers();
