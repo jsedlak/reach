@@ -1,4 +1,5 @@
 ﻿using Reach.Extensions;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -27,7 +28,8 @@ public abstract class BaseGraphQlService
 
         // serialize the request query
         var requestContent = new StringContent(
-            JsonSerializer.Serialize(new { query })
+            JsonSerializer.Serialize(new { query }),
+            new MediaTypeHeaderValue("application/json")
         );
 
         // post the query to the endpoint
@@ -56,16 +58,20 @@ public abstract class BaseGraphQlService
         return resultCollection as IEnumerable<TModel> ?? Array.Empty<TModel>();
     }
 
+    private MediaTypeHeaderValue? MediaTypeHeaderValue(string v)
+    {
+        throw new NotImplementedException();
+    }
+
     private string GenerateBaseQuery<TModel>(string entityName)
     {
-        return GenerateBaseQuery(entityName, typeof(TModel));
+        return "query { \r\n" + GenerateBaseQuery(entityName, typeof(TModel)) + "\r\n}";
     }
 
     private string GenerateBaseQuery(string entityName, Type entityType)
     {
         Console.WriteLine($"Registering {entityName} -> {entityType.Name}");
         var sb = new StringBuilder();
-
         sb.AppendLine($"{entityName}{{");
 
         var props = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -85,12 +91,12 @@ public abstract class BaseGraphQlService
                 }
 
                 sb.AppendLine(
-                    GenerateBaseQuery(prop.Name, propType)
+                    GenerateBaseQuery(prop.Name.ToCamelCase(), propType)
                 );
             }
             else
             {
-                sb.AppendLine($"{prop.Name}");
+                sb.AppendLine($"{prop.Name.ToCamelCase()}");
             }
         }
 
