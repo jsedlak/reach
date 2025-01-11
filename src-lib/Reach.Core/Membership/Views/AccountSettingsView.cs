@@ -2,7 +2,7 @@
 
 public class AccountSettingsView
 {
-    public string AccountId { get; set; } = null!;
+    public string Id { get; set; } = null!;
 
     public bool SkipsOnboarding { get; set; }
 }

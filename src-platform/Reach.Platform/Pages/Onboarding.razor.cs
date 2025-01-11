@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Reach.Orchestration.Model;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.Platform.Pages;
 
 public partial class Onboarding : ComponentBase
 {
-    private readonly NavigationManager _navigation;
+    private readonly NavigationManager _navigationManager;
+    private readonly IMembershipService _membershipService;
  
     private IEnumerable<Region> _regions = [];
 
@@ -13,9 +15,10 @@ public partial class Onboarding : ComponentBase
     private OnboardingModel _model = new();
     private string? _errorMessage = null;
 
-    public Onboarding()
+    public Onboarding(IMembershipService membershipService, NavigationManager navigationManager)
     {
-        
+        _membershipService = membershipService;
+        _navigationManager = navigationManager;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -27,6 +30,16 @@ public partial class Onboarding : ComponentBase
             _regions = []; // await _regionService.GetAllRegionsAsync();
             StateHasChanged();
         }
+    }
+
+    private async Task OnSkipClicked()
+    {
+        await _membershipService.SetSkipOnboardingFlag(new Membership.Commands.SetSkipOnboardingFlagCommand
+        {
+            SkipOnboarding = true
+        });
+
+        _navigationManager.NavigateTo("/?skipOnboarding=true");
     }
 
     private async Task BeginCreate()

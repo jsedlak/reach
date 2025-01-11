@@ -1,8 +1,15 @@
-﻿namespace Reach.Silo.Membership.Model;
+﻿using Reach.Membership.Events;
+
+namespace Reach.Silo.Membership.Model;
 
 [GenerateSerializer]
-internal class Account
+public class Account
 {
+    public void Apply(SkipOnboardingFlagSetEvent @event)
+    {
+        Settings.SkipOnboarding = @event.SkipOnboarding;
+    }
+
     [Id(0)]
     public AccountSettings Settings { get; set; } = new();
 }

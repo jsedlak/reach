@@ -1,5 +1,6 @@
 ﻿namespace Reach.Membership.Events;
 
+[GenerateSerializer]
 public abstract class BaseAccountEvent
 {
     protected BaseAccountEvent(string accountId)
@@ -7,5 +8,6 @@ public abstract class BaseAccountEvent
         AccountId = accountId;
     }
 
+    [Id(0)]
     public string AccountId { get; set; } = null!;
 }

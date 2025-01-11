@@ -4,7 +4,7 @@
 /// Enables or Disables the onboarding procedure for a user
 /// </summary>
 [GenerateSerializer]
-public class SetSkipOnboardingFlagCommand
+public class SetSkipOnboardingFlagCommand : BaseAccountCommand
 {
     /// <summary>
     /// Gets or Sets whether onboarding should be skipped for a user

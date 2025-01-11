@@ -4,6 +4,7 @@ using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
 using Reach.Silo.Membership.ServiceModel;
 using Reach.Silo.Membership.Services;
+using Reach.Silo.Membership;
 
 namespace Reach.Silo;
 
@@ -14,6 +15,8 @@ public static class ServiceCollectionExtensions
         services.Configure<MongoViewRepositoryOptions>(
             options => options.Database = databaseName
         );
+
+        services.ConfigureMembership();
 
         services.AddScoped<IFieldDefinitionViewWriteRepository, MongoFieldDefinitionViewRepository>();
         services.AddScoped<IFieldDefinitionViewReadRepository, MongoFieldDefinitionViewRepository>();

@@ -122,8 +122,9 @@
         </div>
 
         <div class="mt-4 flex items-bottom justify-between">
-            <a href="#"
-               class="opacity-75 underline text-xs flex items-center gap-2">
+            <a 
+                @onclick="@OnSkipClicked"
+               class="text-underline cursor-pointer underline opacity-75 underline text-xs flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none"
                      viewBox="0 0 24 24"

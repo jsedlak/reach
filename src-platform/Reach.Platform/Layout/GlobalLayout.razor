@@ -1,16 +1,18 @@
 ﻿@inherits LayoutComponentBase
-<div class="page flex min-h-full flex-col">
-    <TopBar />
+<CascadingValue Name="Organizations" Value="_organizations">
+    <div class="page flex min-h-full flex-col">
+        <TopBar />
 
-    <div class="flex-grow flex flex-col">
-        <main class="w-full p-6">
-            @Body
-        </main>
+        <div class="flex-grow flex flex-col">
+            <main class="w-full p-6">
+                @Body
+            </main>
+        </div>
     </div>
-</div>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+</CascadingValue>

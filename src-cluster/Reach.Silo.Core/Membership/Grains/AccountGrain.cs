@@ -17,7 +17,7 @@ internal class AccountGrain : StreamingEventSourcedGrain<Account, BaseAccountEve
 
     public async Task<CommandResponse> SetSkipOnboardingFlag(SetSkipOnboardingFlagCommand command)
     {
-        await Raise(new SkipOnboardingFlagSetEvent(this.GetGrainId().ToString())
+        await Raise(new SkipOnboardingFlagSetEvent(this.GetPrimaryKeyString())
         {
             SkipOnboarding = command.SkipOnboarding
         });

@@ -27,7 +27,7 @@ internal class MongoAccountSettingsViewRepository :
 
     public async Task<AccountSettingsView?> GetSettings(string accountId)
     {
-        var cursor = await GetCollection().FindAsync(m => m.AccountId == accountId);
+        var cursor = await GetCollection().FindAsync(m => m.Id == accountId);
         return cursor.FirstOrDefault();
     }
 
@@ -35,7 +35,7 @@ internal class MongoAccountSettingsViewRepository :
     {
         var col = GetCollection();
         await col.ReplaceOneAsync(
-            m => m.AccountId == settings.AccountId,
+            m => m.Id == settings.Id,
             settings,
             new ReplaceOptions() { IsUpsert = true }
         );

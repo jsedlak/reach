@@ -30,7 +30,7 @@ internal class AccountViewGrain : SubscribedViewGrain<BaseAccountEvent>, IAccoun
         {
             result = new()
             {
-                AccountId = @event.AccountId
+                Id = @event.AccountId
             };
         }
 

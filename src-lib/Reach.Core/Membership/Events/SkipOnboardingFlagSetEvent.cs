@@ -1,5 +1,6 @@
 ﻿namespace Reach.Membership.Events;
 
+[GenerateSerializer]
 public class SkipOnboardingFlagSetEvent : BaseAccountEvent
 {
     public SkipOnboardingFlagSetEvent(string accountId) 
@@ -7,5 +8,6 @@ public class SkipOnboardingFlagSetEvent : BaseAccountEvent
     {
     }
 
+    [Id(0)]
     public bool SkipOnboarding { get; set; }
 }
