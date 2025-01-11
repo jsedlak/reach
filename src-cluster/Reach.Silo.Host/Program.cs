@@ -10,6 +10,7 @@ using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
 using Reach.Orchestration;
 using Reach.Membership.Postgres;
+using Reach.Silo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,7 @@ builder.Services.WithInMemoryRegions(new Region { Id = Guid.Empty, Name = "Globa
 builder.Services.WithPathRegionUrls("https://localhost:7208/", "https://localhost:7208/", "api", "graphql");
 
 // Add our view repositories
-builder.AddRepositories();
+builder.Services.AddMongoRepositories("reach");
 
 // Add Event Sourcing
 builder.Services.AddOrleansSerializers();

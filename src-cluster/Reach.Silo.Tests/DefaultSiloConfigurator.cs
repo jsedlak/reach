@@ -1,6 +1,5 @@
 using Orleans.TestingHost;
 using Petl.EventSourcing;
-using Reach.Silo.Content.Grains;
 
 namespace Reach.Silo.Tests;
 

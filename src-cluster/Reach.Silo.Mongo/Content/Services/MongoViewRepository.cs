@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Reach.Silo.Content.Services;
 
-public abstract class MongoViewRepository<TView> where TView : class, IView
+internal abstract class MongoViewRepository<TView> where TView : class, IView
 {
     private readonly IMongoClient _mongoClient;
     private readonly string _databaseName;

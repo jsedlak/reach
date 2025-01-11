@@ -1,5 +1,5 @@
-using Reach.Content.ServiceModel;
 using Reach.Content.Views;
+using Reach.Silo.Content.ServiceModel;
 
 namespace Reach.Silo.Host.Queries;
 

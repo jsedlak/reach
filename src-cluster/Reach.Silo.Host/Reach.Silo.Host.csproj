@@ -30,6 +30,7 @@
 		<ProjectReference Include="..\..\src-aspire\Reach.ServiceDefaults\Reach.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\..\src-lib\Reach.Membership.Postgres\Reach.Membership.Postgres.csproj" />
 		<ProjectReference Include="..\Reach.Silo.Core\Reach.Silo.Core.csproj" />
+		<ProjectReference Include="..\Reach.Silo.Mongo\Reach.Silo.Mongo.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

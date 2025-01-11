@@ -19,4 +19,9 @@
     <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Content\Services\" />
+    <Folder Include="Membership\Services\" />
+  </ItemGroup>
+
 </Project>

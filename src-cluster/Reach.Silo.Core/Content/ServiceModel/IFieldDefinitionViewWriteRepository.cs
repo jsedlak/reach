@@ -1,5 +1,4 @@
-﻿using Reach.Content.Model;
-using Reach.Content.Views;
+﻿using Reach.Content.Views;
 
 namespace Reach.Silo.Content.ServiceModel;
 

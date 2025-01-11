@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Views;
 using Reach.Cqrs;
-using Reach.EditorApp.ServiceModel;
 using Reach.Membership.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;

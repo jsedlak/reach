@@ -1,5 +1,3 @@
-using Aspire.Hosting;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 /* Add Our IDP */
@@ -14,7 +12,6 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 /* PostgreSQL */
 var postgres = builder.AddPostgres("postgres")
-    .WithPgAdmin()
     .WithPgWeb();
 
 var membershipDb = postgres.AddDatabase(

@@ -5,14 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Reach.EditorApp.Security;
 using Reach.Orchestration;
 using Reach.Orchestration.Model;
-using Reach.Membership.ServiceModel;
-using Reach.Membership.Services;
 using Reach.EditorApp.Services;
 using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
 using Reach.EditorApp.ServiceModel;
-using Reach.Membership.AzureTables;
 using Reach.Membership.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);

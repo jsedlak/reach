@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Reach.Orchestration.Model;
+﻿using Reach.Orchestration.Model;
 
 namespace Reach.Orchestration.ServiceModel;
 

@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using MongoDB.Driver;
-using Reach.Content.ServiceModel;
 using Reach.Cqrs;
 using Reach.Silo.Content.ServiceModel;
 
@@ -12,7 +11,7 @@ namespace Reach.Silo.Content.Services;
 /// an organization and hub.
 /// </summary>
 /// <typeparam name="TAggregate">The type of aggregate view being stored.</typeparam>
-public abstract class MongoAggregateViewRepository<TAggregate> : 
+internal abstract class MongoAggregateViewRepository<TAggregate> : 
     MongoViewRepository<TAggregate>, 
     IAggregateViewReadRepository<TAggregate>,
     IAggregateViewWriteRepository<TAggregate>

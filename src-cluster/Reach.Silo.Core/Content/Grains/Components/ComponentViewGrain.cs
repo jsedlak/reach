@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Logging;
 using Reach.Content.Events.Components;
-using Reach.Content.ServiceModel;
 using Reach.Content.Views;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.ServiceModel;

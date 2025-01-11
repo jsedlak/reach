@@ -1,13 +1,12 @@
-﻿using System.Linq.Expressions;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Reach.Content.ServiceModel;
 using Reach.Content.Views;
+using Reach.Silo.ConfigModel;
 using Reach.Silo.Content.ServiceModel;
 
 namespace Reach.Silo.Content.Services;
 
-public class MongoEditorDefinitionViewRepository : MongoAggregateViewRepository<EditorDefinitionView>, 
+internal class MongoEditorDefinitionViewRepository : MongoAggregateViewRepository<EditorDefinitionView>, 
     IEditorDefinitionViewReadRepository, IEditorDefinitionViewWriteRepository
 {
     private const string CollectionName = "editor_defns";

@@ -1,6 +1,5 @@
 using Reach.Content.Commands.RendererDefinitions;
 using Reach.Content.Events.RendererDefinitions;
-using Reach.Content.Model;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.Model;

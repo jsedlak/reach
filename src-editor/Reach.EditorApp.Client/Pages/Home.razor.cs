@@ -1,8 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Reach.Components.Context;
-using Reach.EditorApp.ServiceModel;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
 using Reach.Orchestration.ServiceModel;

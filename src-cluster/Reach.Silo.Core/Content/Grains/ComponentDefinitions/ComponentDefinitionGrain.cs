@@ -3,7 +3,6 @@ using Reach.Content.Events.ComponentDefinitions;
 using Reach.Content.Model;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;
-using Reach.Silo.Content.Grains.Components;
 using Reach.Silo.Content.Model;
 
 namespace Reach.Silo.Content.Grains.ComponentDefinitions;

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Content\ServiceModel\" />
     <Folder Include="Content\Services\" />
   </ItemGroup>
 

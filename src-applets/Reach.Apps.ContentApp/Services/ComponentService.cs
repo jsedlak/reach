@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
-using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Content.Commands.Components;
 using Reach.Content.Views;
 using Reach.Cqrs;
