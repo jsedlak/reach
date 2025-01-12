@@ -6,19 +6,12 @@ using System.Net.Http.Json;
 
 namespace Reach.Platform.Services;
 
-public class HttpOrganizationService : BaseGraphQlService, IOrganizationService
+internal class HttpOrganizationService : BaseGraphQlService, IOrganizationService
 {
-    //private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
-
     private readonly HttpClient _apiHttpClient;
 
-    //private readonly JsonSerializerOptions _jsonOptions = new()
-    //{
-    //    PropertyNameCaseInsensitive = true
-    //};
-
-    public HttpOrganizationService(IHttpClientFactory httpClientFactory) 
-        : base(httpClientFactory)
+    public HttpOrganizationService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder) 
+        : base(httpClientFactory, queryBuilder)
     {
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }

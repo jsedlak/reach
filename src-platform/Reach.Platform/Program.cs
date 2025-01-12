@@ -1,10 +1,6 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Reach.Platform;
-using Reach.Platform.ServiceModel;
-using Reach.Platform.Services;
 using Tazor.Components;
 using Tazor.Wasm;
 
@@ -14,23 +10,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // Add HTTP clients
-var apiHost = builder.Configuration.GetSection("Api").GetValue<string>("Host") ?? "https://silo";
-
-builder.Services.AddScoped<CustomAuthorizationMessageHandler>(sp =>
-    new CustomAuthorizationMessageHandler(
-        [apiHost], 
-        sp.GetRequiredService<IAccessTokenProvider>(),
-        sp.GetRequiredService<NavigationManager>()
-    )
-);
-
-builder.Services.AddHttpClient("api",
-      client => client.BaseAddress = new Uri(apiHost)
-    ).AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
-
-builder.Services.AddHttpClient("graphql",
-      client => client.BaseAddress = new Uri(apiHost)
-    ).AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
+builder.Services.AddHttpClients(builder.Configuration);
 
 // Add authentication
 builder.Services.AddOidcAuthentication(options =>
@@ -42,8 +22,7 @@ builder.Services.AddOidcAuthentication(options =>
 });
 
 // Add reach services
-builder.Services.AddScoped<IMembershipService, HttpMembershipService>();
-builder.Services.AddScoped<IOrganizationService, HttpOrganizationService>();
+builder.Services.AddPlatformServices();
 
 // Adds Tazor
 builder.Services

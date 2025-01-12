@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Reach.Platform.Services;
 
-public class HttpMembershipService : BaseGraphQlService, IMembershipService
+internal class HttpMembershipService : BaseGraphQlService, IMembershipService
 {
     private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
 
@@ -19,8 +19,8 @@ public class HttpMembershipService : BaseGraphQlService, IMembershipService
 
     private readonly HttpClient _apiHttpClient;
 
-    public HttpMembershipService(IHttpClientFactory httpClientFactory)
-        : base(httpClientFactory)
+    public HttpMembershipService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder)
+        : base(httpClientFactory, queryBuilder)
     {
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }

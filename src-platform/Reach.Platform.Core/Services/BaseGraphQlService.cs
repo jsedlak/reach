@@ -3,28 +3,31 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.Platform.Services;
 
 public abstract class BaseGraphQlService
 {
+    private readonly IGraphQueryBuilder _queryBuilder;
+
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         // Converters = { new EditorParameterTypeConverter() },
         PropertyNameCaseInsensitive = true
     };
 
-    protected BaseGraphQlService(IHttpClientFactory httpClientFactory)
+    protected BaseGraphQlService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder)
     {
+        _queryBuilder = queryBuilder;
         GraphQlClient = httpClientFactory.CreateClient("graphql");
     }
 
-    protected async Task<IEnumerable<TModel>> GetMany<TModel>(string entityName, string query = null)
+    protected async Task<IEnumerable<TModel>> GetMany<TModel>(string? entityName = null, string? query = null)
     {
-        if(query is null)
-        {
-            query = GenerateBaseQuery<TModel>(entityName);
-        }
+        // build the query if we need to
+        entityName ??= _queryBuilder.GetDefaultEntityName<TModel>();
+        query ??= _queryBuilder.BuildBaseQuery<TModel>(entityName);
 
         // serialize the request query
         var requestContent = new StringContent(
@@ -58,52 +61,7 @@ public abstract class BaseGraphQlService
         return resultCollection as IEnumerable<TModel> ?? Array.Empty<TModel>();
     }
 
-    private MediaTypeHeaderValue? MediaTypeHeaderValue(string v)
-    {
-        throw new NotImplementedException();
-    }
-
-    private string GenerateBaseQuery<TModel>(string entityName)
-    {
-        return "query { \r\n" + GenerateBaseQuery(entityName, typeof(TModel)) + "\r\n}";
-    }
-
-    private string GenerateBaseQuery(string entityName, Type entityType)
-    {
-        Console.WriteLine($"Registering {entityName} -> {entityType.Name}");
-        var sb = new StringBuilder();
-        sb.AppendLine($"{entityName}{{");
-
-        var props = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        foreach (var prop in props)
-        {
-            if (prop.PropertyType.IsClass && prop.PropertyType != typeof(string))
-            {
-                var propType = prop.PropertyType;
-
-                if(propType.IsArray)
-                {
-                    propType = propType.GetElementType();
-                }
-                else if(propType.IsEnumerableType())
-                {
-                    propType = propType.GetEnumerableType();
-                }
-
-                sb.AppendLine(
-                    GenerateBaseQuery(prop.Name.ToCamelCase(), propType)
-                );
-            }
-            else
-            {
-                sb.AppendLine($"{prop.Name.ToCamelCase()}");
-            }
-        }
-
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
+    
 
     protected HttpClient GraphQlClient { get; private set; }
 }
