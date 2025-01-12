@@ -1,5 +1,8 @@
-﻿namespace Reach.Membership.Views;
+﻿using Reach.GraphQl;
 
+namespace Reach.Membership.Views;
+
+[GraphQueryName("organizations")]
 public class AvailableOrganizationView
 {
     public Guid Id { get; set; }

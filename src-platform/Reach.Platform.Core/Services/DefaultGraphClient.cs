@@ -1,29 +1,29 @@
-﻿using Reach.Extensions;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Text;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Windows.Input;
+using Reach.Membership;
+using Reach.Platform.Json;
 using Reach.Platform.ServiceModel;
 
 namespace Reach.Platform.Services;
 
-public abstract class BaseGraphQlService
+internal sealed class DefaultGraphClient : IGraphClient
 {
     private readonly IGraphQueryBuilder _queryBuilder;
+    
+    private readonly HttpClient _httpClient;
 
-    private readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        // Converters = { new EditorParameterTypeConverter() },
-        PropertyNameCaseInsensitive = true
-    };
-
-    protected BaseGraphQlService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder)
+    public DefaultGraphClient(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder)
     {
         _queryBuilder = queryBuilder;
-        GraphQlClient = httpClientFactory.CreateClient("graphql");
+        _httpClient = httpClientFactory.CreateClient("graphql");
     }
 
-    protected async Task<IEnumerable<TModel>> GetMany<TModel>(string? entityName = null, string? query = null)
+    public async Task<IEnumerable<TModel>> GetMany<TModel>(
+        Guid? organizationId = null,
+        Guid? hubId = null,
+        string? entityName = null, 
+        string? query = null)
     {
         // build the query if we need to
         entityName ??= _queryBuilder.GetDefaultEntityName<TModel>();
@@ -35,8 +35,19 @@ public abstract class BaseGraphQlService
             new MediaTypeHeaderValue("application/json")
         );
 
+        // add our headers if we need them
+        if (organizationId.HasValue)
+        {
+            requestContent.Headers.Add(MembershipHttpConstants.OrganizationIdHeader, organizationId.ToString());
+        }
+
+        if (hubId.HasValue)
+        {
+            requestContent.Headers.Add(MembershipHttpConstants.HubIdHeader, hubId.ToString());
+        }
+
         // post the query to the endpoint
-        var result = await GraphQlClient.PostAsync("graphql", requestContent);
+        var result = await _httpClient.PostAsync("graphql", requestContent);
 
         // get the response body and parse it into json
         var contentString = await result.Content.ReadAsStringAsync();
@@ -55,13 +66,9 @@ public abstract class BaseGraphQlService
         // read the json stream and parse it
         var resultCollection = await JsonSerializer.DeserializeAsync<IEnumerable<TModel>>(
             jsonStream,
-            _jsonOptions
+            DefaultJsonOptions.Instance
         );
 
         return resultCollection as IEnumerable<TModel> ?? Array.Empty<TModel>();
     }
-
-    
-
-    protected HttpClient GraphQlClient { get; private set; }
 }

@@ -1,9 +1,11 @@
 using Reach.Content.Model;
 using Reach.Cqrs;
+using Reach.GraphQl;
 
 namespace Reach.Content.Views;
 
 [GenerateSerializer]
+[GraphQueryName("componentDefinitions")]
 public class ComponentDefinitionView : BaseAggregateView
 {
     [Id(0)]

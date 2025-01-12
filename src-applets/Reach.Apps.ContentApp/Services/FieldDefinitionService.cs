@@ -9,51 +9,53 @@ using Reach.Platform.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
-public class FieldDefinitionService : BaseService
+public class FieldDefinitionService : BaseContentService
 {
-    private const string DefaultQuery = @"
-    query {
-        fieldDefinitions {
-            id
-            name
-            organizationId
-            hubId
-            key
-            editorDefinitionId
-            editorParameters {
-                key
-                value
-            }
-            editorDefinition {
-                id
-                name
-                organizationId
-                hubId
-                displayName
-                editorType
-                parameters {
-                  name
-                  displayName
-                  description
-                  type
-                }
-            }
-        }
-    }
-    ";
+    private const string Endpoint = "component-definitions";
+    
+    // private const string DefaultQuery = @"
+    // query {
+    //     fieldDefinitions {
+    //         id
+    //         name
+    //         organizationId
+    //         hubId
+    //         key
+    //         editorDefinitionId
+    //         editorParameters {
+    //             key
+    //             value
+    //         }
+    //         editorDefinition {
+    //             id
+    //             name
+    //             organizationId
+    //             hubId
+    //             displayName
+    //             editorType
+    //             parameters {
+    //               name
+    //               displayName
+    //               description
+    //               type
+    //             }
+    //         }
+    //     }
+    // }
+    // ";
 
-    public FieldDefinitionService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger<FieldDefinitionService> logger)
-        : base(organizationService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
+    public FieldDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger) 
+        : base(graphClient, commandClient, logger)
     {
     }
 
     public async Task<CommandResponse> Create(CreateFieldDefinitionCommand command)
     {
-        return await ExecuteCommandAsync("field-definitions", command);
+        return await CommandClient.Execute(Endpoint, command);
     }
 
-    public async Task<IEnumerable<FieldDefinitionView>> GetFieldDefinitons()
+    public async Task<IEnumerable<FieldDefinitionView>> GetFieldDefinitons(Guid organizationId, Guid hubId, string? query = null)
     {
-        return await QueryGraphAsync<FieldDefinitionView>("fieldDefinitions", DefaultQuery); ;
+        return await GraphClient.GetMany<FieldDefinitionView>(organizationId, hubId, query: query);
     }
 }

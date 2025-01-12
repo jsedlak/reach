@@ -35,7 +35,11 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _editorDefinitions = await EditorDefinitionService.GetEditorDefinitions();
+        if (CurrentOrganization is not null && CurrentHub is not null)
+        {
+            _editorDefinitions =
+                await EditorDefinitionService.GetEditorDefinitions(CurrentOrganization.Id, CurrentHub.Id);
+        }
     }
 
     private Task OnBeginCreateClicked()

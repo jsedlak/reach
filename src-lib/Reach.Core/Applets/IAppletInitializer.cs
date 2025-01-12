@@ -9,7 +9,5 @@ public interface IAppletInitializer
 {
     AppletDefinition CreateDefinition();
 
-    void RegisterServer(IServiceCollection services);
-
-    void RegisterClient(IServiceCollection services);
+    void RegisterServices(IServiceCollection services);
 }

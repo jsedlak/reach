@@ -33,7 +33,10 @@ public partial class FieldDefinitionListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _fieldDefinitions = await FieldDefinitionService.GetFieldDefinitons();
+        if (CurrentOrganization is not null && CurrentHub is not null)
+        {
+            _fieldDefinitions = await FieldDefinitionService.GetFieldDefinitons(CurrentOrganization.Id, CurrentHub.Id);
+        }
     }
 
     private Task OnBeginCreateClicked()

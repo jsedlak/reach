@@ -8,23 +8,19 @@ using System.Text.Json;
 
 namespace Reach.Platform.Services;
 
-internal class HttpMembershipService : BaseGraphQlService, IMembershipService
+internal class HttpMembershipService : IMembershipService
 {
-    private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
-
-    private readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
+    private readonly ICommandClient _commandClient;
+    private readonly IGraphClient _graphClient;
+    
     private readonly HttpClient _apiHttpClient;
 
-    public HttpMembershipService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder)
-        : base(httpClientFactory, queryBuilder)
+    public HttpMembershipService(IHttpClientFactory httpClientFactory, ICommandClient commandClient, IGraphClient graphClient)
     {
+        _commandClient = commandClient;
+        _graphClient = graphClient;
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }
-
 
     public async Task<AccountSettingsView> GetAccountSettings()
     {
@@ -35,23 +31,6 @@ internal class HttpMembershipService : BaseGraphQlService, IMembershipService
 
     public async Task<CommandResponse> SetSkipOnboardingFlag(SetSkipOnboardingFlagCommand command)
     {
-        return await ExecuteCommandAsync(command);
-    }
-
-    private async Task<CommandResponse> ExecuteCommandAsync<TCommand>(TCommand command)
-        where TCommand : BaseAccountCommand
-    {
-        // create and secure the request
-        var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
-
-        content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
-
-        var response = await _apiHttpClient.PostAsync(
-            $"api/account/execute",
-            content
-        );
-
-        return await response.Content.ReadFromJsonAsync<CommandResponse>(_jsonOptions) ??
-            new CommandResponse();
+        return await _commandClient.Execute("account", command);
     }
 }

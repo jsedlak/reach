@@ -6,19 +6,22 @@ using System.Net.Http.Json;
 
 namespace Reach.Platform.Services;
 
-internal class HttpOrganizationService : BaseGraphQlService, IOrganizationService
+internal class HttpOrganizationService : IOrganizationService
 {
+    private readonly ICommandClient _commandClient;
+    private readonly IGraphClient _graphClient;
     private readonly HttpClient _apiHttpClient;
 
-    public HttpOrganizationService(IHttpClientFactory httpClientFactory, IGraphQueryBuilder queryBuilder) 
-        : base(httpClientFactory, queryBuilder)
+    public HttpOrganizationService(IHttpClientFactory httpClientFactory, ICommandClient commandClient, IGraphClient graphClient)
     {
+        _commandClient = commandClient;
+        _graphClient = graphClient;
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }
 
     public async Task<IEnumerable<AvailableOrganizationView>> GetAvailableOrganizations()
     {
-        return await GetMany<AvailableOrganizationView>("organizations");
+        return await _graphClient.GetMany<AvailableOrganizationView>();
     }
 
     public async Task<CommandResponse> Onboard(CreateOrganizationRequest request)

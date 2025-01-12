@@ -35,7 +35,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddControllers();
 
 // Configure authentication
-builder.AddAuth0WebApp();
+// builder.AddAuth0WebApp();
 
 // Configure authorization
 builder.Services.AddAuthorization();
@@ -51,9 +51,9 @@ builder.Services.AddCascadingValue(static sp =>
 // builder.AddPostgresMembership("membership-database");
 
 // Add our cascading contexts
-builder.AddApplets(
-    typeof(ContentEditorPage).Assembly
-);
+// builder.AddApplets(
+//     typeof(ContentEditorPage).Assembly
+// );
 
 // Add our theming stuff
 builder.Services.AddTazorServer().Build();

@@ -34,7 +34,13 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _componentDefinitions = await _componentDefinitionService.GetComponentDefinitions();
+        if (CurrentOrganization is not null && CurrentHub is not null)
+        {
+            _componentDefinitions = await _componentDefinitionService.GetComponentDefinitions(
+                CurrentOrganization.Id, 
+                CurrentHub.Id
+            );
+        }
     }
     
     private Task OnBeginCreateClicked()

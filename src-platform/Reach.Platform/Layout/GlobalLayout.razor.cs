@@ -14,6 +14,9 @@ public partial class GlobalLayout : LayoutComponentBase
     private readonly IMembershipService _membershipService;
     private readonly IOrganizationService _organizationService;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
+    
+    private Guid? _currentOrganizationId = Guid.Empty;
+    private Guid? _currentHubId = Guid.Empty;
 
     private bool _isLoading = false;
 
@@ -33,6 +36,8 @@ public partial class GlobalLayout : LayoutComponentBase
 
     private async Task InitializeOrganizations()
     {
+        Console.WriteLine("Initializing organizations...");
+        
         _isLoading = true;
         StateHasChanged();
 
@@ -47,6 +52,8 @@ public partial class GlobalLayout : LayoutComponentBase
 
         _isLoading = false;
         StateHasChanged();
+        
+        Console.WriteLine($"Loaded {_organizations?.Count() ?? 0} organizations.");
 
         if (!_organizations.Any())
         {
@@ -57,10 +64,45 @@ public partial class GlobalLayout : LayoutComponentBase
 
             _navigation.NavigateTo("/onboarding");
         }
+        else
+        {
+            RefreshOrgHubView();
+        }
+    }
+
+    private void RefreshOrgHubView()
+    {
+        if (_organizations == null || _organizations.Count() == 0)
+        {
+            _currentHubId = null;
+            _currentOrganizationId = null;
+            return;
+        }
+        
+        var uri = _navigation.ToAbsoluteUri(_navigation.Uri);
+        var parts = uri.PathAndQuery.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length > 2 && parts.First().Equals("app", StringComparison.OrdinalIgnoreCase))
+        {
+            var orgSlug = parts[1];
+            var hubSlug = parts[2];
+
+            var currentOrg = _organizations.FirstOrDefault(x => x.Slug == orgSlug);
+
+            if (currentOrg is null)
+            {
+                return;
+            }
+            
+            _currentOrganizationId = currentOrg.Id;
+            _currentHubId = currentOrg.Hubs.FirstOrDefault(m => m.Slug == hubSlug)?.Id;
+        }
     }
 
     private async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
     {
+        Console.WriteLine("OnAuthenticationStateChanged");
+        
         var state = await task;
 
         if(state is not null && state.User.Identity is {  IsAuthenticated: true })
@@ -74,7 +116,10 @@ public partial class GlobalLayout : LayoutComponentBase
     {
         Console.WriteLine("GlobalLayout::OnInitializedAsync");
 
-        if (AuthenticationState is null)
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        Console.WriteLine($"Current user: {state.User?.Identity?.Name}");
+        
+        if (state is null)
         {
             Console.WriteLine("Auth state is null. Waiting.");
             return;
@@ -83,7 +128,4 @@ public partial class GlobalLayout : LayoutComponentBase
         Console.WriteLine("OnInitializedAsync -> Initializing Orgs");
         await InitializeOrganizations();
     }
-
-    [CascadingParameter]
-    public AuthenticationState AuthenticationState { get; set; }
 }

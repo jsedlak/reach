@@ -36,7 +36,10 @@ public partial class ComponentListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        _components = await _componentService.GetComponents();
+        if (CurrentOrganization is not null && CurrentHub is not null)
+        {
+            _components = await _componentService.GetComponents(CurrentOrganization.Id, CurrentHub.Id);
+        }
     }
     
     private Task OnBeginCreateClicked()

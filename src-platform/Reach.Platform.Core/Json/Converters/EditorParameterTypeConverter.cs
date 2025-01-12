@@ -1,8 +1,8 @@
-﻿using Reach.Content.Model;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Reach.Content.Model;
 
-namespace Reach.Apps.ContentApp.Services;
+namespace Reach.Platform.Json.Converters;
 
 public sealed class EditorParameterTypeConverter : JsonConverter<EditorParameterType>
 {

@@ -41,7 +41,7 @@ public static class AppletExtensions
                 }
 
                 // register custom services
-                initializer.RegisterClient(builder.Services);
+                initializer.RegisterServices(builder.Services);
 
                 initializers.Add(initializer);
             }

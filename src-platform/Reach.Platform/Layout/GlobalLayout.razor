@@ -1,28 +1,37 @@
 ﻿@inherits LayoutComponentBase
 <CascadingValue Name="Organizations" Value="_organizations">
-    <div class="page flex min-h-full flex-col">
-        <TopBar />
+    <CascadingValue Name="CurrentOrganizationId" Value="_currentOrganizationId">
+        <CascadingValue Name="CurrentHubId" Value="_currentHubId">
+            <div class="page flex min-h-full flex-col">
+                <TopBar/>
 
-        @if (_isLoading || _organizations is null)
-        {
-            <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
-                <Spinner />
-                <div class="my-3">@Body</div>
-            </main>
-        }
-        else
-        {
-            <div class="flex-grow flex flex-col">
-                <main class="w-full p-6">
-                    @Body
-                </main>
+                @if (_isLoading || _organizations is null)
+                {
+                    <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
+                        <Spinner/>
+                        <div class="my-3">@Body</div>
+                    </main>
+                }
+                else
+                {
+                    <div class="flex-grow flex flex-col">
+                        <main class="w-full p-6">
+                            @Body
+
+                            <div class="my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
+                                <p>Current Organization: @(_currentOrganizationId.GetValueOrDefault())</p>
+                                <p>Current Hub: @(_currentHubId.GetValueOrDefault())</p>
+                            </div>
+                        </main>
+                    </div>
+                }
             </div>
-        }
-    </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+            <div id="blazor-error-ui">
+                An unhandled error has occurred.
+                <a href="" class="reload">Reload</a>
+                <a class="dismiss">🗙</a>
+            </div>
+        </CascadingValue>
+    </CascadingValue>
 </CascadingValue>

@@ -11,8 +11,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 //var eventHubConnectionString = eventHubs.PublishAsConnectionString();
 
 /* PostgreSQL */
-var postgres = builder.AddPostgres("postgres")
-    .WithPgWeb();
+var postgres = builder.AddPostgres("postgres");
+    // .WithPgWeb();
 
 var membershipDb = postgres.AddDatabase(
     name: "membership-database", 

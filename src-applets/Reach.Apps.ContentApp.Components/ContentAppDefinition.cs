@@ -20,15 +20,11 @@ public class ContentAppDefinition : IAppletInitializer
 
     public AppletDefinition CreateDefinition() => Default;
 
-    public void RegisterServer(IServiceCollection services)
+    public void RegisterServices(IServiceCollection services)
     {
-        services.AddTransient<EditorDefinitionService>();
-        services.AddTransient<FieldDefinitionService>();
-    }
-
-    public void RegisterClient(IServiceCollection services)
-    {
-        services.AddTransient<EditorDefinitionService>();
-        services.AddTransient<FieldDefinitionService>();
+        services.AddScoped<EditorDefinitionService>();
+        services.AddScoped<FieldDefinitionService>();
+        services.AddScoped<ComponentDefinitionService>();
+        services.AddScoped<ComponentService>();
     }
 }

@@ -8,41 +8,42 @@ using Reach.Platform.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 
-public class ComponentDefinitionService : BaseService
+public class ComponentDefinitionService : BaseContentService
 {
     private const string Endpoint = "component-definitions";
-    private const string GraphEntity = "componentDefinitions";
-    private const string DefaultQuery = @"
-    query {
-        componentDefinitions {
-            id
-            organizationId
-            hubId
-            name
-            slug
-            parentId
-            fields {
-                id
-                name
-                slug
-                definitionId
-                value
-            }
-        }
-    }";
+    // private const string GraphEntity = "componentDefinitions";
+    // private const string DefaultQuery = @"
+    // query {
+    //     componentDefinitions {
+    //         id
+    //         organizationId
+    //         hubId
+    //         name
+    //         slug
+    //         parentId
+    //         fields {
+    //             id
+    //             name
+    //             slug
+    //             definitionId
+    //             value
+    //         }
+    //     }
+    // }";
 
-    public ComponentDefinitionService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger) 
-        : base(organizationService, navigationManager, authenticationStateProvider, httpClientFactory, logger)
+    public ComponentDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger) 
+        : base(graphClient, commandClient, logger)
     {
     }
 
     public async Task<CommandResponse> Create(CreateComponentDefinitionCommand command)
     {
-        return await ExecuteCommandAsync(Endpoint, command);
+        return await CommandClient.Execute(Endpoint, command);
     }
 
-    public async Task<IEnumerable<ComponentDefinitionView>> GetComponentDefinitions(string? query = null)
+    public async Task<IEnumerable<ComponentDefinitionView>> GetComponentDefinitions(
+        Guid organizationId, Guid hubId, string? query = null)
     {
-        return await QueryGraphAsync<ComponentDefinitionView>(GraphEntity, query ?? DefaultQuery);
+        return await GraphClient.GetMany<ComponentDefinitionView>(organizationId, hubId, query: query);
     }
 }

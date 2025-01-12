@@ -8,174 +8,23 @@ using Reach.Platform.ServiceModel;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Reach.Platform.Json.Converters;
 
 namespace Reach.Apps.ContentApp.Services;
 
-public abstract class BaseService
+public abstract class BaseContentService
 {
-    private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
-
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly JsonSerializerOptions _jsonOptions = new()
+    protected BaseContentService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger)
     {
-        Converters = { new EditorParameterTypeConverter() },
-        PropertyNameCaseInsensitive = true
-    };
-
-    private readonly NavigationManager _navigationManager;
-    private readonly AuthenticationStateProvider _authenticationStateProvider;
-    private readonly ILogger _logger;
-    private readonly IOrganizationService _organizationService;
-
-    protected BaseService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
-    {
-        _organizationService = organizationService;
-        _navigationManager = navigationManager;
-        _authenticationStateProvider = authenticationStateProvider;
-        _logger = logger;
-        _httpClientFactory = httpClientFactory;
-
-        //_graphQlClient = httpClientFactory.CreateClient("graphql");
-        //_apiClient = httpClientFactory.CreateClient("api");
+        Logger = logger;
+        GraphClient = graphClient;
+        CommandClient = commandClient;
     }
 
-    /// <summary>
-    /// Ensures the tenant can be loaded from the URL and is valid for 
-    /// the current user. If not, it redirects the user to the 
-    /// dashboard and returns false.
-    /// </summary>
-    /// <returns></returns>
-    private async Task<MembershipView> EnsureMembership(string userId)
-    {
-        var view = new MembershipView();
-        
-        var organizations = await _organizationService.GetAvailableOrganizations();
-        var path = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).ToLower();
+    protected IGraphClient GraphClient { get; }
 
-        var pathSplit = path.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
-
-        // TODO: We need to get this from a Region formatter, don't we?
-        if (pathSplit.Length > 2 && pathSplit[0].Equals("app"))
-        {
-            view.Organization = organizations.FirstOrDefault(m => m.Slug == pathSplit[1]);
-            view.Hub = view.Organization?.Hubs.FirstOrDefault(m => m.Slug == pathSplit[2]);
-        }
-
-        return view;
-    }
-
-    /// <summary>
-    /// Prepares an HTTP client with the custom headers we'll need
-    /// </summary>
-    /// <param name="client"></param>
-    /// <returns></returns>
-    private async Task<MembershipView> PrepareClient(HttpClient client)
-    {
-        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-
-        if (state == null || state.User.Identity == null || !state.User.Identity.IsAuthenticated)
-        {
-            throw new UnauthorizedAccessException();
-        }
-
-        var membership = await EnsureMembership(state.User.Identity!.Name);
-
-        if (membership == null || !membership.IsValid)
-        {
-            throw new UnauthorizedAccessException();
-        }
-
-        client.BaseAddress = new Uri("https://localhost");
-        client.SetAuthorization(state.User);
-
-        return membership;
-    }
-
-    private void AddHeaders(HttpContent content, MembershipView membership)
-    {
-        content.Headers.Add(MembershipHttpConstants.OrganizationIdHeader, membership.Organization!.Id.ToString());
-        content.Headers.Add(MembershipHttpConstants.HubIdHeader, membership.Hub!.Id.ToString());
-    }
-
-    protected async Task<CommandResponse> ExecuteCommandAsync<TCommand>(string path, TCommand command)
-        where TCommand : AggregateCommand
-    {
-        var client = _httpClientFactory.CreateClient("api");
-
-        // apply security
-        _logger.LogInformation("Preparing API Client");
-        var membership = await PrepareClient(client);
-
-        // set the org and hub up
-        if (membership.Organization is not null &&
-            membership.Hub is not null)
-        {
-            command.OrganizationId = membership.Organization.Id;    
-            command.HubId = membership.Hub.Id;
-        }
-        
-        // create and secure the request
-        var content = new StringContent(JsonSerializer.Serialize(command, _jsonOptions), mediaType: ApplicationJsonMediaType);
-
-        content.Headers.Add("X-Command-Type", typeof(TCommand).AssemblyQualifiedName);
-        AddHeaders(content, membership);
-
-        var response = await client.PostAsync(
-            $"api/{path}/{command.AggregateId}/execute",
-            content
-        );
-
-        return await response.Content.ReadFromJsonAsync<CommandResponse>(_jsonOptions) ??
-            new CommandResponse();
-    }
-
-    protected async Task<IEnumerable<TView>> QueryGraphAsync<TView>(string prop, string query)
-    {
-        var client = _httpClientFactory.CreateClient("graphql");
-
-        // apply security
-        var membership = await PrepareClient(client);
-     
-        // create and secure the request
-        query = JsonSerializer.Serialize(new { query });
-        var requestContent = new StringContent(query, mediaType: ApplicationJsonMediaType);
-
-        // add our headers
-        AddHeaders(requestContent, membership);
-
-        // bundle up the graphql request
-        var result = await client.PostAsync("graphql/", requestContent);
-
-        // get the response body and parse it into json
-        var contentString = await result.Content.ReadAsStringAsync();
-        using var jsonDocument = JsonDocument.Parse(contentString);
-
-        // load contentStream as json document, reading editorDefinitions node and deserializing as IEnumerable<EditorDefinitionView>
-        var jsonValue = jsonDocument.RootElement.GetProperty("data").GetProperty(prop);
-
-        using var jsonStream = new MemoryStream();
-        using var jsonWriter = new Utf8JsonWriter(jsonStream);
-
-        jsonValue.WriteTo(jsonWriter);
-        await jsonWriter.FlushAsync();
-        jsonStream.Position = 0;
-
-        // read the json stream and parse it
-        var resultCollection = await JsonSerializer.DeserializeAsync<IEnumerable<TView>>(
-            jsonStream,
-            _jsonOptions
-        );
-
-        return resultCollection as IEnumerable<TView> ?? Array.Empty<TView>();
-    }
-
-    private class MembershipView
-    {
-        public AvailableOrganizationView? Organization { get; set; }
-
-        public AvailableHubView? Hub { get; set; }
-
-        public bool IsValid => Organization != null && Hub != null;
-    }
+    protected ICommandClient CommandClient { get; }
+    
+    protected ILogger Logger { get; }
 }
 

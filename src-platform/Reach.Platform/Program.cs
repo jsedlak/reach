@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Reach.Apps.ContentApp.Components.Pages;
 using Reach.Platform;
+using Reach.Platform.Runtime;
 using Tazor.Components;
 using Tazor.Wasm;
 
@@ -28,6 +30,11 @@ builder.Services.AddPlatformServices();
 builder.Services
     .AddTazor()
     .Build();
+
+// Register our applets
+builder.AddApplets(
+    typeof(ContentEditorPage).Assembly
+);
 
 // Build and run the app
 var app =  builder.Build();
