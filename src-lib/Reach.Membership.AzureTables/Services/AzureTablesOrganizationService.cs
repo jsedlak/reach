@@ -2,7 +2,6 @@
 using Reach.Membership.Model;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
-using Reach.Orchestration.ServiceModel;
 
 namespace Reach.Membership.Services;
 
@@ -10,14 +9,11 @@ public class AzureTablesOrganizationService : IOrganizationService
 {
     private readonly IOrganizationReadRepository _organizationReadRepository;
     private readonly IOrganizationWriteRepository _organizationWriteRepository;
-    private readonly IRegionProvider _regionProvider;
 
     internal AzureTablesOrganizationService(
-        IRegionProvider regionProvider,
         IOrganizationReadRepository organizationReadRepository,
         IOrganizationWriteRepository organizationWriteRepository)
     {
-        _regionProvider = regionProvider;
         _organizationReadRepository = organizationReadRepository;
         _organizationWriteRepository = organizationWriteRepository;
     }
@@ -67,8 +63,6 @@ public class AzureTablesOrganizationService : IOrganizationService
             .ToArray()
             .Where(m => organizations.Any(o => o.Id == m.OrganizationId));
 
-        var regions = await _regionProvider.GetAll();
-
         return organizations.Select(org =>
         {
             var hubViews = hubs
@@ -79,8 +73,7 @@ public class AzureTablesOrganizationService : IOrganizationService
                     OrganizationId = hub.OrganizationId,
                     Name = hub.Name,
                     Slug = hub.Slug,
-                    IconUrl = hub.IconUrl,
-                    Region = regions.First(m => m.Key == hub.RegionKey)
+                    IconUrl = hub.IconUrl
                 });
 
             return new AvailableOrganizationView

@@ -4,19 +4,16 @@ using Reach.Membership.Postgres.Data;
 using Reach.Membership.Postgres.Model;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
-using Reach.Orchestration.ServiceModel;
 
 namespace Reach.Membership.Postgres.Services;
 
 internal class PostgresOrganizationService : IOrganizationService
 {
     private readonly MembershipDbContext _membershipContext;
-    private readonly IRegionProvider _regionProvider;
 
-    public PostgresOrganizationService(MembershipDbContext membershipContext, IRegionProvider regionProvider)
+    public PostgresOrganizationService(MembershipDbContext membershipContext)
     {
         _membershipContext = membershipContext;
-        _regionProvider = regionProvider;
 
         _membershipContext.Database.EnsureCreated();
     }
@@ -75,8 +72,6 @@ internal class PostgresOrganizationService : IOrganizationService
 
     public async Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId)
     {
-        var regions = (await _regionProvider.GetAll()).ToArray();
-
         var orgs = _membershipContext.Organizations
             .Where(m => m.OwnerIdentifier == userId)
             .Include(organization => organization.Hubs)
@@ -92,8 +87,7 @@ internal class PostgresOrganizationService : IOrganizationService
                     Name = h.Name,
                     Slug = h.Slug,
                     IconUrl = h.IconUrl,
-                    OrganizationId = h.OrganizationId,
-                    Region = regions.First(m => m.Key == h.RegionKey)
+                    OrganizationId = h.OrganizationId
                 }).ToArray()
             });
 

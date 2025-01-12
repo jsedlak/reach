@@ -1,19 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
-using Reach.Orchestration.ServiceModel;
 
 namespace Reach.EditorApp.Client.Components.Layout.Tenants;
 
 public partial class TenantDropdown : ComponentBase
 {
     private readonly NavigationManager _navigationManager;
-    private readonly IRegionUrlFormatter _regionUrlFormatter;
 
     private bool _isOpen = false;
 
-    public TenantDropdown(IRegionUrlFormatter regionUrlFormatter, NavigationManager navigationManager)
+    public TenantDropdown(NavigationManager navigationManager)
     {
-        _regionUrlFormatter = regionUrlFormatter;
         _navigationManager = navigationManager;
     }
 

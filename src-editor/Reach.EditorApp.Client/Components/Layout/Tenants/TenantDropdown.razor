@@ -25,8 +25,7 @@
                     {
                         var localizedUrl = new Uri(_navigationManager.Uri).PathAndQuery.Replace($"app/{TenantContext.CurrentHub?.Slug.ToLower()}", "");
 
-                        var tenantDashboardUrl = _regionUrlFormatter.GetHubBaseUrl(hub.Region, currentOrg.Slug, hub.Slug).TrimEnd('/') +
-                            "/" + localizedUrl.TrimStart('/');
+                        var tenantDashboardUrl = $"/app/{currentOrg.Slug}/{hub.Slug}/{localizedUrl.TrimStart('/')}";
 
                         var hubClass = TenantContext.CurrentHub != null &&
                         hub.Id == TenantContext.CurrentHub.Id ?

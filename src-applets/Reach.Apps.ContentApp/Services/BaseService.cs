@@ -70,7 +70,7 @@ public abstract class BaseService
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>
-    private async Task<MembershipView> PrepareClient(HttpClient client, Expression<Func<MembershipView, string>> getUrl)
+    private async Task<MembershipView> PrepareClient(HttpClient client)
     {
         var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
 
@@ -86,7 +86,7 @@ public abstract class BaseService
             throw new UnauthorizedAccessException();
         }
 
-        client.BaseAddress = new Uri(getUrl.Compile().Invoke(membership));
+        client.BaseAddress = new Uri("https://localhost");
         client.SetAuthorization(state.User);
 
         return membership;
@@ -105,7 +105,7 @@ public abstract class BaseService
 
         // apply security
         _logger.LogInformation("Preparing API Client");
-        var membership = await PrepareClient(client, m => m.Hub!.Region.ApiUrl);
+        var membership = await PrepareClient(client);
 
         // set the org and hub up
         if (membership.Organization is not null &&
@@ -135,7 +135,7 @@ public abstract class BaseService
         var client = _httpClientFactory.CreateClient("graphql");
 
         // apply security
-        var membership = await PrepareClient(client, m => m.Hub!.Region.GraphUrl);
+        var membership = await PrepareClient(client);
      
         // create and secure the request
         query = JsonSerializer.Serialize(new { query });

@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Reach.Orchestration.ServiceModel;
-using Reach.Orchestration.Services;
 using Reach.Platform;
 using Reach.Platform.ServiceModel;
 using Reach.Platform.Services;
@@ -44,10 +42,6 @@ builder.Services.AddOidcAuthentication(options =>
 });
 
 // Add reach services
-builder.Services.AddScoped<IRegionUrlFormatter, PathBasedRegionUrlFormatter>(sp => new PathBasedRegionUrlFormatter(
-    "https://localhost:7119", "https://localhost:7119", "api", "graphql")
-);
-
 builder.Services.AddScoped<IMembershipService, HttpMembershipService>();
 
 // Adds Tazor

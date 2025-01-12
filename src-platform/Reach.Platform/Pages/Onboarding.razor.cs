@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Reach.Orchestration.Model;
 using Reach.Platform.ServiceModel;
 
 namespace Reach.Platform.Pages;
@@ -8,8 +7,6 @@ public partial class Onboarding : ComponentBase
 {
     private readonly NavigationManager _navigationManager;
     private readonly IMembershipService _membershipService;
- 
-    private IEnumerable<Region> _regions = [];
 
     private bool _isProcessing = false;
     private OnboardingModel _model = new();
@@ -19,17 +16,6 @@ public partial class Onboarding : ComponentBase
     {
         _membershipService = membershipService;
         _navigationManager = navigationManager;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            _regions = []; // await _regionService.GetAllRegionsAsync();
-            StateHasChanged();
-        }
     }
 
     private async Task OnSkipClicked()
@@ -93,7 +79,5 @@ public partial class Onboarding : ComponentBase
         public string HubSlug { get; set; } = string.Empty;
 
         public string HubIconUrl => $"https://picsum.photos/id/123/200";
-
-        public string HubRegionKey { get; set; } = string.Empty;
     }
 }

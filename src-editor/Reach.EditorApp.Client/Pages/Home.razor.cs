@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
-using Reach.Orchestration.ServiceModel;
 
 namespace Reach.EditorApp.Client.Pages;
 
@@ -11,7 +10,6 @@ public partial class Home : ComponentBase
 {
     private readonly IOrganizationService _organizationService;
     private readonly NavigationManager _navigation;
-    private readonly IRegionUrlFormatter _regionUrlFormatter;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
 
     private IEnumerable<AvailableOrganizationView> _organizations = [];
@@ -20,13 +18,11 @@ public partial class Home : ComponentBase
 
     public Home(
         IOrganizationService organizationService, 
-        NavigationManager navigation, 
-        IRegionUrlFormatter regionUrlFormatter,
+        NavigationManager navigation,
         AuthenticationStateProvider authenticationStateProvider)
     {
         _organizationService = organizationService;
         _navigation = navigation;
-        _regionUrlFormatter = regionUrlFormatter;
         _authenticationStateProvider = authenticationStateProvider;
     }
 

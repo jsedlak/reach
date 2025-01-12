@@ -40,7 +40,7 @@
                 <div class="my-3 grid grid-cols-4 gap-4">
                     @foreach (var hub in org.Hubs)
                     {
-                        var tenantDashboardUrl = _regionUrlFormatter.GetHubBaseUrl(hub.Region, org.Slug, hub.Slug);
+                        var tenantDashboardUrl = $"/app/{org.Slug}/{hub.Slug}";
                         <div class="border border-gray-200 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative"
                              @onclick=@(() => _navigation.NavigateTo(tenantDashboardUrl))>
                             <div class="absolute right-2 top-2">
@@ -64,7 +64,6 @@
                                     <div class="font-bold flex items-center gap-2">
                                         @hub.Name
                                     </div>
-                                    <div class="opacity-75 text-sm">@hub.Region.Name</div>
                                 </div>
                             </a>
                         </div>

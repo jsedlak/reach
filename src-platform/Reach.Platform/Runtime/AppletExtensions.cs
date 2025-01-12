@@ -2,7 +2,7 @@
 using Reach.Applets;
 using System.Reflection;
 
-namespace Reach.EditorApp.Client.Runtime;
+namespace Reach.Platform.Runtime;
 
 public static class AppletExtensions
 {

@@ -4,7 +4,6 @@ using Reach.Cqrs;
 using Reach.EditorApp.ApiModel;
 using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
-using Reach.Orchestration.ServiceModel;
 
 namespace Reach.EditorApp.Controllers;
 
@@ -13,12 +12,10 @@ namespace Reach.EditorApp.Controllers;
 public class OrganizationsController : Controller
 {
     private readonly IOrganizationService _organizationService;
-    private readonly IRegionProvider _regionProvider;
 
-    public OrganizationsController(IOrganizationService organizationService, IRegionProvider regionProvider)
+    public OrganizationsController(IOrganizationService organizationService)
     {
         _organizationService = organizationService;
-        _regionProvider = regionProvider;
     }
 
     [Authorize]

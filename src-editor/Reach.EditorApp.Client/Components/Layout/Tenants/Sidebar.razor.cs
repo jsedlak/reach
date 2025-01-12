@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Reach.Orchestration.ServiceModel;
 using Tazor.Components.Content;
 using Tazor.Components.Navigation;
 
@@ -11,7 +10,7 @@ public partial class Sidebar : ComponentBase
     private readonly NavigationManager _navigation;
     private bool _isExpanded = true;
 
-    public Sidebar(NavigationManager navigationManager, IRegionUrlFormatter regionUrlFormatter)
+    public Sidebar(NavigationManager navigationManager)
     {
         _navigation = navigationManager;
         _navigation.LocationChanged += (_, __) => { StateHasChanged(); };

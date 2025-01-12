@@ -1,6 +1,4 @@
-﻿using Reach.Orchestration.Model;
-
-namespace Reach.Membership.Views;
+﻿namespace Reach.Membership.Views;
 
 public class AvailableHubView
 {
@@ -13,6 +11,4 @@ public class AvailableHubView
     public string Slug { get; set; } = string.Empty;
 
     public string IconUrl { get; set; } = string.Empty;
-
-    public Region Region { get; set; } = new();
 }

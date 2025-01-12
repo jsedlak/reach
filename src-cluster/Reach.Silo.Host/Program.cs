@@ -4,11 +4,9 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Petl.EventSourcing;
 using Petl.EventSourcing.Providers;
-using Reach.Orchestration.Model;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
-using Reach.Orchestration;
 using Reach.Membership.Postgres;
 using Reach.Silo;
 
@@ -42,8 +40,6 @@ builder.AddMongoDBClient("reach-mongo");
 // Add multi-tenancy support!
 // TODO: Figure out how we can pass the cluster endpoint dynamically
 builder.AddPostgresMembership("membership-database");
-builder.Services.WithInMemoryRegions(new Region { Id = Guid.Empty, Name = "Global", Key = "global" });
-builder.Services.WithPathRegionUrls("https://localhost:7208/", "https://localhost:7208/", "api", "graphql");
 
 // Add our view repositories
 builder.Services.AddMongoRepositories("reach");
@@ -64,7 +60,6 @@ builder.Services
     .AddType<ComponentDefinitionQueries>()
     .AddType<ComponentQueries>()
     .AddType<RendererDefinitionQueries>()
-    .AddType<RegionQueries>()
     .AddType<OrganizationQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
