@@ -1,9 +1,21 @@
 ﻿@page "/"
-@using Reach.Platform.ServiceModel
+@layout GlobalLayout
 @attribute [Authorize]
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+@if (Organizations is not null && !Organizations.Any())
+{
+    <!-- INITIAL MESSAGE -->
+    <div class="bg-gradient-to-br from-gray-900 to-indigo-800 text-white mb-10 mt-3 shadow-xl rounded-lg px-10 py-20 flex flex-col items-center justify-center">
+        <h2 class="text-2xl font-bold mb-3">No Available Organizations</h2>
+        <p class="text-lg font-light">
+            It looks like you don't have any Organizations, why not
+            <a href="/onboarding" class="text-indigo-200 underline">get started</a>?
+        </p>
+    </div>
+}
+else if(Organizations is not null && Organizations.Any())
+{
+    <h1>Your Organizations &amp; Spaces</h1>
+}

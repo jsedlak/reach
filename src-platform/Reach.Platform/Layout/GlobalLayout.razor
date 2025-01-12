@@ -3,11 +3,21 @@
     <div class="page flex min-h-full flex-col">
         <TopBar />
 
-        <div class="flex-grow flex flex-col">
-            <main class="w-full p-6">
-                @Body
+        @if (_isLoading || _organizations is null)
+        {
+            <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
+                <Spinner />
+                <div class="my-3">@Body</div>
             </main>
-        </div>
+        }
+        else
+        {
+            <div class="flex-grow flex flex-col">
+                <main class="w-full p-6">
+                    @Body
+                </main>
+            </div>
+        }
     </div>
 
     <div id="blazor-error-ui">

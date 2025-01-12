@@ -8,12 +8,14 @@ namespace Reach.Platform.Layout;
 
 public partial class GlobalLayout : LayoutComponentBase
 {
-    private IEnumerable<AvailableOrganizationView> _organizations = [];
+    private IEnumerable<AvailableOrganizationView>? _organizations = null;
 
     private readonly NavigationManager _navigation;
     private readonly IMembershipService _membershipService;
     private readonly IOrganizationService _organizationService;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
+
+    private bool _isLoading = false;
 
     public GlobalLayout(
         NavigationManager navigation, 
@@ -31,6 +33,9 @@ public partial class GlobalLayout : LayoutComponentBase
 
     private async Task InitializeOrganizations()
     {
+        _isLoading = true;
+        StateHasChanged();
+
         var settings = await _membershipService.GetAccountSettings();
         _organizations = await _organizationService.GetAvailableOrganizations();
 
@@ -39,6 +44,9 @@ public partial class GlobalLayout : LayoutComponentBase
 
         var skip = settings.SkipsOnboarding ||
             queryStringParams.ContainsKey("skipOnboarding");
+
+        _isLoading = false;
+        StateHasChanged();
 
         if (!_organizations.Any())
         {
