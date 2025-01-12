@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
 using Reach.Cqrs;
-using Reach.Membership.ServiceModel;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.Apps.ContentApp.Services;
 

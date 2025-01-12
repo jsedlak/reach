@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Reach.Components.Context;
-using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.EditorApp.Client.Components.Providers;
 
@@ -59,9 +59,7 @@ public partial class TenantProvider : ComponentBase, IDisposable
             }
 
             // TODO: Need to query for current org, or do we ?
-            var orgs = await _organizationService.GetOrganizationsForUserAsync(
-                state.User.Identity.Name
-            );
+            var orgs = await _organizationService.GetAvailableOrganizations();
             
             TenantContext.AvailableOrganizations = orgs;
             TenantContext.AvailableHubs = orgs.SelectMany(m => m.Hubs);

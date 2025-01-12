@@ -12,12 +12,12 @@ public class HttpMembershipService : BaseGraphQlService, IMembershipService
 {
     private static readonly MediaTypeHeaderValue ApplicationJsonMediaType = new MediaTypeHeaderValue("application/json");
 
-    private HttpClient _apiHttpClient;
-
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
+
+    private readonly HttpClient _apiHttpClient;
 
     public HttpMembershipService(IHttpClientFactory httpClientFactory)
         : base(httpClientFactory)
@@ -25,10 +25,6 @@ public class HttpMembershipService : BaseGraphQlService, IMembershipService
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }
 
-    public async Task<IEnumerable<AvailableOrganizationView>> GetAvailableOrganizations()
-    {
-        return await GetMany<AvailableOrganizationView>("organizations");
-    }
 
     public async Task<AccountSettingsView> GetAccountSettings()
     {

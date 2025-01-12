@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Reach.Membership.Postgres.Data;
-using Reach.Membership.Postgres.Services;
-using Reach.Membership.ServiceModel;
+using Reach.Silo.Data;
+using Reach.Silo.Membership.ServiceModel;
+using Reach.Silo.Services;
 
-namespace Reach.Membership.Postgres;
+namespace Reach.Silo;
 
 public static class RegistrationExtensions
 {
@@ -15,8 +15,8 @@ public static class RegistrationExtensions
     /// <param name="connectionName"></param>
     /// <returns></returns>
     public static IHostApplicationBuilder AddPostgresMembership(
-        this IHostApplicationBuilder builder, 
-        string connectionName =  "membership-database")
+        this IHostApplicationBuilder builder,
+        string connectionName = "membership-database")
     {
         builder.AddNpgsqlDbContext<MembershipDbContext>(connectionName);
         builder.Services.AddScoped<IOrganizationService, PostgresOrganizationService>();

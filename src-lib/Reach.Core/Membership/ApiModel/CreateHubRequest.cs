@@ -6,4 +6,5 @@ public sealed class CreateHubRequest
 
     public string HubSlug { get; set; } = null!;
 
+    public Guid OrganizationId { get; set; }
 }

@@ -43,6 +43,7 @@ builder.Services.AddOidcAuthentication(options =>
 
 // Add reach services
 builder.Services.AddScoped<IMembershipService, HttpMembershipService>();
+builder.Services.AddScoped<IOrganizationService, HttpOrganizationService>();
 
 // Adds Tazor
 builder.Services

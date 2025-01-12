@@ -6,8 +6,6 @@ namespace Reach.Platform.ServiceModel;
 
 public interface IMembershipService
 {
-    Task<IEnumerable<AvailableOrganizationView>> GetAvailableOrganizations();
-
     Task<AccountSettingsView> GetAccountSettings();
 
     Task<CommandResponse> SetSkipOnboardingFlag(SetSkipOnboardingFlagCommand command);

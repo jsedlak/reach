@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using Reach.Cqrs;
 using Reach.Membership;
-using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
-using System.Linq.Expressions;
+using Reach.Platform.ServiceModel;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -30,10 +29,10 @@ public abstract class BaseService
 
     protected BaseService(IOrganizationService organizationService, NavigationManager navigationManager, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory httpClientFactory, ILogger logger)
     {
+        _organizationService = organizationService;
         _navigationManager = navigationManager;
         _authenticationStateProvider = authenticationStateProvider;
         _logger = logger;
-        _organizationService = organizationService;
         _httpClientFactory = httpClientFactory;
 
         //_graphQlClient = httpClientFactory.CreateClient("graphql");
@@ -49,8 +48,8 @@ public abstract class BaseService
     private async Task<MembershipView> EnsureMembership(string userId)
     {
         var view = new MembershipView();
-
-        var organizations = await _organizationService.GetOrganizationsForUserAsync(userId);
+        
+        var organizations = await _organizationService.GetAvailableOrganizations();
         var path = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).ToLower();
 
         var pathSplit = path.Split(["/"], StringSplitOptions.RemoveEmptyEntries);

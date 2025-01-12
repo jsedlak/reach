@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
 using Reach.Membership.Views;
 using Reach.Platform.ServiceModel;
-using Reach.Security;
-using System;
 
 namespace Reach.Platform.Layout;
 
@@ -14,15 +12,18 @@ public partial class GlobalLayout : LayoutComponentBase
 
     private readonly NavigationManager _navigation;
     private readonly IMembershipService _membershipService;
+    private readonly IOrganizationService _organizationService;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
 
     public GlobalLayout(
         NavigationManager navigation, 
         IMembershipService membershipService,
+        IOrganizationService organizationService,
         AuthenticationStateProvider authenticationStateProvider)
     {
         _navigation = navigation;
         _membershipService = membershipService;
+        _organizationService = organizationService;
         _authenticationStateProvider = authenticationStateProvider;
 
         _authenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
@@ -31,7 +32,7 @@ public partial class GlobalLayout : LayoutComponentBase
     private async Task InitializeOrganizations()
     {
         var settings = await _membershipService.GetAccountSettings();
-        _organizations = await _membershipService.GetAvailableOrganizations();
+        _organizations = await _organizationService.GetAvailableOrganizations();
 
         var uri = _navigation.ToAbsoluteUri(_navigation.Uri);
         var queryStringParams = QueryHelpers.ParseQuery(uri.Query);

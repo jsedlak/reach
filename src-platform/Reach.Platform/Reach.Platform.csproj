@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+      <ProjectReference Include="..\Reach.Platform.Core\Reach.Platform.Core.csproj" />
     </ItemGroup>
 
 </Project>

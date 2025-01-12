@@ -1,7 +1,7 @@
 ﻿using Reach.Cqrs;
 using Reach.Membership.Views;
 
-namespace Reach.Membership.ServiceModel;
+namespace Reach.Silo.Membership.ServiceModel;
 
 /// <summary>
 /// Provides organization and hub level services
@@ -10,7 +10,7 @@ public interface IOrganizationService
 {
     Task<CommandResponse> CreateOrganization(Guid id, string name, string slug, string ownerId);
 
-    Task<CommandResponse> CreateHub(Guid id, Guid organizationId, string name, string slug, string iconUrl, string regionKey);
+    Task<CommandResponse> CreateHub(Guid id, Guid organizationId, string name, string slug, string iconUrl);
 
     /// <summary>
     /// Gets all available organizations and hubs for the current user

@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.EditorApp.Client.Pages;
 
@@ -41,10 +41,8 @@ public partial class Home : ComponentBase
         Console.WriteLine(nameof(OnUserAuthenticated));
         _isLoadingTenants = true;
         StateHasChanged();
-        
-        _organizations = await _organizationService.GetOrganizationsForUserAsync(
-            principal.Identity!.Name!
-        );
+
+        _organizations = await _organizationService.GetAvailableOrganizations();
         
         if (!_organizations.Any())
         {

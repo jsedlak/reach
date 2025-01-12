@@ -7,7 +7,6 @@ using Petl.EventSourcing.Providers;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
-using Reach.Membership.Postgres;
 using Reach.Silo;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src-editor\Reach.EditorApp.Core\Reach.EditorApp.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+    <ProjectReference Include="..\..\src-platform\Reach.Platform.Core\Reach.Platform.Core.csproj" />
   </ItemGroup>
 
 </Project>

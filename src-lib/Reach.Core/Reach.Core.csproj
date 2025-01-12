@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="Content\ServiceModel\" />
     <Folder Include="Content\Services\" />
+    <Folder Include="Membership\ServiceModel\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Reach.Membership.Postgres.Model;
+using Reach.Silo.Model;
 
-namespace Reach.Membership.Postgres.Data;
+namespace Reach.Silo.Data;
 
 internal class MembershipDbContext : DbContext
 {
-    public MembershipDbContext(DbContextOptions options) 
+    public MembershipDbContext(DbContextOptions options)
         : base(options)
     {
-        
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

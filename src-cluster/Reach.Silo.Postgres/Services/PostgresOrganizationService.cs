@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reach.Cqrs;
-using Reach.Membership.Postgres.Data;
-using Reach.Membership.Postgres.Model;
-using Reach.Membership.ServiceModel;
 using Reach.Membership.Views;
+using Reach.Silo.Data;
+using Reach.Silo.Membership.ServiceModel;
+using Reach.Silo.Model;
 
-namespace Reach.Membership.Postgres.Services;
+namespace Reach.Silo.Services;
 
 internal class PostgresOrganizationService : IOrganizationService
 {
@@ -18,7 +18,7 @@ internal class PostgresOrganizationService : IOrganizationService
         _membershipContext.Database.EnsureCreated();
     }
 
-    public async Task<CommandResponse> CreateHub(Guid id, Guid organizationId, string name, string slug, string iconUrl, string regionKey)
+    public async Task<CommandResponse> CreateHub(Guid id, Guid organizationId, string name, string slug, string iconUrl)
     {
         var organization = _membershipContext.Organizations.FirstOrDefault(m => m.Id == organizationId);
 
@@ -35,8 +35,7 @@ internal class PostgresOrganizationService : IOrganizationService
             Name = name,
             Slug = slug,
             IconUrl = iconUrl,
-            OwnerIdentifier = "",
-            RegionKey = regionKey
+            OwnerIdentifier = ""
         });
 
         await _membershipContext.SaveChangesAsync();

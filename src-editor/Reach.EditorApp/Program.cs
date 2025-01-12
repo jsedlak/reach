@@ -6,7 +6,6 @@ using Reach.EditorApp.Security;
 using Reach.Apps.ContentApp.Components.Pages;
 using Microsoft.AspNetCore.Components;
 using Reach.Components.Context;
-using Reach.Membership.Postgres;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +48,7 @@ builder.Services.AddCascadingValue(static sp =>
 
 // Configure Membership & Tenancy
 // builder.AddAzureTablesMembership();
-builder.AddPostgresMembership("membership-database");
+// builder.AddPostgresMembership("membership-database");
 
 // Add our cascading contexts
 builder.AddApplets(

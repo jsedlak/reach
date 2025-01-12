@@ -26,7 +26,6 @@
 		<ProjectReference Include="..\..\src-applets\Reach.Apps.PipelinesApp.Components\Reach.Apps.PipelinesApp.Components.csproj" />
 		<ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
 		<ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
-		<ProjectReference Include="..\Reach.EditorApp.Core\Reach.EditorApp.Core.csproj" />
 	</ItemGroup>
 
 </Project>

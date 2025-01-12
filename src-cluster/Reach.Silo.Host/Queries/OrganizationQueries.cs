@@ -1,7 +1,7 @@
-﻿using Reach.Membership.ServiceModel;
-using Reach.Membership.Views;
+﻿using Reach.Membership.Views;
 using System.Security.Claims;
 using Reach.Security;
+using Reach.Silo.Membership.ServiceModel;
 
 namespace Reach.Silo.Host.Queries;
 

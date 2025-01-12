@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Reach.Membership.Postgres.Model;
+namespace Reach.Silo.Model;
 
-internal class Hub
+internal class Organization
 {
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
@@ -16,11 +16,5 @@ internal class Hub
     [Required]
     public string OwnerIdentifier { get; set; } = null!;
 
-    [Required]
-    public string RegionKey { get; set; } = string.Empty;
-
-    [Required]
-    public string IconUrl { get; set; } = string.Empty;
-
-    public Guid OrganizationId { get; set; } = Guid.Empty;
+    public virtual ICollection<Hub> Hubs { get; set; } = [];
 }
