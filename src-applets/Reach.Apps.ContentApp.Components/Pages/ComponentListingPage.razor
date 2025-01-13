@@ -1,7 +1,7 @@
 ﻿@page "/app/{organizationSlug}/{hubSlug}/content/components"
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
-<ContentSublayout Title="Component Definitions">
+<ContentSublayout Title="Components">
     <Toolbar>
         <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
             @HeroIcons.SquaresPlus("inline-block mr-2")
@@ -35,7 +35,7 @@
 
             <ColumnTemplate>
                 <Header>Fields</Header>
-                <Cell>@context.Fields.Count()</Cell>
+                <Cell>@context.Fields?.Count()</Cell>
             </ColumnTemplate>
         </TemplatedGrid>
 

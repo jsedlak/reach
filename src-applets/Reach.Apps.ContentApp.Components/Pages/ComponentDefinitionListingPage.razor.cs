@@ -8,7 +8,7 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 public partial class ComponentDefinitionListingPage : ContentBasePage
 {
     private readonly ComponentDefinitionService _componentDefinitionService;
-    private IEnumerable<ComponentDefinitionView> _componentDefinitions;
+    private IEnumerable<ComponentDefinitionView> _componentDefinitions = [];
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 

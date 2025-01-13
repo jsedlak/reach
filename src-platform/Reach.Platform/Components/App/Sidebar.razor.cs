@@ -23,8 +23,8 @@ public partial class Sidebar : ComponentBase
                 Title = "Content",
                 Icon = HeroIcons.DocumentMagnifyingGlass(widthAndHeight: "size-4"),
                 Items = [
-                    new NavItem { Text = "Content", Href = $"{basePath}/content", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Components", Href = $"{basePath}/content/components", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
+                    new NavItem { Text = "Component Definitions", Href = $"{basePath}/content/component-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Field Definitions", Href = $"{basePath}/content/field-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Editor Definitions", Href = $"{basePath}/content/editor-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Renderer Definitions", Href = $"{basePath}/content/renderer-definitions", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },

@@ -10,7 +10,7 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 public partial class ComponentListingPage : ContentBasePage
 {
     private readonly ComponentService _componentService;
-    private IEnumerable<ComponentView> _components;
+    private IEnumerable<ComponentView> _components = [];
 
     private DialogContext<CreateComponentCommand> _createContext = new(() => { });
 

@@ -27,11 +27,19 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         AuthenticationStateProvider authenticationStateProvider)
     {
         _navigation = navigation;
+        _navigation.LocationChanged += OnLocationChanged;
         _membershipService = membershipService;
         _organizationService = organizationService;
         _authenticationStateProvider = authenticationStateProvider;
     }
-    
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        Console.WriteLine("OnLocationChanged");
+        RefreshOrgHubView();
+        StateHasChanged();
+    }
+
     private async Task InitializeOrganizations()
     {
         Console.WriteLine("Initializing organizations...");
