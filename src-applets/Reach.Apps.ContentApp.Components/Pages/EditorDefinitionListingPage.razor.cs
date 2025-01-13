@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Reach.Apps.ContentApp.Services;
-using Reach.Components.Context;
+﻿using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Views;
 using Reach.Security;
@@ -44,7 +42,13 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private Task OnBeginCreateClicked()
     {
-        return _createContext.Open(new CreateEditorDefinitionCommand(Guid.Empty, Guid.Empty, Guid.NewGuid()));
+        return _createContext.Open(
+            new CreateEditorDefinitionCommand(
+                CurrentOrganization!.Id, 
+                CurrentHub!.Id,
+                Guid.NewGuid()
+            )
+        );
     }
 
     private Task OnCancelCreateClicked()
@@ -68,7 +72,4 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     }
 
     private EditorDefinitionService EditorDefinitionService { get; }
-
-    [CascadingParameter]
-    public TenantContext TenantContext { get; set; } = null!;
 }

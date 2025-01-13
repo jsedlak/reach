@@ -29,7 +29,7 @@ public class EditorDefinitionService : BaseContentService
     // }
     // ";
 
-    public EditorDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger) 
+    public EditorDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger<EditorDefinitionService> logger) 
         : base(graphClient, commandClient, logger)
     {
     }

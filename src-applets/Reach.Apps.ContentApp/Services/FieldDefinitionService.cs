@@ -44,7 +44,7 @@ public class FieldDefinitionService : BaseContentService
     // }
     // ";
 
-    public FieldDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger) 
+    public FieldDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger<FieldDefinitionService> logger) 
         : base(graphClient, commandClient, logger)
     {
     }

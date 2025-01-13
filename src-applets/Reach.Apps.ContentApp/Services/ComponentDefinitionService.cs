@@ -31,7 +31,7 @@ public class ComponentDefinitionService : BaseContentService
     //     }
     // }";
 
-    public ComponentDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger logger) 
+    public ComponentDefinitionService(IGraphClient graphClient, ICommandClient commandClient, ILogger<ComponentDefinitionService> logger) 
         : base(graphClient, commandClient, logger)
     {
     }

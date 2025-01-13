@@ -1,0 +1,12 @@
+﻿<div class="page flex min-h-full flex-col">
+    <TopBar />
+    <div class="flex-grow flex flex-col">
+        <main class="w-full p-6">
+            @ChildContent
+        </main>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

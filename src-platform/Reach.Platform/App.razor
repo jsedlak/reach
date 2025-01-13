@@ -1,21 +1,27 @@
-﻿<CascadingAuthenticationState>
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(GlobalLayout)">
-            <Authorizing>Authenticating</Authorizing>
-            <NotAuthorized>
-                <RedirectToLogin />
-            </NotAuthorized>
-        </AuthorizeRouteView>
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(ErrorLayout)">
-            <div class="flex justify-center items-center p-3">
-                <h1 class="text-2xl">404 Oops...</h1>
-                <p class="leading-loose text-lg">Sorry, there's nothing at this address.</p>
-            </div>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿@using System.Reflection
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@_additionalAssemblies">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(GlobalLayout)">
+                <Authorizing>Authenticating</Authorizing>
+                <NotAuthorized>
+                    <RedirectToLogin />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(ErrorLayout)">
+                <div class="flex justify-center items-center p-3">
+                    <h1 class="text-2xl">404 Oops...</h1>
+                    <p class="leading-loose text-lg">Sorry, there's nothing at this address.</p>
+                </div>
+            </LayoutView>
+        </NotFound>
+    </Router>
 </CascadingAuthenticationState>
+@code {
+    private Assembly[] _additionalAssemblies = [
+        typeof(Reach.Apps.ContentApp.Components.ContentAppDefinition).Assembly
+    ];
+}

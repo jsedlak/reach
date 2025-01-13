@@ -1,31 +1,31 @@
 ﻿@inherits AuthenticatedLayoutBase
+@using Reach.Platform.Layout.Sublayouts
 <CascadingValue Name="Organizations" Value="Organizations">
     <CascadingValue Name="CurrentOrganizationId" Value="CurrentOrganizationId">
         <CascadingValue Name="CurrentHubId" Value="CurrentHubId">
-            <div class="page flex min-h-full flex-col">
-                <TopBar/>
-
-                @if (IsLoading || Organizations is null)
-                {
-                    <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
-                        <Spinner/>
-                        <div class="my-3">@Body</div>
-                    </main>
-                }
-                else
-                {
-                    <div class="flex-grow flex flex-col">
-                        <main class="w-full p-6">
-                            @Body
-
-                            <div class="my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
-                                <p>Current Organization: @(CurrentOrganizationId.GetValueOrDefault())</p>
-                                <p>Current Hub: @(CurrentHubId.GetValueOrDefault())</p>
-                            </div>
-                        </main>
+            @if (IsLoading || Organizations is null)
+            {
+                <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
+                    <Spinner />
+                    <div class="my-3">@Body</div>
+                </main>
+            }
+            else if(Navigation.Uri.Contains("/app"))
+            {
+                <HubSublayout>
+                    @Body
+                    <div class="my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
+                        <p>Current Organization: @(CurrentOrganizationId.GetValueOrDefault())</p>
+                        <p>Current Hub: @(CurrentHubId.GetValueOrDefault())</p>
                     </div>
-                }
-            </div>
+                </HubSublayout>
+            }
+            else
+            {
+                <GlobalSublayout>
+                    @Body
+                </GlobalSublayout>
+            }
 
             <div id="blazor-error-ui">
                 An unhandled error has occurred.

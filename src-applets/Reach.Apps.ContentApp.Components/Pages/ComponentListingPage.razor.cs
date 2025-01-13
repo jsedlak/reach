@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Reach.Apps.ContentApp.Services;
-using Reach.Components.Context;
+﻿using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.Components;
 using Reach.Content.Views;
 using Reach.Security;
@@ -44,7 +42,11 @@ public partial class ComponentListingPage : ContentBasePage
     
     private Task OnBeginCreateClicked()
     {
-        return _createContext.Open(new (Guid.Empty, Guid.Empty, Guid.NewGuid()));
+        return _createContext.Open(new (
+            CurrentOrganization!.Id,
+            CurrentHub!.Id, 
+            Guid.NewGuid()
+        ));
     }
     
     private Task OnCancelCreateClicked()
@@ -66,7 +68,4 @@ public partial class ComponentListingPage : ContentBasePage
             return (result.IsSuccess, []);
         });
     }
-    
-    [CascadingParameter]
-    public TenantContext TenantContext { get; set; } = null!;
 }

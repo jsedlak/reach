@@ -1,4 +1,4 @@
-﻿@page "/app/{organizationSlug}/{hubSlug}/content/component-definitions"
+﻿@page "/app/{organizationSlug}/{hubSlug}/content/components"
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
 <ContentSublayout Title="Component Definitions">
@@ -12,66 +12,56 @@
         </Button>
     </Toolbar>
     <Body>
-    @if (TenantContext.CurrentHub is not null)
-    {
-        <p class="mb-3 font-bold text-lg">
-            Hub: @TenantContext.CurrentHub.Name (@TenantContext.CurrentHub.Id)
-        </p>
-    }
-    else
-    {
-        <p class="mb-3 font-bold text-lg">Tenant is NULL!</p>
-    }
-    <TemplatedGrid Items="@_components">
-        <ColumnTemplate>
-            <Header>ID</Header>
-            <Cell>@context.Id</Cell>
-        </ColumnTemplate>
+        <TemplatedGrid Items="@_components">
+            <ColumnTemplate>
+                <Header>ID</Header>
+                <Cell>@context.Id</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Name</Header>
-            <Cell>@context.Name</Cell>
-        </ColumnTemplate>
+            <ColumnTemplate>
+                <Header>Name</Header>
+                <Cell>@context.Name</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Slug</Header>
-            <Cell>@context.Slug</Cell>
-        </ColumnTemplate>
-        
-        <ColumnTemplate>
-            <Header>Definition</Header>
-            <Cell>@context.DefinitionId</Cell>
-        </ColumnTemplate>
+            <ColumnTemplate>
+                <Header>Slug</Header>
+                <Cell>@context.Slug</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Fields</Header>
-            <Cell>@context.Fields.Count()</Cell>
-        </ColumnTemplate>
-    </TemplatedGrid>
+            <ColumnTemplate>
+                <Header>Definition</Header>
+                <Cell>@context.DefinitionId</Cell>
+            </ColumnTemplate>
 
-    <Dialog Title="Create Component" @bind-IsVisible="@_createContext.IsVisible">
-        <Content>
-            @if (_createContext.IsWaiting)
-            {
-                <Spinner/>
-            }
-            else
-            {
-                <div class="mb-3">
-                    <Label>Name</Label>
-                    <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                </div>
+            <ColumnTemplate>
+                <Header>Fields</Header>
+                <Cell>@context.Fields.Count()</Cell>
+            </ColumnTemplate>
+        </TemplatedGrid>
 
-                <div class="mb-3">
-                    <Label>Slug</Label>
-                    <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
-                </div>
-            }
-        </Content>
-        <Footer>
-            <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
-            <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
-        </Footer>
-    </Dialog>
+        <Dialog Title="Create Component" @bind-IsVisible="@_createContext.IsVisible">
+            <Content>
+                @if (_createContext.IsWaiting)
+                {
+                    <Spinner />
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <Label>Name</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <Label>Slug</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
+                    </div>
+                }
+            </Content>
+            <Footer>
+                <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
+                <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
+            </Footer>
+        </Dialog>
     </Body>
 </ContentSublayout>

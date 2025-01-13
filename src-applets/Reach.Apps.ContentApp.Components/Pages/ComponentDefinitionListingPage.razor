@@ -12,61 +12,51 @@
         </Button>
     </Toolbar>
     <Body>
-    @if (TenantContext.CurrentHub is not null)
-    {
-        <p class="mb-3 font-bold text-lg">
-            Hub: @TenantContext.CurrentHub.Name (@TenantContext.CurrentHub.Id)
-        </p>
-    }
-    else
-    {
-        <p class="mb-3 font-bold text-lg">Tenant is NULL!</p>
-    }
-    <TemplatedGrid Items="@_componentDefinitions">
-        <ColumnTemplate>
-            <Header>ID</Header>
-            <Cell>@context.Id</Cell>
-        </ColumnTemplate>
+        <TemplatedGrid Items="@_componentDefinitions">
+            <ColumnTemplate>
+                <Header>ID</Header>
+                <Cell>@context.Id</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Name</Header>
-            <Cell>@context.Name</Cell>
-        </ColumnTemplate>
+            <ColumnTemplate>
+                <Header>Name</Header>
+                <Cell>@context.Name</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Slug</Header>
-            <Cell>@context.Slug</Cell>
-        </ColumnTemplate>
+            <ColumnTemplate>
+                <Header>Slug</Header>
+                <Cell>@context.Slug</Cell>
+            </ColumnTemplate>
 
-        <ColumnTemplate>
-            <Header>Fields</Header>
-            <Cell>@context.Fields.Count()</Cell>
-        </ColumnTemplate>
-    </TemplatedGrid>
+            <ColumnTemplate>
+                <Header>Fields</Header>
+                <Cell>@context.Fields.Count()</Cell>
+            </ColumnTemplate>
+        </TemplatedGrid>
 
-    <Dialog Title="Create Component Definition" @bind-IsVisible="@_createContext.IsVisible">
-        <Content>
-            @if (_createContext.IsWaiting)
-            {
-                <Spinner/>
-            }
-            else
-            {
-                <div class="mb-3">
-                    <Label>Name</Label>
-                    <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                </div>
+        <Dialog Title="Create Component Definition" @bind-IsVisible="@_createContext.IsVisible">
+            <Content>
+                @if (_createContext.IsWaiting)
+                {
+                    <Spinner />
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <Label>Name</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
+                    </div>
 
-                <div class="mb-3">
-                    <Label>Slug</Label>
-                    <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
-                </div>
-            }
-        </Content>
-        <Footer>
-            <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
-            <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
-        </Footer>
-    </Dialog>
+                    <div class="mb-3">
+                        <Label>Slug</Label>
+                        <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
+                    </div>
+                }
+            </Content>
+            <Footer>
+                <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>
+                <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
+            </Footer>
+        </Dialog>
     </Body>
 </ContentSublayout>

@@ -12,14 +12,6 @@
         </Button>
     </Toolbar>
     <Body>
-        @if(TenantContext.CurrentHub is not null) {
-            <p class="mb-3 font-bold text-lg">
-                Hub: @TenantContext.CurrentHub.Name (@TenantContext.CurrentHub.Id)
-            </p>
-        }
-        else {
-            <p class="mb-3 font-bold text-lg">Tenant is NULL!</p>
-        }
         <TemplatedGrid Items="@_editorDefinitions">
             <ColumnTemplate>
                 <Header>ID</Header>
