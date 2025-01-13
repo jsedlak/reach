@@ -1,11 +1,11 @@
-﻿@inherits LayoutComponentBase
-<CascadingValue Name="Organizations" Value="_organizations">
-    <CascadingValue Name="CurrentOrganizationId" Value="_currentOrganizationId">
-        <CascadingValue Name="CurrentHubId" Value="_currentHubId">
+﻿@inherits AuthenticatedLayoutBase
+<CascadingValue Name="Organizations" Value="Organizations">
+    <CascadingValue Name="CurrentOrganizationId" Value="CurrentOrganizationId">
+        <CascadingValue Name="CurrentHubId" Value="CurrentHubId">
             <div class="page flex min-h-full flex-col">
                 <TopBar/>
 
-                @if (_isLoading || _organizations is null)
+                @if (IsLoading || Organizations is null)
                 {
                     <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
                         <Spinner/>
@@ -19,8 +19,8 @@
                             @Body
 
                             <div class="my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
-                                <p>Current Organization: @(_currentOrganizationId.GetValueOrDefault())</p>
-                                <p>Current Hub: @(_currentHubId.GetValueOrDefault())</p>
+                                <p>Current Organization: @(CurrentOrganizationId.GetValueOrDefault())</p>
+                                <p>Current Hub: @(CurrentHubId.GetValueOrDefault())</p>
                             </div>
                         </main>
                     </div>

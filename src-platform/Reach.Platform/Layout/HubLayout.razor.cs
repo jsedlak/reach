@@ -1,7 +1,13 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Reach.Platform.ServiceModel;
 
 namespace Reach.Platform.Layout;
 
-public partial class HubLayout : LayoutComponentBase
+public partial class HubLayout : AuthenticatedLayoutBase
 {
+    public HubLayout(NavigationManager navigation, IMembershipService membershipService, IOrganizationService organizationService, AuthenticationStateProvider authenticationStateProvider) 
+        : base(navigation, membershipService, organizationService, authenticationStateProvider)
+    {
+    }
 }

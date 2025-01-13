@@ -67,19 +67,3 @@ else if (Organizations is not null && Organizations.Any())
         }
     </div>
 }
-
-@if (AuthenticationState is not null)
-{
-    if (AuthenticationState.User.Identity is { IsAuthenticated: true })
-    {
-        <p>Authenticated as @AuthenticationState.User.Identity.Name</p>
-    }
-    else
-    {
-        <p>Auth State is not null, but not authed</p>
-    }
-}
-else
-{
-    <p>Authentication state is null...</p>
-}
