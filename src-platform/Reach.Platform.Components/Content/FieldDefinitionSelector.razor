@@ -1,0 +1,14 @@
+﻿@inherits BaseReachComponent
+@if (IsReady)
+{
+    <select @onchange="@OnFieldDefinitionChanged" class="@_themeManager.Current.Forms.SelectInput">
+        <option value="">Please select an editor...</option>
+        @foreach (var fieldDefinition in _fieldDefinitions)
+        {
+            <option selected="@(SelectedFieldDefinitionId == fieldDefinition.Id)" 
+                    value="@fieldDefinition.Id">
+                @fieldDefinition.Name
+            </option>
+        }
+    </select>
+}

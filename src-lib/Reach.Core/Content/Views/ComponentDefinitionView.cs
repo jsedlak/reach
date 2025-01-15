@@ -18,5 +18,5 @@ public class ComponentDefinitionView : BaseAggregateView
     public Guid ParentId { get; set; }
 
     [Id(3)]
-    public Field[] Fields { get; set; } = null!;
+    public Field[] Fields { get; set; } = Array.Empty<Field>();
 }

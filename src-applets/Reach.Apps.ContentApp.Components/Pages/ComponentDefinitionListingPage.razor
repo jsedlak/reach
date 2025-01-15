@@ -51,6 +51,11 @@
                         <Label>Slug</Label>
                         <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
                     </div>
+
+                    <div class="mb-3">
+                        <Label>Field Definition</Label>
+                        <FieldDefinitionSelector />
+                    </div>
                 }
             </Content>
             <Footer>

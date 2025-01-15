@@ -1,5 +1,6 @@
 using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Content.Views;
+using Reach.Platform.ServiceModel;
 using Reach.Platform.Services;
 using Tazor.Components.Layout;
 
@@ -7,12 +8,12 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 
 public partial class ComponentDefinitionListingPage : ContentBasePage
 {
-    private readonly HttpComponentDefinitionService _componentDefinitionService;
+    private readonly IComponentDefinitionService _componentDefinitionService;
     private IEnumerable<ComponentDefinitionView> _componentDefinitions = [];
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
-    public ComponentDefinitionListingPage(HttpComponentDefinitionService componentDefinitionService)
+    public ComponentDefinitionListingPage(IComponentDefinitionService componentDefinitionService)
     {
         _componentDefinitionService = componentDefinitionService;
         
@@ -37,7 +38,7 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
             _componentDefinitions = await _componentDefinitionService.GetComponentDefinitions(
                 CurrentOrganization.Id, 
                 CurrentHub.Id
-            );
+            ) ?? [];
         }
     }
     
