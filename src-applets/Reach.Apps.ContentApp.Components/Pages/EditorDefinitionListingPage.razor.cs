@@ -1,6 +1,7 @@
-﻿using Reach.Apps.ContentApp.Services;
-using Reach.Content.Commands.EditorDefinitions;
+﻿using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Views;
+using Reach.Platform.ServiceModel;
+using Reach.Platform.Services;
 using Reach.Security;
 using Tazor.Components.Layout;
 
@@ -13,7 +14,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
 
-    public EditorDefinitionListingPage(EditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
+    public EditorDefinitionListingPage(IEditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
     {
         EditorDefinitionService = editorDefinitionService;
 
@@ -71,5 +72,5 @@ public partial class EditorDefinitionListingPage : ContentBasePage
         });
     }
 
-    private EditorDefinitionService EditorDefinitionService { get; }
+    private IEditorDefinitionService EditorDefinitionService { get; }
 }

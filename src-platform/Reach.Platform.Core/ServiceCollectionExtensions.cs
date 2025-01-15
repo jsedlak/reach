@@ -16,7 +16,11 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMembershipService, HttpMembershipService>();
         services.AddScoped<IOrganizationService, HttpOrganizationService>();
         services.AddScoped<IEditorService, HttpEditorService>();
-        
+        services.AddScoped<IEditorDefinitionService, HttpEditorDefinitionService>();
+        services.AddScoped<IFieldDefinitionService, HttpFieldDefinitionService>();
+        services.AddScoped<IComponentDefinitionService, HttpComponentDefinitionService>();
+        services.AddScoped<IComponentService, HttpComponentService>();
+
         return services;
     }
     

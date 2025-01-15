@@ -1,6 +1,7 @@
-﻿using Reach.Apps.ContentApp.Services;
-using Reach.Content.Commands.Components;
+﻿using Reach.Content.Commands.Components;
 using Reach.Content.Views;
+using Reach.Platform.ServiceModel;
+using Reach.Platform.Services;
 using Reach.Security;
 using Tazor.Components.Layout;
 
@@ -9,12 +10,12 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 [TenantRequired]
 public partial class ComponentListingPage : ContentBasePage
 {
-    private readonly ComponentService _componentService;
+    private readonly IComponentService _componentService;
     private IEnumerable<ComponentView> _components = [];
 
     private DialogContext<CreateComponentCommand> _createContext = new(() => { });
 
-    public ComponentListingPage(ComponentService componentService)
+    public ComponentListingPage(IComponentService componentService)
     {
         _componentService = componentService;
         

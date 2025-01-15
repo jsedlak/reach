@@ -1,18 +1,18 @@
-using Reach.Apps.ContentApp.Services;
 using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Content.Views;
+using Reach.Platform.Services;
 using Tazor.Components.Layout;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
 public partial class ComponentDefinitionListingPage : ContentBasePage
 {
-    private readonly ComponentDefinitionService _componentDefinitionService;
+    private readonly HttpComponentDefinitionService _componentDefinitionService;
     private IEnumerable<ComponentDefinitionView> _componentDefinitions = [];
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
-    public ComponentDefinitionListingPage(ComponentDefinitionService componentDefinitionService)
+    public ComponentDefinitionListingPage(HttpComponentDefinitionService componentDefinitionService)
     {
         _componentDefinitionService = componentDefinitionService;
         

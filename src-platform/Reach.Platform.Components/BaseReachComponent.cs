@@ -2,8 +2,21 @@ using Microsoft.AspNetCore.Components;
 
 namespace Reach.Platform.Components;
 
-public class BaseReachComponent : ComponentBase
+public abstract class BaseReachComponent : ComponentBase
 {
+    protected override async Task OnParametersSetAsync()
+    {
+        if(CurrentOrganizationId != null && CurrentHubId != null)
+        {
+            await OnComponentIsReady();
+        }
+    }
+
+    protected virtual Task OnComponentIsReady()
+    {
+        return Task.CompletedTask;
+    } 
+
     /// <summary>
     /// Gets the cascading organization id
     /// </summary>

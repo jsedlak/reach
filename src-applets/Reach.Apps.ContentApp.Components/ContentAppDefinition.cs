@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Reach.Applets;
 using Reach.Apps.ContentApp.Components.Pages;
-using Reach.Apps.ContentApp.Services;
+using Reach.Platform.Services;
 
 namespace Reach.Apps.ContentApp.Components;
 
@@ -22,9 +22,5 @@ public class ContentAppDefinition : IAppletInitializer
 
     public void RegisterServices(IServiceCollection services)
     {
-        services.AddScoped<EditorDefinitionService>();
-        services.AddScoped<FieldDefinitionService>();
-        services.AddScoped<ComponentDefinitionService>();
-        services.AddScoped<ComponentService>();
     }
 }

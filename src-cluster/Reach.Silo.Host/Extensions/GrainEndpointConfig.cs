@@ -19,6 +19,8 @@ public class GrainEndpointConfig<TGrain>
             Method = methodInfo
         });
 
+        Console.WriteLine($"Added Grain Map for {commandType.Name}");
+
         return this;
     }
 
@@ -29,6 +31,8 @@ public class GrainEndpointConfig<TGrain>
             CommandType = commandType,
             Method = method
         });
+
+        Console.WriteLine($"Added Grain Map for {commandType.Name}");
 
         return this;
     }

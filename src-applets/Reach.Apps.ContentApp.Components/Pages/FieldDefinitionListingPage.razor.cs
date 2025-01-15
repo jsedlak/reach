@@ -1,6 +1,6 @@
-﻿using Reach.Apps.ContentApp.Services;
-using Reach.Content.Commands.FieldDefinitions;
+﻿using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
+using Reach.Platform.Services;
 using Reach.Security;
 using Tazor.Components.Layout;
 
@@ -13,7 +13,7 @@ public partial class FieldDefinitionListingPage : ContentBasePage
 
     private DialogContext<CreateFieldDefinitionCommand> _createContext = new(() => { });
 
-    public FieldDefinitionListingPage(FieldDefinitionService fieldDefinitionService)
+    public FieldDefinitionListingPage(IFieldDefinitionService fieldDefinitionService)
     {
         FieldDefinitionService = fieldDefinitionService;
 
@@ -68,5 +68,5 @@ public partial class FieldDefinitionListingPage : ContentBasePage
         });
     }
 
-    private FieldDefinitionService FieldDefinitionService { get; }
+    private IFieldDefinitionService FieldDefinitionService { get; }
 }

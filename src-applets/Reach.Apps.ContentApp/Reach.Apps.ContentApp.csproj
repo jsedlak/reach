@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\src-platform\Reach.Platform.Core\Reach.Platform.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
