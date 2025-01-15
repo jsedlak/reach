@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Reach.Membership.Views;
 
 namespace Reach.Platform.Components;
 
@@ -28,6 +29,25 @@ public abstract class BaseReachComponent : ComponentBase
     /// </summary>
     [CascadingParameter(Name = "CurrentHubId")]
     protected Guid? CurrentHubId { get; set; }
+
+    [CascadingParameter(Name = "Organizations")]
+    protected IEnumerable<AvailableOrganizationView>? Organizations { get; set; }
+
+    protected AvailableOrganizationView? CurrentOrganization
+    {
+        get
+        {
+            return Organizations?.FirstOrDefault(m => m.Id == CurrentOrganizationId);
+        }
+    }
+
+    protected AvailableHubView? CurrentHub
+    {
+        get
+        {
+            return CurrentOrganization?.Hubs.FirstOrDefault(m => m.Id == CurrentHubId);
+        }
+    }
 
     /// <summary>
     /// Gets whether or not the component is ready to render by validating the organization and hub context

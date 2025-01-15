@@ -1,47 +1,46 @@
-﻿@* @rendermode InteractiveAuto *@
-@* <ClickContainer OnClickedOutside="@OnClickedOutside"> *@
-@*     <div class="relative"> *@
-@*         @if (TenantContext.CurrentHub is not null) *@
-@*         { *@
-@*             <a class="cursor-pointer flex items-center gap-2" @onclick="@OnDropdownClicked"> *@
-@*                 <img src="@TenantContext.CurrentHub.IconUrl" class="rounded-lg size-8" /> *@
-@*                 <span class="text-gray-700 dark:text-white text-sm">@TenantContext.CurrentHub.Name</span> *@
-@*                 @HeroIcons.ChevronDown(widthAndHeight: "size-4") *@
-@*             </a> *@
-@*         } *@
-@*         else *@
-@*         { *@
-@*             <a><Spinner /></a> *@
-@*         } *@
-@* *@
-@*         @if (_isOpen) *@
-@*         { *@
-@*             <div class="absolute left-0 top-100 mt-2 rounded-lg overflow-hidden z-50 min-w-[200px] space-y-2 bg-white dark:bg-gray-900 shadow-lg rounded-lg border border-gray-300"> *@
-@*                 @{ *@
-@*                     var currentOrg = TenantContext.AvailableOrganizations.FirstOrDefault(m => m.Id == TenantContext.CurrentHub?.OrganizationId); *@
-@*                 } *@
-@*                 @if(currentOrg != null) { *@
-@*                     @foreach (var hub in currentOrg.Hubs) *@
-@*                     { *@
-@*                         var localizedUrl = new Uri(_navigationManager.Uri).PathAndQuery.Replace($"app/{TenantContext.CurrentHub?.Slug.ToLower()}", ""); *@
-@* *@
-@*                         var tenantDashboardUrl = _regionUrlFormatter.GetHubBaseUrl(hub.Region, currentOrg.Slug, hub.Slug).TrimEnd('/') + *@
-@*                             "/" + localizedUrl.TrimStart('/'); *@
-@* *@
-@*                         var hubClass = TenantContext.CurrentHub != null && *@
-@*                         hub.Id == TenantContext.CurrentHub.Id ? *@
-@*                         "bg-indigo-800 text-white" : *@
-@*                         "text-gray-700 hover:bg-indigo-800 hover:text-white"; *@
-@* *@
-@*                         <a class="p-3 cursor-pointer flex gap-2 items-center @hubClass " *@
-@*                            @onclick="@OnDropdownClicked" *@
-@*                            href="@tenantDashboardUrl"> *@
-@*                             <img src="@hub.IconUrl" class="rounded-lg size-8" /> *@
-@*                             <span class="text-sm whitespace-nowrap">@hub.Name</span> *@
-@*                         </a> *@
-@*                     } *@
-@*                 } *@
-@*             </div> *@
-@*         } *@
-@*     </div> *@
-@* </ClickContainer> *@
+﻿@inherits BaseReachComponent
+<ClickContainer OnClickedOutside="@OnClickedOutside">
+    <div class="relative">
+        @if (IsReady)
+        {
+            @if (CurrentOrganization is not null && CurrentHub is not null)
+            {
+                <a class="cursor-pointer flex items-center gap-2" @onclick="@OnDropdownClicked">
+                    <img src="@CurrentHub.IconUrl" class="rounded-lg size-8" />
+                    <span class="text-gray-700 dark:text-white text-sm">@CurrentHub.Name</span>
+                    @HeroIcons.ChevronDown(widthAndHeight: "size-4")
+                </a>
+
+                @if (_isOpen)
+                {
+                    <div class="absolute left-0 top-100 mt-2 rounded-lg overflow-hidden z-50 min-w-[200px] space-y-2 bg-white dark:bg-gray-900 shadow-lg rounded-lg border border-gray-300">
+                        @if (CurrentOrganization != null)
+                        {
+                            @foreach (var hub in CurrentOrganization.Hubs)
+                            {
+
+                                var tenantDashboardUrl = $"/app/{CurrentOrganization.Slug}/{hub.Slug}";
+
+                                var hubClass = CurrentHub != null &&
+                                hub.Id == CurrentHub.Id ?
+                                "bg-indigo-800 text-white" :
+                                "text-gray-700 hover:bg-indigo-800 hover:text-white";
+
+                                <a class="p-3 cursor-pointer flex gap-2 items-center @hubClass "
+                                   @onclick="@OnDropdownClicked"
+                                   href="@tenantDashboardUrl">
+                                    <img src="@hub.IconUrl" class="rounded-lg size-8" />
+                                    <span class="text-sm whitespace-nowrap">@hub.Name</span>
+                                </a>
+                            }
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <a><Spinner /></a>
+            }
+        }
+    </div>
+</ClickContainer>
