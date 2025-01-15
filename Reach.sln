@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Silo.Postgres", "src-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Platform.Core", "src-platform\Reach.Platform.Core\Reach.Platform.Core.csproj", "{D7BF7104-5C27-4907-8620-309BD2756D58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reach.Platform.Components", "src-platform\Reach.Platform.Components\Reach.Platform.Components.csproj", "{1B988950-6B37-4EAF-84A3-2179B2E3E9B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{D7BF7104-5C27-4907-8620-309BD2756D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7BF7104-5C27-4907-8620-309BD2756D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7BF7104-5C27-4907-8620-309BD2756D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B988950-6B37-4EAF-84A3-2179B2E3E9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B988950-6B37-4EAF-84A3-2179B2E3E9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B988950-6B37-4EAF-84A3-2179B2E3E9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B988950-6B37-4EAF-84A3-2179B2E3E9B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +174,7 @@ Global
 		{B0A03D68-F19C-4C67-A9C1-EA692CA0FBCC} = {5B7438F8-E10A-4FB4-B620-A857CDEB7295}
 		{4700EB2B-3026-439A-A417-74A1BCACED17} = {5B7438F8-E10A-4FB4-B620-A857CDEB7295}
 		{D7BF7104-5C27-4907-8620-309BD2756D58} = {B2542898-A478-42D4-AE22-DC5B4E85C131}
+		{1B988950-6B37-4EAF-84A3-2179B2E3E9B3} = {B2542898-A478-42D4-AE22-DC5B4E85C131}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBBA56FA-0834-4BE5-A0D7-CD6705D6D700}

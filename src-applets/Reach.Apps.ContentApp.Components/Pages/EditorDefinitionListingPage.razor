@@ -51,7 +51,8 @@
                     <div class="mb-3">
                         <Label>Editor Type</Label>
                         <SubLabel>A razor component reference that enables editing of data within the Reach platform.</SubLabel>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.EditorType" />
+                        @* <TextBox @bind-Value="@_createContext.TentativeModel.EditorType" /> *@
+                        <EditorSelector @bind-SelectedEditor="@_createContext.TentativeModel.EditorType" />
                     </div>
                 }
             </Content>

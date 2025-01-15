@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IMembershipService, HttpMembershipService>();
         services.AddScoped<IOrganizationService, HttpOrganizationService>();
+        services.AddScoped<IEditorService, HttpEditorService>();
         
         return services;
     }

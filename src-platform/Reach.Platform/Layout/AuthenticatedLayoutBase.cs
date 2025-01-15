@@ -31,6 +31,18 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         _membershipService = membershipService;
         _organizationService = organizationService;
         _authenticationStateProvider = authenticationStateProvider;
+        _authenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        Console.WriteLine(nameof(OnAuthenticationStateChanged));
+
+        var state = await task;
+        if(state.User?.Identity is { IsAuthenticated: true })
+        {
+            await InitializeOrganizations();
+        }
     }
 
     private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
@@ -112,7 +124,7 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
         Console.WriteLine($"Current user: {state.User?.Identity?.Name}");
         
-        if (state is null)
+        if (state is null || state.User?.Identity is not {  IsAuthenticated: true })
         {
             Console.WriteLine("Auth state is null. Waiting.");
             return;

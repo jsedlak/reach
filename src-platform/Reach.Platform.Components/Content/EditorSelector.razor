@@ -1,0 +1,13 @@
+﻿@inherits BaseReachComponent
+@if (IsReady)
+{
+    <select @onchange="@OnEditorChanged" class="@_themeManager.Current.Forms.SelectInput">
+        <option value="">Please select an editor...</option>
+        @foreach(var editor in _editors)
+        {
+            <option selected="@(SelectedEditor == editor.TypeName)" value="@editor.TypeName">
+                @editor.TypeName
+            </option>
+        }
+    </select>
+}

@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
     <ProjectReference Include="..\..\src-lib\Reach.Security\Reach.Security.csproj" />
+    <ProjectReference Include="..\..\src-platform\Reach.Platform.Components\Reach.Platform.Components.csproj" />
     <ProjectReference Include="..\Reach.Apps.ContentApp\Reach.Apps.ContentApp.csproj" />
   </ItemGroup>
 

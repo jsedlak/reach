@@ -8,6 +8,8 @@ using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Host.Extensions;
 using Reach.Silo.Host.Queries;
 using Reach.Silo;
+using Reach.Silo.Content.ServiceModel;
+using Reach.Silo.Content.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,7 @@ builder.AddPostgresMembership("membership-database");
 
 // Add our view repositories
 builder.Services.AddMongoRepositories("reach");
+builder.Services.AddScoped<IEditorViewReadRepository, StaticEditorViewReadRepository>();
 
 // Add Event Sourcing
 builder.Services.AddOrleansSerializers();
@@ -60,6 +63,7 @@ builder.Services
     .AddType<ComponentQueries>()
     .AddType<RendererDefinitionQueries>()
     .AddType<OrganizationQueries>()
+    .AddType<EditorQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard
