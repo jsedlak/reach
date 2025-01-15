@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1000 400">
+  <!-- Generator: Adobe Illustrator 29.2.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 116)  -->
+  <defs>
+    <style>
+      .st0, .st1 {
+        fill: #fff;
+      }
+
+      .st1 {
+        font-family: Chivo-Black, Chivo;
+        font-size: 124.25px;
+        font-weight: 800;
+      }
+
+      .st2 {
+        fill: #1e1b4b;
+      }
+
+      .st3 {
+        fill: #3730a3;
+      }
+    </style>
+  </defs>
+  <rect class="st3" width="1000" height="400"/>
+  <path class="st2" d="M758.47,349.06"/>
+  <path class="st0" d="M61.86,98.58v68.46c0,6.25,7.31,9.63,12.07,5.58l32.41-27.57-12.13-13.37,54.09-.1v59.71l-13.25-14.61-21.17,18.02c-10.59,9.01-12.57,24.12-4.64,35.55l25.85,37.3h56.99l-36.45-53.1c21-10.14,33.07-28.48,33.07-53.35,0-38.62-28.97-62.52-75.07-62.52h-51.78ZM61.86,98.58"/>
+  <text class="st1" transform="translate(242.38 224.41)"><tspan x="0" y="0">Reach CMS</tspan></text>
+</svg>
