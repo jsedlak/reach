@@ -28,9 +28,9 @@ Reach provides the basic building blocks for creating and managing content throu
 
 The following Applets are included as part of the core platform
 
-* **Content** - The Content Applet supports editing of Pages, Content, Components, Fields and Field Types, providing the basic functionality of creating and maintaining content on the platform.
-* **Pipelines** - With Pipelines, users are able to define state machines and workflows for processing data. Whether it is defining how data should be reviewed and published for retrieval by the frontend or ingestion and ETL type workflows, Pipelines supports it all.
-* **Endpoints** - Endpoints define how and by whome data is retrieved both internally and externally. In conjunction with Content and Pipelines, Endpoints provides a surface for supporting unique business scenarios.
+- **Content** - The Content Applet supports editing of Pages, Content, Components, Fields and Field Types, providing the basic functionality of creating and maintaining content on the platform.
+- **Pipelines** - With Pipelines, users are able to define state machines and workflows for processing data. Whether it is defining how data should be reviewed and published for retrieval by the frontend or ingestion and ETL type workflows, Pipelines supports it all.
+- **Endpoints** - Endpoints define how and by whome data is retrieved both internally and externally. In conjunction with Content and Pipelines, Endpoints provides a surface for supporting unique business scenarios.
 
 ### Developing an Applet
 
@@ -44,35 +44,18 @@ Reference this library from the Reach Editor project, and add the applet definit
 
 ## Routing
 
-Reach uses a number of route variations to handle traffic depending on whether it is running in self-hosted (single region) or cloud hosted (multi-region) mode. The following diagram documents the overall strategy for routing.
+Currently, Reach uses a simplified architecture for routing API requests, due to the nature of using Blazor WASM Standalone for the web application. The various API endpoints are hosted by the cluster and will scale out linearly with the number of available silos. This is true whether the application is self-hosted or cloud hosted.
 
-The Blazor Server project (`Reach.EditorApp`) maintains a forwarding proxy for any route not matched by a Global API Controller (Tenants, Regions, Account Services). Simultaneously, Region URL Formatters provide routing for each Tenant's API endpoints. In a self-hosted setup, all routing navigates through the forwarding proxy.
+### URLs
 
-![Reach Routing Architecture](./doc/routing-architecture.png)
+The following endpoints are made available.
 
-### Self Hosted URLs
-
-For this example, we will host using the Aspire app on a local machine.
-
-| Description | URL |
-| --- | --- |
-| Global API | localhost:7120/api |
-| Tenant API | localhost:7120/api/* |
-| Tenant GraphQL | localhost:7120/graphql |
-| Tenant Dashboard | localhost:7120/app/{tenantSlug} |
-| Content App | localhost:7120/app/{tenantSlug}/content |
-
-### Cloud Hosted URLs
-
-For this example, we will use the reachcms.io hosting platform. Note that in the case of Region based routing, the API and GraphQL requests for each tenant are sent directly to the Orleans cluster for performance.
-
-| Description | URL |
-| --- | --- |
-| Global API | reachcms.io/api |
-| Tenant API | {regionKey}.reachcms.io/api/* |
-| Tenant GraphQL | {regionKey}.reachcms.io/graphql |
-| Tenant Dashboard | reachcms.io/app/{tenantSlug} |
-| Content App | reachcms.io/app/{tenantSlug}/content |
+| Description   | URL                                                  |
+| ------------- | ---------------------------------------------------- |
+| API           | reachcms.io/api/\*                                   |
+| GraphQL       | reachcms.io/graphql                                  |
+| Hub Dashboard | reachcms.io/app/{organizationSlug}/{hubSlug}         |
+| Content App   | reachcms.io/app/{organizationSlug}/{hubSlug}/content |
 
 ## Authentication
 
@@ -84,14 +67,13 @@ Create a tenant in Auth0, a Website Application, and an API Application. In the 
 
 ```json
 {
-    // ... other configuration
-    "Auth0": 
-    {
-        "Domain": "<AUTH0 DOMAIN>",
-        "ClientId": "<WEBSITE APP CLIENT ID>",
-        "ClientSecret": "<API APP SECRET>",
-        "Audience": "<API AUDIENCE>"
-    }
+  // ... other configuration
+  "Auth0": {
+    "Domain": "<AUTH0 DOMAIN>",
+    "ClientId": "<WEBSITE APP CLIENT ID>",
+    "ClientSecret": "<API APP SECRET>",
+    "Audience": "<API AUDIENCE>"
+  }
 }
 ```
 
