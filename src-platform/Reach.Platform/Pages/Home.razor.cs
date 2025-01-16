@@ -6,6 +6,8 @@ namespace Reach.Platform.Pages;
 
 public partial class Home : ComponentBase
 {
+    private bool _isPanelOpen;
+
     private readonly NavigationManager _navigationManager;
 
     public Home(NavigationManager navigationManager)

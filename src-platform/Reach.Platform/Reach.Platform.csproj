@@ -12,6 +12,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.0" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+        <PackageReference Include="Slugify.Core" Version="4.0.1" />
         <PackageReference Include="Tazor.Components" Version="0.0.30" />
         <PackageReference Include="Tazor.Wasm" Version="0.0.30" />
     </ItemGroup>

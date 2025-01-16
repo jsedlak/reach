@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Reach.Content.Views;
-using Reach.Platform.Services;
+using Reach.Platform.ServiceModel;
 using Tazor.Components.Theming;
 
 namespace Reach.Platform.Components.Content;
@@ -30,7 +30,7 @@ public partial class FieldDefinitionSelector : BaseReachComponent
     {
         if (IsReady)
         {
-            _fieldDefinitions = await _fieldDefinitionService.GetFieldDefinitons(
+            _fieldDefinitions = await _fieldDefinitionService.GetFieldDefinitions(
                 CurrentOrganizationId.GetValueOrDefault(),
                 CurrentHubId.GetValueOrDefault()
             ) ?? [];
@@ -39,7 +39,7 @@ public partial class FieldDefinitionSelector : BaseReachComponent
 
     protected override async Task OnComponentIsReady()
     {
-        _fieldDefinitions = await _fieldDefinitionService.GetFieldDefinitons(
+        _fieldDefinitions = await _fieldDefinitionService.GetFieldDefinitions(
             CurrentOrganizationId.GetValueOrDefault(),
             CurrentHubId.GetValueOrDefault()
         ) ?? [];

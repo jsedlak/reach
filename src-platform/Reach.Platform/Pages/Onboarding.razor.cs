@@ -51,4 +51,20 @@ public partial class Onboarding : ComponentBase
         _isProcessing = false;
         StateHasChanged();
     }
+
+    private Task OnOrganizationChanged(string value)
+    {
+        _model.OrganizationName = value ?? ""; 
+        _model.OrganizationSlug = _model.OrganizationName.Slugify();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnHubChanged(string value)
+    {
+        _model.HubName = value ?? "";
+        _model.HubSlug = _model.HubName.Slugify();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 }
