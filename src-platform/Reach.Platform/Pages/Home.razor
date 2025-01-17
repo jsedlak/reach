@@ -4,14 +4,6 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="rounded bg-gray-100 dark:bg-gray-800 p-3 my-3 flex items-center justify-between">
-    <Button Clicked="@(() => { _isPanelOpen = !_isPanelOpen; StateHasChanged(); })">Open Edit Panel</Button>
-</div>
-
-<OverPanel @bind-IsOpen="_isPanelOpen" Title="Test Panel">
-    <p>Test panel</p>
-</OverPanel>
-
 @if (Organizations is not null && !Organizations.Any())
 {
     <!-- INITIAL MESSAGE -->

@@ -1,4 +1,5 @@
 @page "/app/{organizationSlug}/{hubSlug}/content/component-definitions"
+@using Reach.Content.Model
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
 <ContentSublayout Title="Component Definitions">
@@ -12,15 +13,35 @@
         </Button>
     </Toolbar>
     <Body>
+        @{
+            IEnumerable<Field> fields = [
+            new Field {
+        Id = Guid.NewGuid(),
+        Name = "Test field 1"
+        },
+        new Field {
+        Id = Guid.NewGuid(),
+        Name = "Test field 2"
+        },
+        new Field {
+        Id = Guid.NewGuid(),
+        Name = "Test field 3"
+        },
+        new Field {
+        Id = Guid.NewGuid(),
+        Name = "Test field 4"
+        },
+        ];
+        }
         <TemplatedGrid Items="@_componentDefinitions">
             <ColumnTemplate>
-                <Header>ID</Header>
-                <Cell>@context.Id</Cell>
-            </ColumnTemplate>
-
-            <ColumnTemplate>
                 <Header>Name</Header>
-                <Cell>@context.Name</Cell>
+                <Cell>
+                    <a class="cursor-pointer" @onclick="@(() => { _isEditPaneOpen = true; StateHasChanged(); })">
+                        <p class="underline">@context.Name</p>
+                        <p class="text-sm opacity-75">@context.Id</p>
+                    </a>
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -33,6 +54,16 @@
                 <Cell>@context.Fields.Count()</Cell>
             </ColumnTemplate>
         </TemplatedGrid>
+
+        <OverPanel @bind-IsOpen="_isEditPaneOpen">
+
+            <DraggableList Items="@fields" Equivalent="@((a,b) => a.Id == b.Id)">
+                <ItemTemplate>
+                    <p>@context.Name</p>
+                    <p class="text-sm opacity-50">@context.Id.ToString()</p>
+                </ItemTemplate>
+            </DraggableList>
+        </OverPanel>
 
         <Dialog Title="Create Component Definition" @bind-IsVisible="@_createContext.IsVisible">
             <Content>
