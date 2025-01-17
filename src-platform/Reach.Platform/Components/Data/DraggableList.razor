@@ -1,0 +1,32 @@
+﻿@typeparam TItem
+<div ondragover="event.preventDefault();"
+    ondragstart="event.dataTransfer.setData('', event.target.id);"
+    class="rounded-lg border border-gray-400 dark:border-indigo-800 divide-y divide-gray-400 dark:divide-indigo-800 shadow-xl overflow-hidden">
+    @foreach (OrderedItem<TItem> item in _internalItems)
+    {
+        var itemClass = "";
+
+        if(item.IsDragOver)
+        {
+            itemClass = " bg-gradient-to-b from-gray-200 dark:from-indigo-800 to-25% to-transparent";
+        }
+        
+        <div class="@itemClass flex items-center p-3" 
+            draggable="true"
+            @ondrop="@(async () => await HandleDrop(item))"
+            @key="item"
+            @ondragleave="@(() => { item.IsDragOver = false; Console.WriteLine("Drag Leave"); })"
+             @ondragenter="@(() => { item.IsDragOver = true; Console.WriteLine("Drag Enter"); })"
+             @ondragstart="@(() => { _currentDragItem = item; Console.WriteLine("Drag Start"); })"
+             @ondragend="@(() => { _currentDragItem = null; Console.WriteLine("Drag End"); })">
+            <div class="flex-shrink pointer-events-none">
+                <a class="cursor-move block w-full h-full flex items-center justify-center">
+                    @HeroIcons.Bars2("opacity-50")
+                </a>
+            </div>
+            <div class="flex-grow p-3">
+                @(ItemTemplate(item.Model))
+            </div>
+        </div>
+    }
+</div>

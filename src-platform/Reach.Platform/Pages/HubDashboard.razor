@@ -1,7 +1,35 @@
 @page "/app/{orgSlug}/{hubSlug}"
+@using Reach.Content.Model
 <PageTitle>Dashboard - Reach</PageTitle>
 
 <h1>Welcome to @OrgSlug - @HubSlug!</h1>
+
+@{
+    IEnumerable<Field> fields = [
+        new Field {
+            Id = Guid.NewGuid(),
+            Name = "Test field 1"
+        },
+        new Field {
+            Id = Guid.NewGuid(),
+            Name = "Test field 2"
+        },
+        new Field {
+            Id = Guid.NewGuid(),
+            Name = "Test field 3"
+        },
+        new Field {
+            Id = Guid.NewGuid(),
+            Name = "Test field 4"
+        },
+    ];
+}
+<DraggableList Items="@fields" Equivalent="@((a,b) => a.Id == b.Id)">
+    <ItemTemplate>
+        <p>@context.Name</p>
+        <p class="text-sm opacity-50">@context.Id.ToString()</p>
+    </ItemTemplate>
+</DraggableList>
 
 <!-- plan overview -->
 <div class="my-3 bg-gradient-to-r from-indigo-800 to-purple-600 shadow-lg rounded-lg p-6 text-white flex items-center justify-between">

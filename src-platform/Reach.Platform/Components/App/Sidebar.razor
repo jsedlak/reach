@@ -5,7 +5,7 @@
         width = "60px";
     }
 }
-<div class="w-[@width] bg-indigo-900 p-3 transition-all m-3 rounded">
+<div class="w-[@width] bg-indigo-900 p-3 transition-all m-3 rounded-lg">
     <div class="flex w-full justify-end px-3">
         <a class="text-white cursor-pointer" @onclick="@(() => { _isExpanded = !_isExpanded; StateHasChanged(); })">
             @if (_isExpanded)
