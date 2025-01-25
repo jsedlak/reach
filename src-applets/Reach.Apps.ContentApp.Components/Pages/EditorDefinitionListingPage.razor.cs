@@ -1,7 +1,8 @@
-﻿using Reach.Content.Commands.EditorDefinitions;
+﻿using Microsoft.AspNetCore.Components;
+using Reach.Content.Commands.EditorDefinitions;
+using Reach.Content.Model;
 using Reach.Content.Views;
 using Reach.Platform.ServiceModel;
-using Reach.Platform.Services;
 using Reach.Security;
 using Tazor.Components.Layout;
 
@@ -14,6 +15,10 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
 
+    private EditorDefinitionView? _editContext = new();
+    private AddParameterToEditorDefinitionCommand _addParameterCommand = new();
+    private bool _isEditFlyoutVisible = false;
+
     public EditorDefinitionListingPage(IEditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
     {
         EditorDefinitionService = editorDefinitionService;
@@ -21,6 +26,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
         _createContext = new(StateHasChanged);
     }
 
+    #region Data Setup
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -40,7 +46,9 @@ public partial class EditorDefinitionListingPage : ContentBasePage
                 await EditorDefinitionService.GetEditorDefinitions(CurrentOrganization.Id, CurrentHub.Id);
         }
     }
+    #endregion
 
+    #region Creation
     private Task OnBeginCreateClicked()
     {
         return _createContext.Open(
@@ -71,6 +79,38 @@ public partial class EditorDefinitionListingPage : ContentBasePage
             return (result.IsSuccess, []);
         });
     }
+    #endregion
+
+    #region Editing
+    private void OnBeginEditClicked(EditorDefinitionView model)
+    {
+        _editContext = model;
+        _isEditFlyoutVisible = true;
+        _addParameterCommand = new();
+        StateHasChanged();
+    }
+
+    private void OnNewParameterTypeChanged(ChangeEventArgs e)
+    {
+        if(e.Value is null)
+        {
+            return;
+        }
+
+        if(Enum.TryParse(typeof(EditorParameterType), e.Value.ToString() ?? "Text", out var type))
+        {
+            _addParameterCommand.Type = (EditorParameterType)type;
+        }
+    }
+
+    private async Task CompleteAddParameter()
+    {
+        // EditorDefinitionService.AddParameter(_addParameterCommand);
+        
+        
+    }
+    #endregion
 
     private IEditorDefinitionService EditorDefinitionService { get; }
+    
 }

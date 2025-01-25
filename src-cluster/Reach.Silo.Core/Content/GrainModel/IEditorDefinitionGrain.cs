@@ -10,4 +10,6 @@ public interface IEditorDefinitionGrain : IGrainWithStringKey
     Task<CommandResponse> SetParameters(SetEditorDefinitionParametersCommand command);
 
     Task<CommandResponse> Delete(DeleteEditorDefinitionCommand command);
+
+    Task<CommandResponse> AddParameter(AddParameterToEditorDefinitionCommand command);
 }
