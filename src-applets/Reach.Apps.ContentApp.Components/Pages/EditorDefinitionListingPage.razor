@@ -1,4 +1,5 @@
 ﻿@page "/app/{organizationSlug}/{hubSlug}/content/editor-definitions"
+@using Reach.Content.Model
 @inherits ContentBasePage
 @rendermode InteractiveWebAssembly
 <ContentSublayout Title="Editor Definitions">
@@ -14,13 +15,13 @@
     <Body>
         <TemplatedGrid Items="@_editorDefinitions">
             <ColumnTemplate>
-                <Header>ID</Header>
-                <Cell>@context.Id</Cell>
-            </ColumnTemplate>
-
-            <ColumnTemplate>
                 <Header>Name</Header>
-                <Cell>@context.Name</Cell>
+                <Cell>
+                    <a @onclick="@(() => OnBeginEditClicked(context))">
+                        @context.Name<br />
+                        <span class="text-sm opacity-75">@context.Id</span>
+                    </a>
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -33,7 +34,6 @@
                 <Cell>@context.Parameters.Count()</Cell>
             </ColumnTemplate>
         </TemplatedGrid>
-
 
         <Dialog Title="Create Editor Definitions" @bind-IsVisible="@_createContext.IsVisible">
             <Content>
@@ -61,5 +61,41 @@
                 <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
             </Footer>
         </Dialog>
+
+        <Flyout Placement="PanelPlacement.Right"
+                Title="Edit Definition"
+                @bind-IsVisible="@_isEditFlyoutVisible">
+            <Content>
+                <div class="mb-3">
+                    <p>@_editContext.DisplayName</p>
+                    <p>@_editContext.EditorType</p>
+                </div>
+                <div class="mb-3">
+                    <Label>Display Name</Label>
+                    <TextBox @bind-Value="@_addParameterCommand.DisplayName" />
+                </div>
+                <div class="mb-3">
+                    <Label>Type</Label>
+                    <select @onchange="OnNewParameterTypeChanged">
+                        @{
+                            var values = Enum.GetValues(typeof(EditorParameterType));
+                        }
+                        @foreach (var value in values)
+                        {
+                            <option value="@value"
+                                    selected="@((EditorParameterType)value == _addParameterCommand.Type)">
+                                @(((EditorParameterType)value).ToString())
+                            </option>
+                        }
+                    </select>
+                </div>
+            </Content>
+            <Footer>
+                <div class="flex items-center justify-end">
+                    <Button Type="ButtonType.Primary" Clicked="CompleteAddParameter">Add</Button>
+                </div>
+            </Footer>
+
+        </Flyout>
     </Body>
 </ContentSublayout>

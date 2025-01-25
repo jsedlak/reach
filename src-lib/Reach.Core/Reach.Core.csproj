@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Data.Tables" Version="12.9.1" />
-    <PackageReference Include="Microsoft.Orleans.Sdk" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Orleans.Sdk" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

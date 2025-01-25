@@ -1,6 +1,6 @@
 ﻿using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
-using Reach.Platform.Services;
+using Reach.Platform.ServiceModel;
 using Reach.Security;
 using Tazor.Components.Layout;
 
@@ -35,7 +35,7 @@ public partial class FieldDefinitionListingPage : ContentBasePage
     {
         if (CurrentOrganization is not null && CurrentHub is not null)
         {
-            _fieldDefinitions = await FieldDefinitionService.GetFieldDefinitons(CurrentOrganization.Id, CurrentHub.Id);
+            _fieldDefinitions = await FieldDefinitionService.GetFieldDefinitions(CurrentOrganization.Id, CurrentHub.Id);
         }
     }
 

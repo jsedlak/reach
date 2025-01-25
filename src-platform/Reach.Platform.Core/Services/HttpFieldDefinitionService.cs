@@ -20,7 +20,7 @@ public class HttpFieldDefinitionService : BaseContentService, IFieldDefinitionSe
         return await CommandClient.Execute(Endpoint, command);
     }
 
-    public async Task<IEnumerable<FieldDefinitionView>> GetFieldDefinitons(Guid organizationId, Guid hubId, string? query = null)
+    public async Task<IEnumerable<FieldDefinitionView>> GetFieldDefinitions(Guid organizationId, Guid hubId, string? query = null)
     {
         return await GraphClient.GetMany<FieldDefinitionView>(organizationId, hubId, query: query);
     }

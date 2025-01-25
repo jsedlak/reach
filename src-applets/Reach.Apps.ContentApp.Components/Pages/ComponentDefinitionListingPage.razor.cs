@@ -13,6 +13,8 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
+    private bool _isEditPaneOpen;
+
     public ComponentDefinitionListingPage(IComponentDefinitionService componentDefinitionService)
     {
         _componentDefinitionService = componentDefinitionService;

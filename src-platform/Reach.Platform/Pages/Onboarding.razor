@@ -30,7 +30,11 @@
                     <div class="mb-3">
                         <Label>Name</Label>
                         <SubLabel>The name of your company, group or team.</SubLabel>
-                        <TextBox @bind-Value="_model.OrganizationName" />
+                        <TextBox 
+                            TModel="string"
+                            Value="@_model.OrganizationName" 
+                            ValueChanged="@OnOrganizationChanged" 
+                        />
                     </div>
 
                     <div class="mb-3">
@@ -62,7 +66,9 @@
                     <div class="mb-2">
                         <Label>Name</Label>
                         <SubLabel>The name of your hub, site or space.</SubLabel>
-                        <TextBox @bind-Value="_model.HubName" />
+                        <TextBox TModel="string"
+                            Value="@_model.HubName"
+                            ValueChanged="@OnHubChanged" />
                     </div>
 
                     <div class="mb-2">
