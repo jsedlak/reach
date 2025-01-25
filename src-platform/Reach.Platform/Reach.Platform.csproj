@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -6,6 +6,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+	<Target Name="PrepareTailwind" BeforeTargets="PrepareForBuild" Condition=" '$(Configuration)' == 'Debug' ">
+		<Exec Command="npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css" />
+	</Target>
+	
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.0.1" />
@@ -13,8 +17,8 @@
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.1" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
         <PackageReference Include="Slugify.Core" Version="4.0.1" />
-        <PackageReference Include="Tazor.Components" Version="0.0.34" />
-        <PackageReference Include="Tazor.Wasm" Version="0.0.34" />
+        <PackageReference Include="Tazor.Components" Version="0.0.36" />
+        <PackageReference Include="Tazor.Wasm" Version="0.0.36" />
     </ItemGroup>
 
     <ItemGroup>
