@@ -76,7 +76,7 @@
                 </div>
                 <div class="mb-3">
                     <Label>Type</Label>
-                    <select @onchange="OnNewParameterTypeChanged">
+                    <select @onchange="OnNewParameterTypeChanged" class="@Theme.Forms.SelectInput">
                         @{
                             var values = Enum.GetValues(typeof(EditorParameterType));
                         }

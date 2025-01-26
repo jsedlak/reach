@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
@@ -12,7 +12,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1" />
-		<PackageReference Include="Tazor.Components" Version="0.0.36" />
+		<PackageReference Include="Tazor.Components" Version="0.0.39" />
 	</ItemGroup>
 
 	<ItemGroup>

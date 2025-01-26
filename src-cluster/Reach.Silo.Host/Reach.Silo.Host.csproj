@@ -22,8 +22,8 @@
 		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Orleans.Streaming " Version="8.2.0" />
 		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
-		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.7" />
-		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.7" />
+		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
+		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
