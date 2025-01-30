@@ -72,27 +72,48 @@
                 </div>
                 <div class="mb-3">
                     <Label>Display Name</Label>
-                    <TextBox @bind-Value="@_addParameterCommand.DisplayName" />
+                    <TextBox @bind-Value="@_editContextParameter.DisplayName" />
                 </div>
+
                 <div class="mb-3">
-                    <Label>Type</Label>
-                    <select @onchange="OnNewParameterTypeChanged">
-                        @{
-                            var values = Enum.GetValues(typeof(EditorParameterType));
-                        }
-                        @foreach (var value in values)
-                        {
-                            <option value="@value"
-                                    selected="@((EditorParameterType)value == _addParameterCommand.Type)">
-                                @(((EditorParameterType)value).ToString())
-                            </option>
-                        }
-                    </select>
+                    <div class="flex items-center gap-2">
+                        <select @onchange="OnNewParameterTypeChanged" class="flex-grow @Theme.Forms.SelectInput">
+                            @{
+                                var values = Enum.GetValues(typeof(EditorParameterType));
+                            }
+                            @foreach (var value in values)
+                            {
+                                <option value="@value"
+                                        selected="@((EditorParameterType)value == _editContextParameter.Type)">
+                                    @(((EditorParameterType)value).ToString())
+                                </option>
+                            }
+                        </select>
+                        <Button Type="ButtonType.PrimaryOutline" Clicked="OnAddParameter">
+                            @HeroIcons.PlusCircle("inline-block")
+                            <span>Add</span>
+                        </Button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <DraggableList @bind-Items=@_editParameters>
+                        <ItemTemplate>
+                            <h4 class="font-bold">@context.DisplayName</h4>
+                            <p class="text-small">@context.Type</p>
+                        </ItemTemplate>
+                    </DraggableList>
                 </div>
             </Content>
             <Footer>
-                <div class="flex items-center justify-end">
-                    <Button Type="ButtonType.Primary" Clicked="CompleteAddParameter">Add</Button>
+                <div class="flex items-center gap-2">
+                    <Button Type="ButtonType.DefaultOutline" Clicked="@(() => { _isEditFlyoutVisible = false; StateHasChanged(); })">
+                        <span>Cancel</span>
+                    </Button>
+                    <Button Type="ButtonType.Primary" Clicked="OnSaveParameters">
+                        @HeroIcons.CloudArrowUp("inline-block")
+                        <span>Save</span>
+                    </Button>
                 </div>
             </Footer>
 

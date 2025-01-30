@@ -20,8 +20,15 @@ public class HttpEditorDefinitionService : BaseContentService, IEditorDefinition
         return await CommandClient.Execute(Endpoint, command);
     }
 
+    public async Task<CommandResponse> SetEditorDefinitionParameters(SetEditorDefinitionParametersCommand command)
+    {
+        return await CommandClient.Execute(Endpoint, command);
+    }
+
     public async Task<IEnumerable<EditorDefinitionView>> GetEditorDefinitions(Guid organizationId, Guid hubId, string? query = null)
     {
         return await GraphClient.GetMany<EditorDefinitionView>(organizationId, hubId, query: query);
     }
+
+
 }

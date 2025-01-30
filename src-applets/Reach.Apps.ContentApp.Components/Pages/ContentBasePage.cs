@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Reach.Components;
 using Reach.Membership.Views;
+using Tazor.Components.Theming;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
@@ -15,6 +16,12 @@ public abstract class ContentBasePage : BaseTenantComponent
     
     [CascadingParameter(Name = "Organizations")]
     public IEnumerable<AvailableOrganizationView>? Organizations { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the theme that has been cascaded to this component
+    /// </summary>
+    [CascadingParameter(Name = "Theme")]
+    public ITheme Theme { get; set; } = null!;
 
     public AvailableOrganizationView? CurrentOrganization
     {

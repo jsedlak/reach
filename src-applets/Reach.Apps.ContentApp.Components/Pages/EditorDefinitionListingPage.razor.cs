@@ -5,6 +5,7 @@ using Reach.Content.Views;
 using Reach.Platform.ServiceModel;
 using Reach.Security;
 using Tazor.Components.Layout;
+using Tazor.Extensions;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
 
@@ -16,7 +17,8 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
 
     private EditorDefinitionView? _editContext = new();
-    private AddParameterToEditorDefinitionCommand _addParameterCommand = new();
+    private EditorParameterDefinition _editContextParameter = new();
+    private IEnumerable<EditorParameterDefinition> _editParameters = [];
     private bool _isEditFlyoutVisible = false;
 
     public EditorDefinitionListingPage(IEditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
@@ -86,7 +88,8 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     {
         _editContext = model;
         _isEditFlyoutVisible = true;
-        _addParameterCommand = new();
+        _editContextParameter = new();
+        _editParameters = model.Parameters.ToArray();
         StateHasChanged();
     }
 
@@ -99,15 +102,41 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
         if(Enum.TryParse(typeof(EditorParameterType), e.Value.ToString() ?? "Text", out var type))
         {
-            _addParameterCommand.Type = (EditorParameterType)type;
+            _editContextParameter.Type = (EditorParameterType)type;
         }
     }
 
-    private async Task CompleteAddParameter()
+    private async Task OnAddParameter()
     {
-        // EditorDefinitionService.AddParameter(_addParameterCommand);
+        _editContextParameter.Name = _editContextParameter.DisplayName.ToSlug();
+        _editContextParameter.Description = "";
+
+        _editParameters = [.. _editParameters, _editContextParameter];
+        _editContextParameter = new();
+        StateHasChanged();
+    }
+
+    private async Task OnSaveParameters()
+    {
+        await EditorDefinitionService.SetEditorDefinitionParameters(
+            new SetEditorDefinitionParametersCommand(
+            CurrentOrganizationId.GetValueOrDefault(), 
+            CurrentHubId.GetValueOrDefault(),
+            _editContext!.Id)
+            {
+                Parameters = _editParameters.ToArray()
+            }
+        );
+
+        _editContext = new();
+        _editContextParameter = new();
+        _editParameters = [];
+
+        _isEditFlyoutVisible = false;
+
+        await RefreshData();
         
-        
+        StateHasChanged();
     }
     #endregion
 
