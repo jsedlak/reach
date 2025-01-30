@@ -9,6 +9,10 @@ import { SecondaryFeatures } from '@/Template/SecondaryFeatures'
 import { Testimonials } from '@/Template/Testimonials'
 import Image from 'next/image'
 
+interface IMyInterface {
+  data: string
+}
+
 export default function Home() {
   return (
     <>

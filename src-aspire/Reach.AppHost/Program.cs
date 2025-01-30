@@ -20,7 +20,7 @@ var membershipDb = postgres.AddDatabase(
 );
 
 /* Add Our Mongo Storage */
-var mongo = builder.AddMongoDB("reach-mongo", 52296);
+var mongo = builder.AddMongoDB("reach-mongo", 50119);
 
 /* Our Orleans Cluster & API */
 var storage = builder.AddAzureStorage("reach-cluster-storage")
