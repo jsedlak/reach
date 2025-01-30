@@ -18,9 +18,24 @@
                 <Header>Name</Header>
                 <Cell>
                     <a @onclick="@(() => OnBeginEditClicked(context))">
-                        @context.Name<br />
-                        <span class="text-sm opacity-75">@context.Id</span>
+                        @context.Name
                     </a>
+                </Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Slug</Header>
+                <Cell>
+                    <a @onclick="@(() => OnBeginEditClicked(context))">
+                        @context.Slug
+                    </a>
+                </Cell>
+            </ColumnTemplate>
+
+            <ColumnTemplate>
+                <Header>Id</Header>
+                <Cell>
+                    <span class="font-mono">@(context.Id.ToString().Split('-').First())</span>
                 </Cell>
             </ColumnTemplate>
 
@@ -63,12 +78,10 @@
         </Dialog>
 
         <Flyout Placement="PanelPlacement.Right"
-                Title="Edit Definition"
+                Title=@($"{_editContext?.Name} - Editor Definition")
                 @bind-IsVisible="@_isEditFlyoutVisible">
             <Content>
                 <div class="mb-3">
-                    <p>@_editContext.DisplayName</p>
-                    <p>@_editContext.EditorType</p>
                 </div>
                 <div class="mb-3">
                     <Label>Display Name</Label>
@@ -99,8 +112,18 @@
                 <div class="mb-3">
                     <DraggableList @bind-Items=@_editParameters>
                         <ItemTemplate>
-                            <h4 class="font-bold">@context.DisplayName</h4>
-                            <p class="text-small">@context.Type</p>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold">@context.DisplayName</h4>
+                                    <p class="text-small">@context.Type</p>
+                                </div>
+                                <div>
+                                    <a @onclick="@(() => { OnRemoveParameter(context); })" class="cursor-pointer opacity-75 text-red-400">
+                                        @HeroIcons.Trash()
+                                    </a>
+                                </div>
+                            </div>
+                            
                         </ItemTemplate>
                     </DraggableList>
                 </div>

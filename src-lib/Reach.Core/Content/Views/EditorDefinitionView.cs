@@ -12,7 +12,7 @@ public class EditorDefinitionView : BaseAggregateView
     public string Name { get; set; } = string.Empty;
 
     [Id(1)]
-    public string DisplayName { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
 
     [Id(2)]
     public string EditorType { get; set; } = string.Empty;

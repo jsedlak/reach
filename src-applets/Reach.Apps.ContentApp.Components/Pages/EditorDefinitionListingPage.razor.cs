@@ -76,6 +76,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
                 return (false, ["Invalid data."]);
             }
 
+
             var result = await EditorDefinitionService.Create(model);
 
             return (result.IsSuccess, []);
@@ -104,6 +105,15 @@ public partial class EditorDefinitionListingPage : ContentBasePage
         {
             _editContextParameter.Type = (EditorParameterType)type;
         }
+    }
+
+    private async Task OnRemoveParameter(EditorParameterDefinition parameter)
+    {
+        _editParameters = _editParameters
+            .Where(m => m != parameter)
+            .ToArray();
+
+        StateHasChanged();
     }
 
     private async Task OnAddParameter()

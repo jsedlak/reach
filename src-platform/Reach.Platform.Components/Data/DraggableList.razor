@@ -11,7 +11,7 @@
             itemClass = " bg-gradient-to-b from-gray-200 dark:from-indigo-800 to-25% to-transparent";
         }
         
-        <div class="@itemClass flex items-center p-3" 
+        <div class="@itemClass flex items-center py-1 px-2" 
             draggable="true"
             @ondrop="@(async () => await HandleDrop(item))"
             @key="item"

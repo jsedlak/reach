@@ -20,5 +20,8 @@ public class CreateEditorDefinitionCommand : AggregateCommand
     public string Name { get; set; } = null!;
 
     [Id(1)]
+    public string Slug { get; set; } = null!;
+
+    [Id(2)]
     public string EditorType { get; set; } = null!;
 }

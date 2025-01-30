@@ -14,6 +14,7 @@ public class EditorDefinition
         OrganizationId = @event.OrganizationId;
         HubId = @event.HubId;
         Name = @event.Name;
+        Slug = @event.Slug;
         EditorType = @event.EditorType;
     }
 
@@ -56,6 +57,11 @@ public class EditorDefinition
     /// Gets or Sets the display name for this editor definition, shown and used often in the Editor App
     /// </summary>
     public string Name { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or Sets the code centric slug for this editor definition
+    /// </summary>
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// Gets or Sets the underlying type information for this editor definition
