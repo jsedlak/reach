@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="9.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1" />
-    <PackageReference Include="Tazor.Components" Version="0.0.34" />
+    <PackageReference Include="Tazor.Components" Version="0.0.39" />
   </ItemGroup>
 
   <ItemGroup>
