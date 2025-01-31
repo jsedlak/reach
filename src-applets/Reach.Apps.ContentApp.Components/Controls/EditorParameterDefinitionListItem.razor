@@ -3,8 +3,11 @@
     <div>
         @if (!_isEditing)
         {
-            <h4 class="font-bold">@Name</h4>
-            <p class="text-small">@Type</p>
+            <h4 class="font-bold">
+                <Badge>@Type</Badge>
+                @DisplayName
+            </h4>
+            <p class="text-small">@Name</p>
         }
         else
         {
@@ -31,7 +34,7 @@
             </div>
         }
     </div>
-    <div>
+    <div class="flex gap-1 items-center">
         @if (!_isEditing)
         {
             <a class="cursor-pointer" onclick="@(() => BeginEdit())">
