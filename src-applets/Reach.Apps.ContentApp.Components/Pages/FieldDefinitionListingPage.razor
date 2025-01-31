@@ -38,7 +38,8 @@
             </ColumnTemplate>
         </TemplatedGrid>
 
-        <Dialog Title="Create Field Definition" @bind-IsVisible="@_createContext.IsVisible" WindowClass="w-1/4">
+        <Dialog Title="Create Field Definition" 
+            @bind-IsVisible="@_createContext.IsVisible">
             <Content>
                 @if (_createContext.IsWaiting)
                 {
