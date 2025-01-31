@@ -28,16 +28,6 @@ public class EditorDefinition
         IsDeleted = true;
     }
 
-    public void Apply(ParameterAddedToEditorDefinitionEvent @event)
-    {
-        Parameters = Parameters.Union([new EditorParameterDefinition
-        {
-            DisplayName = @event.DisplayName,
-            Name = @event.DisplayName.ToSlug(),
-            Type = @event.Type
-        }]).ToArray();
-    }
-
     /// <summary>
     /// Gets or Sets the unique identifier for this editor definition
     /// </summary>

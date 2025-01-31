@@ -27,20 +27,6 @@ public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition
         };
     }
 
-    public async Task<CommandResponse> AddParameter(AddParameterToEditorDefinitionCommand command)
-    {
-        await Raise(new ParameterAddedToEditorDefinitionEvent(command.OrganizationId, command.HubId, command.AggregateId)
-        {
-            DisplayName = command.DisplayName,
-            Type = command.Type
-        });
-
-        return new CommandResponse
-        {
-            IsSuccess = true
-        };
-    }
-
     public async Task<CommandResponse> SetParameters(SetEditorDefinitionParametersCommand command)
     {
         await Raise(new EditorDefinitionParametersSetEvent(command.OrganizationId, command.HubId, command.AggregateId)

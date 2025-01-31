@@ -1,7 +1,6 @@
 ﻿@page "/app/{organizationSlug}/{hubSlug}/content/editor-definitions"
 @using Reach.Content.Model
 @inherits ContentBasePage
-@rendermode InteractiveWebAssembly
 <ContentSublayout Title="Editor Definitions">
     <Toolbar>
         <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
@@ -81,10 +80,13 @@
                 Title=@($"{_editContext?.Name} - Editor Definition")
                 @bind-IsVisible="@_isEditFlyoutVisible">
             <Content>
-                <div class="mb-3">
+                <div class="mb-3 w-md max-w-full">
+                    <Label>Name</Label>
+                    <TextBox @bind-Value="@_editContextParameter.Name" />
                 </div>
+
                 <div class="mb-3">
-                    <Label>Display Name</Label>
+                    <label>DisplayName</label>
                     <TextBox @bind-Value="@_editContextParameter.DisplayName" />
                 </div>
 
@@ -112,18 +114,11 @@
                 <div class="mb-3">
                     <DraggableList @bind-Items=@_editParameters>
                         <ItemTemplate>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h4 class="font-bold">@context.DisplayName</h4>
-                                    <p class="text-small">@context.Type</p>
-                                </div>
-                                <div>
-                                    <a @onclick="@(() => { OnRemoveParameter(context); })" class="cursor-pointer opacity-75 text-red-400">
-                                        @HeroIcons.Trash()
-                                    </a>
-                                </div>
-                            </div>
-                            
+                            <EditorParameterDefinitionListItem 
+                                @bind-Name="@context.Name" 
+                                @bind-DisplayName="@context.DisplayName"
+                                @bind-Type="@context.Type"
+                            />
                         </ItemTemplate>
                     </DraggableList>
                 </div>

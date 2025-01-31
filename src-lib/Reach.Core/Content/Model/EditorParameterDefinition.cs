@@ -6,9 +6,15 @@
 [GenerateSerializer]
 public class EditorParameterDefinition
 {
+    /// <summary>
+    /// Gets or Sets the parameter name on the component object
+    /// </summary>
     [Id(0)]
     public string Name { get; set; } = null!;
 
+    /// <summary>
+    /// Gets or Sets the editor friendly display name
+    /// </summary>
     [Id(1)]
     public string DisplayName { get; set; } = null!;
 

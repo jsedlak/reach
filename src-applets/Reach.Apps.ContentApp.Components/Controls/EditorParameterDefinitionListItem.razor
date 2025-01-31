@@ -1,0 +1,56 @@
+﻿@inherits TazorBaseComponent
+<div class="flex items-center justify-between">
+    <div>
+        @if (!_isEditing)
+        {
+            <h4 class="font-bold">@Name</h4>
+            <p class="text-small">@Type</p>
+        }
+        else
+        {
+            <div class="mb-1">
+                <TextBox @bind-Value="_name" />
+            </div>
+            <div class="mb-1">
+                <TextBox @bind-Value="_displayName" />
+            </div>
+            <div class="mb-1">
+                <select @onchange="OnNewParameterTypeChanged"
+                        class="flex-grow @Theme.Forms.SelectInput">
+                    @{
+                        var values = Enum.GetValues(typeof(EditorParameterType));
+                    }
+                    @foreach (var value in values)
+                    {
+                        <option value="@value"
+                                selected="@((EditorParameterType)value == _type)">
+                            @(((EditorParameterType)value).ToString())
+                        </option>
+                    }
+                </select>
+            </div>
+        }
+    </div>
+    <div>
+        @if (!_isEditing)
+        {
+            <a class="cursor-pointer" onclick="@(() => BeginEdit())">
+                @HeroIcons.Pencil()
+            </a>
+        }
+        else
+        {
+            <a class="cursor-pointer" onclick="@(() => CancelEdit())">
+                @HeroIcons.XMark()
+            </a>
+            <a class="cursor-pointer" onclick="@(() => CommitEdit())">
+                @HeroIcons.CheckCircle()
+            </a>
+        }
+
+        <a @onclick="@(() => InvokeDeleteParameter())"
+           class="cursor-pointer opacity-75 text-red-400">
+            @HeroIcons.Trash()
+        </a>
+    </div>
+</div>
