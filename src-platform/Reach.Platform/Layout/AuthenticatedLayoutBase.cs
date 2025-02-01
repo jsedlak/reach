@@ -84,11 +84,11 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         }
         else
         {
-            RefreshOrgHubView();
+            await RefreshOrgHubView();
         }
     }
 
-    private void RefreshOrgHubView()
+    private async Task RefreshOrgHubView()
     {
         if (_organizations == null || _organizations.Count() == 0)
         {
@@ -114,7 +114,14 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
             
             _currentOrganizationId = currentOrg.Id;
             _currentHubId = currentOrg.Hubs.FirstOrDefault(m => m.Slug == hubSlug)?.Id;
+
+            await OnPageReady();
         }
+    }
+
+    protected virtual Task OnPageReady()
+    {
+        return Task.CompletedTask;
     }
 
     protected override async Task OnInitializedAsync()

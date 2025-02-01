@@ -2,6 +2,7 @@
 using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Model;
 using Reach.Content.Views;
+using Reach.Platform.Providers;
 using Reach.Platform.ServiceModel;
 using Reach.Security;
 using Tazor.Components.Layout;
@@ -12,7 +13,8 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 [TenantRequired]
 public partial class EditorDefinitionListingPage : ContentBasePage
 {
-    private IEnumerable<EditorDefinitionView> _editorDefinitions = [];
+    private readonly IContentContextProvider _contentContextProvider;
+    private readonly IEditorDefinitionService _editorDefinitionService;
 
     private DialogContext<CreateEditorDefinitionCommand> _createContext = new(() => { });
 
@@ -21,9 +23,13 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     private IEnumerable<EditorParameterDefinition> _editParameters = [];
     private bool _isEditFlyoutVisible = false;
 
-    public EditorDefinitionListingPage(IEditorDefinitionService editorDefinitionService, IServiceProvider serviceProvider)
+    public EditorDefinitionListingPage(
+        IContentContextProvider contentContextProvider,
+        IEditorDefinitionService editorDefinitionService, 
+        IServiceProvider serviceProvider)
     {
-        EditorDefinitionService = editorDefinitionService;
+        _contentContextProvider = contentContextProvider;
+        _editorDefinitionService = editorDefinitionService;
 
         _createContext = new(StateHasChanged);
     }
@@ -36,17 +42,17 @@ public partial class EditorDefinitionListingPage : ContentBasePage
         if (firstRender)
         {
             await RefreshData();
-            StateHasChanged();
         }
     }
 
     private async Task RefreshData()
     {
-        if (CurrentOrganization is not null && CurrentHub is not null)
+        if (CurrentOrganization is null || CurrentHub is null)
         {
-            _editorDefinitions =
-                await EditorDefinitionService.GetEditorDefinitions(CurrentOrganization.Id, CurrentHub.Id);
+            return;
         }
+        
+        await _contentContextProvider.Refresh(CurrentOrganization!.Id, CurrentHub!.Id);
     }
     #endregion
 
@@ -76,11 +82,17 @@ public partial class EditorDefinitionListingPage : ContentBasePage
                 return (false, ["Invalid data."]);
             }
 
-
-            var result = await EditorDefinitionService.Create(model);
+            var result = await _editorDefinitionService.Create(model);
 
             return (result.IsSuccess, []);
         });
+    }
+
+    private async Task OnNewEditorNameChanged(string newValue)
+    {
+        _createContext.TentativeModel.Name = newValue;
+        _createContext.TentativeModel.Slug = newValue.ToSlug();
+        StateHasChanged();
     }
     #endregion
 
@@ -128,7 +140,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private async Task OnSaveParameters()
     {
-        await EditorDefinitionService.SetEditorDefinitionParameters(
+        await _editorDefinitionService.SetEditorDefinitionParameters(
             new SetEditorDefinitionParametersCommand(
             CurrentOrganizationId.GetValueOrDefault(), 
             CurrentHubId.GetValueOrDefault(),
@@ -145,11 +157,6 @@ public partial class EditorDefinitionListingPage : ContentBasePage
         _isEditFlyoutVisible = false;
 
         await RefreshData();
-        
-        StateHasChanged();
     }
     #endregion
-
-    private IEditorDefinitionService EditorDefinitionService { get; }
-    
 }

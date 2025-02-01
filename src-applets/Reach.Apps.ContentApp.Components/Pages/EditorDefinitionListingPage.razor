@@ -1,5 +1,4 @@
 ﻿@page "/app/{organizationSlug}/{hubSlug}/content/editor-definitions"
-@using Reach.Content.Model
 @inherits ContentBasePage
 <ContentSublayout Title="Editor Definitions">
     <Toolbar>
@@ -12,7 +11,14 @@
         </Button>
     </Toolbar>
     <Body>
-        <TemplatedGrid Items="@_editorDefinitions">
+        <TemplatedGrid Items="@_contentContextProvider.EditorDefinitions">
+            <ColumnTemplate>
+                <Header>Id</Header>
+                <Cell>
+                    <ShortGuid Value="@context.Id" />
+                </Cell>
+            </ColumnTemplate>
+            
             <ColumnTemplate>
                 <Header>Name</Header>
                 <Cell>
@@ -30,14 +36,7 @@
                     </a>
                 </Cell>
             </ColumnTemplate>
-
-            <ColumnTemplate>
-                <Header>Id</Header>
-                <Cell>
-                    <span class="font-mono">@(context.Id.ToString().Split('-').First())</span>
-                </Cell>
-            </ColumnTemplate>
-
+            
             <ColumnTemplate>
                 <Header>Editor</Header>
                 <Cell>@context.EditorType</Cell>
@@ -57,15 +56,12 @@
                 }
                 else
                 {
-                    <div class="mb-3">
-                        <Label>Name</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                    </div>
+                    <NameAndSlugEditor @bind-Name="@_createContext.TentativeModel.Name"
+                                       @bind-Slug="@_createContext.TentativeModel.Slug" />
 
                     <div class="mb-3">
                         <Label>Editor Type</Label>
                         <SubLabel>A razor component reference that enables editing of data within the Reach platform.</SubLabel>
-                        @* <TextBox @bind-Value="@_createContext.TentativeModel.EditorType" /> *@
                         <EditorSelector @bind-SelectedEditor="@_createContext.TentativeModel.EditorType" />
                     </div>
                 }

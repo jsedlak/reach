@@ -19,7 +19,7 @@ public class FieldDefinitionGrain : StreamingEventSourcedGrain<FieldDefinition, 
         await Raise(new FieldDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
-            Key = command.Name.ToSlug(),
+            Slug = command.Slug,
             EditorDefinitionId = command.EditorDefinitionId,
             EditorParameters = Array.Empty<EditorParameter>()
         });

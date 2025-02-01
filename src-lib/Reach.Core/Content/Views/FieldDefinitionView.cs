@@ -12,7 +12,7 @@ public class FieldDefinitionView : BaseAggregateView
     public string Name { get; set; } = string.Empty;
 
     [Id(1)]
-    public string Key { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
 
     [Id(2)]
     public Guid EditorDefinitionId { get; set; }

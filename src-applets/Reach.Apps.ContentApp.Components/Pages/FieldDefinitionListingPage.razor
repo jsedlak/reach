@@ -14,7 +14,9 @@
         <TemplatedGrid Items="@_fieldDefinitions">
             <ColumnTemplate>
                 <Header>ID</Header>
-                <Cell>@context.Id</Cell>
+                <Cell>
+                    <ShortGuid Value="@context.Id" />
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -23,13 +25,19 @@
             </ColumnTemplate>
 
             <ColumnTemplate>
-                <Header>Key</Header>
-                <Cell>@context.Key</Cell>
+                <Header>Slug</Header>
+                <Cell>@context.Slug</Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
                 <Header>Editor Defn.</Header>
-                <Cell>@context.EditorDefinitionId</Cell>
+                <Cell>
+                    @{
+                        var editorDefn = _contentContextProvider.EditorDefinitions
+                            .FirstOrDefault(m => m.Id == context.EditorDefinitionId);
+                    }
+                    <span>@(editorDefn?.Name)</span>
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -47,15 +55,8 @@
                 }
                 else
                 {
-                    <div class="mb-3">
-                        <Label>Name</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                    </div>
-
-                    <div class="mb-3">
-                        <Label>Slug</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
-                    </div>
+                    <NameAndSlugEditor @bind-Name="@_createContext.TentativeModel.Name"
+                                       @bind-Slug="@_createContext.TentativeModel.Slug" />
 
                     <div class="mb-3">
                         <Label>Editor Definitions</Label>

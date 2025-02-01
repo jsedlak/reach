@@ -15,7 +15,7 @@ public class FieldDefinition
         OrganizationId = @event.OrganizationId;
         HubId = @event.HubId;
         Name = @event.Name;
-        Key = @event.Key;
+        Slug = @event.Slug;
         EditorDefinitionId = @event.EditorDefinitionId;
         EditorParameters = @event.EditorParameters;
         Group = @event.Group;
@@ -59,7 +59,7 @@ public class FieldDefinition
     /// <summary>
     /// Gets or Sets a slug version of the name
     /// </summary>
-    public string Key { get; set; } = null!;
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// Gets or Sets the group in which to include this field definition

@@ -1,0 +1,13 @@
+<div class="mb-3">
+    <Label>Name</Label>
+    <TextBox 
+        TModel="string"
+        Value="@Name" 
+        ValueChanged="@OnNameChanged"
+    />
+</div>
+
+<div class="mb-3">
+    <Label>Slug</Label>
+    <TextBox @bind-Value="@Slug" />
+</div>

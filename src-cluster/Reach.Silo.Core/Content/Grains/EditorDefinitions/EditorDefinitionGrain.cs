@@ -18,6 +18,7 @@ public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition
         await Raise(new EditorDefinitionCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Name = command.Name,
+            Slug = command.Slug,
             EditorType = command.EditorType
         });
 

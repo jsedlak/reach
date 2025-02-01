@@ -12,7 +12,7 @@ public class FieldDefinitionCreatedEvent : BaseFieldDefinitionEvent
 
     [Id(0)] public string Name { get; set; } = null!;
 
-    [Id(1)] public string Key { get; set; } = null!;
+    [Id(1)] public string Slug { get; set; } = null!;
 
     [Id(2)] public string? Group { get; set; }
 

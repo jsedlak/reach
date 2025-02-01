@@ -1,5 +1,6 @@
 ﻿using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Views;
+using Reach.Platform.Providers;
 using Reach.Platform.ServiceModel;
 using Reach.Security;
 using Tazor.Components.Layout;
@@ -9,12 +10,17 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 [TenantRequired]
 public partial class FieldDefinitionListingPage : ContentBasePage
 {
+    private readonly IContentContextProvider _contentContextProvider;
     private IEnumerable<FieldDefinitionView> _fieldDefinitions = [];
 
     private DialogContext<CreateFieldDefinitionCommand> _createContext = new(() => { });
 
-    public FieldDefinitionListingPage(IFieldDefinitionService fieldDefinitionService)
+    public FieldDefinitionListingPage(
+        IContentContextProvider contentContextProvider,
+        IFieldDefinitionService fieldDefinitionService)
     {
+        _contentContextProvider = contentContextProvider;
+        
         FieldDefinitionService = fieldDefinitionService;
 
         _createContext = new(StateHasChanged);

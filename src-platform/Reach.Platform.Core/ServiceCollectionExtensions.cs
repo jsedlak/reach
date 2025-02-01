@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Reach.Platform.Providers;
 using Reach.Platform.ServiceModel;
 using Reach.Platform.Services;
 
@@ -12,7 +13,15 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICommandClient, DefaultCommandClient>();
         
         services.AddScoped<IGraphQueryBuilder, DefaultGraphQueryBuilder>();
-        
+
+        services.AddHttpServices();
+        services.AddContextProviders();
+
+        return services;
+    }
+
+    private static IServiceCollection AddHttpServices(this IServiceCollection services)
+    {
         services.AddScoped<IMembershipService, HttpMembershipService>();
         services.AddScoped<IOrganizationService, HttpOrganizationService>();
         services.AddScoped<IEditorService, HttpEditorService>();
@@ -23,5 +32,11 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-    
+
+    private static IServiceCollection AddContextProviders(this IServiceCollection services)
+    {
+        services.AddScoped<IContentContextProvider, ContentContextProvider>();
+
+        return services;
+    }
 }

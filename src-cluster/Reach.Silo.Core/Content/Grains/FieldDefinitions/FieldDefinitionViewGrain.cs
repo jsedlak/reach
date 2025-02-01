@@ -47,7 +47,7 @@ public class FieldDefinitionViewGrain : SubscribedViewGrain<BaseFieldDefinitionE
         }
 
         result.Name = @event.Name;
-        result.Key = @event.Key;
+        result.Slug = @event.Slug;
         result.EditorDefinitionId = @event.EditorDefinitionId;
         result.EditorDefinition = await _editorDefinitionReadRepository.Get(
             @event.OrganizationId,

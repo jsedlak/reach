@@ -39,6 +39,7 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
         }
 
         result.Name = @event.Name;
+        result.Slug = @event.Slug;
         result.EditorType = @event.EditorType;
 
         await _editorDefinitionViewWriteRepository.Upsert(result);
