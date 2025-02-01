@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Reach.Cqrs;
 using Reach.Membership.ApiModel;
 using Reach.Security;
+using Reach.Silo.Membership.GrainModel;
 using Reach.Silo.Membership.ServiceModel;
 
 namespace Reach.Silo.Host.Controllers;
@@ -12,10 +13,14 @@ namespace Reach.Silo.Host.Controllers;
 public class OrganizationsController : Controller
 {
     private readonly IOrganizationService _organizationService;
+    private readonly IClusterClient _clusterClient;
 
-    public OrganizationsController(IOrganizationService organizationService)
+    public OrganizationsController(
+        IOrganizationService organizationService,
+        IClusterClient clusterClient)
     {
         _organizationService = organizationService;
+        _clusterClient = clusterClient;
     }
 
     [HttpPost]
@@ -32,14 +37,21 @@ public class OrganizationsController : Controller
             .GetOrganizationsForUserAsync(User.GetIdentifierClaim());
 
         var org = orgs.First(m => m.Slug == request.OrganizationSlug);
+        var hubId = Guid.NewGuid();
 
         await _organizationService.CreateHub(
-            Guid.NewGuid(),
+            hubId,
             org.Id,
             request.HubName,
             request.HubSlug,
             ""
         );
+
+        var mgmtGrain = _clusterClient.GetGrain<IHubManagementGrain>(
+            $"{org.Id}/{hubId}"
+        );
+
+        await mgmtGrain.Initialize();
 
         return CommandResponse.Success();
     }

@@ -51,4 +51,6 @@ public partial class ContentSublayout : ComponentBase
 
     [Inject]
     protected NavigationManager Navigation { get; set; } = null!;
+
+    [CascadingParameter(Name = "IsReady")] public bool IsReady { get; set; }
 }

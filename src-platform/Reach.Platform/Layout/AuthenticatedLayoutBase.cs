@@ -19,6 +19,7 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
     private Guid? _currentHubId = Guid.Empty;
 
     private bool _isLoading = false;
+    private bool _isReady = false;
 
     public AuthenticatedLayoutBase(
         NavigationManager navigation, 
@@ -57,6 +58,7 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         Console.WriteLine("Initializing organizations...");
         
         _isLoading = true;
+        _isReady = false;
         StateHasChanged();
 
         var settings = await _membershipService.GetAccountSettings();
@@ -77,6 +79,9 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         {
             if (settings.SkipsOnboarding || skip)
             {
+                _isReady = true;
+                StateHasChanged();
+                
                 return;
             }
 
@@ -85,6 +90,9 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
         else
         {
             await RefreshOrgHubView();
+
+            _isReady = true;
+            StateHasChanged();
         }
     }
 
@@ -148,6 +156,8 @@ public abstract class AuthenticatedLayoutBase : LayoutComponentBase
     protected NavigationManager Navigation => _navigation;
     
     protected bool IsLoading => _isLoading;
+    
+    protected bool IsReady => _isReady;
     
     protected IEnumerable<AvailableOrganizationView>? Organizations => _organizations;
 }

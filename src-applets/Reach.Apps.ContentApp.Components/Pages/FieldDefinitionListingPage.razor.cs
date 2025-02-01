@@ -11,7 +11,6 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 public partial class FieldDefinitionListingPage : ContentBasePage
 {
     private readonly IContentContextProvider _contentContextProvider;
-    private IEnumerable<FieldDefinitionView> _fieldDefinitions = [];
 
     private DialogContext<CreateFieldDefinitionCommand> _createContext = new(() => { });
 
@@ -39,10 +38,10 @@ public partial class FieldDefinitionListingPage : ContentBasePage
 
     private async Task RefreshData()
     {
-        if (CurrentOrganization is not null && CurrentHub is not null)
-        {
-            _fieldDefinitions = await FieldDefinitionService.GetFieldDefinitions(CurrentOrganization.Id, CurrentHub.Id);
-        }
+        await _contentContextProvider.Refresh(
+            CurrentOrganizationId.GetValueOrDefault(),
+            CurrentHubId.GetValueOrDefault()
+        );
     }
 
     private Task OnBeginCreateClicked()
