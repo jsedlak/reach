@@ -2,6 +2,20 @@
 
 public static class TypeExtensions
 {
+    public static bool Implements<TInterface>(this Type type)
+    {
+        return Implements(type, typeof(TInterface));
+    }
+
+    public static bool Implements(this Type type, Type interfaceType)
+    {
+        if (!interfaceType.IsInterface)
+        {
+            return true;
+        }
+
+        return type.GetInterfaces().Any(i => i == interfaceType);
+    }
     public static bool IsEnumerableType(this Type type)
     {
         return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);

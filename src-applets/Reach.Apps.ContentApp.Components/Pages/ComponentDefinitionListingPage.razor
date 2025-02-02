@@ -12,33 +12,18 @@
         </Button>
     </Toolbar>
     <Body>
-        @{
-            IEnumerable<Field> fields = [
-            new Field {
-        Id = Guid.NewGuid(),
-        Name = "Test field 1"
-        },
-        new Field {
-        Id = Guid.NewGuid(),
-        Name = "Test field 2"
-        },
-        new Field {
-        Id = Guid.NewGuid(),
-        Name = "Test field 3"
-        },
-        new Field {
-        Id = Guid.NewGuid(),
-        Name = "Test field 4"
-        },
-        ];
-        }
         <TemplatedGrid Items="@_componentDefinitions">
+            <ColumnTemplate>
+                <Header>Id</Header>
+                <Cell>
+                    <ShortGuid Value="@context.Id" />
+                </Cell>
+            </ColumnTemplate>
             <ColumnTemplate>
                 <Header>Name</Header>
                 <Cell>
                     <a class="cursor-pointer" @onclick="@(() => { _isEditPaneOpen = true; StateHasChanged(); })">
-                        <p class="underline">@context.Name</p>
-                        <p class="text-sm opacity-75">@context.Id</p>
+                        @context.Name
                     </a>
                 </Cell>
             </ColumnTemplate>
@@ -54,16 +39,6 @@
             </ColumnTemplate>
         </TemplatedGrid>
 
-        <OverPanel @bind-IsOpen="_isEditPaneOpen">
-
-            <DraggableList Items="@fields" Equivalent="@((a,b) => a.Id == b.Id)">
-                <ItemTemplate>
-                    <p>@context.Name</p>
-                    <p class="text-sm opacity-50">@context.Id.ToString()</p>
-                </ItemTemplate>
-            </DraggableList>
-        </OverPanel>
-
         <Dialog Title="Create Component Definition" @bind-IsVisible="@_createContext.IsVisible">
             <Content>
                 @if (_createContext.IsWaiting)
@@ -72,20 +47,8 @@
                 }
                 else
                 {
-                    <div class="mb-3">
-                        <Label>Name</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                    </div>
-
-                    <div class="mb-3">
-                        <Label>Slug</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
-                    </div>
-
-                    <div class="mb-3">
-                        <Label>Field Definition</Label>
-                        <FieldDefinitionSelector />
-                    </div>
+                    <NameAndSlugEditor @bind-Name="@_createContext.TentativeModel.Name"
+                                       @bind-Slug="@_createContext.TentativeModel.Slug" />
                 }
             </Content>
             <Footer>

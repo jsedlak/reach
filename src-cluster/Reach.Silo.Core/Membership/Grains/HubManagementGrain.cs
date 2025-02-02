@@ -1,12 +1,35 @@
-﻿using Reach.Content.Commands.EditorDefinitions;
+﻿using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Reach.Content.Commands.EditorDefinitions;
 using Reach.Cqrs;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Membership.GrainModel;
+using Reach.Silo.Membership.Migrations;
+using Reach.Silo.Migrations;
 
 namespace Reach.Silo.Membership.Grains;
 
 internal class HubManagementGrain : Grain, IHubManagementGrain
 {
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IMigrationService _migrationService;
+    private readonly ILogger<IHubManagementGrain> _logger;
+
+    private readonly IPersistentState<MigrationState> _migrationState;
+
+    public HubManagementGrain(
+        [PersistentState("migrationState")] IPersistentState<MigrationState> migrationState,
+        IMigrationService migrationService,
+        IServiceProvider serviceProvider, 
+        ILogger<IHubManagementGrain> logger)
+    {
+        _migrationState = migrationState;
+        _migrationService = migrationService;
+        _serviceProvider = serviceProvider;
+        _logger = logger;
+    }
+
     private (Guid organizationId, Guid hubId) GetIds()
     {
         var keys = this.GetPrimaryKeyString()
@@ -21,17 +44,38 @@ internal class HubManagementGrain : Grain, IHubManagementGrain
     public async Task<CommandResponse> Initialize()
     {
         var identifier = GetIds();
-        var aggId = new AggregateId(identifier.organizationId, identifier.hubId, Guid.NewGuid());
 
-        var editorDefinition = this.GrainFactory.GetGrain<IEditorDefinitionGrain>(aggId);
+        var migrationBaseType = typeof(Migration_2025_02_01_Initial);
 
-        await editorDefinition.Create(new CreateEditorDefinitionCommand(
-            aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
+        var migrations = _migrationService.GetMigrations(
+            migrationBaseType.Assembly,
+            migrationBaseType.Namespace
+        );
+
+        foreach(var migration in migrations)
         {
-            Name = "TextBox",
-            Slug = "textbox",
-            EditorType = "Reach.Editors.Text.TextEditor"
-        });
+            var migrationInstance = ActivatorUtilities.CreateInstance(
+                _serviceProvider,
+                migration.Type
+            );
+
+            if(migrationInstance is null)
+            {
+                _logger.LogError($"Could not create an instance of the {migration.Type.Name} migration class");
+                continue;
+            }
+
+            if(migrationInstance is IMigration convertedInstance)
+            {
+                await convertedInstance.Forwards(
+                    identifier.organizationId,
+                    identifier.hubId
+                );
+
+                _migrationState.State.Version = migration.Version;
+                await _migrationState.WriteStateAsync();
+            }
+        }
 
         return CommandResponse.Success();
     }
