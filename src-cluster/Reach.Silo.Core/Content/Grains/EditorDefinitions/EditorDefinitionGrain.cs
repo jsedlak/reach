@@ -1,6 +1,9 @@
-﻿using Reach.Content.Commands.EditorDefinitions;
+﻿using Microsoft.Extensions.Options;
+using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Events.EditorDefinitions;
+using Reach.Content.Events.FieldDefinitions;
 using Reach.Cqrs;
+using Reach.Silo.Configuration;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.Model;
 
@@ -8,9 +11,36 @@ namespace Reach.Silo.Content.Grains.EditorDefinitions;
 
 public class EditorDefinitionGrain : StreamingEventSourcedGrain<EditorDefinition, BaseEditorDefinitionEvent>, IEditorDefinitionGrain
 {
-    public EditorDefinitionGrain()
+    private readonly ViewManagementOptions _viewOptions;
+
+    public EditorDefinitionGrain(IOptions<ViewManagementOptions> viewOptions)
         : base(GrainConstants.EditorDefinition_EventStream)
     {
+        _viewOptions = viewOptions.Value;
+    }
+
+    protected override async Task Raise(BaseEditorDefinitionEvent @event)
+    {
+        if (!_viewOptions.UseDirectCommunication)
+        {
+            await base.Raise(@event);
+            return;
+        }
+
+        var viewGrain = GrainFactory.GetGrain<IEditorDefinitionViewGrain>(this.GetPrimaryKeyString());
+
+        switch (@event)
+        {
+            case EditorDefinitionCreatedEvent createEvent:
+                await viewGrain.Handle(createEvent);
+                break;
+            case EditorDefinitionParametersSetEvent paramSetEvent:
+                await viewGrain.Handle(paramSetEvent);
+                break;
+            case EditorDefinitionDeletedEvent deleteEvent:
+                await viewGrain.Handle(deleteEvent);
+                break;
+        }
     }
 
     public async Task<CommandResponse> Create(CreateEditorDefinitionCommand command)
