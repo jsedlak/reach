@@ -10,6 +10,7 @@ using Reach.Silo.Host.Queries;
 using Reach.Silo;
 using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
+using Reach.Silo.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ builder.AddMongoDBClient("reach-mongo");
 builder.AddPostgresMembership("membership-database");
 
 // Add our view repositories
+builder.Services.UseDirectEventCommunication();
 builder.Services.AddMigrations();
 builder.Services.AddMongoRepositories("reach");
 builder.Services.AddScoped<IEditorViewReadRepository, StaticEditorViewReadRepository>();

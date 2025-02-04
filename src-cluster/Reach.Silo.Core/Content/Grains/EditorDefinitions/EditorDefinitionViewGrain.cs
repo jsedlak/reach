@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Reach.Content.Events.EditorDefinitions;
+using Reach.Silo.Configuration;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.ServiceModel;
 
@@ -11,7 +13,8 @@ public class EditorDefinitionViewGrain : SubscribedViewGrain<BaseEditorDefinitio
     private readonly IEditorDefinitionViewReadRepository _editorDefinitionViewReadRepository;
     private readonly IEditorDefinitionViewWriteRepository _editorDefinitionViewWriteRepository;
 
-    public EditorDefinitionViewGrain(IEditorDefinitionViewReadRepository editorDefinitionViewReadRepository,
+    public EditorDefinitionViewGrain(
+        IEditorDefinitionViewReadRepository editorDefinitionViewReadRepository,
         IEditorDefinitionViewWriteRepository editorDefinitionViewWriteRepository,
         ILogger<EditorDefinitionViewGrain> logger)
         : base(logger)

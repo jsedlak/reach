@@ -48,7 +48,8 @@ public abstract class MembershipMigrationBase : IMigration
 
         if (parameters is not null && parameters.Any())
         {
-            var paramResponse = await fieldDefinition.SetEditorParameters(new SetFieldDefinitionEditorParametersCommand
+            var paramResponse = await fieldDefinition.SetEditorParameters(new SetFieldDefinitionEditorParametersCommand(
+                aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
             {
                 EditorParameters = parameters.ToArray()
             });

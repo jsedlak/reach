@@ -19,7 +19,7 @@ public abstract class StreamingEventSourcedGrain<TState, TEvent> : EventSourcedG
     {
         var streamProvider = this.GetStreamProvider("StreamProvider");
 
-        var myId = this.GetGrainId().ToString();
+        var myId = this.GetPrimaryKeyString();
         var streamId = StreamId.Create(_streamId, myId);
 
         // grab a ref to the stream using the stream id
