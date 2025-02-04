@@ -8,17 +8,17 @@ The following structures makeup the core data of the platform, representing the 
 
 ### Editor Definition
 
-An *Editor Definition* is a basic building block of the Content Platform and creates a link between the ability to display a type of an editor and its underlying primitive.
+An _Editor Definition_ is a basic building block of the Content Platform and creates a link between the ability to display a type of an editor and its underlying primitive.
 
 For instance, if the underlying Blazor primitive is a component, say `Reach.Components.Editors.TextBox`, responsible for rendering a text box and reporting changes back to the system. It may have some parameters such as whether or not a value is required, if there is a maximum length, or if there is a particular required format.
 
 An Editor Definition, `TextBox`, represents an in-platform link to that primitive, exposing the parameters as appropiate.
 
-In general, there will be a fixed set of *Editor Definition* items within the platform, generally defined by the number of underlying primitive components.
+In general, there will be a fixed set of _Editor Definition_ items within the platform, generally defined by the number of underlying primitive components.
 
 ### Field Definition
 
-Whereas an Editor Definition is a link between a primitive and the platform, a *Field Definition* is a reusable application of that primitive's representation.
+Whereas an Editor Definition is a link between a primitive and the platform, a _Field Definition_ is a reusable application of that primitive's representation.
 
 For instance, if we consider the Editor Definition, `TextBox`, then we may have Field Definitions such as `Text Field`, `Number Field`, `Email Field`, and so on. These Field Definitions utilize the parameters of the Editor Definition to shape how the control behaves into a particular way.
 
@@ -42,7 +42,7 @@ As another example, a Hero Component Definition would include fields such as Bac
 
 In either case, the Component Definition declares a reusable structure that may be married with data (as a Component) to build content for a site or application.
 
-### Component
+### Components
 
 A Component is how content is ultimately represented in Reach and is the struture with which Content Editors will spend most of their time.
 
