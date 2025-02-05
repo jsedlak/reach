@@ -3,9 +3,9 @@ using Reach.Content.Model;
 namespace Reach.Content.Events.ComponentDefinitions;
 
 [GenerateSerializer]
-public class FieldAddedToComponentDefinition : BaseComponentDefinitionEvent
+public class FieldAddedToComponentDefinitionEvent : BaseComponentDefinitionEvent
 {
-    public FieldAddedToComponentDefinition(Guid organizationId, Guid hubId, Guid aggregateId)
+    public FieldAddedToComponentDefinitionEvent(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {
     }

@@ -22,7 +22,7 @@
             <ColumnTemplate>
                 <Header>Name</Header>
                 <Cell>
-                    <a class="cursor-pointer" @onclick="@(() => { _isEditPaneOpen = true; StateHasChanged(); })">
+                    <a class="cursor-pointer" @onclick="@(() => BeginEdit(context))">
                         @context.Name
                     </a>
                 </Cell>
@@ -56,5 +56,37 @@
                 <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
             </Footer>
         </Dialog>
+
+        <Flyout Placement="PanelPlacement.Right"
+                Title=@($"{_editContext?.Name} - Component Definition")
+                @bind-IsVisible="@_isEditFlyoutVisible">
+            <Content>
+                <div class="">
+                    <NameAndSlugEditor @bind-Name="_addFieldCommand.Name"
+                                       @bind-Slug="_addFieldCommand.Slug" />
+
+                    <div class="mb-3">
+                        <FieldDefinitionSelector @bind-SelectedFieldDefinitionId="@_addFieldCommand.FieldDefinitionId" />
+                    </div>
+
+                    <div class="mb-3">
+                        <Button Type="ButtonType.Primary" Block Clicked="@OnFieldAdded">Add</Button>
+                    </div>
+                </div>
+                @if (_editContext != null && _editContext.Fields.Any())
+                {
+                    <div class="mb-3">
+                        <DraggableList 
+                            TItem="Field" 
+                            ItemsChanged="@((items) => { _editContext.Fields = items.ToArray(); StateHasChanged(); })"
+                            Items=@_editContext.Fields>
+                            <ItemTemplate>
+                                @context.Name
+                            </ItemTemplate>
+                        </DraggableList>
+                    </div>
+                }
+            </Content>
+        </Flyout>
     </Body>
 </ContentSublayout>

@@ -20,6 +20,11 @@ public class HttpComponentDefinitionService : BaseContentService, IComponentDefi
         return await CommandClient.Execute(Endpoint, command);
     }
 
+    public async Task<CommandResponse> AddFieldToComponentDefinition(AddFieldToComponentDefinitionCommand command)
+    {
+        return await CommandClient.Execute(Endpoint, command);
+    }
+
     public async Task<IEnumerable<ComponentDefinitionView>> GetComponentDefinitions(
         Guid organizationId, Guid hubId, string? query = null)
     {

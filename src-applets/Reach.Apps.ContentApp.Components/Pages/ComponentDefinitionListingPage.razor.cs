@@ -1,7 +1,7 @@
 using Reach.Content.Commands.ComponentDefinitions;
+using Reach.Content.Model;
 using Reach.Content.Views;
 using Reach.Platform.ServiceModel;
-using Reach.Platform.Services;
 using Tazor.Components.Layout;
 
 namespace Reach.Apps.ContentApp.Components.Pages;
@@ -13,7 +13,10 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
-    private bool _isEditPaneOpen;
+    private ComponentDefinitionView? _editContext = new();
+    private bool _isEditFlyoutVisible = false;
+
+    private AddFieldToComponentDefinitionCommand _addFieldCommand = new();
 
     public ComponentDefinitionListingPage(IComponentDefinitionService componentDefinitionService)
     {
@@ -43,7 +46,8 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
             ) ?? [];
         }
     }
-    
+
+    #region Creating
     private Task OnBeginCreateClicked()
     {
         return _createContext.Open(new (
@@ -72,4 +76,30 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
             return (result.IsSuccess, []);
         });
     }
+    #endregion
+
+    #region Editing
+    private void BeginEdit(ComponentDefinitionView model)
+    {
+        _addFieldCommand = new(
+            CurrentOrganizationId.GetValueOrDefault(),
+            CurrentHubId.GetValueOrDefault(),
+            model.Id
+        );
+
+        _editContext = model;
+        _isEditFlyoutVisible = true; 
+        StateHasChanged();
+    }
+
+    private async Task OnFieldAdded()
+    {
+        await _componentDefinitionService.AddFieldToComponentDefinition(_addFieldCommand);
+
+        _editContext = new();
+        _isEditFlyoutVisible = false;
+
+        await RefreshData();
+    }
+    #endregion
 }

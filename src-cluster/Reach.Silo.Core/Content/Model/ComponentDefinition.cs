@@ -29,7 +29,7 @@ public class ComponentDefinition
         IsDeleted = true;
     }
 
-    public void Apply(FieldAddedToComponentDefinition @event)
+    public void Apply(FieldAddedToComponentDefinitionEvent @event)
     {
         Fields =
         [

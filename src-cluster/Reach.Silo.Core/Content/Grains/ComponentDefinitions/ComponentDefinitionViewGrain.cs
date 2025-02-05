@@ -66,7 +66,7 @@ public class ComponentDefinitionViewGrain : SubscribedViewGrain<BaseComponentDef
         throw new NotImplementedException();
     }
 
-    public async Task Handle(FieldAddedToComponentDefinition @event)
+    public async Task Handle(FieldAddedToComponentDefinitionEvent @event)
     {
         var result = await _componentDefinitionViewReadRepository.Get(
             @event.OrganizationId,

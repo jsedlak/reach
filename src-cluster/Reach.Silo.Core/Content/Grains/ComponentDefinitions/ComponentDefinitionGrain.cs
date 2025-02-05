@@ -1,18 +1,57 @@
-﻿using Reach.Content.Commands.ComponentDefinitions;
+﻿using Microsoft.Extensions.Options;
+using Reach.Content.Commands.ComponentDefinitions;
 using Reach.Content.Events.ComponentDefinitions;
 using Reach.Content.Model;
 using Reach.Cqrs;
+using Reach.Silo.Configuration;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.Model;
+using System.ComponentModel;
 
 namespace Reach.Silo.Content.Grains.ComponentDefinitions;
 
 public sealed class ComponentDefinitionGrain :
     StreamingEventSourcedGrain<ComponentDefinition, BaseComponentDefinitionEvent>, IComponentDefinitionGrain
 {
-    public ComponentDefinitionGrain()
+    private readonly ViewManagementOptions _viewOptions;
+
+    public ComponentDefinitionGrain(IOptions<ViewManagementOptions> viewOptions)
         : base(GrainConstants.ComponentDefinition_EventStream)
     {
+        _viewOptions = viewOptions.Value;
+    }
+
+    protected override async Task Raise(BaseComponentDefinitionEvent @event)
+    {
+        if (!_viewOptions.UseDirectCommunication)
+        {
+            await base.Raise(@event);
+            return;
+        }
+
+        var viewGrain = GrainFactory.GetGrain<IComponentDefinitionViewGrain>(this.GetPrimaryKeyString());
+
+        switch (@event)
+        {
+            case ComponentDefinitionCreatedEvent createEvent:
+                await viewGrain.Handle(createEvent);
+                break;
+            case ComponentDefinitionDeletedEvent deleteEvent:
+                await viewGrain.Handle(deleteEvent);
+                break;
+            case ComponentDefinitionRenamedEvent renameEvent:
+                await viewGrain.Handle(renameEvent);
+                break;
+            case FieldAddedToComponentDefinitionEvent fieldAddedEvent:
+                await viewGrain.Handle(fieldAddedEvent);
+                break;
+            case FieldRemovedFromComponentDefinitionEvent fieldRemovedEvent:
+                await viewGrain.Handle(fieldRemovedEvent);
+                break;
+            case ComponentDefinitionRendererSetEvent rendererEvent:
+                await viewGrain.Handle(rendererEvent);
+                break;
+        }
     }
 
     public override Task OnActivateAsync(CancellationToken cancellationToken)
@@ -26,7 +65,7 @@ public sealed class ComponentDefinitionGrain :
 
     public async Task<CommandResponse> AddField(AddFieldToComponentDefinitionCommand command)
     {
-        await Raise(new FieldAddedToComponentDefinition(command.OrganizationId, command.HubId, command.AggregateId)
+        await Raise(new FieldAddedToComponentDefinitionEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {
             Field = new Field()
             {

@@ -10,7 +10,7 @@ public interface IComponentDefinitionViewGrain : IGrainWithStringKey
 
     Task Handle(ComponentDefinitionRendererSetEvent @event);
 
-    Task Handle(FieldAddedToComponentDefinition @event);
+    Task Handle(FieldAddedToComponentDefinitionEvent @event);
 
     Task Handle(FieldRemovedFromComponentDefinitionEvent @event);
 

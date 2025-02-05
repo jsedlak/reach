@@ -1,7 +1,10 @@
-﻿using Reach.Content.Commands.Components;
+﻿using Microsoft.Extensions.Options;
+using Reach.Content.Commands.Components;
+using Reach.Content.Events.ComponentDefinitions;
 using Reach.Content.Events.Components;
 using Reach.Content.Model;
 using Reach.Cqrs;
+using Reach.Silo.Configuration;
 using Reach.Silo.Content.GrainModel;
 using Reach.Silo.Content.Model;
 
@@ -10,9 +13,39 @@ namespace Reach.Silo.Content.Grains.Components;
 public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseComponentEvent>,
     IComponentGrain
 {
-    public ComponentGrain()
+    private readonly ViewManagementOptions _viewOptions;
+
+    public ComponentGrain(IOptions<ViewManagementOptions> viewOptions)
         : base(GrainConstants.Component_EventStream)
     {
+        _viewOptions = viewOptions.Value;
+    }
+
+    protected override async Task Raise(BaseComponentEvent @event)
+    {
+        if (!_viewOptions.UseDirectCommunication)
+        {
+            await base.Raise(@event);
+            return;
+        }
+
+        var viewGrain = GrainFactory.GetGrain<IComponentViewGrain>(this.GetPrimaryKeyString());
+
+        switch (@event)
+        {
+            case ComponentCreatedEvent createEvent:
+                await viewGrain.Handle(createEvent);
+                break;
+            case ComponentDeletedEvent deleteEvent:
+                await viewGrain.Handle(deleteEvent);
+                break;
+            case ComponentRenamedEvent renameEvent:
+                await viewGrain.Handle(renameEvent);
+                break;
+            case ComponentFieldValueSetEvent fieldValueSetEvent:
+                await viewGrain.Handle(fieldValueSetEvent);
+                break;
+        }
     }
 
     public async Task<CommandResponse> Create(CreateComponentCommand command)
