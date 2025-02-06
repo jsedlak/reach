@@ -7,12 +7,16 @@ internal class ContentContextProvider : BaseContextProvider, IContentContextProv
 {
     private readonly IEditorDefinitionService _editorDefinitionService;
     private readonly IFieldDefinitionService _fieldDefinitionService;
+    private readonly IComponentDefinitionService _componentDefinitionService;
 
-    public ContentContextProvider(IEditorDefinitionService editorDefinitionService,
-        IFieldDefinitionService fieldDefinitionService)
+    public ContentContextProvider(
+        IEditorDefinitionService editorDefinitionService,
+        IFieldDefinitionService fieldDefinitionService,
+        IComponentDefinitionService componentDefinitionService)
     {
         _editorDefinitionService = editorDefinitionService;
         _fieldDefinitionService = fieldDefinitionService;
+        _componentDefinitionService = componentDefinitionService;
     }
 
     public override async Task Refresh(Guid organizationId, Guid hubId)
@@ -27,8 +31,15 @@ internal class ContentContextProvider : BaseContextProvider, IContentContextProv
             hubId
         );
 
+        ComponentDefinitions = await _componentDefinitionService.GetComponentDefinitions(
+            organizationId,
+            hubId
+        );
+
         OnContextChanged();
     }
+
+    public IEnumerable<ComponentDefinitionView> ComponentDefinitions { get; private set; } = [];
 
     public IEnumerable<EditorDefinitionView> EditorDefinitions { get; private set; } = [];
 

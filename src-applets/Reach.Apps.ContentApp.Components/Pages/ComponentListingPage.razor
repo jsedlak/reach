@@ -46,16 +46,15 @@
                 }
                 else
                 {
-                    <div class="mb-3">
-                        <Label>Name</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Name" />
-                    </div>
+                    <NameAndSlugEditor @bind-Name="@_createContext.TentativeModel.Name"
+                                       @bind-Slug="@_createContext.TentativeModel.Slug" />
 
                     <div class="mb-3">
-                        <Label>Slug</Label>
-                        <TextBox @bind-Value="@_createContext.TentativeModel.Slug" />
+                        <Label>Component Definition</Label>
+                        <ComponentDefinitionSelector />
                     </div>
                 }
+
             </Content>
             <Footer>
                 <Button Clicked="@OnCancelCreateClicked" Type="ButtonType.DefaultOutline">Cancel</Button>

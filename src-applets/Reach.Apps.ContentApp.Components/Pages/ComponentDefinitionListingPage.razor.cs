@@ -1,6 +1,6 @@
 using Reach.Content.Commands.ComponentDefinitions;
-using Reach.Content.Model;
 using Reach.Content.Views;
+using Reach.Platform.Providers;
 using Reach.Platform.ServiceModel;
 using Tazor.Components.Layout;
 
@@ -8,18 +8,21 @@ namespace Reach.Apps.ContentApp.Components.Pages;
 
 public partial class ComponentDefinitionListingPage : ContentBasePage
 {
+    private readonly IContentContextProvider _contentContextProvider;
     private readonly IComponentDefinitionService _componentDefinitionService;
-    private IEnumerable<ComponentDefinitionView> _componentDefinitions = [];
 
     private DialogContext<CreateComponentDefinitionCommand> _createContext = new(() => { });
 
-    private ComponentDefinitionView? _editContext = new();
+    private ComponentDefinitionView _editContext = new();
     private bool _isEditFlyoutVisible = false;
 
     private AddFieldToComponentDefinitionCommand _addFieldCommand = new();
 
-    public ComponentDefinitionListingPage(IComponentDefinitionService componentDefinitionService)
+    public ComponentDefinitionListingPage(
+        IContentContextProvider contentContextProvider,
+        IComponentDefinitionService componentDefinitionService)
     {
+        _contentContextProvider = contentContextProvider;
         _componentDefinitionService = componentDefinitionService;
         
         _createContext = new(StateHasChanged);
@@ -32,6 +35,7 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
         if (firstRender)
         {
             await RefreshData();
+
             StateHasChanged();
         }
     }
@@ -40,10 +44,10 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
     {
         if (CurrentOrganization is not null && CurrentHub is not null)
         {
-            _componentDefinitions = await _componentDefinitionService.GetComponentDefinitions(
-                CurrentOrganization.Id, 
-                CurrentHub.Id
-            ) ?? [];
+            await _contentContextProvider.Refresh(
+                CurrentOrganizationId.GetValueOrDefault(),
+                CurrentHubId.GetValueOrDefault()
+            );
         }
     }
 
@@ -94,12 +98,19 @@ public partial class ComponentDefinitionListingPage : ContentBasePage
 
     private async Task OnFieldAdded()
     {
-        await _componentDefinitionService.AddFieldToComponentDefinition(_addFieldCommand);
-
-        _editContext = new();
-        _isEditFlyoutVisible = false;
+        await _componentDefinitionService
+            .AddFieldToComponentDefinition(_addFieldCommand);
 
         await RefreshData();
+
+        _editContext = _contentContextProvider.ComponentDefinitions
+            .First(m => m.Id == _editContext.Id);
+
+        _addFieldCommand = new(
+            CurrentOrganizationId.GetValueOrDefault(),
+            CurrentHubId.GetValueOrDefault(),
+            _editContext.Id
+        );
     }
     #endregion
 }

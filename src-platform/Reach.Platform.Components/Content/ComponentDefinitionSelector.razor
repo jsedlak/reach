@@ -1,0 +1,15 @@
+﻿@inherits BaseReachComponent
+@if (IsReady)
+{
+    <select @onchange="@OnComponentDefinitionChanged"
+            class="@_themeManager.Current.Forms.SelectInput">
+        <option value="">Please select a component definition...</option>
+        @foreach (var componentDefinition in _contentContextProvider.ComponentDefinitions)
+        {
+            <option selected="@(SelectedComponentDefinitionId == componentDefinition.Id)"
+                    value="@componentDefinition.Id">
+                @componentDefinition.Name
+            </option>
+        }
+    </select>
+}
