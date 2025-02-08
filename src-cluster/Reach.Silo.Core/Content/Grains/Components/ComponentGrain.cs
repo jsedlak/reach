@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Reach.Content.Commands.Components;
-using Reach.Content.Events.ComponentDefinitions;
 using Reach.Content.Events.Components;
 using Reach.Content.Model;
 using Reach.Cqrs;
@@ -14,11 +15,15 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
     IComponentGrain
 {
     private readonly ViewManagementOptions _viewOptions;
+    private readonly ILogger<IComponentGrain> _logger;
 
-    public ComponentGrain(IOptions<ViewManagementOptions> viewOptions)
+    public ComponentGrain(
+        IOptions<ViewManagementOptions> viewOptions, 
+        ILogger<IComponentGrain> logger)
         : base(GrainConstants.Component_EventStream)
     {
         _viewOptions = viewOptions.Value;
+        _logger = logger;
     }
 
     protected override async Task Raise(BaseComponentEvent @event)
@@ -56,6 +61,8 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
 
         var queryExt = defn.AsReference<IComponentDefinitionQueryExtension>();
         var fields = await queryExt.GetFields();
+
+        _logger.LogInformation($"Fields Found: {fields.Count()}");
 
         await Raise(new ComponentCreatedEvent(command.OrganizationId, command.HubId, command.AggregateId)
         {

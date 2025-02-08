@@ -4,7 +4,7 @@
     <Toolbar>
         <Button Clicked="@OnBeginCreateClicked" Type="ButtonType.PrimaryOutline">
             @HeroIcons.SquaresPlus("inline-block mr-2")
-            <span>New Definition</span>
+            <span>New Component</span>
         </Button>
         <Button Clicked="@RefreshData" Type="ButtonType.PrimaryOutline">
             @HeroIcons.ArrowUturnDown("inline-block")
@@ -29,7 +29,21 @@
 
             <ColumnTemplate>
                 <Header>Definition</Header>
-                <Cell>@context.DefinitionId</Cell>
+                <Cell>
+                    @{
+                        var defn = _contentContextProvider
+                        .ComponentDefinitions
+                        .FirstOrDefault(m => m.Id == context.DefinitionId);
+                    }
+                    @if (defn is null)
+                    {
+                        <span>Unknown Definition</span>
+                    }
+                    else
+                    {
+                        <span>@defn.Name</span>
+                    }
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -51,7 +65,7 @@
 
                     <div class="mb-3">
                         <Label>Component Definition</Label>
-                        <ComponentDefinitionSelector />
+                        <ComponentDefinitionSelector @bind-SelectedComponentDefinitionId="@_createContext.TentativeModel.DefinitionId" />
                     </div>
                 }
 

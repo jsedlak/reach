@@ -44,7 +44,7 @@ builder.AddMongoDBClient("reach-mongo");
 builder.AddPostgresMembership("membership-database");
 
 // Add our view repositories
-builder.Services.UseDirectEventCommunication();
+// builder.Services.UseDirectEventCommunication();
 builder.Services.AddMigrations();
 builder.Services.AddMongoRepositories("reach");
 builder.Services.AddScoped<IEditorViewReadRepository, StaticEditorViewReadRepository>();
