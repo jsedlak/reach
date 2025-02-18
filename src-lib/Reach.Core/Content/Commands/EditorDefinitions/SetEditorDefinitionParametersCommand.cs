@@ -10,7 +10,13 @@ public class SetEditorDefinitionParametersCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
-    
+
+    public SetEditorDefinitionParametersCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public SetEditorDefinitionParametersCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

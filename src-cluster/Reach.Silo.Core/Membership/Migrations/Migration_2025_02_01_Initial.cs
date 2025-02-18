@@ -28,7 +28,7 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             textEditorDefnId,
             "TextEditor",
             "textEditor",
-            "Reach.Editors.Text.TextEditor",
+            "Reach.Editors.Text.TextEditor, Reach.Editors",
             [
                 ..CreateDefaultParameters(),
                 new EditorParameterDefinition { DisplayName = "Multi-Line", Name = "Multiline", Description = "", Type = EditorParameterType.Boolean },
@@ -43,7 +43,7 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             numberEditorDefnId,
             "NumberEditor",
             "numberEditor",
-            "Reach.Editors.Text.NumberEditor",
+            "Reach.Editors.Text.NumberEditor, Reach.Editors",
             [
                 ..CreateDefaultParameters(),
                 new EditorParameterDefinition { DisplayName = "Decimals", Name = "Decimals", Description = "The number of decimals to allow", Type = EditorParameterType.Number },
@@ -61,7 +61,7 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             booleanEditorDefnId,
             "BooleanEditor",
             "booleanEditor",
-            "Reach.Editors.General.BooleanEditor",
+            "Reach.Editors.General.BooleanEditor, Reach.Editors",
             [
                 ..CreateDefaultParameters()
             ]
@@ -100,6 +100,45 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             "Number",
             "number",
             numberEditorDefnId
+        );
+        #endregion
+
+        #region Hero
+        var heroDefnId = Guid.NewGuid();
+        await CreateComponentDefinition(
+            organizationId,
+            hubId,
+            heroDefnId,
+            "Hero Carousel",
+            "hero-carousel"
+        );
+
+        await AddFieldToComponentDefinition(
+            organizationId,
+            hubId,
+            heroDefnId,
+            "Title",
+            "title",
+            textFieldDefnId
+        );
+
+        await AddFieldToComponentDefinition(
+            organizationId,
+            hubId,
+            heroDefnId,
+            "Text",
+            "text",
+            textFieldDefnId
+        );
+
+        var heroId = Guid.NewGuid();
+        await CreateComponent(
+            organizationId,
+            hubId,
+            heroId,
+            "Sample Hero Carousel",
+            "sample-hero-carousel",
+            heroDefnId
         );
         #endregion
     }

@@ -16,6 +16,9 @@ public partial class ComponentListingPage : ContentBasePage
 
     private DialogContext<CreateComponentCommand> _createContext = new(() => { });
 
+    private bool _isEditFlyoutVisible;
+    private ComponentView _editContext = new();
+
     public ComponentListingPage(IContentContextProvider contentContextProvider, IComponentService componentService)
     {
         _contentContextProvider = contentContextProvider;
@@ -42,7 +45,8 @@ public partial class ComponentListingPage : ContentBasePage
             _components = await _componentService.GetComponents(CurrentOrganization.Id, CurrentHub.Id);
         }
     }
-    
+
+    #region Creating
     private Task OnBeginCreateClicked()
     {
         return _createContext.Open(new (
@@ -71,4 +75,14 @@ public partial class ComponentListingPage : ContentBasePage
             return (result.IsSuccess, []);
         });
     }
+    #endregion
+
+    #region Editing 
+    private async Task OnBeginEditComponent(ComponentView component)
+    {
+        _editContext = component;
+        _isEditFlyoutVisible = true;
+        StateHasChanged();
+    }
+    #endregion
 }

@@ -10,7 +10,13 @@ public class AddFieldToComponentDefinitionCommand : AggregateCommand
     {
         
     }
-    
+
+    public AddFieldToComponentDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public AddFieldToComponentDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

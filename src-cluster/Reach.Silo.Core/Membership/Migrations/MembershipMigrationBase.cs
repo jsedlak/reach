@@ -1,4 +1,6 @@
 ﻿using Orleans;
+using Reach.Content.Commands.ComponentDefinitions;
+using Reach.Content.Commands.Components;
 using Reach.Content.Commands.EditorDefinitions;
 using Reach.Content.Commands.FieldDefinitions;
 using Reach.Content.Model;
@@ -96,6 +98,72 @@ public abstract class MembershipMigrationBase : IMigration
 
             return paramResponse;
         }
+
+        return createResponse;
+    }
+
+    protected async Task<CommandResponse> CreateComponentDefinition(
+        Guid organizationId,
+        Guid hubId,
+        Guid definitionId,
+        string name,
+        string slug
+    )
+    {
+        var aggId = new AggregateId(organizationId, hubId, definitionId);
+
+        var componentDefn = _grainFactory.GetGrain<IComponentDefinitionGrain>(aggId);
+
+        var createResponse = await componentDefn.Create(new CreateComponentDefinitionCommand(aggId)
+        {
+            Name = name,
+            Slug = slug,
+            ParentId = Guid.Empty
+        });
+
+        return createResponse;
+    }
+
+    protected async Task<CommandResponse> AddFieldToComponentDefinition(
+        Guid organizationId,
+        Guid hubId,
+        Guid definitionId,
+        string name,
+        string slug,
+        Guid fieldDefinitionId)
+    {
+        var aggId = new AggregateId(organizationId, hubId, definitionId);
+
+        var componentDefn = _grainFactory.GetGrain<IComponentDefinitionGrain>(aggId);
+
+        var response = await componentDefn.AddField(new AddFieldToComponentDefinitionCommand(aggId)
+        {
+            Name = name,
+            Slug = slug,
+            FieldDefinitionId = fieldDefinitionId
+        });
+
+        return response;
+    }
+
+    protected async Task<CommandResponse> CreateComponent(
+        Guid organizationId,
+        Guid hubId,
+        Guid componentId,
+        string name,
+        string slug,
+        Guid componentDefinitionId)
+    {
+        var aggId = new AggregateId(organizationId, hubId, componentId);
+
+        var component = _grainFactory.GetGrain<IComponentGrain>(aggId);
+
+        var createResponse = await component.Create(new CreateComponentCommand(aggId)
+        {
+            Name = name,
+            Slug = slug,
+            DefinitionId = componentDefinitionId
+        });
 
         return createResponse;
     }

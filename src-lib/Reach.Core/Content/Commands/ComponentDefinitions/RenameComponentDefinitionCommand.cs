@@ -9,7 +9,13 @@ public class RenameComponentDefinitionCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
-    
+
+    public RenameComponentDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public RenameComponentDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

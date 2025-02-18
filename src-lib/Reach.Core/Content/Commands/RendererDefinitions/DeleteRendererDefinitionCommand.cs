@@ -11,6 +11,12 @@ public class DeleteRendererDefinitionCommand : AggregateCommand
 
     }
 
+    public DeleteRendererDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public DeleteRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

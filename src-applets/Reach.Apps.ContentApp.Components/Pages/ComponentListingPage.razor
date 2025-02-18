@@ -14,12 +14,18 @@
         <TemplatedGrid Items="@_components">
             <ColumnTemplate>
                 <Header>ID</Header>
-                <Cell>@context.Id</Cell>
+                <Cell>
+                    <ShortGuid Value=@context.Id />
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
                 <Header>Name</Header>
-                <Cell>@context.Name</Cell>
+                <Cell>
+                    <a @onclick="@(() => OnBeginEditComponent(context))" class="cursor-pointer">
+                        @context.Name
+                    </a>
+                </Cell>
             </ColumnTemplate>
 
             <ColumnTemplate>
@@ -61,7 +67,7 @@
                 else
                 {
                     <NameAndSlugEditor @bind-Name="@_createContext.TentativeModel.Name"
-                                       @bind-Slug="@_createContext.TentativeModel.Slug" />
+                    @bind-Slug="@_createContext.TentativeModel.Slug" />
 
                     <div class="mb-3">
                         <Label>Component Definition</Label>
@@ -75,5 +81,16 @@
                 <Button Clicked="@OnConfirmCreateClicked" Type="ButtonType.Primary">Create</Button>
             </Footer>
         </Dialog>
+
+        <Flyout Placement="PanelPlacement.Right"
+        Title=@($"{_editContext?.Name} - Component")
+        @bind-IsVisible="@_isEditFlyoutVisible">
+            <Content>
+                @if(_isEditFlyoutVisible && _editContext.Id != Guid.Empty)
+                {
+                    <ComponentEditor Component="@_editContext" />
+                } 
+            </Content>
+        </Flyout>
     </Body>
 </ContentSublayout>

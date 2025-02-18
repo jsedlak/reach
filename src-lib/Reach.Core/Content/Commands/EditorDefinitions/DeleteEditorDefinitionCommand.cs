@@ -9,7 +9,13 @@ public class DeleteEditorDefinitionCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
-    
+
+    public DeleteEditorDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public DeleteEditorDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

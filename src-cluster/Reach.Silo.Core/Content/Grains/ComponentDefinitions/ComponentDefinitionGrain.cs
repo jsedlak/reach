@@ -57,7 +57,7 @@ public sealed class ComponentDefinitionGrain :
     public override Task OnActivateAsync(CancellationToken cancellationToken)
     {
         // allow querying of our internal state via an extension
-        var ext = new ComponentDefinitionQueryExtension(() => ConfirmedState);
+        var ext = new ComponentDefinitionQueryExtension(() => TentativeState);
         GrainContext.SetComponent<IComponentDefinitionQueryExtension>(ext);
 
         return base.OnActivateAsync(cancellationToken);

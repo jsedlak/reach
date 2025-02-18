@@ -9,6 +9,12 @@ public class CreateComponentDefinitionCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
+
+    public CreateComponentDefinitionCommand(AggregateId aggregateId) 
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
     
     public CreateComponentDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)

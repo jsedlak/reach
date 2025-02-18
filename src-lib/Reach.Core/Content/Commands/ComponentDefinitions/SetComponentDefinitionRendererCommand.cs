@@ -10,6 +10,12 @@ public class SetComponentDefinitionRendererCommand : AggregateCommand
     {
     }
     
+    public SetComponentDefinitionRendererCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public SetComponentDefinitionRendererCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

@@ -9,7 +9,13 @@ public class SetComponentFieldValueCommand : AggregateCommand
         : base(Guid.Empty, Guid.Empty, Guid.NewGuid())
     {
     }
-    
+
+    public SetComponentFieldValueCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public SetComponentFieldValueCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

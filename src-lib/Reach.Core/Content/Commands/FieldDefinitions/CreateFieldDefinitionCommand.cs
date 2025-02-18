@@ -10,6 +10,12 @@ public class CreateFieldDefinitionCommand : AggregateCommand
     {
     }
 
+    public CreateFieldDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public CreateFieldDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

@@ -11,6 +11,12 @@ public class RenameRendererDefinitionCommand : AggregateCommand
 
     }
 
+    public RenameRendererDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public RenameRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {

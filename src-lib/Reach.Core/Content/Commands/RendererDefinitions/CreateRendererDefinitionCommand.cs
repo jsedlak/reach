@@ -10,6 +10,12 @@ public class CreateRendererDefinitionCommand : AggregateCommand
     {
     }
 
+    public CreateRendererDefinitionCommand(AggregateId aggregateId)
+        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+
+    }
+
     public CreateRendererDefinitionCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {
