@@ -4,7 +4,7 @@ namespace Reach.Editors;
 
 public interface IEditor
 {
-    Task SetValueAsync(string value);
+    string Value { get; set; }
 
     EventCallback<string> ValueChanged { get; set; }
 }

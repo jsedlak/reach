@@ -4,19 +4,29 @@ namespace Reach.Editors;
 
 public class BaseEditor : ComponentBase, IEditor
 {
-    protected virtual Task OnValueSetAsync(string value)
+    protected async Task OnValueChanged(string newValue)
     {
-        return Task.CompletedTask;
+        Value = newValue;
+
+        if (ValueChanged is { HasDelegate: true })
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
-    public virtual async Task SetValueAsync(string value)
+    protected override void OnParametersSet()
     {
-        await OnValueSetAsync(value);
-        StateHasChanged();
+        base.OnParametersSet();
+
+        Console.WriteLine($"[{nameof(BaseEditor)}] Value set: " + Value);
     }
 
     [Parameter]
-    public bool? Required { get; set; }
+    public string Value { get; set; } = null!;
 
+    [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
+
+    [Parameter]
+    public bool? Required { get; set; }
 }

@@ -2,15 +2,20 @@
 
 public partial class BooleanEditor : BaseEditor
 {
-    private bool _value = false;
+    private bool _valueAsBoolean = false;
 
-    protected override Task OnValueSetAsync(string value)
+    protected override void OnParametersSet()
     {
-        if (Boolean.TryParse(value, out var newValue))
-        {
-            _value = newValue;
-        }
+        base.OnParametersSet();
 
-        return Task.CompletedTask;
+        if (bool.TryParse(Value, out var newVal))
+        {
+            _valueAsBoolean = newVal;
+        }
+    }
+
+    private async Task OnCheckedChanged(bool newValue)
+    {
+        await base.OnValueChanged(newValue.ToString());
     }
 }

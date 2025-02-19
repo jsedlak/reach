@@ -20,6 +20,11 @@ public class HttpComponentService : BaseContentService, IComponentService
         return await CommandClient.Execute(Endpoint, command);
     }
 
+    public async Task<CommandResponse> SetFieldValue(SetComponentFieldValueCommand command)
+    {
+        return await CommandClient.Execute(Endpoint, command);
+    }
+
     public async Task<IEnumerable<ComponentView>> GetComponents(Guid organizationId, Guid hubId, string? query = null)
     {
         return await GraphClient.GetMany<ComponentView>(organizationId, hubId, query: query);

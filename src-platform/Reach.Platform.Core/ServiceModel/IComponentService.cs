@@ -2,11 +2,13 @@
 using Reach.Content.Views;
 using Reach.Cqrs;
 
-namespace Reach.Platform.ServiceModel
+namespace Reach.Platform.ServiceModel;
+
+public interface IComponentService
 {
-    public interface IComponentService
-    {
-        Task<CommandResponse> Create(CreateComponentCommand command);
-        Task<IEnumerable<ComponentView>> GetComponents(Guid organizationId, Guid hubId, string? query = null);
-    }
+    Task<CommandResponse> Create(CreateComponentCommand command);
+
+    Task<CommandResponse> SetFieldValue(SetComponentFieldValueCommand command);
+
+    Task<IEnumerable<ComponentView>> GetComponents(Guid organizationId, Guid hubId, string? query = null);
 }

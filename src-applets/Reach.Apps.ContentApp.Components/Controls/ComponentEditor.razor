@@ -2,14 +2,31 @@
 
 @if(Component != null)
 {
-    @foreach(var field in Component.Fields)
+    <div class="mb-3">
+        @_updatedAt.ToLocalTime().ToString()
+    </div>
+
+    @foreach (var field in _editorMaps)
     {
-        var fieldDefn = _contentContextProvider.FieldDefinitions.First(m => m.Id == field.DefinitionId);
-        var editorDefn = _contentContextProvider.EditorDefinitions.First(m => m.Id == fieldDefn.EditorDefinitionId);
-        var editorType = Type.GetType(editorDefn.EditorType);
+        <div class="mb-3">
+            <Label>@field.Name</Label>
+            <DynamicComponent Type="@field.EditorType" Parameters="@field.Parameters" />
 
-        <Label>@field.Name</Label>
-
-        <DynamicComponent Type="@editorType" />
+            <ul>
+                @foreach(var kvp in field.Parameters)
+                {
+                    <li>@kvp.Key: @kvp.Value?.ToString()</li>
+                }
+            </ul>
+        </div>
     }
+
+    <div>
+        <Button 
+            Clicked="OnSaveClicked"
+            Type="ButtonType.PrimaryOutline" 
+            Disabled="@(!_editorMaps.Any(m => m.IsChanged))">
+            Save
+        </Button>
+    </div>
 }
