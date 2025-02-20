@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Reach.Content.Commands.Components;
+using Reach.Content.Model;
 using Reach.Content.Views;
 using Reach.Cqrs;
 using Reach.Platform.Providers;
@@ -13,10 +14,8 @@ public partial class ComponentEditor : TazorBaseComponent
     private readonly IContentContextProvider _contentContextProvider;
     private readonly IComponentService _componentService;
 
-    private IEnumerable<FieldEditorMap> _editorMaps = [];
-
-    private ComponentView? _lastComponent;
-    private DateTimeOffset _updatedAt = DateTime.UtcNow;
+    private bool _isChanged;
+    private Dictionary<string, string> _changedFields = new();
 
     public ComponentEditor(
         IContentContextProvider contentContextProvider,
@@ -28,7 +27,7 @@ public partial class ComponentEditor : TazorBaseComponent
 
     protected async Task OnSaveClicked()
     {
-        if(Component is null)
+        if (Component is null)
         {
             // TODO: How is this possible lol. Can't save a change
             // to a field on a component that is null
@@ -42,130 +41,37 @@ public partial class ComponentEditor : TazorBaseComponent
         );
 
         // TODO: batch these 
-        foreach (var field in _editorMaps)
+        // TODO: figure out how to return when errors happen how to display them and keep the new value
+        foreach (var fieldChange in _changedFields)
         {
-            if(!field.IsChanged)
-            {
-                continue;
-            }
-
             await _componentService.SetFieldValue(new SetComponentFieldValueCommand(aggId)
             {
-                Value = field.Value
+                FieldKey = fieldChange.Key,
+                Value = fieldChange.Value
             });
         }
+
+        _changedFields.Clear();
     }
 
-    protected override void OnInitialized()
+    private async Task OnFieldValueChanged(Field changedField, string value)
     {
-        _editorMaps = [];
-
-        if (Component is null || !Component.Fields.Any())
+        if (value == changedField.Value)
         {
-            return;
-        }
-
-        Console.WriteLine("OnInitialized");
-
-        if (_lastComponent is null || _lastComponent.Id != Component.Id)
-        {
-            Initialize();
-        }
-    }
-
-    private void Initialize()
-    {
-        Console.WriteLine("Initialize");
-
-        _editorMaps = Component.Fields.Select(field =>
-        {
-            var fieldDefn = _contentContextProvider.FieldDefinitions
-                .First(m => m.Id == field.DefinitionId);
-
-            var editorDefn = _contentContextProvider.EditorDefinitions
-                .First(m => m.Id == fieldDefn.EditorDefinitionId);
-
-            var fieldMap = new FieldEditorMap
+            if (_changedFields.ContainsKey(changedField.Slug))
             {
-                Name = field.Name,
-                Slug = field.Slug,
-                StateHasChanged = StateHasChanged,
-                FieldId = field.Id,
-                OriginalValue = field.Value,
-                Value = field.Value,
-                EditorType = Type.GetType(editorDefn.EditorType)!
-            };
+                _changedFields.Remove(changedField.Slug);
+            }
+        }
+        else
+        {
+            _changedFields[changedField.Slug] = value;
+        }
 
-            var parameters = new Dictionary<string, object>();
-
-            parameters.Add("Value", fieldMap.Value);
-            parameters.Add(
-                "ValueChanged",
-                EventCallback.Factory.Create<string>(
-                    fieldMap,
-                    async (string newValue) =>
-                    {
-                        _updatedAt = DateTimeOffset.UtcNow;
-                        await fieldMap.OnChange(newValue);
-                    }
-                )
-            );
-
-            // TODO: support adding our custom field->editor definition parameters
-            // A string value will not always be valid, so we'll need to look up
-            // the parameter defn and convert the value
-            //foreach(var parm in fieldDefn.EditorParameters)
-            //{
-            //    parameters.Add(parm.Key, parm.Value);
-            //}
-
-            fieldMap.Parameters = parameters;
-
-            return fieldMap;
-        });
+        _isChanged = _changedFields.Count > 0;
     }
 
     [Parameter]
     public ComponentView? Component { get; set; }
 
-    private class FieldEditorMap
-    {
-        public Task OnChange(string value)
-        {
-            Console.WriteLine("Value changed for " + Name + " to " + value);
-
-            Parameters["Value"] = value;
-            Value = value;
-
-            Console.WriteLine("New Params value is " + Parameters["Value"]);
-            
-            StateHasChanged();
-
-            return Task.CompletedTask;
-        }
-
-        public Action StateHasChanged { get; set; } = null!;
-
-        public Guid FieldId { get; set; }
-
-        public string Name { get; set; } = string.Empty;
-
-        public string Slug { get; set; } = string.Empty;
-
-        public string OriginalValue { get; set; } = string.Empty;
-
-        public string Value { get; set; } = string.Empty;
-
-        public Type EditorType { get; set; } = null!;
-
-        public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
-
-        public bool IsChanged
-        {
-            get
-            {
-                return !Value.Equals(OriginalValue, StringComparison.OrdinalIgnoreCase);
-            }
-        }
-    }
 }

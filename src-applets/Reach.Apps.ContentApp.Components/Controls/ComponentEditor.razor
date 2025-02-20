@@ -2,30 +2,16 @@
 
 @if(Component != null)
 {
-    <div class="mb-3">
-        @_updatedAt.ToLocalTime().ToString()
-    </div>
-
-    @foreach (var field in _editorMaps)
+    @foreach(var field in Component.Fields)
     {
-        <div class="mb-3">
-            <Label>@field.Name</Label>
-            <DynamicComponent Type="@field.EditorType" Parameters="@field.Parameters" />
-
-            <ul>
-                @foreach(var kvp in field.Parameters)
-                {
-                    <li>@kvp.Key: @kvp.Value?.ToString()</li>
-                }
-            </ul>
-        </div>
+        <ComponentFieldEditor Field="@field" ValueChanged="@((value) => OnFieldValueChanged(field, value))" />
     }
 
     <div>
         <Button 
             Clicked="OnSaveClicked"
             Type="ButtonType.PrimaryOutline" 
-            Disabled="@(!_editorMaps.Any(m => m.IsChanged))">
+                Disabled="@(!_isChanged)">
             Save
         </Button>
     </div>

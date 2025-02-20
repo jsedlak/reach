@@ -1,0 +1,54 @@
+﻿@inherits TazorBaseComponent
+@if (Field is not null)
+{
+    var type = Type.GetType(_editorDefn.EditorType)!;
+    var parameters = new Dictionary<string, object>()
+    {
+        { "Value", _value },
+        { "ValueChanged", EventCallback.Factory.Create<string>(this, OnValueChanged) }
+    };
+
+    foreach(var prm in _fieldDefn.EditorParameters)
+    {
+        var original = _editorDefn.Parameters.FirstOrDefault(m => m.Name == prm.Key);
+
+        if (original is null)
+        {
+            continue;
+        }
+
+        object? prmValue = null;
+
+        switch (original.Type)
+        {
+            case EditorParameterType.Text:
+                prmValue = prm.Value;
+                break;
+            case EditorParameterType.Number:
+                if(prm.Value.Contains("."))
+                {
+                    prmValue = double.Parse(prm.Value);
+                }else
+                {
+                    prmValue = int.Parse(prm.Value);
+                }
+                break;
+            case EditorParameterType.Date:
+            case EditorParameterType.DateTime:
+                prmValue = DateTime.Parse(prm.Value);
+                break;
+            case EditorParameterType.Boolean:
+                prmValue = bool.Parse(prm.Value);
+                break;
+        }
+
+        if(prmValue is not null){
+            parameters.Add(prm.Key, prmValue);
+        }
+    }
+
+    <div class="mb-3">
+        <Label>@Field.Name</Label>
+        <DynamicComponent Type="@type" Parameters="@parameters" />
+    </div>
+}
