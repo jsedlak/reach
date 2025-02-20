@@ -52,6 +52,8 @@ public partial class ComponentEditor : TazorBaseComponent
         }
 
         _changedFields.Clear();
+
+        StateHasChanged();
     }
 
     private async Task OnFieldValueChanged(Field changedField, string value)
