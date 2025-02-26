@@ -1,5 +1,11 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+// Add our AI configuration
+var openAiApiKey = builder.AddParameter("OpenAiApiKey", "NO_KEY", true);
+var openAiModel = builder.AddParameter("OpenAiModel", "gpt-4o-mini");
+var ollamaEndpoint = builder.AddParameter("OllamaEndpoint", "http://192.168.1.173:11434");
+var ollamaModel = builder.AddParameter("OllamaModel", "llama3.3");
+
 /* Add Our IDP */
 // TODO: Configure IDP as an aspire resource
 
@@ -41,12 +47,14 @@ var orleans = builder.AddOrleans("reach-cluster")
     //.WithStreaming("StreamProvider", eventHubs);
 
 var silo = builder.AddProject<Projects.Reach_Silo_Host>("reach-silo")
-    .WithExternalHttpEndpoints()
+    .WithEnvironment("AI_CHAT", "OpenAI")
+    .WithEnvironment("Ollama__Endpoint", ollamaEndpoint)
+    .WithEnvironment("Ollama__Model", ollamaModel)
+    .WithEnvironment("OpenAi__ApiKey", openAiApiKey)
+    .WithEnvironment("OpenAi__Model", openAiModel)
     .WithReference(orleans)
     .WithReference(mongo)
     .WithReference(membershipDb)
-    //.WithReference(eventHubs)
-    //.WithReference(eventHubConnectionString, "EventHubsConnectionString")
     .WaitFor(grainStorage)
     .WaitFor(cluster)
     .WaitFor(streamingStorage)

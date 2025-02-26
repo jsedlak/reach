@@ -11,8 +11,10 @@ using Reach.Silo;
 using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
 using Reach.Silo.Configuration;
+using Reach.Silo.Host.Agents;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // add our aspire service defaults
 builder.Services.AddCors();
@@ -52,6 +54,7 @@ builder.Services.AddScoped<IEditorViewReadRepository, StaticEditorViewReadReposi
 // Add Event Sourcing
 builder.Services.AddOrleansSerializers();
 builder.Services.AddMongoEventSourcing("reach");
+builder.Services.AddOllamaKernel(configuration);
 
 // var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsConnectionString");
 
@@ -90,6 +93,7 @@ app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
 app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
+app.MapAgentEndpoints();
 app.MapGraphQL();
     //.RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
     //.RequireAuthorization();

@@ -1,27 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <RootNamespace>Reach.Silo</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>Reach.Silo</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Orleans.Sdk" Version="9.0.1" />
-    <PackageReference Include="Microsoft.Orleans.Streaming" Version="9.0.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.30.0" />
-    <PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
-    <PackageReference Include="Slugify.Core" Version="4.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Orleans.Sdk" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Orleans.Streaming" Version="9.0.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.30.0" />
+		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
+		<PackageReference Include="Slugify.Core" Version="4.0.1" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.38.0-alpha" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Content\Migrations\" />
-    <Folder Include="Membership\Services\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Content\Migrations\" />
+		<Folder Include="Membership\Services\" />
+	</ItemGroup>
 
 </Project>

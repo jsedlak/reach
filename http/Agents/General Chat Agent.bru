@@ -1,0 +1,22 @@
+meta {
+  name: General Chat Agent
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:7208/api/agents/{{organizationId}}/{{hubId}}/general
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "message": "get a list of all field definitions"
+  }
+}
+
+vars:pre-request {
+  organizationId: e5d57ca9-1230-4fda-8530-9fdfd0347925
+  hubId: 915441ae-52ba-4223-973f-cbf7286903c0
+}
