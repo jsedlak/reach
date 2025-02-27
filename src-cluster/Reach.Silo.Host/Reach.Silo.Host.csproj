@@ -7,24 +7,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspire.MongoDB.Driver" Version="9.0.0" />
-		<PackageReference Include="HotChocolate" Version="14.1.0" />
-		<PackageReference Include="HotChocolate.AspNetCore" Version="14.1.0" />
-		<PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="14.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
-		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="9.0.0" />
-		<PackageReference Include="Aspire.Azure.Data.Tables" Version="9.0.0" />
-		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="9.0.0" />
-		<PackageReference Include="Microsoft.Orleans.Server" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.0.1" />
+		<PackageReference Include="Aspire.MongoDB.Driver" Version="9.1.0" />
+		<PackageReference Include="HotChocolate" Version="15.0.3" />
+		<PackageReference Include="HotChocolate.AspNetCore" Version="15.0.3" />
+		<PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="15.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+		<PackageReference Include="Aspire.Azure.Messaging.EventHubs" Version="9.1.0" />
+		<PackageReference Include="Aspire.Azure.Data.Tables" Version="9.1.0" />
+		<PackageReference Include="Aspire.Azure.Storage.Blobs" Version="9.1.0" />
+		<PackageReference Include="Microsoft.Orleans.Server" Version="9.1.2" />
+		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="9.1.2" />
+		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="9.1.2" />
+		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.1.2" />
 		<PackageReference Include="Microsoft.Orleans.Streaming " Version="8.2.0" />
 		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
 		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
 		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.8" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.38.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.39.0" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.38.0-alpha" />
 	</ItemGroup>
 
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Orleans.Streaming" Version="9.0.1" />
+	  <PackageReference Update="Microsoft.Orleans.Streaming" Version="9.1.2" />
 	</ItemGroup>
 
 </Project>

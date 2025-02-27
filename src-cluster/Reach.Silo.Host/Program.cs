@@ -10,7 +10,7 @@ using Reach.Silo.Host.Queries;
 using Reach.Silo;
 using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
-using Reach.Silo.Configuration;
+using Reach.Silo.Agents;
 using Reach.Silo.Host.Agents;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,7 +54,9 @@ builder.Services.AddScoped<IEditorViewReadRepository, StaticEditorViewReadReposi
 // Add Event Sourcing
 builder.Services.AddOrleansSerializers();
 builder.Services.AddMongoEventSourcing("reach");
-builder.Services.AddOllamaKernel(configuration);
+
+// Add Artificial Intelligence
+builder.Services.AddAgents(configuration);
 
 // var ehConnectionString = builder.Configuration.GetConnectionString("EventHubsConnectionString");
 

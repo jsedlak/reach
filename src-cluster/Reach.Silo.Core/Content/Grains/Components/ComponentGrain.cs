@@ -1,5 +1,4 @@
-﻿using Amazon.Runtime.Internal.Util;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Reach.Content.Commands.Components;
 using Reach.Content.Events.Components;

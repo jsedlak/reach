@@ -11,14 +11,14 @@
 	</Target>
 	
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.1" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.2" />
         <PackageReference Include="Slugify.Core" Version="4.0.1" />
-        <PackageReference Include="Tazor.Components" Version="0.0.39" />
-        <PackageReference Include="Tazor.Wasm" Version="0.0.39" />
+        <PackageReference Include="Tazor.Components" Version="0.0.40" />
+        <PackageReference Include="Tazor.Wasm" Version="0.0.40" />
     </ItemGroup>
 
     <ItemGroup>

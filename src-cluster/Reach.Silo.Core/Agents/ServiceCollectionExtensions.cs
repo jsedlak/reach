@@ -36,7 +36,7 @@ public static class ServiceCollectionExtensions
         );
     }
 
-    public static IServiceCollection AddOllamaKernel(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAgents(this IServiceCollection services, IConfiguration configuration)
     {
         var aiChat = configuration.GetValue<string>("AI_CHAT") ?? OpenAIProviderName;
 

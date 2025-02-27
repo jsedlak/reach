@@ -1,5 +1,4 @@
-﻿using Amazon.Runtime.Internal.Util;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Reach.Extensions;
 using System.Reflection;
 
