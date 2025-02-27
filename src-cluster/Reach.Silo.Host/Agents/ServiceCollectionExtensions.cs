@@ -1,5 +1,5 @@
 ﻿using Microsoft.SemanticKernel;
-using Reach.Silo.Host.Agents.Plugins;
+using Reach.Silo.Agents.Plugins;
 
 namespace Reach.Silo.Host.Agents;
 
@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
             apiKey: openAiConfig.ApiKey
         );
     }
+
     public static IServiceCollection AddOllamaKernel(this IServiceCollection services, IConfiguration configuration)
     {
         var aiChat = configuration.GetValue<string>("AI_CHAT") ?? OpenAIProviderName;
@@ -46,7 +47,7 @@ public static class ServiceCollectionExtensions
             RegisterOpenAi(services, configuration);
         }
 
-        services.AddTransient((serviceProvider) =>
+        services.AddScoped((serviceProvider) =>
         {
             var kernel = new Kernel(serviceProvider);
 

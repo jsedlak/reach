@@ -32,8 +32,8 @@ public class GeneralAgentGrain : Grain, IGeneralAgentGrain
 
         var chatHistory = new ChatHistory();
 
-        _kernel.Data.Add("OrganizationId", aggId.OrganizationId);
-        _kernel.Data.Add("HubId", aggId.HubId);
+        //_kernel.Data.Add("OrganizationId", aggId.OrganizationId);
+        //_kernel.Data.Add("HubId", aggId.HubId);
 
         chatHistory.AddDeveloperMessage($"The organizationId is {aggId.OrganizationId} and the hubId is {aggId.HubId}.");
         chatHistory.AddUserMessage(message);

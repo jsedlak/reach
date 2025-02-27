@@ -1,9 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Add our AI configuration
-var openAiApiKey = builder.AddParameter("OpenAiApiKey", "NO_KEY", true);
+var openAiApiKey = builder.AddParameter("OpenAiApiKey", true);
 var openAiModel = builder.AddParameter("OpenAiModel", "gpt-4o-mini");
-var ollamaEndpoint = builder.AddParameter("OllamaEndpoint", "http://192.168.1.173:11434");
+var ollamaEndpoint = builder.AddParameter("OllamaEndpoint", "http://localhost:11434");
 var ollamaModel = builder.AddParameter("OllamaModel", "llama3.3");
 
 /* Add Our IDP */
@@ -26,7 +26,7 @@ var membershipDb = postgres.AddDatabase(
 );
 
 /* Add Our Mongo Storage */
-var mongo = builder.AddMongoDB("reach-mongo", 50119);
+var mongo = builder.AddMongoDB("reach-mongo");
 
 /* Our Orleans Cluster & API */
 var storage = builder.AddAzureStorage("reach-cluster-storage")

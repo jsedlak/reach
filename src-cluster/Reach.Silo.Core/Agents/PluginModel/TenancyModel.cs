@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace Reach.Silo.Host.Agents.PluginModel;
+namespace Reach.Silo.Agents.PluginModel;
 
 public class TenancyModel
 {
