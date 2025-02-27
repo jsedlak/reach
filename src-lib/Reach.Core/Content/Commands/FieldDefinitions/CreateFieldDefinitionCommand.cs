@@ -1,4 +1,6 @@
 ﻿using Reach.Cqrs;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Reach.Content.Commands.FieldDefinitions;
 
@@ -21,9 +23,17 @@ public class CreateFieldDefinitionCommand : AggregateCommand
     {
     }
 
-    [Id(0)] public string Name { get; set; } = null!;
+    [Id(0)]
+    [JsonPropertyName("name")]
+    [Description("The name of the field definition")]
+    public string Name { get; set; } = null!;
 
-    [Id(1)] public string Slug { get; set; } = null!;
+    [Id(1)]
+    [JsonPropertyName("slug")]
+    [Description("The technical, slug version of the field definition. Always a lowercase version of the name with every space replaced by a dash.")]
+    public string Slug { get; set; } = null!;
 
-    [Id(2)] public Guid EditorDefinitionId { get; set; }
+    [Id(2)] 
+    [Description("The unique identifier representing the editor definition this field definition references")] 
+    public Guid EditorDefinitionId { get; set; }
 }

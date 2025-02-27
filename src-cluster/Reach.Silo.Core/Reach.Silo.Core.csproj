@@ -13,6 +13,7 @@
 		<PackageReference Include="MongoDB.Driver" Version="2.30.0" />
 		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
 		<PackageReference Include="Slugify.Core" Version="4.0.1" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.38.0" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.38.0-alpha" />
 	</ItemGroup>
 

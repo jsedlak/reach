@@ -1,7 +1,9 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.SemanticKernel;
 using Reach.Silo.Agents.Plugins;
 
-namespace Reach.Silo.Host.Agents;
+namespace Reach.Silo.Agents;
 
 public static class ServiceCollectionExtensions
 {
@@ -51,8 +53,18 @@ public static class ServiceCollectionExtensions
         {
             var kernel = new Kernel(serviceProvider);
 
+            kernel.Plugins.AddFromType<EditorDefinitionPlugin>(
+                "Editor_Definitions",
+                serviceProvider
+            );
+
             kernel.Plugins.AddFromType<FieldDefinitionPlugin>(
                 "Field_Definitions", 
+                serviceProvider
+            );
+
+            kernel.Plugins.AddFromType<ComponentDefinitionPlugin>(
+                "Component_Definitions",
                 serviceProvider
             );
 
