@@ -68,6 +68,11 @@ public static class ServiceCollectionExtensions
                 serviceProvider
             );
 
+            kernel.Plugins.AddFromType<ComponentPlugin>(
+                "Components",
+                serviceProvider
+            );
+
             return kernel;
         });
 
