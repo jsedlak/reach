@@ -20,8 +20,8 @@
 		<PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="9.1.2" />
 		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="9.1.2" />
 		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.1.2" />
-		<PackageReference Include="Microsoft.Orleans.Streaming " Version="8.2.0" />
-		<PackageReference Include="OrleansDashboard" Version="8.2.0" />
+		<PackageReference Include="Microsoft.Orleans.Streaming " Version="9.1.2" />
+		<PackageReference Include="MongoDB.Driver" Version="3.1.0" />
 		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.8" />
 		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.8" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.39.0" />
@@ -37,10 +37,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Conventions\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Orleans.Streaming" Version="9.1.2" />
 	</ItemGroup>
 
 </Project>
