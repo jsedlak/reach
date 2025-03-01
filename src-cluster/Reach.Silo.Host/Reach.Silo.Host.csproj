@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspire.MongoDB.Driver" Version="9.1.0" />
+		<PackageReference Include="Aspire.MongoDB.Driver.v3" Version="9.1.0" />
 		<PackageReference Include="HotChocolate" Version="15.0.3" />
 		<PackageReference Include="HotChocolate.AspNetCore" Version="15.0.3" />
 		<PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="15.0.3" />
