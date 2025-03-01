@@ -12,6 +12,7 @@ using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
 using Reach.Silo.Agents;
 using Reach.Silo.Host.Agents;
+using Reach.Silo.Membership;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

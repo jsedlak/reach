@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Reach.Silo.Data;
+using Reach.Silo.Membership.Data;
 using Reach.Silo.Membership.ServiceModel;
-using Reach.Silo.Services;
+using Reach.Silo.Membership.Services;
 
-namespace Reach.Silo;
+namespace Reach.Silo.Membership;
 
 public static class RegistrationExtensions
 {

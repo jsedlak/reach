@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Reach.Silo.Model;
+using Reach.Silo.Membership.Model;
 
-namespace Reach.Silo.Data;
+namespace Reach.Silo.Membership.Data;
 
 internal class MembershipDbContext : DbContext
 {

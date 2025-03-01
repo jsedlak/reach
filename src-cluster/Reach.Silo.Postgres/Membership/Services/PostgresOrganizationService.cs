@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reach.Cqrs;
 using Reach.Membership.Views;
-using Reach.Silo.Data;
+using Reach.Silo.Membership.Data;
+using Reach.Silo.Membership.Model;
 using Reach.Silo.Membership.ServiceModel;
-using Reach.Silo.Model;
 
-namespace Reach.Silo.Services;
+namespace Reach.Silo.Membership.Services;
 
 internal class PostgresOrganizationService : IOrganizationService
 {
