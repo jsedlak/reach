@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Windows\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 </Project>
