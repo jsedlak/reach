@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Reach.Membership.ApiModel;
 using Reach.Platform.ServiceModel;
+using Tazor.Components.Theming;
 
 namespace Reach.Platform.Pages;
 
@@ -13,6 +14,13 @@ public partial class Onboarding : ComponentBase
     private bool _isProcessing = false;
     private CreateOrganizationRequest _model = new();
     private string? _errorMessage = null;
+
+    private string[] _hubIconUrls = [
+        "/img/hub-icons/sun.jpg",
+        "/img/hub-icons/cat.jpg",
+        "/img/hub-icons/gsp-dog.jpg",
+        "/img/hub-icons/rocket.jpg"
+    ];
 
     public Onboarding(NavigationManager navigationManager, IMembershipService membershipService, IOrganizationService organizationService)
     {
@@ -67,4 +75,10 @@ public partial class Onboarding : ComponentBase
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    /// <summary>
+    /// Gets or Sets the theme that has been cascaded to this component
+    /// </summary>
+    [CascadingParameter(Name = "Theme")]
+    public ITheme Theme { get; set; } = null!;
 }

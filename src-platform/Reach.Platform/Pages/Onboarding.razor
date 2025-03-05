@@ -23,81 +23,34 @@
             content!
         </p>
 
-        <Accordion MultiOpen>
-            <AccordionFold IsUnfolded>
-                <Header>Organization</Header>
-                <Content>
-                    <div class="mb-3">
-                        <Label>Name</Label>
-                        <SubLabel>The name of your company, group or team.</SubLabel>
-                        <TextBox 
-                            TModel="string"
-                            Value="@_model.OrganizationName" 
-                            ValueChanged="@OnOrganizationChanged" 
-                        />
-                    </div>
+        <div class="mb-3">
+            <Label>Organization</Label>
+            <SubLabel>The name of your company, group or team.</SubLabel>
+            <NameAndSlugEditor @bind-Name=@_model.OrganizationName
+                               @bind-Slug=@_model.OrganizationSlug />
+        </div>
 
-                    <div class="mb-3">
-                        <Label>Slug</Label>
-                        <SubLabel>The unique URL that identifies your organization.</SubLabel>
-                        <div class="relative">
-                            <TextBox @bind-Value="_model.OrganizationSlug" />
-                            <div class="absolute right-2 top-2 text-green-400">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     fill="none"
-                                     viewBox="0 0 24 24"
-                                     stroke-width="1.5"
-                                     stroke="currentColor"
-                                     class="size-6">
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="opacity-75 font-sm">https://app.reachcms.io/@(_model.OrganizationSlug)</div>
-                    </div>
-                </Content>
-            </AccordionFold>
+        <div class="mb-3">
+            <Label>Hub</Label>
+            <SubLabel>The name of your company, group or team.</SubLabel>
+            <NameAndSlugEditor @bind-Name=@_model.HubName
+                               @bind-Slug=@_model.HubSlug />
 
-            <AccordionFold IsUnfolded>
-                <Header>Hub</Header>
-                <Content>
-                    <div class="mb-2">
-                        <Label>Name</Label>
-                        <SubLabel>The name of your hub, site or space.</SubLabel>
-                        <TextBox TModel="string"
-                            Value="@_model.HubName"
-                            ValueChanged="@OnHubChanged" />
-                    </div>
-
-                    <div class="mb-2">
-                        <Label>Slug</Label>
-                        <SubLabel>The URL path for your Hub, unique within your Organization.</SubLabel>
-                        <div class="relative">
-                            <TextBox @bind-Value="_model.HubSlug" />
-                            <div class="absolute right-2 top-2 text-green-400">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     fill="none"
-                                     viewBox="0 0 24 24"
-                                     stroke-width="1.5"
-                                     stroke="currentColor"
-                                     class="size-6">
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="opacity-75 font-sm">https://app.reachcms.io/@(_model.OrganizationSlug)/@(_model.HubSlug)</div>
-                    </div>
-                </Content>
-            </AccordionFold>
-        </Accordion>
+            <div class="mt-3">
+                <Label>Icon</Label>
+                <select class=@Theme.Forms.SelectInput
+                        @onchange=@((ev) => { _model.IconUrl = ev.Value?.ToString() ?? ""; StateHasChanged(); })>
+                    <option value="">Please select an option...</option>
+                    @foreach (var url in _hubIconUrls)
+                    {
+                        <option value="@url" selected=@(_model.IconUrl == url)>@url</option>
+                    }
+                </select>
+            </div>
+        </div>
 
         <div class="mt-4 flex items-bottom justify-between">
-            <a 
-                @onclick="@OnSkipClicked"
+            <a @onclick="@OnSkipClicked"
                class="text-underline cursor-pointer underline opacity-75 underline text-xs flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none"
@@ -126,7 +79,7 @@
                      class="size-6">
                     <path stroke-linecap="round"
                           stroke-linejoin="round"
-                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                 </svg>
             </Button>
         </div>

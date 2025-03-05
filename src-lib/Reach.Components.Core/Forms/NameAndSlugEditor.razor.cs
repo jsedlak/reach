@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Tazor.Extensions;
 
-namespace Reach.Apps.ContentApp.Components.Controls;
+namespace Reach.Components.Forms;
 
 /// <summary>
 /// Provides a common pattern for rendering a name and slug combination editor

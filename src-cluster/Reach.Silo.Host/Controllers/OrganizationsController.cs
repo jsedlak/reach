@@ -44,7 +44,7 @@ public class OrganizationsController : Controller
             org.Id,
             request.HubName,
             request.HubSlug,
-            ""
+            request.IconUrl
         );
 
         var mgmtGrain = _clusterClient.GetGrain<IHubManagementGrain>(
