@@ -19,7 +19,11 @@ public partial class Onboarding : ComponentBase
         "/img/hub-icons/sun.jpg",
         "/img/hub-icons/cat.jpg",
         "/img/hub-icons/gsp-dog.jpg",
-        "/img/hub-icons/rocket.jpg"
+        "/img/hub-icons/rocket.jpg",
+        "/img/hub-icons/sailboat.jpg",
+        "/img/hub-icons/ship.jpg",
+        "/img/hub-icons/train.jpg",
+        "/img/hub-icons/car.jpg"
     ];
 
     public Onboarding(NavigationManager navigationManager, IMembershipService membershipService, IOrganizationService organizationService)
@@ -45,6 +49,10 @@ public partial class Onboarding : ComponentBase
         _isProcessing = true;
         StateHasChanged();
 
+        _model.IconUrl = _hubIconUrls[
+            Random.Shared.Next(0, _hubIconUrls.Length - 1)
+        ];
+
         var result = await _organizationService.Onboard(_model);
         
         if (result.IsSuccess)
@@ -58,22 +66,6 @@ public partial class Onboarding : ComponentBase
 
         _isProcessing = false;
         StateHasChanged();
-    }
-
-    private Task OnOrganizationChanged(string value)
-    {
-        _model.OrganizationName = value ?? ""; 
-        _model.OrganizationSlug = _model.OrganizationName.Slugify();
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnHubChanged(string value)
-    {
-        _model.HubName = value ?? "";
-        _model.HubSlug = _model.HubName.Slugify();
-        StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>

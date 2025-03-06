@@ -36,7 +36,7 @@
             <NameAndSlugEditor @bind-Name=@_model.HubName
                                @bind-Slug=@_model.HubSlug />
 
-            <div class="mt-3">
+            @* <div class="mt-3">
                 <Label>Icon</Label>
                 <select class=@Theme.Forms.SelectInput
                         @onchange=@((ev) => { _model.IconUrl = ev.Value?.ToString() ?? ""; StateHasChanged(); })>
@@ -46,7 +46,7 @@
                         <option value="@url" selected=@(_model.IconUrl == url)>@url</option>
                     }
                 </select>
-            </div>
+            </div> *@
         </div>
 
         <div class="mt-4 flex items-bottom justify-between">
