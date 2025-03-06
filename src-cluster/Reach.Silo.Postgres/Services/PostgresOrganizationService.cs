@@ -48,6 +48,17 @@ internal class PostgresOrganizationService : IOrganizationService
 
     public async Task<CommandResponse> CreateOrganization(Guid id, string name, string slug, string ownerId)
     {
+        var validationResult = await ValidateOrganization(name, slug);
+
+        if(!validationResult)
+        {
+            return new()
+            {
+                IsSuccess = false,
+                Messages = ["Name is already in use."]
+            };
+        }
+
         _membershipContext.Organizations.Add(new Organization
         {
             Id = id,
@@ -91,5 +102,19 @@ internal class PostgresOrganizationService : IOrganizationService
             });
 
         return orgs;
+    }
+
+    public Task<bool> ValidateOrganization(string organizationName, string organizationSlug)
+    {
+        if(string.IsNullOrWhiteSpace(organizationName) || string.IsNullOrWhiteSpace(organizationSlug))
+        {
+            return Task.FromResult(false);
+        }
+
+        return Task.FromResult(
+            !_membershipContext.Organizations.Any(
+                m => m.Slug.Equals(organizationSlug)
+            )
+        );
     }
 }

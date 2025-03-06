@@ -29,4 +29,20 @@ internal class HttpOrganizationService : IOrganizationService
         var response = await _apiHttpClient.PostAsJsonAsync("api/organizations", request);
         return await response.Content.ReadFromJsonAsync<CommandResponse>() ?? new();
     }
+
+    public async Task<CommandResponse> ValidateOrganizationName(ValidateOrgNameRequest request)
+    {
+        var response = await _apiHttpClient.PostAsJsonAsync("api/organizations/validate", request);
+        return await response.Content.ReadFromJsonAsync<CommandResponse>() ?? new();
+    }
+
+    public async Task<CommandResponse> ValidateHubName(ValidateHubNameRequest request)
+    {
+        var response = await _apiHttpClient.PostAsJsonAsync(
+            $"api/organizations/{request.OrganizationId}/hubs/validate", 
+            request
+        );
+
+        return await response.Content.ReadFromJsonAsync<CommandResponse>() ?? new();
+    }
 }

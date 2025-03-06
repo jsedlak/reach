@@ -9,4 +9,8 @@ public interface IOrganizationService
     Task<IEnumerable<AvailableOrganizationView>> GetAvailableOrganizations();
 
     Task<CommandResponse> Onboard(CreateOrganizationRequest request);
+
+    Task<CommandResponse> ValidateOrganizationName(ValidateOrgNameRequest request);
+
+    Task<CommandResponse> ValidateHubName(ValidateHubNameRequest request);
 }

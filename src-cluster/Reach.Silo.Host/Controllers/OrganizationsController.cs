@@ -23,8 +23,16 @@ public class OrganizationsController : Controller
         _clusterClient = clusterClient;
     }
 
+    [HttpPost("validate")]
+    public async Task<CommandResponse> ValidateOrgName([FromBody] ValidateOrgNameRequest request)
+    {
+        var result = await _organizationService.ValidateOrganization(request.Name, request.Slug);
+
+        return new() { IsSuccess = result };
+    }
+
     [HttpPost]
-    public async Task<CommandResponse> CreateOrganization([FromBody]CreateOrganizationRequest request)
+    public async Task<CommandResponse> CreateOrganization([FromBody] CreateOrganizationRequest request)
     {
         await _organizationService.CreateOrganization(
             Guid.NewGuid(),
@@ -56,8 +64,19 @@ public class OrganizationsController : Controller
         return CommandResponse.Success();
     }
 
+    [HttpPost("{organizationId}/hubs/validate")]
+    public async Task<CommandResponse> ValidateHubName([FromBody] ValidateHubNameRequest request)
+    {
+        var existingOrgs = await _organizationService.GetOrganizationsForUserAsync(
+            User.GetIdentifierClaim()
+        );
+
+        var existing = existingOrgs.Any(m => m.Hubs.Any(h => h.Slug.Equals(request.Slug)));
+        return new() { IsSuccess = !existing };
+    }
+
     [HttpPost("{organizationId}/hubs")]
-    public async Task<CommandResponse> CreateHub([FromBody]CreateHubRequest request)
+    public async Task<CommandResponse> CreateHub([FromBody] CreateHubRequest request)
     {
         await _organizationService.CreateHub(
             Guid.NewGuid(),

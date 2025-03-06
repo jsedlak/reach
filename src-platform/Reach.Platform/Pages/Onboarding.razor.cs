@@ -15,6 +15,8 @@ public partial class Onboarding : ComponentBase
     private CreateOrganizationRequest _model = new();
     private string? _errorMessage = null;
 
+    private bool _orgValid, _hubValid;
+
     private string[] _hubIconUrls = [
         "/img/hub-icons/sun.jpg",
         "/img/hub-icons/cat.jpg",
@@ -66,6 +68,20 @@ public partial class Onboarding : ComponentBase
 
         _isProcessing = false;
         StateHasChanged();
+    }
+
+    private async Task<bool> ValidateOrgCallback(string name, string slug)
+    {
+        var result = await _organizationService.ValidateOrganizationName(
+            new() { Name = name, Slug = slug }
+        );
+
+        return result.IsSuccess;
+    }
+
+    private Task<bool> ValidateHubCallback(string name, string slug)
+    {
+        return Task.FromResult(true);
     }
 
     /// <summary>

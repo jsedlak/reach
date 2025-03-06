@@ -32,7 +32,11 @@ public interface IOrganizationService
     /// </summary>
     Task<IEnumerable<AvailableOrganizationView>> GetOrganizationsForUserAsync(string userId);
 
-    //Task<bool> ValidateOrganization(string organizationName, string organizationSlug);
-
-    //Task<bool> ValidateHub(Guid organizationId, string hubName, string hubSlug);
+    /// <summary>
+    /// Validates an organization's name and slug against the existing set
+    /// </summary>
+    /// <param name="organizationName"></param>
+    /// <param name="organizationSlug"></param>
+    /// <returns></returns>
+    Task<bool> ValidateOrganization(string organizationName, string organizationSlug);
 }
