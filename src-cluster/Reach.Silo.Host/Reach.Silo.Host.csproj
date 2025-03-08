@@ -21,6 +21,7 @@
 		<PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="9.1.2" />
 		<PackageReference Include="Microsoft.Orleans.Streaming.EventHubs" Version="9.1.2" />
 		<PackageReference Include="Microsoft.Orleans.Streaming " Version="9.1.2" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.11.1" />
 		<PackageReference Include="Petl.EventSourcing.Orleans" Version="1.0.9" />
 		<PackageReference Include="Petl.EventSourcing.Providers.MongoDb" Version="1.0.9" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.39.0" />

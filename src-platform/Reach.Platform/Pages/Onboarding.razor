@@ -3,12 +3,12 @@
 @attribute [Authorize]
 @inject NavigationManager Navigation
 <PageTitle>Onboarding - Reach</PageTitle>
-<div class="bg-gradient-to-br from-gray-900 to-indigo-800 shadow-xl rounded-lg border border-indigo-800 p-2 mt-10"
+<div class="bg-indigo-200 dark:bg-indigo-950 dark:text-white shadow-xl rounded-lg border border-gray-300 dark:border-indigo-800 p-2 mt-10"
      style="max-width: 50%">
-    <div class="px-10 py-3 text-white text-center my-4 font-bold text-4xl">
+    <div class="px-10 py-3 text-center my-4 font-bold text-4xl">
         Welcome to Reach!
     </div>
-    <div class="p-10 dark:text-white rounded-lg text-white">
+    <div class="p-10 pt-0 rounded-lg">
         @if (_errorMessage is not null)
         {
             <Alert Type="AlertType.Error" Title="Error Creating Tenant">
@@ -18,7 +18,7 @@
             </Alert>
         }
 
-        <p class="leading-loose mb-4 text-lg text-white">
+        <p class="leading-loose mb-4 text-lg">
             Let's create your first organization and hub, so that you can start creating
             content!
         </p>
@@ -35,7 +35,7 @@
 
         <div class="mb-3">
             <Label>Hub</Label>
-            <SubLabel>The name of your company, group or team.</SubLabel>
+            <SubLabel>The name of your collection, space or site.</SubLabel>
             <NameAndSlugEditor 
                 @bind-IsValid="_hubValid"
                 Validate="ValidateHubCallback"

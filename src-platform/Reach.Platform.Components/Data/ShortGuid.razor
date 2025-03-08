@@ -1,2 +1,6 @@
 <span class="decoration-wavy underline decoration-indigo-400" 
-      @onclick="@OnValueClicked">@(Value?.ToString().Split('-').FirstOrDefault())</span>
+      @onclick="@OnValueClicked">@(Value?.ToString().Split('-').FirstOrDefault())
+</span>
+<a class="cursor-pointer" @onclick="OnCopyClicked">
+    @HeroIcons.DocumentDuplicate("inline-block", "size-4")
+</a>

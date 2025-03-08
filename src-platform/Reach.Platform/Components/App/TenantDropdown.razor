@@ -1,19 +1,23 @@
 ﻿@inherits BaseReachComponent
 <ClickContainer OnClickedOutside="@OnClickedOutside">
-    <div class="relative">
+    @{
+        var dropdownClass = _isOpen ? "bg-indigo-800 text-white" : "";
+    }
+    <div class="relative @dropdownClass py-2 px-3 rounded-tl-lg rounded-tr-lg rounded-bl-0 rounded-br-0">
         @if (IsReady)
         {
             @if (CurrentOrganization is not null && CurrentHub is not null)
             {
+                
                 <a class="cursor-pointer flex items-center gap-2" @onclick="@OnDropdownClicked">
                     <img src="@CurrentHub.IconUrl" class="rounded-lg size-8" />
-                    <span class="text-gray-700 dark:text-white text-sm">@CurrentHub.Name</span>
+                    <span class="text-sm">@CurrentHub.Name</span>
                     @HeroIcons.ChevronDown(widthAndHeight: "size-4")
                 </a>
 
                 @if (_isOpen)
                 {
-                    <div class="absolute left-0 top-100 mt-2 rounded-lg overflow-hidden z-50 min-w-[200px] space-y-2 bg-white dark:bg-gray-900 shadow-lg rounded-lg border border-gray-300">
+                    <div class="rounded-bl-lg rounded-br-lg rounded-tr-lg rounded-tl-0 absolute left-0 top-[98%] overflow-hidden z-50 min-w-[200px] space-y-2 bg-white dark:bg-gray-900 shadow-lg">
                         @if (CurrentOrganization != null)
                         {
                             @foreach (var hub in CurrentOrganization.Hubs)
@@ -26,7 +30,7 @@
                                 "bg-indigo-800 text-white" :
                                 "text-gray-700 hover:bg-indigo-800 hover:text-white";
 
-                                <a class="p-3 cursor-pointer flex gap-2 items-center @hubClass "
+                                <a class="hover:bg-indigo-700 p-3 cursor-pointer flex gap-2 items-center @hubClass "
                                    @onclick="@OnDropdownClicked"
                                    href="@tenantDashboardUrl">
                                     <img src="@hub.IconUrl" class="rounded-lg size-8" />
