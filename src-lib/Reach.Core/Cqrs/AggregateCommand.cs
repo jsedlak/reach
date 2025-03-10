@@ -6,6 +6,11 @@
 [GenerateSerializer]
 public abstract class AggregateCommand
 {
+    protected AggregateCommand(AggregateId aggregateId)
+        : this(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    {
+    }
+
     protected AggregateCommand(Guid organizationId, Guid hubId, Guid aggregateId)
     {
         AggregateId = aggregateId;
