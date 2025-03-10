@@ -23,6 +23,7 @@
 	<ItemGroup>
 		<Folder Include="Content\Migrations\" />
 		<Folder Include="Membership\Services\" />
+		<Folder Include="Pipelines\GrainModel\" />
 	</ItemGroup>
 
 </Project>
