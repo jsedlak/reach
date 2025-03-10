@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Components;
+using Reach.Platform.Components;
 
 namespace Reach.Platform.Pages;
 
-public partial class HubDashboard : ComponentBase
+public partial class HubDashboard : BaseReachComponent
 {
     [Parameter] public string OrgSlug { get; set; } = null!;
 

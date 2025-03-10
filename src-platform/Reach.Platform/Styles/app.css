@@ -1,15 +1,23 @@
-﻿@tailwind base;
-@tailwind components;
-@tailwind utilities;
+﻿@import "tailwindcss";
+
+@theme inline {
+    --font-sans: "dinosaur";
+    --font-mono: "ff-nexus-typewriter";
+}
 
 html,
 body {
     width: 100% !important;
     height: 100% !important;
+    font-family: var(--font-sans);
 }
 
 body {
-    font-family: "Gantari", sans-serif !important;
+    font-family: var(--font-sans);
+}
+
+pre, code {
+    font-family: var(--font-mono);
 }
 
 #blazor-error-ui {

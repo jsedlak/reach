@@ -1,7 +1,7 @@
 ﻿@{
 var navItemClass = IsCurrent ?
-    "flex w-full items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-800 to-purple-600 px-3 py-2 text-white" :
-    "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-white transition-colors hover:bg-gradient-to-r from-indigo-800 to-purple-600";
+    "flex w-full items-center gap-2 bg-indigo-700 px-3 py-3 text-white" :
+        "flex w-full items-center gap-2 px-3 py-3 text-white transition-colors hover:bg-indigo-700";
 }
 <a href="@Item.Href" class="@navItemClass">
     @Item.LeftIcon

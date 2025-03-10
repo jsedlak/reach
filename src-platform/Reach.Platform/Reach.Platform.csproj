@@ -7,7 +7,7 @@
     </PropertyGroup>
 
 	<Target Name="PrepareTailwind" BeforeTargets="PrepareForBuild" Condition=" '$(Configuration)' == 'Debug' ">
-		<Exec Command="npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css" />
+		<Exec Command="npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.css" />
 	</Target>
 	
     <ItemGroup>

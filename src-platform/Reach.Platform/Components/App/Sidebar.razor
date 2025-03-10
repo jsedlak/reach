@@ -5,7 +5,7 @@
         width = "60px";
     }
 }
-<div class="w-[@width] bg-indigo-900 p-3 transition-all">
+<div class="w-[@width] bg-indigo-900 transition-all">
     <div class="flex w-full justify-end px-3">
         <a class="text-white cursor-pointer" @onclick="@(() => { _isExpanded = !_isExpanded; StateHasChanged(); })">
             @if (_isExpanded)
@@ -25,7 +25,7 @@
         </a>
     </div>
 
-    <nav class="mt-4 space-y-2">
+    <nav class="mt-4">
         @foreach (var item in _items)
         {
             @if (item is NavItem navItem)
@@ -36,8 +36,9 @@
             @if (item is NavGroup navGroup)
             {
                 var groupClass = _isExpanded ? "p-3 justify-between" : "py-3 justify-center";
+                var headerAnchorClass = navGroup.IsExpanded ? "bg-indigo-600" : "hover:bg-indigo-700";
 
-                <a class="cursor-pointer font-bold text-white @groupClass border-t flex items-center border-indigo-800"
+                <a class="@headerAnchorClass cursor-pointer font-bold text-white @groupClass flex items-center"
                    @onclick=@(() => { navGroup.IsExpanded = !navGroup.IsExpanded; StateHasChanged(); })>
                    <span class="flex gap-2 items-center">
                         @navGroup.Icon
@@ -62,7 +63,7 @@
 
                 @if (navGroup.IsExpanded)
                 {
-                    <div class="space-y-2">
+                    <div class="mt-0 space-y-1 bg-indigo-950">
                         @foreach (var groupItem in navGroup.Items)
                         {
                             <SidebarItem Item="@groupItem"

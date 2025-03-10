@@ -17,8 +17,8 @@
                         <HubSublayout>
                             @Body
                             <div class="rounded my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
-                                <p>Current Organization: @(CurrentOrganizationId.GetValueOrDefault())</p>
-                                <p>Current Hub: @(CurrentHubId.GetValueOrDefault())</p>
+                                <p><strong>Current Organization</strong> <code>@(CurrentOrganizationId.GetValueOrDefault())</code></p>
+                                <p><strong>Current Hub</strong> <code>@(CurrentHubId.GetValueOrDefault())</code></p>
                             </div>
                         </HubSublayout>
                     }

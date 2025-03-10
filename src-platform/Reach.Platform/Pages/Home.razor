@@ -20,20 +20,20 @@ else if (Organizations is not null && Organizations.Any())
     <div class="my-10">
         <div class="flex items-center justify-between">
             <h1 class="text-4xl">Your Organizations & Hubs</h1>
-            <Button Type="ButtonType.Primary" Href="/onboarding">
-                @HeroIcons.SquaresPlus("inline-block mr-2") Create Tenant
+            <Button Type="ButtonType.PrimaryOutline" Href="/onboarding">
+                @HeroIcons.SquaresPlus("inline-block mr-2") Create Hub
             </Button>
         </div>
 
         @foreach (var org in Organizations)
         {
-            <div>
+            <div class="my-5">
                 <h1 class="text-2xl">@org.Name</h1>
                 <div class="my-3 grid grid-cols-4 gap-4">
                     @foreach (var hub in org.Hubs)
                     {
                         var tenantDashboardUrl = $"/app/{org.Slug}/{hub.Slug}";
-                        <div class="border border-gray-200 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative"
+                        <div class="border border-gray-400 hover:bg-indigo-900 cursor-pointer hover:text-white py-6 px-6 rounded-lg relative"
                              @onclick=@(() => _navigationManager.NavigateTo(tenantDashboardUrl))>
                             <div class="absolute right-2 top-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"

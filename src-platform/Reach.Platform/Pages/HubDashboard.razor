@@ -1,8 +1,13 @@
 @page "/app/{orgSlug}/{hubSlug}"
-@using Reach.Content.Model
+@inherits BaseReachComponent
 <PageTitle>Dashboard - Reach</PageTitle>
 
-<h1>Welcome to @OrgSlug - @HubSlug!</h1>
+@if(!IsReady)
+{
+    <Spinner />
+}
+else {
+<h1 class="text-2xl font-bold">Welcome to @CurrentOrganization?.Name - @CurrentHub?.Name!</h1>
 
 <!-- plan overview -->
 <div class="my-3 bg-gradient-to-r from-indigo-800 to-purple-600 shadow-lg rounded-lg p-6 text-white flex items-center justify-between">
@@ -245,3 +250,4 @@
         </tr>
     </tbody>
 </table>
+}
