@@ -27,7 +27,7 @@ public class GeneralAgentGrain : Grain, IGeneralAgentGrain
     {
         _logger.LogInformation("[AGENTS] Chat Submission on [{PrimaryKey}]", this.GetPrimaryKeyString());
 
-        var aggId = AggregateId.Parse(this.GetPrimaryKeyString());
+        var aggId = ResourceId.Parse(this.GetPrimaryKeyString());
 
         var chatHistory = new ChatHistory();
 

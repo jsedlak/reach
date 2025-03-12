@@ -31,7 +31,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region TextBox
 
         var defn = Grains.GetGrain<IEditorDefinitionGrain>(
-            new AggregateId(OrganizationId, HubId, EditorDefinition_TextBox_Id)
+            new ResourceId(OrganizationId, HubId, EditorDefinition_TextBox_Id)
         );
 
         var response = await defn.Create(
@@ -77,7 +77,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region Asset
 
         var assetDefn =
-            Grains.GetGrain<IEditorDefinitionGrain>(new AggregateId(OrganizationId, HubId, EditorDefinition_Asset_Id));
+            Grains.GetGrain<IEditorDefinitionGrain>(new ResourceId(OrganizationId, HubId, EditorDefinition_Asset_Id));
 
         await assetDefn.Create(new CreateEditorDefinitionCommand(OrganizationId, HubId, EditorDefinition_Asset_Id)
         {
@@ -90,7 +90,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region Link
 
         var linkDefn =
-            Grains.GetGrain<IEditorDefinitionGrain>(new AggregateId(OrganizationId, HubId, EditorDefinition_Link_Id));
+            Grains.GetGrain<IEditorDefinitionGrain>(new ResourceId(OrganizationId, HubId, EditorDefinition_Link_Id));
 
         await linkDefn.Create(new CreateEditorDefinitionCommand(OrganizationId, HubId, EditorDefinition_Link_Id)
         {
@@ -106,7 +106,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region SingleLineText
 
         var singleLineTextDefn =
-            Grains.GetGrain<IFieldDefinitionGrain>(new AggregateId(OrganizationId, HubId,
+            Grains.GetGrain<IFieldDefinitionGrain>(new ResourceId(OrganizationId, HubId,
                 FieldDefinition_SingleLineText_Id));
 
         await singleLineTextDefn.Create(new CreateFieldDefinitionCommand
@@ -121,7 +121,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region SingleAsset
 
         var singleAssetDefn =
-            Grains.GetGrain<IFieldDefinitionGrain>(new AggregateId(OrganizationId, HubId,
+            Grains.GetGrain<IFieldDefinitionGrain>(new ResourceId(OrganizationId, HubId,
                 FieldDefinition_SingleAsset_Id));
 
         await singleAssetDefn.Create(new CreateFieldDefinitionCommand
@@ -136,7 +136,7 @@ public class ComponentTests : DefaultOrleansTestBase
         #region Link
 
         var linkDefn =
-            Grains.GetGrain<IFieldDefinitionGrain>(new AggregateId(OrganizationId, HubId, FieldDefinition_Link_Id));
+            Grains.GetGrain<IFieldDefinitionGrain>(new ResourceId(OrganizationId, HubId, FieldDefinition_Link_Id));
 
         await linkDefn.Create(new CreateFieldDefinitionCommand
         {
@@ -151,7 +151,7 @@ public class ComponentTests : DefaultOrleansTestBase
     private async Task BuildComponentDefinitions()
     {
         var heroDefn =
-            Grains.GetGrain<IComponentDefinitionGrain>(new AggregateId(OrganizationId, HubId,
+            Grains.GetGrain<IComponentDefinitionGrain>(new ResourceId(OrganizationId, HubId,
                 ComponentDefinition_Hero_Id));
 
         var response = await heroDefn.Create(new CreateComponentDefinitionCommand
@@ -195,7 +195,7 @@ public class ComponentTests : DefaultOrleansTestBase
         await BuildComponentDefinitions();
 
         var component =
-            Grains.GetGrain<IComponentGrain>(new AggregateId(OrganizationId, HubId, Component_HomepageHero_Id));
+            Grains.GetGrain<IComponentGrain>(new ResourceId(OrganizationId, HubId, Component_HomepageHero_Id));
 
         var createResponse = await component.Create(
             new CreateComponentCommand(OrganizationId, HubId, Component_HomepageHero_Id)

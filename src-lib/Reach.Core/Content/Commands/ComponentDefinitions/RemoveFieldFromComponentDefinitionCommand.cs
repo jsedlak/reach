@@ -10,8 +10,8 @@ public class RemoveFieldFromComponentDefinitionCommand : AggregateCommand
     {
     }
 
-    public RemoveFieldFromComponentDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public RemoveFieldFromComponentDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

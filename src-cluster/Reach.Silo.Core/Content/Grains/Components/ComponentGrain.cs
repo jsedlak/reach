@@ -55,7 +55,7 @@ public sealed class ComponentGrain : StreamingEventSourcedGrain<Component, BaseC
     public async Task<CommandResponse> Create(CreateComponentCommand command)
     {
         var defn = base.GrainFactory.GetGrain<IComponentDefinitionGrain>(
-            new AggregateId(command.OrganizationId, command.HubId, command.DefinitionId)
+            new ResourceId(command.OrganizationId, command.HubId, command.DefinitionId)
         );
 
         var queryExt = defn.AsReference<IComponentDefinitionQueryExtension>();

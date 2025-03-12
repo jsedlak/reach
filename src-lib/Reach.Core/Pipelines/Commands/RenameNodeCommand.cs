@@ -3,18 +3,20 @@
 namespace Reach.Pipelines.Commands;
 
 [GenerateSerializer]
-public class RemoveNodeFromPipelineCommand : AggregateCommand
+public class RenameNodeCommand : AggregateCommand
 {
-    public RemoveNodeFromPipelineCommand(ResourceId aggregateId) 
+    public RenameNodeCommand(ResourceId aggregateId)
         : base(aggregateId)
     {
     }
-
-    public RemoveNodeFromPipelineCommand(Guid organizationId, Guid hubId, Guid aggregateId) 
+    public RenameNodeCommand(Guid organizationId, Guid hubId, Guid aggregateId)
         : base(organizationId, hubId, aggregateId)
     {
     }
 
     [Id(0)]
     public Guid NodeId { get; set; } = Guid.Empty;
+
+    [Id(1)]
+    public string Name { get; set; } = null!;
 }

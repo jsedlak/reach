@@ -11,8 +11,8 @@ public class RenameRendererDefinitionCommand : AggregateCommand
 
     }
 
-    public RenameRendererDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public RenameRendererDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

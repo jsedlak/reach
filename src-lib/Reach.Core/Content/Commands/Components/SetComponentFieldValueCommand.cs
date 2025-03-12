@@ -10,8 +10,8 @@ public class SetComponentFieldValueCommand : AggregateCommand
     {
     }
 
-    public SetComponentFieldValueCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public SetComponentFieldValueCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

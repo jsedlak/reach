@@ -11,8 +11,8 @@ public class AddFieldToComponentDefinitionCommand : AggregateCommand
         
     }
 
-    public AddFieldToComponentDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public AddFieldToComponentDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

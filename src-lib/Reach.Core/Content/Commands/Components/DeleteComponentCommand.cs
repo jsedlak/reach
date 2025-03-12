@@ -10,8 +10,8 @@ public class DeleteComponentCommand : AggregateCommand
     {
     }
 
-    public DeleteComponentCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public DeleteComponentCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

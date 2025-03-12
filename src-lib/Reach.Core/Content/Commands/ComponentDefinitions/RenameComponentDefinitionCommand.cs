@@ -10,8 +10,8 @@ public class RenameComponentDefinitionCommand : AggregateCommand
     {
     }
 
-    public RenameComponentDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public RenameComponentDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

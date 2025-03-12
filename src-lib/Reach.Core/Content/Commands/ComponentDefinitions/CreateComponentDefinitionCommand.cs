@@ -10,8 +10,8 @@ public class CreateComponentDefinitionCommand : AggregateCommand
     {
     }
 
-    public CreateComponentDefinitionCommand(AggregateId aggregateId) 
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public CreateComponentDefinitionCommand(ResourceId resourceId) 
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

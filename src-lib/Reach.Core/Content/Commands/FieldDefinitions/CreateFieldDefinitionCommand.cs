@@ -12,8 +12,8 @@ public class CreateFieldDefinitionCommand : AggregateCommand
     {
     }
 
-    public CreateFieldDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public CreateFieldDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

@@ -5,7 +5,7 @@ namespace Reach.Pipelines.Commands;
 [GenerateSerializer]
 public class RemoveTransformerFromVertexCommand : AggregateCommand
 {
-    public RemoveTransformerFromVertexCommand(AggregateId aggregateId) 
+    public RemoveTransformerFromVertexCommand(ResourceId aggregateId) 
         : base(aggregateId)
     {
     }

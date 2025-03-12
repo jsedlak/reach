@@ -5,7 +5,7 @@ namespace Reach.Pipelines.Commands;
 [GenerateSerializer]
 public class DeletePipelineCommand : AggregateCommand
 {
-    public DeletePipelineCommand(AggregateId aggregateId) 
+    public DeletePipelineCommand(ResourceId aggregateId) 
         : base(aggregateId)
     {
     }

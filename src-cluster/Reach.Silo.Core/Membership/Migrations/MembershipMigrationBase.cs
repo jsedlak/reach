@@ -31,12 +31,12 @@ public abstract class MembershipMigrationBase : IMigration
         IEnumerable<EditorParameter>? parameters = null
     )
     {
-        var aggId = new AggregateId(organizationId, hubId, definitionId);
+        var aggId = new ResourceId(organizationId, hubId, definitionId);
 
         var fieldDefinition = _grainFactory.GetGrain<IFieldDefinitionGrain>(aggId);
 
         var createResponse = await fieldDefinition.Create(new CreateFieldDefinitionCommand(
-            aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
+            aggId.OrganizationId, aggId.HubId, aggId.AggregateId)
         {
             Name = name,
             Slug = slug,
@@ -51,7 +51,7 @@ public abstract class MembershipMigrationBase : IMigration
         if (parameters is not null && parameters.Any())
         {
             var paramResponse = await fieldDefinition.SetEditorParameters(new SetFieldDefinitionEditorParametersCommand(
-                aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
+                aggId.OrganizationId, aggId.HubId, aggId.AggregateId)
             {
                 EditorParameters = parameters.ToArray()
             });
@@ -71,12 +71,12 @@ public abstract class MembershipMigrationBase : IMigration
         IEnumerable<EditorParameterDefinition>? parameters = null
     )
     {
-        var aggId = new AggregateId(organizationId, hubId, definitionId);
+        var aggId = new ResourceId(organizationId, hubId, definitionId);
 
         var editorDefinition = _grainFactory.GetGrain<IEditorDefinitionGrain>(aggId);
 
         var createResponse = await editorDefinition.Create(new CreateEditorDefinitionCommand(
-            aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
+            aggId.OrganizationId, aggId.HubId, aggId.AggregateId)
         {
             Name = name,
             Slug = slug,
@@ -91,7 +91,7 @@ public abstract class MembershipMigrationBase : IMigration
         if (parameters is not null && parameters.Any())
         {
             var paramResponse = await editorDefinition.SetParameters(new SetEditorDefinitionParametersCommand(
-                aggId.OrganizationId, aggId.HubId, aggId.ResourceId)
+                aggId.OrganizationId, aggId.HubId, aggId.AggregateId)
             {
                 Parameters = parameters.ToArray()
             });
@@ -110,7 +110,7 @@ public abstract class MembershipMigrationBase : IMigration
         string slug
     )
     {
-        var aggId = new AggregateId(organizationId, hubId, definitionId);
+        var aggId = new ResourceId(organizationId, hubId, definitionId);
 
         var componentDefn = _grainFactory.GetGrain<IComponentDefinitionGrain>(aggId);
 
@@ -132,7 +132,7 @@ public abstract class MembershipMigrationBase : IMigration
         string slug,
         Guid fieldDefinitionId)
     {
-        var aggId = new AggregateId(organizationId, hubId, definitionId);
+        var aggId = new ResourceId(organizationId, hubId, definitionId);
 
         var componentDefn = _grainFactory.GetGrain<IComponentDefinitionGrain>(aggId);
 
@@ -154,7 +154,7 @@ public abstract class MembershipMigrationBase : IMigration
         string slug,
         Guid componentDefinitionId)
     {
-        var aggId = new AggregateId(organizationId, hubId, componentId);
+        var aggId = new ResourceId(organizationId, hubId, componentId);
 
         var component = _grainFactory.GetGrain<IComponentGrain>(aggId);
 

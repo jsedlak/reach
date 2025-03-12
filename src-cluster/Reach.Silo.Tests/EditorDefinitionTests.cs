@@ -13,7 +13,7 @@ public class EditorDefinitionTests  : DefaultOrleansTestBase
         var defnId = Guid.NewGuid();
         
         var defn = Grains.GetGrain<IEditorDefinitionGrain>(
-            new AggregateId(Guid.AllBitsSet, Guid.AllBitsSet, defnId)
+            new ResourceId(Guid.AllBitsSet, Guid.AllBitsSet, defnId)
         );
 
         var response = await defn.Create(new CreateEditorDefinitionCommand(

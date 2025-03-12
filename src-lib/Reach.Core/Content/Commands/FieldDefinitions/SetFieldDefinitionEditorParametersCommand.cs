@@ -11,8 +11,8 @@ public class SetFieldDefinitionEditorParametersCommand : AggregateCommand
     {
     }
     
-    public SetFieldDefinitionEditorParametersCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public SetFieldDefinitionEditorParametersCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

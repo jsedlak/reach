@@ -10,8 +10,8 @@ public class DeleteFieldDefinitionCommand : AggregateCommand
     {
     }
 
-    public DeleteFieldDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public DeleteFieldDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

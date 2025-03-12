@@ -5,7 +5,7 @@ namespace Reach.Pipelines.Commands;
 [GenerateSerializer]
 public class CreatePipelineCommand : AggregateCommand
 {
-    public CreatePipelineCommand(AggregateId aggregateId) 
+    public CreatePipelineCommand(ResourceId aggregateId) 
         : base(aggregateId)
     {
     }

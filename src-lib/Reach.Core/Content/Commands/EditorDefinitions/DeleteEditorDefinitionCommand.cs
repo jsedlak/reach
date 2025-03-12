@@ -10,8 +10,8 @@ public class DeleteEditorDefinitionCommand : AggregateCommand
     {
     }
 
-    public DeleteEditorDefinitionCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public DeleteEditorDefinitionCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

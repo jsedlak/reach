@@ -3,11 +3,11 @@
 /// <summary>
 /// Provides a globally unique identifier for any resource on the platform, mainly used to connect to Orleans grains.
 /// </summary>
-public readonly record struct AggregateId
+public readonly record struct ResourceId
 {
-    public static AggregateId Parse(string aggregateId)
+    public static ResourceId Parse(string resourceId)
     {
-        var split = aggregateId.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
+        var split = resourceId.Split(["/"], StringSplitOptions.RemoveEmptyEntries);
 
         if (split.Length < 3)
         {
@@ -24,29 +24,29 @@ public readonly record struct AggregateId
             throw new InvalidDataException("Hub Id was not a well formed GUID.");
         }
 
-        if (!Guid.TryParse(split[2], out var resourceId))
+        if (!Guid.TryParse(split[2], out var aggregateId))
         {
-            throw new InvalidDataException("Resource Id was not a well formed GUID.");
+            throw new InvalidDataException("Aggregate Id was not a well formed GUID.");
         }
 
-        return new AggregateId
+        return new ResourceId
         {
             OrganizationId = organizationId,
             HubId = hubId,
-            ResourceId = resourceId
+            AggregateId = aggregateId
         };
     }
 
-    public AggregateId()
+    public ResourceId()
     {
 
     }
 
-    public AggregateId(Guid organizationId, Guid hubId, Guid resourceId)
+    public ResourceId(Guid organizationId, Guid hubId, Guid aggregateId)
     {
         OrganizationId = organizationId;
         HubId = hubId;
-        ResourceId = resourceId;
+        AggregateId = aggregateId;
     }
 
     /// <summary>
@@ -62,12 +62,12 @@ public readonly record struct AggregateId
     /// <summary>
     /// Gets or Sets the unique identifier of the resource being interacted with
     /// </summary>
-    public Guid ResourceId { get; init; }
+    public Guid AggregateId { get; init; }
 
-    public static implicit operator string(AggregateId aggregateId) => aggregateId.ToString();
+    public static implicit operator string(ResourceId aggregateId) => aggregateId.ToString();
 
     public override string ToString()
     {
-        return $"{OrganizationId}/{HubId}/{ResourceId}";
+        return $"{OrganizationId}/{HubId}/{AggregateId}";
     }
 }

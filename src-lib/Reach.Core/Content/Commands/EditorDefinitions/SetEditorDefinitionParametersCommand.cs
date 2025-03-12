@@ -11,8 +11,8 @@ public class SetEditorDefinitionParametersCommand : AggregateCommand
     {
     }
 
-    public SetEditorDefinitionParametersCommand(AggregateId aggregateId)
-        : base(aggregateId.OrganizationId, aggregateId.HubId, aggregateId.ResourceId)
+    public SetEditorDefinitionParametersCommand(ResourceId resourceId)
+        : base(resourceId.OrganizationId, resourceId.HubId, resourceId.AggregateId)
     {
 
     }

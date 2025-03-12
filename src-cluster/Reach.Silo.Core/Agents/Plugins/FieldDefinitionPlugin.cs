@@ -41,7 +41,7 @@ public class FieldDefinitionPlugin
     [Description("Creates a field definition.")]
     public async Task<CommandResponse> CreateFieldDefinition(CreateFieldDefinitionCommand command)
     {
-        var aggId = new AggregateId(command.OrganizationId, command.HubId, command.AggregateId);
+        var aggId = new ResourceId(command.OrganizationId, command.HubId, command.AggregateId);
         
         var fieldDefnGrain = _grainFactory.GetGrain<IFieldDefinitionGrain>(aggId);
 
@@ -52,7 +52,7 @@ public class FieldDefinitionPlugin
     [Description("Sets the parameters on a field definition")]
     public async Task<CommandResponse> SetFieldDefinitionParameters(SetFieldDefinitionEditorParametersCommand command)
     {
-        var aggId = new AggregateId(command.OrganizationId, command.HubId, command.AggregateId);
+        var aggId = new ResourceId(command.OrganizationId, command.HubId, command.AggregateId);
 
         var fieldDefnGrain = _grainFactory.GetGrain<IFieldDefinitionGrain>(aggId);
 

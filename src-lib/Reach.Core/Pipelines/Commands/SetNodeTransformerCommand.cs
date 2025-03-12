@@ -5,7 +5,7 @@ namespace Reach.Pipelines.Commands;
 [GenerateSerializer]
 public class SetNodeTransformerCommand : AggregateCommand
 {
-    public SetNodeTransformerCommand(AggregateId aggregateId) 
+    public SetNodeTransformerCommand(ResourceId aggregateId) 
         : base(aggregateId)
     {
     }

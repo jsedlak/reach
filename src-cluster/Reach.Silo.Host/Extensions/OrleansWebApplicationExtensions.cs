@@ -67,7 +67,7 @@ public static class OrleansWebApplicationExtensions
                 // TODO: Validate the user can access this tenant
 
                 // get access to the grain
-                var grain = clusterClient.GetGrain<TGrain>(new AggregateId(organizationId, hubId, aggregateId));
+                var grain = clusterClient.GetGrain<TGrain>(new ResourceId(organizationId, hubId, aggregateId));
                 var commandType = Type.GetType(commandTypeHeader)!;
 
                 string body = "";

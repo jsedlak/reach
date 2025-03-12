@@ -34,7 +34,7 @@ public partial class ComponentEditor : TazorBaseComponent
             return;
         }
 
-        var aggId = new AggregateId(
+        var aggId = new ResourceId(
             Component.OrganizationId,
             Component.HubId,
             Component.Id

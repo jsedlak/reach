@@ -19,7 +19,7 @@ public static class WebApplicationExtensions
             ) =>
             {
                 var grain = clusterClient.GetGrain<IGeneralAgentGrain>(
-                    new AggregateId(organizationId, hubId, Guid.Empty)
+                    new ResourceId(organizationId, hubId, Guid.Empty)
                 );
 
                 string body = "";
