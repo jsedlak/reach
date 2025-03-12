@@ -1,9 +1,9 @@
 ﻿namespace Reach.Pipelines.Events;
 
 [GenerateSerializer]
-public class VertexAddedToPipelineEvent : BasePipelineEvent
+public class VertexRemovedFromPipelineEvent : BasePipelineEvent
 {
-    public VertexAddedToPipelineEvent(Guid organizationId, Guid hubId, Guid aggregateId) 
+    public VertexRemovedFromPipelineEvent(Guid organizationId, Guid hubId, Guid aggregateId) 
         : base(organizationId, hubId, aggregateId)
     {
     }
@@ -12,8 +12,5 @@ public class VertexAddedToPipelineEvent : BasePipelineEvent
     public Guid SourceNodeId { get; set; }
 
     [Id(1)]
-    public Guid DestinationNodeId { get; set; }
-
-    [Id(2)]
     public Guid VertexId { get; set; }
 }

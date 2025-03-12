@@ -13,9 +13,11 @@ public interface IPipelineGrain : IGrainWithStringKey
 
     Task<CommandResponse> AddVertex(AddVertexToPipelineCommand command);
 
-    Task<CommandResponse> AddTransformerToVertex(AddTransformerToVertexCommand command);
+    Task<CommandResponse> RemoveVertex(RemoveVertexFromPipelineCommand command);
 
     Task<CommandResponse> Delete(DeletePipelineCommand command);
+
+    Task<CommandResponse> AddTransformerToVertex(AddTransformerToVertexCommand command);
 
     Task<CommandResponse> RemoveTransformerFromVertex(RemoveTransformerFromVertexCommand command);
 

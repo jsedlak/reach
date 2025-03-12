@@ -22,4 +22,7 @@ public class TransformerAddedToVertexEvent : BasePipelineEvent
 
     [Id(4)]
     public string? TransformerParams { get; set; }
+
+    [Id(5)]
+    public int Order { get; set; }
 }

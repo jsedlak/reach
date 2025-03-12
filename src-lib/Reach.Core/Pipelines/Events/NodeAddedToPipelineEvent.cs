@@ -13,4 +13,7 @@ public class NodeAddedToPipelineEvent : BasePipelineEvent
 
     [Id(1)]
     public string Name { get; set; } = null!;
+
+    [Id(2)]
+    public bool IsEntry { get; set; }
 }
