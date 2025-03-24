@@ -12,6 +12,7 @@ using Reach.Silo.Content.ServiceModel;
 using Reach.Silo.Content.Services;
 using Reach.Silo.Agents;
 using Reach.Silo.Host.Agents;
+using Reach.Silo.Pipelines.GrainModel;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -95,6 +96,7 @@ app.MapGrainEndpoint<IFieldDefinitionGrain>("field-definitions");
 app.MapGrainEndpoint<IEditorDefinitionGrain>("editor-definitions");
 app.MapGrainEndpoint<IComponentDefinitionGrain>("component-definitions");
 app.MapGrainEndpoint<IComponentGrain>("components");
+app.MapGrainEndpoint<IPipelineGrain>("pipelines");
 app.MapAgentEndpoints();
 app.MapGraphQL();
     //.RequireCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
