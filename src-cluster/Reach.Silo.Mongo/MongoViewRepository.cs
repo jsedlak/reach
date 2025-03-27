@@ -2,7 +2,7 @@
 using Reach.Cqrs;
 using System.Linq.Expressions;
 
-namespace Reach.Silo.Content.Services;
+namespace Reach.Silo;
 
 internal abstract class MongoViewRepository<TView> where TView : class, IView
 {
@@ -26,13 +26,13 @@ internal abstract class MongoViewRepository<TView> where TView : class, IView
     public Task<IQueryable<TView>> QueryAsync()
     {
         var col = GetCollection();
-        return Task.FromResult((IQueryable<TView>)col.AsQueryable());
+        return Task.FromResult(col.AsQueryable());
     }
 
     public Task<IQueryable<TView>> QueryAsync(Expression<Func<TView, bool>> predicate)
     {
         var col = GetCollection();
-        return Task.FromResult((IQueryable<TView>)col.AsQueryable().Where(predicate));
+        return Task.FromResult(col.AsQueryable().Where(predicate));
     }
 
     public async Task<TView?> GetAsync(Guid id)

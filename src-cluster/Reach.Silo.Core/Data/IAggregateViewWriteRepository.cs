@@ -1,6 +1,6 @@
 using Reach.Cqrs;
 
-namespace Reach.Silo.Content.ServiceModel;
+namespace Reach.Silo.Data;
 
 public interface IAggregateViewWriteRepository<TAggregate>
     where TAggregate : class, IAggregateView

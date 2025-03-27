@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using Reach.Cqrs;
-using Reach.Silo.Content.ServiceModel;
+using Reach.Silo.Data;
 
-namespace Reach.Silo.Content.Services;
+namespace Reach.Silo;
 
 /// <summary>
 /// Provides a base implementation for reading/querying aggregate views,

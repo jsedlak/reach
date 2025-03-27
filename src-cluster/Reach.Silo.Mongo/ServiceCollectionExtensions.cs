@@ -5,6 +5,8 @@ using Reach.Silo.Content.Services;
 using Reach.Silo.Membership.ServiceModel;
 using Reach.Silo.Membership.Services;
 using Reach.Silo.Membership;
+using Reach.Silo.Pipelines.ServiceModel;
+using Reach.Silo.Pipelines.Services;
 
 namespace Reach.Silo;
 
@@ -18,6 +20,11 @@ public static class ServiceCollectionExtensions
 
         services.ConfigureMembership();
 
+        /* MEMBERSHIP */
+        services.AddScoped<IAccountViewReadRepository, MongoAccountSettingsViewRepository>();
+        services.AddScoped<IAccountViewWriteRepository, MongoAccountSettingsViewRepository>();
+
+        /* CONTENT */
         services.AddScoped<IFieldDefinitionViewWriteRepository, MongoFieldDefinitionViewRepository>();
         services.AddScoped<IFieldDefinitionViewReadRepository, MongoFieldDefinitionViewRepository>();
         
@@ -33,7 +40,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRendererDefinitionViewReadRepository, MongoRendererDefinitionViewRepository>();
         services.AddScoped<IRendererDefinitionViewWriteRepository, MongoRendererDefinitionViewRepository>();
 
-        services.AddScoped<IAccountViewReadRepository, MongoAccountSettingsViewRepository>();
-        services.AddScoped<IAccountViewWriteRepository, MongoAccountSettingsViewRepository>();
+        /* PIPELINES */
+        services.AddScoped<IPipelineViewReadRepository, MongoPipelineViewRepository>();
+        services.AddScoped<IPipelineViewWriteRepository, MongoPipelineViewRepository>();
     }
 }

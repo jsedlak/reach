@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Reach.Cqrs;
 
-namespace Reach.Silo.Content.ServiceModel;
+namespace Reach.Silo.Data;
 
 public interface IAggregateViewReadRepository<TView>
     where TView : IAggregateView
