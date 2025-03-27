@@ -10,8 +10,11 @@ public class PipelineVertexView
     public string Name { get; set; } = PropertyDefaults.ERROR_NO_NAME;
 
     [Id(2)]
-    public string TransformerType { get; set; } = PropertyDefaults.ERROR_NO_TYPE;
+    public string? TransformerType { get; set; } = PropertyDefaults.ERROR_NO_TYPE;
 
     [Id(3)]
     public string? TransformerParams { get; set; }
+
+    [Id(4)]
+    public Guid DestinationNodeId { get; set; }
 }
