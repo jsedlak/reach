@@ -24,7 +24,7 @@ public partial class NameAndSlugEditor : ComponentBase
     {
         var areNameAndSlugAttached = 
             (string.IsNullOrWhiteSpace(Name) && string.IsNullOrWhiteSpace(Slug)) ||
-            Name.ToSlug().Equals(Slug, StringComparison.OrdinalIgnoreCase);
+            Slugger.Slugify(Name).Equals(Slug, StringComparison.OrdinalIgnoreCase);
 
         Name = value;
 
@@ -35,7 +35,7 @@ public partial class NameAndSlugEditor : ComponentBase
 
         if (areNameAndSlugAttached)
         {
-            Slug = value.ToSlug();
+            Slug = Slugger.Slugify(value);
 
             if (SlugChanged.HasDelegate)
             {
@@ -66,7 +66,7 @@ public partial class NameAndSlugEditor : ComponentBase
     #region Slug Editing
     private async Task OnSlugChanged(string newSlug)
     {
-        Slug = newSlug.ToSlug();
+        Slug = Slugger.Slugify(newSlug);
 
         if(SlugChanged.HasDelegate)
         {

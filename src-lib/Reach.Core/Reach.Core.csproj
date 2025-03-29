@@ -16,6 +16,8 @@
   <ItemGroup>
     <PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
     <PackageReference Include="Microsoft.Orleans.Sdk" Version="9.1.2" />
+  
+        <PackageReference Include="Slugify.Core" Version="4.0.1" />
   </ItemGroup>
 
 </Project>

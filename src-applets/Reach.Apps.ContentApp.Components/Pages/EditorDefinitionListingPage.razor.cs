@@ -91,7 +91,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
     private async Task OnNewEditorNameChanged(string newValue)
     {
         _createContext.TentativeModel.Name = newValue;
-        _createContext.TentativeModel.Slug = newValue.ToSlug();
+        _createContext.TentativeModel.Slug = Slugger.Slugify(newValue);
         StateHasChanged();
     }
     #endregion
@@ -130,7 +130,7 @@ public partial class EditorDefinitionListingPage : ContentBasePage
 
     private async Task OnAddParameter()
     {
-        _editContextParameter.Name = _editContextParameter.DisplayName.ToSlug();
+        _editContextParameter.Name = Slugger.Slugify(_editContextParameter.DisplayName);
         _editContextParameter.Description = "";
 
         _editParameters = [.. _editParameters, _editContextParameter];
