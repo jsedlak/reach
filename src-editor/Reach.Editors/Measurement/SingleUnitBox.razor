@@ -1,0 +1,13 @@
+﻿@inherits BaseUnitEditor
+<div class="flex items-center gap-2">
+    <TextBox Value="@_value.Value" TModel="string" ValueChanged="@HandleValueChanged" />
+    <select class="@Theme.Forms.SelectInput" @onchange="@HandleUnitChanged">
+        @foreach (var unit in Units.Split([","], StringSplitOptions.RemoveEmptyEntries))
+        {
+            <option 
+                selected="@(_value.Unit == @unit)" 
+                value="@unit">@unit</option>
+        }
+    </select>
+</div>
+<div class="text-xs opacity-50 mt-1">@_value.DisplayValue</div>

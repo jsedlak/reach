@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Tazor.Components.Theming;
 
 namespace Reach.Editors;
 
@@ -29,4 +30,10 @@ public class BaseEditor : ComponentBase, IEditor
 
     [Parameter]
     public bool? Required { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the theme that has been cascaded to this component
+    /// </summary>
+    [CascadingParameter(Name = "Theme")]
+    public ITheme Theme { get; set; } = null!;
 }

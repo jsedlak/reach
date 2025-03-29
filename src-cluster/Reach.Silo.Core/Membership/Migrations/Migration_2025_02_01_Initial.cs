@@ -53,6 +53,23 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
         );
         #endregion
 
+        #region Editors - Unit
+        var singleUnitBoxDefnId = Guid.NewGuid();
+        await CreateEditorDefinition(
+            organizationId,
+            hubId,
+            singleUnitBoxDefnId,
+            "SingleUnitBox",
+            "singleUnitBox",
+            "Reach.Editors.Measurement.SingleUnitBox, Reach.Editors",
+            [
+                ..CreateDefaultParameters(),
+                new EditorParameterDefinition { DisplayName = "Units", Name = "Units", Description = "Comma separated list of units to support", Type = EditorParameterType.Text }
+            ]
+        );
+        #endregion
+
+
         #region Editors - General
         var booleanEditorDefnId = Guid.NewGuid();
         await CreateEditorDefinition(
@@ -100,6 +117,21 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             "Number",
             "number",
             numberEditorDefnId
+        );
+        #endregion
+
+        #region Fields - Units
+        var singleUnitBoxFieldDefnId = Guid.NewGuid();
+        await CreateFieldDefinition(
+            organizationId,
+            hubId,
+            singleUnitBoxFieldDefnId,
+            "Single Unit Box",
+            "single-unit-box",
+            singleUnitBoxDefnId,
+            [
+                new EditorParameter { Key = "Units", Value = "px,%,em,rem,vw,vh" }
+            ]
         );
         #endregion
 
