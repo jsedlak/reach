@@ -5,7 +5,7 @@ namespace Reach.Editors.Measurement;
 
 public partial class SingleUnitBox : BaseUnitEditor
 {
-    private SingleUnitValue _value = new SingleUnitValue();
+    private SingleUnitValue _value = new();
 
     protected override void OnParametersSet()
     {
@@ -35,20 +35,19 @@ public partial class SingleUnitBox : BaseUnitEditor
         await base.OnValueChanged(JsonSerializer.Serialize(_value));
     }
 
-    private class SingleUnitValue
+    private class SingleUnitValue : BaseUnitValue
     {
         private string _value = string.Empty;
-        private string _unit = string.Empty;
 
-        private void UpdateDisplayValue()
+        protected override void UpdateDisplayValue()
         {
-            if(string.IsNullOrWhiteSpace(_value) || string.IsNullOrWhiteSpace(_unit))
+            if(string.IsNullOrWhiteSpace(_value) || string.IsNullOrWhiteSpace(Unit))
             {
                 DisplayValue = null;
             }
             else
             {
-                DisplayValue = $"{_value}{_unit}";
+                DisplayValue = $"{_value}{Unit}";
             }
         }
 
@@ -58,16 +57,6 @@ public partial class SingleUnitBox : BaseUnitEditor
             set
             {
                 _value = value;
-                UpdateDisplayValue();
-            }
-        }
-
-        public string Unit
-        {
-            get { return _unit; }
-            set
-            {
-                _unit = value;
                 UpdateDisplayValue();
             }
         }

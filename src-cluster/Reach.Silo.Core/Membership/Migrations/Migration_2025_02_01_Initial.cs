@@ -67,6 +67,34 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
                 new EditorParameterDefinition { DisplayName = "Units", Name = "Units", Description = "Comma separated list of units to support", Type = EditorParameterType.Text }
             ]
         );
+
+        var dualUnitBoxDefnId = Guid.NewGuid();
+        await CreateEditorDefinition(
+            organizationId,
+            hubId,
+            dualUnitBoxDefnId,
+            "DualUnitBox",
+            "dualUnitBox",
+            "Reach.Editors.Measurement.DualUnitBox, Reach.Editors",
+            [
+                ..CreateDefaultParameters(),
+                new EditorParameterDefinition { DisplayName = "Units", Name = "Units", Description = "Comma separated list of units to support", Type = EditorParameterType.Text }
+            ]
+        );
+
+        var quadUnitBoxDefnId = Guid.NewGuid();
+        await CreateEditorDefinition(
+            organizationId,
+            hubId,
+            quadUnitBoxDefnId,
+            "QuadUnitBox",
+            "quadUnitBox",
+            "Reach.Editors.Measurement.QuadUnitBox, Reach.Editors",
+            [
+                ..CreateDefaultParameters(),
+                new EditorParameterDefinition { DisplayName = "Units", Name = "Units", Description = "Comma separated list of units to support", Type = EditorParameterType.Text }
+            ]
+        );
         #endregion
 
 
@@ -133,6 +161,32 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
                 new EditorParameter { Key = "Units", Value = "px,%,em,rem,vw,vh" }
             ]
         );
+
+        var doubleFieldDefnId = Guid.NewGuid();
+        await CreateFieldDefinition(
+            organizationId,
+            hubId,
+            doubleFieldDefnId,
+            "Dual Unit Box",
+            "dual-unit-box",
+            dualUnitBoxDefnId,
+            [
+                new EditorParameter { Key = "Units", Value = "px,%,em,rem,vw,vh" }
+            ]
+        );
+
+        var quadFieldDefnId = Guid.NewGuid();
+        await CreateFieldDefinition(
+            organizationId,
+            hubId,
+            quadFieldDefnId,
+            "Quad Unit Box",
+            "quad-unit-box",
+            quadUnitBoxDefnId,
+            [
+                new EditorParameter { Key = "Units", Value = "px,%,em,rem,vw,vh" }
+            ]
+        );
         #endregion
 
         #region Hero
@@ -161,6 +215,24 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             "Text",
             "text",
             textFieldDefnId
+        );
+
+        await AddFieldToComponentDefinition(
+            organizationId,
+            hubId,
+            heroDefnId,
+            "Margin",
+            "margin",
+            quadFieldDefnId
+        );
+
+        await AddFieldToComponentDefinition(
+            organizationId,
+            hubId,
+            heroDefnId,
+            "Padding",
+            "padding",
+            quadFieldDefnId
         );
 
         var heroId = Guid.NewGuid();
