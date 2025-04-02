@@ -36,6 +36,19 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             ]
         );
 
+        var multiLineEditorDefnId = Guid.NewGuid();
+        await CreateEditorDefinition(
+            organizationId,
+            hubId,
+            multiLineEditorDefnId,
+            "MultiLineTextEditor",
+            "multiLineTextEditor",
+            "Reach.Editors.Text.MultiLineTextEditor, Reach.Editors",
+            [
+                ..CreateDefaultParameters()
+            ]
+        );
+
         var numberEditorDefnId = Guid.NewGuid();
         await CreateEditorDefinition(
             organizationId,
@@ -97,7 +110,6 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
         );
         #endregion
 
-
         #region Editors - General
         var booleanEditorDefnId = Guid.NewGuid();
         await CreateEditorDefinition(
@@ -131,10 +143,7 @@ public class Migration_2025_02_01_Initial : MembershipMigrationBase
             multiLineTextFieldDefnId,
             "Multi-Line Text",
             "multi-line-text",
-            textEditorDefnId,
-            [
-                new EditorParameter { Key = "Multiline", Value = false.ToString() }
-            ]
+            multiLineEditorDefnId
         );
 
         var numberFieldDefnId = Guid.NewGuid();
