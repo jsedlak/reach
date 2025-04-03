@@ -16,6 +16,7 @@
                     {
                         <HubSublayout>
                             @Body
+                            <NotificationContainer />
                             <div class="rounded my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
                                 <p><strong>Current Organization</strong> <code>@(CurrentOrganizationId.GetValueOrDefault())</code></p>
                                 <p><strong>Current Hub</strong> <code>@(CurrentHubId.GetValueOrDefault())</code></p>
@@ -26,6 +27,7 @@
                     {
                         <GlobalSublayout>
                             @Body
+                            <NotificationContainer />
                         </GlobalSublayout>
                     }
                 </CascadingValue>
