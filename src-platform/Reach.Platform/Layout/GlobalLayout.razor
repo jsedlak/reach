@@ -1,35 +1,37 @@
 ﻿@inherits AuthenticatedLayoutBase
 @using Reach.Platform.Layout.Sublayouts
-<CascadingValue Name="Organizations" Value="Organizations">
-    <CascadingValue Name="CurrentOrganizationId" Value="CurrentOrganizationId">
-        <CascadingValue Name="CurrentHubId" Value="CurrentHubId">
-            <CascadingValue Name="ContentContext" Value="_contentContextProvider">
-                <CascadingValue Name="IsReady" Value="IsReady">
-                    @if (IsLoading || Organizations is null)
-                    {
-                        <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
-                            <Spinner/>
-                            <div class="my-3">@Body</div>
-                        </main>
-                    }
-                    else if (IsReady && Navigation.Uri.Contains("/app"))
-                    {
-                        <HubSublayout>
-                            @Body
-                            <NotificationContainer />
-                            <div class="rounded my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
-                                <p><strong>Current Organization</strong> <code>@(CurrentOrganizationId.GetValueOrDefault())</code></p>
-                                <p><strong>Current Hub</strong> <code>@(CurrentHubId.GetValueOrDefault())</code></p>
-                            </div>
-                        </HubSublayout>
-                    }
-                    else
-                    {
-                        <GlobalSublayout>
-                            @Body
-                            <NotificationContainer />
-                        </GlobalSublayout>
-                    }
+<CascadingValue Name="Layout" Value="this">
+    <CascadingValue Name="Organizations" Value="Organizations">
+        <CascadingValue Name="CurrentOrganizationId" Value="CurrentOrganizationId">
+            <CascadingValue Name="CurrentHubId" Value="CurrentHubId">
+                <CascadingValue Name="ContentContext" Value="_contentContextProvider">
+                    <CascadingValue Name="IsReady" Value="IsReady">
+                        @if (IsLoading || Organizations is null)
+                        {
+                            <main class="py-6 flex-grow h-full w-full flex flex-col justify-center items-center">
+                                <Spinner />
+                                <div class="my-3">@Body</div>
+                            </main>
+                        }
+                        else if (IsReady && Navigation.Uri.Contains("/app"))
+                        {
+                            <HubSublayout>
+                                @Body
+                                <NotificationContainer />
+                                <div class="rounded my-3 p-3 bg-indigo-300 dark:bg-indigo-800 dark:text-white">
+                                    <p><strong>Current Organization</strong> <code>@(CurrentOrganizationId.GetValueOrDefault())</code></p>
+                                    <p><strong>Current Hub</strong> <code>@(CurrentHubId.GetValueOrDefault())</code></p>
+                                </div>
+                            </HubSublayout>
+                        }
+                        else
+                        {
+                            <GlobalSublayout>
+                                @Body
+                                <NotificationContainer />
+                            </GlobalSublayout>
+                        }
+                    </CascadingValue>
                 </CascadingValue>
             </CascadingValue>
         </CascadingValue>

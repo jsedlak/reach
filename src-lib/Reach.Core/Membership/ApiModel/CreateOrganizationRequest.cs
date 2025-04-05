@@ -12,3 +12,4 @@ public sealed class CreateOrganizationRequest
 
     public string IconUrl { get; set; } = "";
 }
+

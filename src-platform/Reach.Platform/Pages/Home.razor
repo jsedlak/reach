@@ -20,10 +20,13 @@ else if (Organizations is not null && Organizations.Any())
     <div class="my-10">
         <div class="flex items-center justify-between">
             <h1 class="text-4xl">Your Organizations & Hubs</h1>
-            <Button Type="ButtonType.PrimaryOutline" Href="/onboarding">
+            <Button Type="ButtonType.PrimaryOutline" 
+                Clicked="@(() => { _isCreateHubDialogVisible = true; StateHasChanged(); })">
                 @HeroIcons.SquaresPlus("inline-block mr-2") Create Hub
             </Button>
         </div>
+
+        <CreateHubDialog @bind-IsVisible="_isCreateHubDialogVisible" />
 
         @foreach (var org in Organizations)
         {

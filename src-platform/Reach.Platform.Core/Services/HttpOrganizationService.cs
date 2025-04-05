@@ -8,13 +8,11 @@ namespace Reach.Platform.Services;
 
 internal class HttpOrganizationService : IOrganizationService
 {
-    private readonly ICommandClient _commandClient;
     private readonly IGraphClient _graphClient;
     private readonly HttpClient _apiHttpClient;
 
-    public HttpOrganizationService(IHttpClientFactory httpClientFactory, ICommandClient commandClient, IGraphClient graphClient)
+    public HttpOrganizationService(IHttpClientFactory httpClientFactory, IGraphClient graphClient)
     {
-        _commandClient = commandClient;
         _graphClient = graphClient;
         _apiHttpClient = httpClientFactory.CreateClient("api");
     }
@@ -27,6 +25,12 @@ internal class HttpOrganizationService : IOrganizationService
     public async Task<CommandResponse> Onboard(CreateOrganizationRequest request)
     {
         var response = await _apiHttpClient.PostAsJsonAsync("api/organizations", request);
+        return await response.Content.ReadFromJsonAsync<CommandResponse>() ?? new();
+    }
+
+    public async Task<CommandResponse> CreateHub(CreateHubRequest request)
+    {
+        var response = await _apiHttpClient.PostAsJsonAsync($"api/organizations/{request.OrganizationId}/hubs", request);
         return await response.Content.ReadFromJsonAsync<CommandResponse>() ?? new();
     }
 

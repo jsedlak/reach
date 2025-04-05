@@ -19,6 +19,16 @@ public partial class GlobalLayout : AuthenticatedLayoutBase
         _contentContextProvider.ContextChanged += (sender, args) => StateHasChanged();
     }
 
+    public async Task RefreshOrganizations()
+    {
+        await _contentContextProvider.Refresh(
+            CurrentOrganizationId.GetValueOrDefault(),
+            CurrentHubId.GetValueOrDefault()
+        );
+
+        StateHasChanged();
+    }
+
     protected override async Task OnPageReady()
     {
         await _contentContextProvider.Refresh(

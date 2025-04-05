@@ -1,0 +1,15 @@
+﻿@inherits BaseReachComponent
+@if (IsReady)
+{
+    <select @onchange="@OnOrganizationIdChanged"
+            class="@_themeManager.Current.Forms.SelectInput">
+        <option value="">Please select an organization...</option>
+        @foreach (var org in _organizations)
+        {
+            <option selected="@(SelectedOrganizationId == org.Id)"
+                    value="@org.Id">
+                @org.Name
+            </option>
+        }
+    </select>
+}

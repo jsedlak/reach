@@ -27,7 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Forms\" />
       <Folder Include="wwwroot\img\hub-icons\" />
     </ItemGroup>
 

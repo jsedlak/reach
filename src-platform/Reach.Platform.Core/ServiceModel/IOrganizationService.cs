@@ -10,6 +10,8 @@ public interface IOrganizationService
 
     Task<CommandResponse> Onboard(CreateOrganizationRequest request);
 
+    Task<CommandResponse> CreateHub(CreateHubRequest request);
+
     Task<CommandResponse> ValidateOrganizationName(ValidateOrgNameRequest request);
 
     Task<CommandResponse> ValidateHubName(ValidateHubNameRequest request);

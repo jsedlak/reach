@@ -1,0 +1,48 @@
+﻿@inherits BaseReachComponent
+<Dialog @bind-IsVisible="IsVisible">
+    <Content>
+        @if (_errorMessage is not null)
+        {
+            <Alert Type="AlertType.Error" Title="Error Creating Tenant">
+                <Content>
+                    @_errorMessage
+                </Content>
+            </Alert>
+        }
+
+        <div class="mb-3">
+            <Label>Organization</Label>
+            <OrganizationSelector @bind-SelectedOrganizationId="_model.OrganizationId" />
+        </div>
+
+        <div class="mb-3">
+            <Label>Hub</Label>
+            <SubLabel>The name of your collection, space or site.</SubLabel>
+            <NameAndSlugEditor @bind-IsValid="_hubValid"
+                               Validate="ValidateHubCallback"
+                               @bind-Name=@_model.HubName
+                               @bind-Slug=@_model.HubSlug />
+        </div>
+
+        <div class="mt-4 flex items-center justify-end">
+            
+            <Button Type="ButtonType.Primary" Disabled="_isProcessing || !_hubValid" Clicked="@BeginCreate">
+                @if (_isProcessing)
+                {
+                    <Spinner />
+                }
+                Create
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="currentColor"
+                     class="size-6">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+            </Button>
+        </div>
+    </Content>
+</Dialog>

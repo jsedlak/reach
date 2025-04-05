@@ -83,7 +83,7 @@ public class OrganizationsController : Controller
             request.OrganizationId,
             request.HubName,
             request.HubSlug,
-            ""
+            request.IconUrl
         );
 
         return CommandResponse.Success();
