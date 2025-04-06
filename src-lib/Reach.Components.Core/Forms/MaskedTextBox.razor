@@ -1,0 +1,57 @@
+﻿@using System.Globalization
+
+<InputText Value="_formattedValue" @oninput="OnInputChanged" class="masked-input" />
+
+@code {
+    private string _formattedValue = "";
+
+    [Parameter]
+    public decimal Value { get; set; }
+
+    [Parameter]
+    public EventCallback<decimal> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Mask { get; set; } = "{0:.00}";
+
+    protected override void OnParametersSet()
+    {
+        _formattedValue = FormatValue(Value);
+    }
+
+    private async Task OnInputChanged(ChangeEventArgs e)
+    {
+        var input = e.Value?.ToString() ?? string.Empty;
+
+        if (TryParseInput(input, out var parsed))
+        {
+            Value = parsed;
+            _formattedValue = FormatValue(Value); // Update display with correct formatting
+            await ValueChanged.InvokeAsync(Value);
+        }
+        else
+        {
+            // Keep what the user typed in if it can't be parsed (to avoid disruptive behavior)
+            // _formattedValue = input;
+        }
+    }
+
+    private string FormatValue(decimal value)
+    {
+        try
+        {
+            return string.Format(CultureInfo.CurrentCulture, Mask, value);
+        }
+        catch
+        {
+            return value.ToString(CultureInfo.CurrentCulture);
+        }
+    }
+
+    private bool TryParseInput(string input, out decimal result)
+    {
+        // Remove common currency symbols and formatting for parsing
+        var cleaned = new string(input.Where(c => char.IsDigit(c) || c == '.' || c == '-').ToArray());
+        return decimal.TryParse(cleaned, NumberStyles.Any, CultureInfo.CurrentCulture, out result);
+    }
+}
