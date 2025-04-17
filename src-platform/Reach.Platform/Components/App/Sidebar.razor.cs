@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Reach.Components;
 using Tazor.Components.Content;
 using Tazor.Components.Navigation;
 
@@ -6,7 +7,8 @@ namespace Reach.Platform.Components.App;
 
 public partial class Sidebar : ComponentBase
 {
-    private readonly IEnumerable<object> _items = [];
+    private IEnumerable<object> _items = [];
+
     private readonly NavigationManager _navigation;
     private bool _isExpanded = true;
 
@@ -15,8 +17,26 @@ public partial class Sidebar : ComponentBase
         _navigation = navigationManager;
         _navigation.LocationChanged += (_, __) => { StateHasChanged(); };
 
-        var basePath = string.Join("/", navigationManager.ToBaseRelativePath(navigationManager.Uri).Split(["/"], StringSplitOptions.RemoveEmptyEntries).Take(3));
+        ResetPaths();
+    }
+
+    protected override void OnInitialized()
+    {
+        ResetPaths();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        ResetPaths();
+    }
+
+    private void ResetPaths()
+    {
+        var basePath = string.Join("/", _navigation.ToBaseRelativePath(_navigation.Uri).Split(["/"], StringSplitOptions.RemoveEmptyEntries).Take(3));
         
+        Console.WriteLine("basePath: " + basePath);
+
         _items = [
             new NavItem { Text = "Dashboard", Href = $"{basePath}/", LeftIcon = HeroIcons.ChartBar(widthAndHeight: "size-4")},
             new NavGroup {
@@ -49,6 +69,13 @@ public partial class Sidebar : ComponentBase
         ];
     }
 
+
     private bool IsPathMatched(string path) =>
         new Uri(_navigation.Uri).LocalPath.Equals(path, StringComparison.OrdinalIgnoreCase);
+
+    [CascadingParameter(Name = "CurrentOrganizationId")]
+    public Guid? CurrentOrganizationId { get; set; }
+
+    [CascadingParameter(Name = "CurrentHubId")]
+    public Guid? CurrentHubId { get; set; }
 }
