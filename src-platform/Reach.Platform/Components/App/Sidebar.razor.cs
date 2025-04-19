@@ -34,8 +34,6 @@ public partial class Sidebar : ComponentBase
     private void ResetPaths()
     {
         var basePath = string.Join("/", _navigation.ToBaseRelativePath(_navigation.Uri).Split(["/"], StringSplitOptions.RemoveEmptyEntries).Take(3));
-        
-        Console.WriteLine("basePath: " + basePath);
 
         _items = [
             new NavItem { Text = "Dashboard", Href = $"{basePath}/", LeftIcon = HeroIcons.ChartBar(widthAndHeight: "size-4")},
@@ -54,7 +52,7 @@ public partial class Sidebar : ComponentBase
                 Title = "Pipelines",
                 Icon = HeroIcons.InboxArrowDown(widthAndHeight: "size-4"),
                 Items = [
-                    new NavItem { Text = "Workflows",  Href = $"{basePath}/pipelines/workflows", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
+                    new NavItem { Text = "Pipelines",  Href = $"{basePath}/pipelines", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                     new NavItem { Text = "Data Sources", Href = $"{basePath}/pipelines/data-sources", LeftIcon = HeroIcons.DocumentText(widthAndHeight: "size-4") },
                 ]
             },

@@ -1,0 +1,13 @@
+﻿@if (IsReady)
+{
+    <div class="flex justify-between items-center mt-3 mb-3">
+        <h1 class="text-2xl font-semibold">@Title</h1>
+        @if (Toolbar is not null)
+        {
+            <div class="flex items-center space-x-2">
+                @Toolbar
+            </div>
+        }
+    </div>
+    @Body
+}

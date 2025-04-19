@@ -73,6 +73,7 @@ builder.Services
     .AddType<RendererDefinitionQueries>()
     .AddType<OrganizationQueries>()
     .AddType<EditorQueries>()
+    .AddType<PipelineQueries>()
     .AddHttpRequestInterceptor<OrganizationHubInterceptor>();
 
 // Add Microsoft Orleans with Dashboard

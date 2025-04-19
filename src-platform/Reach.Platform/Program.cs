@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Reach.Apps.ContentApp.Components.Pages;
+using Reach.Apps.PipelinesApp.Components.Pages;
 using Reach.Platform;
 using Reach.Platform.Runtime;
 using Tazor.Components;
@@ -33,7 +34,8 @@ builder.Services
 
 // Register our applets
 builder.AddApplets(
-    typeof(ContentEditorPage).Assembly
+    typeof(ContentEditorPage).Assembly,
+    typeof(PipelineListingPage).Assembly
 );
 
 // Build and run the app
