@@ -1,23 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
+		<PackageReference Include="Tazor.Components" Version="0.0.40" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
-    <ProjectReference Include="..\Reach.Apps.PipelinesApp\Reach.Apps.PipelinesApp.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+		<ProjectReference Include="..\Reach.Apps.PipelinesApp\Reach.Apps.PipelinesApp.csproj" />
+		<ProjectReference Include="..\..\src-editor\Reach.Editors\Reach.Editors.csproj" />
+		<ProjectReference Include="..\..\src-lib\Reach.Components.Core\Reach.Components.Core.csproj" />
+		<ProjectReference Include="..\..\src-lib\Reach.Core\Reach.Core.csproj" />
+		<ProjectReference Include="..\..\src-lib\Reach.Security\Reach.Security.csproj" />
+		<ProjectReference Include="..\..\src-platform\Reach.Platform.Components\Reach.Platform.Components.csproj" />
+	</ItemGroup>
 
 </Project>

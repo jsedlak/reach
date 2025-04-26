@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Reach.Apps.ContentApp.Components.Layout;
+namespace Reach.Apps.PipelinesApp.Components.Layout;
 
-public partial class ContentSublayout : ComponentBase
+public partial class PipelinesSublayout
 {
     [Parameter]
     public string Title { get; set; } = "Untitled Page";

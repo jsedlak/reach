@@ -2,16 +2,16 @@
 using Reach.Components;
 using Reach.Membership.Views;
 
-namespace Reach.Apps.ContentApp.Components.Pages;
+namespace Reach.Apps.PipelinesApp.Components.Pages;
 
-public abstract class ContentBasePage : BaseTenantComponent
+public abstract class PipelinesBasePage : BaseTenantComponent
 {
     [CascadingParameter(Name = "CurrentOrganizationId")]
     public Guid? CurrentOrganizationId { get; set; }
-    
+
     [CascadingParameter(Name = "CurrentHubId")]
     public Guid? CurrentHubId { get; set; }
-    
+
     [CascadingParameter(Name = "Organizations")]
     public IEnumerable<AvailableOrganizationView>? Organizations { get; set; }
 
@@ -31,3 +31,4 @@ public abstract class ContentBasePage : BaseTenantComponent
         }
     }
 }
+
